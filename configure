@@ -2,7 +2,7 @@
 
 #      configure
 #      
-#      Copyright 2012-2015 Alex <alex@linuxonly.ru>
+#      Copyright 2012-2017 Alex <alex@linuxonly.ru>
 #                     2013 Graham Inggs <graham@nerve.org.za>
 #      
 #      This program is free software: you can redistribute it and/or modify
@@ -26,6 +26,7 @@ prefixchanged=false
 libpathchanged=false
 ofonoplugin=true
 spellchecker=1
+indicator=1
 
 cflags=$CFLAGS
 if [ "x$cflags" = x ] ; then
@@ -88,13 +89,24 @@ if ! pkg-config --exists 'ofono >= 1.9'; then
 fi
 
 if ! pkg-config --exists 'gtkspell3-3.0 >= 3.0.3'; then
-	echo "WARNING: Spell checking won't be supported. Please install gtkspell version 3.0.3 or later with development headers if you want to use it."
+	echo "WARNING: Spell checking won't be supported. Please install gtkspell library version 3.0.3 or later with development headers if you want to use it."
 	spellchecker=0
 else
 	if [ -z "$addlibsnames" ]; then
  		addlibsnames="gtkspell3-3.0"
 	else
 		addlibsnames="${addlibsnames} gtkspell3-3.0"
+	fi	
+fi
+
+if ! pkg-config --exists 'appindicator3-0.1 >= 12.10.0'; then
+	echo "WARNING: Indicator won't be supported. Please install appindicator library version 12.10.0 or later with development headers if you want to use it."
+	indicator=0
+else
+	if [ -z "$addlibsnames" ]; then
+ 		addlibsnames="appindicator3-0.1"
+	else
+		addlibsnames="${addlibsnames} appindicator3-0.1"
 	fi	
 fi
 
@@ -171,6 +183,8 @@ echo "/*
 #define RESOURCE_PROVIDERS_DB            \"$prefix/share/mobile-broadband-provider-info/serviceproviders.xml\"
 
 #define RESOURCE_SPELLCHECKER_ENABLED    $spellchecker
+
+#define RESOURCE_INDICATOR_ENABLED       $indicator
 
 #endif // __RESOURCES_H__" > src/resources.h
 echo done

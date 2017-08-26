@@ -33,6 +33,10 @@
 	#include <gtkspell/gtkspell.h>
 #endif
 
+#if RESOURCE_INDICATOR_ENABLED
+	#include <libappindicator/app-indicator.h>
+#endif
+
 #define MMGUI_MAIN_DEFAULT_DEVICE_IDENTIFIER  "00000000000000000000000"
 
 #define MMGUI_MAIN_OPERATION_TIMEOUT          120
@@ -301,10 +305,10 @@ struct _mmgui_main_window {
 	GClosure *newcontactclosure;
 	GClosure *removecontactclosure;
 	GClosure *smstocontactclosure;
-	/*Tray icon*/
-	GtkStatusIcon *statusicon;
-	GtkWidget *traymenu;
-	GtkWidget *showwin_tm, *sep1_tm, *newsms_tm, *sep2_tm, *quit_tm;
+	/*Indicator*/
+	AppIndicator *indicator;
+	GtkWidget *indmenu;
+	GtkWidget *showwin_ind, *sep1_ind, *newsms_ind, *sep2_ind, *quit_ind;
 	gulong traysigid;
 };
 

@@ -135,11 +135,13 @@ static void mmgui_main_ui_about_menu_item_activate_signal(GSimpleAction *action,
 static void mmgui_main_ui_section_menu_item_activate_signal(GSimpleAction *action, GVariant *parameter, gpointer data);
 static void mmgui_main_tray_icon_activation_signal(GtkStatusIcon *status_icon, gpointer data);
 /*Tray*/
+static gboolean mmgui_main_tray_handle_state_change_from_thread(gpointer data);
 static void mmgui_main_tray_icon_window_show_signal(GtkCheckMenuItem *checkmenuitem, gpointer data);
 static void mmgui_main_tray_icon_new_sms_signal(GtkMenuItem *menuitem, gpointer data);
 static void mmgui_main_tray_icon_exit_signal(GtkMenuItem *menuitem, gpointer data);
 static void mmgui_main_tray_popup_menu_show_signal(GtkStatusIcon *status_icon, guint button, guint activate_time, gpointer data);
 static gboolean mmgui_main_tray_tooltip_show_signal(GtkStatusIcon *status_icon, gint x, gint y, gboolean keyboard_mode, GtkTooltip *tooltip, gpointer data);
+static void mmgui_main_tray_icon_build(mmgui_application_t mmguiapp);
 static void mmgui_main_tray_icon_init(mmgui_application_t mmguiapp);
 /*Ayatana*/
 static void mmgui_main_ayatana_event_callback(enum _mmgui_ayatana_event event, gpointer ayatana, gpointer data, gpointer userdata);
@@ -204,6 +206,7 @@ static void mmgui_main_event_callback(enum _mmgui_event event, gpointer mmguicor
 			mmgui_main_contacts_list_fill(mmguiapp);
 			/*Show network name*/
 			g_idle_add(mmgui_main_ui_update_statusbar_from_thread, mmguiapp);
+			g_idle_add(mmgui_main_tray_handle_state_change_from_thread, mmguiapp);
 			break;
 		case MMGUI_EVENT_DEVICE_CLOSING:
 			mmgui_modem_settings_close(mmguiapp->modemsettings);
@@ -213,18 +216,21 @@ static void mmgui_main_event_callback(enum _mmgui_event event, gpointer mmguicor
 			appdata->mmguiapp = mmguiapp;
 			appdata->data = data;
 			g_idle_add(mmgui_main_device_handle_enabled_status_from_thread, appdata);
+			g_idle_add(mmgui_main_tray_handle_state_change_from_thread, mmguiapp);
 			break;
 		case MMGUI_EVENT_DEVICE_BLOCKED_STATUS:
 			appdata = g_new0(struct _mmgui_application_data, 1);
 			appdata->mmguiapp = mmguiapp;
 			appdata->data = data;
 			g_idle_add(mmgui_main_device_handle_blocked_status_from_thread, appdata);
+			g_idle_add(mmgui_main_tray_handle_state_change_from_thread, mmguiapp);
 			break;
 		case MMGUI_EVENT_DEVICE_PREPARED_STATUS:
 			appdata = g_new0(struct _mmgui_application_data, 1);
 			appdata->mmguiapp = mmguiapp;
 			appdata->data = data;
 			g_idle_add(mmgui_main_device_handle_prepared_status_from_thread, appdata);
+			g_idle_add(mmgui_main_tray_handle_state_change_from_thread, mmguiapp);
 			break;
 		case MMGUI_EVENT_DEVICE_CONNECTION_STATUS:
 			appdata = g_new0(struct _mmgui_application_data, 1);
@@ -247,6 +253,7 @@ static void mmgui_main_event_callback(enum _mmgui_event event, gpointer mmguicor
 			mmgui_main_info_handle_network_registration_change(mmguiapp, device);
 			/*Show new network name*/
 			g_idle_add(mmgui_main_ui_update_statusbar_from_thread, mmguiapp);
+			g_idle_add(mmgui_main_tray_handle_state_change_from_thread, mmguiapp);
 			break;
 		case MMGUI_EVENT_LOCATION_CHANGE:
 			device = (mmguidevice_t)data;
@@ -1308,9 +1315,9 @@ gboolean mmgui_main_ui_window_delete_event_signal(GtkWidget *widget, GdkEvent  *
 				gmm_settings_set_boolean(mmguiapp->settings, "window_hide_notify_shown", mmguiapp->options->hidenotifyshown);
 			}
 			/*Set tray menu mark*/
-			g_signal_handler_block(G_OBJECT(mmguiapp->window->showwin_tm), mmguiapp->window->traysigid);
-			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(mmguiapp->window->showwin_tm), FALSE);
-			g_signal_handler_unblock(G_OBJECT(mmguiapp->window->showwin_tm), mmguiapp->window->traysigid);
+			g_signal_handler_block(G_OBJECT(mmguiapp->window->showwin_ind), mmguiapp->window->traysigid);
+			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(mmguiapp->window->showwin_ind), FALSE);
+			g_signal_handler_unblock(G_OBJECT(mmguiapp->window->showwin_ind), mmguiapp->window->traysigid);
 			/*Save window state*/
 			mmguiapp->options->minimized = TRUE;
 			gmm_settings_set_boolean(mmguiapp->settings, "window_state_minimized", mmguiapp->options->minimized);
@@ -1339,9 +1346,9 @@ gboolean mmgui_main_ui_window_delete_event_signal(GtkWidget *widget, GdkEvent  *
 				gmm_settings_set_boolean(mmguiapp->settings, "window_hide_notify_shown", mmguiapp->options->hidenotifyshown);
 			}
 			/*Set tray menu mark*/
-			g_signal_handler_block(G_OBJECT(mmguiapp->window->showwin_tm), mmguiapp->window->traysigid);
-			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(mmguiapp->window->showwin_tm), FALSE);
-			g_signal_handler_unblock(G_OBJECT(mmguiapp->window->showwin_tm), mmguiapp->window->traysigid);
+			g_signal_handler_block(G_OBJECT(mmguiapp->window->showwin_ind), mmguiapp->window->traysigid);
+			gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(mmguiapp->window->showwin_ind), FALSE);
+			g_signal_handler_unblock(G_OBJECT(mmguiapp->window->showwin_ind), mmguiapp->window->traysigid);
 			/*Save window state*/
 			mmguiapp->options->minimized = TRUE;
 			gmm_settings_set_boolean(mmguiapp->settings, "window_state_minimized", mmguiapp->options->minimized);
@@ -1534,7 +1541,32 @@ gboolean mmgui_main_ui_update_statusbar_from_thread(gpointer data)
 }
 
 //TRAY
-static void mmgui_main_tray_icon_activation_signal(GtkStatusIcon *status_icon, gpointer data)
+#if RESOURCE_INDICATOR_ENABLED
+
+static gboolean mmgui_main_tray_handle_state_change_from_thread(gpointer data)
+{
+	mmgui_application_t mmguiapp;
+	mmguidevice_t device;
+	guint caps;
+	
+	mmguiapp = (mmgui_application_t)data;
+	
+	if (mmguiapp == NULL) return FALSE;
+	if (mmguiapp->core == NULL) return FALSE;
+	
+	device = mmguicore_devices_get_current(mmguiapp->core);
+	
+	if (device != NULL) {
+		caps = mmguicore_sms_get_capabilities(mmguiapp->core);
+		gtk_widget_set_sensitive(mmguiapp->window->newsms_ind, caps & MMGUI_SMS_CAPS_SEND);
+	} else {
+		gtk_widget_set_sensitive(mmguiapp->window->newsms_ind, FALSE);
+	}
+	
+	return FALSE;
+}
+
+static void mmgui_main_tray_icon_window_show_signal(GtkCheckMenuItem *checkmenuitem, gpointer data)
 {
 	mmgui_application_t mmguiapp;
 	
@@ -1551,9 +1583,9 @@ static void mmgui_main_tray_icon_activation_signal(GtkStatusIcon *status_icon, g
 		/*Hide window*/
 		gtk_widget_hide(mmguiapp->window->window);
 		mmguiapp->options->minimized = TRUE;
-		g_signal_handler_block(G_OBJECT(mmguiapp->window->showwin_tm), mmguiapp->window->traysigid);
-		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(mmguiapp->window->showwin_tm), FALSE);
-		g_signal_handler_unblock(G_OBJECT(mmguiapp->window->showwin_tm), mmguiapp->window->traysigid);
+		g_signal_handler_block(G_OBJECT(mmguiapp->window->showwin_ind), mmguiapp->window->traysigid);
+		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(mmguiapp->window->showwin_ind), FALSE);
+		g_signal_handler_unblock(G_OBJECT(mmguiapp->window->showwin_ind), mmguiapp->window->traysigid);
 	} else {
 		/*Restore window position*/
 		if (mmguiapp->options->savegeometry) {
@@ -1562,24 +1594,12 @@ static void mmgui_main_tray_icon_activation_signal(GtkStatusIcon *status_icon, g
 		/*Show window*/
 		gtk_widget_show(mmguiapp->window->window);
 		mmguiapp->options->minimized = FALSE;
-		g_signal_handler_block(G_OBJECT(mmguiapp->window->showwin_tm), mmguiapp->window->traysigid);
-		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(mmguiapp->window->showwin_tm), TRUE);
-		g_signal_handler_unblock(G_OBJECT(mmguiapp->window->showwin_tm), mmguiapp->window->traysigid);
+		g_signal_handler_block(G_OBJECT(mmguiapp->window->showwin_ind), mmguiapp->window->traysigid);
+		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(mmguiapp->window->showwin_ind), TRUE);
+		g_signal_handler_unblock(G_OBJECT(mmguiapp->window->showwin_ind), mmguiapp->window->traysigid);
 	}
 	/*Save window state*/
 	gmm_settings_set_boolean(mmguiapp->settings, "window_state_minimized", mmguiapp->options->minimized);
-}
-
-static void mmgui_main_tray_icon_window_show_signal(GtkCheckMenuItem *checkmenuitem, gpointer data)
-{
-	mmgui_application_t mmguiapp;
-	
-	mmguiapp = (mmgui_application_t)data;
-	
-	if (mmguiapp == NULL) return;
-	if ((mmguiapp->core == NULL) || (mmguiapp->window == NULL)) return;
-	
-	mmgui_main_tray_icon_activation_signal(GTK_STATUS_ICON(mmguiapp->window->statusicon), mmguiapp);
 }
 
 static void mmgui_main_tray_icon_new_sms_signal(GtkMenuItem *menuitem, gpointer data)
@@ -1594,9 +1614,9 @@ static void mmgui_main_tray_icon_new_sms_signal(GtkMenuItem *menuitem, gpointer 
 	
 	if (!gtk_widget_get_visible(mmguiapp->window->window)) {
 		gtk_widget_show(mmguiapp->window->window);
-		g_signal_handler_block(G_OBJECT(mmguiapp->window->showwin_tm), mmguiapp->window->traysigid);
-		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(mmguiapp->window->showwin_tm), TRUE);
-		g_signal_handler_unblock(G_OBJECT(mmguiapp->window->showwin_tm), mmguiapp->window->traysigid);
+		g_signal_handler_block(G_OBJECT(mmguiapp->window->showwin_ind), mmguiapp->window->traysigid);
+		gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(mmguiapp->window->showwin_ind), TRUE);
+		g_signal_handler_unblock(G_OBJECT(mmguiapp->window->showwin_ind), mmguiapp->window->traysigid);
 	} else {
 		gtk_window_present(GTK_WINDOW(mmguiapp->window->window));
 	}
@@ -1624,94 +1644,54 @@ static void mmgui_main_tray_icon_exit_signal(GtkMenuItem *menuitem, gpointer dat
 	mmgui_main_application_terminate(mmguiapp);
 }
 
-static void mmgui_main_tray_popup_menu_show_signal(GtkStatusIcon *status_icon, guint button, guint activate_time, gpointer data)
+static void mmgui_main_tray_icon_build(mmgui_application_t mmguiapp)
 {
-	mmgui_application_t mmguiapp;
-	guint smscaps;
-	
-	mmguiapp = (mmgui_application_t)data;
-	
 	if (mmguiapp == NULL) return;
-	if ((mmguiapp->core == NULL) || (mmguiapp->window == NULL)) return;
 	
-	if (mmguicore_devices_get_enabled(mmguiapp->core)) {
-		smscaps = mmguicore_sms_get_capabilities(mmguiapp->core);
-		if (smscaps & MMGUI_SMS_CAPS_SEND) {
-			gtk_widget_set_sensitive(mmguiapp->window->newsms_tm, TRUE);
-		} else {
-			gtk_widget_set_sensitive(mmguiapp->window->newsms_tm, FALSE);
-		}
-	} else {
-		gtk_widget_set_sensitive(mmguiapp->window->newsms_tm, FALSE);
-	}
-	
-	gtk_menu_popup(GTK_MENU(mmguiapp->window->traymenu), NULL, NULL, gtk_status_icon_position_menu, status_icon, button, activate_time);
-}
-
-static gboolean mmgui_main_tray_tooltip_show_signal(GtkStatusIcon *status_icon, gint x, gint y, gboolean keyboard_mode, GtkTooltip *tooltip, gpointer data)
-{
-	mmgui_application_t mmguiapp;
-	guint unreadmessages;
-	gchar strbuf[64];
-	
-	mmguiapp = (mmgui_application_t)data;
-	
-	if (mmguiapp == NULL) return FALSE;
-	
-	if (mmguicore_devices_get_current(mmguiapp->core) != NULL) {
-		unreadmessages = mmgui_smsdb_get_unread_messages(mmguicore_devices_get_sms_db(mmguiapp->core));
-		if (unreadmessages > 0) {
-			memset(strbuf, 0, sizeof(strbuf));
-			g_snprintf(strbuf, sizeof(strbuf), _("Unread messages: %u"), unreadmessages);
-			gtk_tooltip_set_text(tooltip, strbuf);
-		} else {
-			gtk_tooltip_set_text(tooltip, _("No unread messages"));
-		}
-	} else {
-		gtk_tooltip_set_text(tooltip, _("No unread messages"));
-	}
-	
-	return TRUE;
+	/*Indicator*/
+	mmguiapp->window->indicator = app_indicator_new(RESOURCE_LOCALE_DOMAIN, RESOURCE_MAINWINDOW_ICON, APP_INDICATOR_CATEGORY_APPLICATION_STATUS);
+	/*Indicator menu*/
+	mmguiapp->window->indmenu = gtk_menu_new();
+	/*Show window entry*/
+	mmguiapp->window->showwin_ind = gtk_check_menu_item_new_with_label(_("Show window"));
+	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(mmguiapp->window->showwin_ind), FALSE);
+	mmguiapp->window->traysigid = g_signal_connect(G_OBJECT(mmguiapp->window->showwin_ind), "toggled", G_CALLBACK(mmgui_main_tray_icon_window_show_signal), mmguiapp);
+	/*Separator*/
+	mmguiapp->window->sep1_ind = gtk_separator_menu_item_new();
+	/*New SMS entry*/
+	mmguiapp->window->newsms_ind = gtk_menu_item_new_with_label(_("New SMS"));
+	gtk_widget_set_sensitive(mmguiapp->window->newsms_ind, FALSE);
+	g_signal_connect(G_OBJECT(mmguiapp->window->newsms_ind), "activate", G_CALLBACK(mmgui_main_tray_icon_new_sms_signal), mmguiapp);
+	/*Separator 2*/
+	mmguiapp->window->sep2_ind = gtk_separator_menu_item_new();
+	/*Quit entry*/
+	mmguiapp->window->quit_ind = gtk_menu_item_new_with_label(_("Quit"));
+	g_signal_connect(G_OBJECT(mmguiapp->window->quit_ind), "activate", G_CALLBACK(mmgui_main_tray_icon_exit_signal), mmguiapp);
+	/*Packaging*/
+	gtk_menu_shell_append(GTK_MENU_SHELL(mmguiapp->window->indmenu), mmguiapp->window->showwin_ind);
+	gtk_menu_shell_append(GTK_MENU_SHELL(mmguiapp->window->indmenu), mmguiapp->window->sep1_ind);
+	gtk_menu_shell_append(GTK_MENU_SHELL(mmguiapp->window->indmenu), mmguiapp->window->newsms_ind);
+	gtk_menu_shell_append(GTK_MENU_SHELL(mmguiapp->window->indmenu), mmguiapp->window->sep2_ind);
+	gtk_menu_shell_append(GTK_MENU_SHELL(mmguiapp->window->indmenu), mmguiapp->window->quit_ind);
+	gtk_widget_show_all(mmguiapp->window->indmenu);
+	/*Set status*/
+	app_indicator_set_status(mmguiapp->window->indicator, APP_INDICATOR_STATUS_ACTIVE);
+	app_indicator_set_attention_icon(mmguiapp->window->indicator, "indicator-messages-new");
+	/*Set menu*/
+	app_indicator_set_menu(mmguiapp->window->indicator, GTK_MENU(mmguiapp->window->indmenu));
 }
 
 static void mmgui_main_tray_icon_init(mmgui_application_t mmguiapp)
 {
 	if (mmguiapp == NULL) return;
 	
-	/*Tray icon*/
-	mmguiapp->window->statusicon = gtk_status_icon_new_from_file(RESOURCE_MAINWINDOW_ICON);
-	g_signal_connect(G_OBJECT(mmguiapp->window->statusicon), "activate", G_CALLBACK(mmgui_main_tray_icon_activation_signal), mmguiapp);
-	gtk_status_icon_set_tooltip_text(mmguiapp->window->statusicon, _("No unread messages"));
-	/*Tray menu*/
-	mmguiapp->window->traymenu = gtk_menu_new();
-	/*Show window entry*/
-	mmguiapp->window->showwin_tm = gtk_check_menu_item_new_with_label(_("Show window"));
-	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(mmguiapp->window->showwin_tm), gtk_widget_get_visible(mmguiapp->window->window));
-	mmguiapp->window->traysigid = g_signal_connect(G_OBJECT(mmguiapp->window->showwin_tm), "toggled", G_CALLBACK(mmgui_main_tray_icon_window_show_signal), mmguiapp);
-	/*Separator*/
-	mmguiapp->window->sep1_tm = gtk_separator_menu_item_new();
-	/*New SMS entry*/
-	mmguiapp->window->newsms_tm = gtk_menu_item_new_with_label(_("New SMS"));
-	gtk_widget_set_sensitive(mmguiapp->window->newsms_tm, FALSE);
-	g_signal_connect(G_OBJECT(mmguiapp->window->newsms_tm), "activate", G_CALLBACK(mmgui_main_tray_icon_new_sms_signal), mmguiapp);
-	/*Separator 2*/
-	mmguiapp->window->sep2_tm = gtk_separator_menu_item_new();
-	/*Quit entry*/
-	mmguiapp->window->quit_tm = gtk_menu_item_new_with_label(_("Quit"));
-	g_signal_connect(G_OBJECT(mmguiapp->window->quit_tm), "activate", G_CALLBACK(mmgui_main_tray_icon_exit_signal), mmguiapp);
-	/*Packaging*/
-	gtk_menu_shell_append(GTK_MENU_SHELL(mmguiapp->window->traymenu), mmguiapp->window->showwin_tm);
-	gtk_menu_shell_append(GTK_MENU_SHELL(mmguiapp->window->traymenu), mmguiapp->window->sep1_tm);
-	gtk_menu_shell_append(GTK_MENU_SHELL(mmguiapp->window->traymenu), mmguiapp->window->newsms_tm);
-	gtk_menu_shell_append(GTK_MENU_SHELL(mmguiapp->window->traymenu), mmguiapp->window->sep2_tm);
-	gtk_menu_shell_append(GTK_MENU_SHELL(mmguiapp->window->traymenu), mmguiapp->window->quit_tm);
-	gtk_widget_show_all(mmguiapp->window->traymenu);
-	/*Tray menu signal*/
-	g_signal_connect(G_OBJECT(mmguiapp->window->statusicon), "popup-menu", G_CALLBACK(mmgui_main_tray_popup_menu_show_signal), mmguiapp);
-	/*Tray tooltip signal*/
-	g_signal_connect(G_OBJECT(mmguiapp->window->statusicon), "query-tooltip", G_CALLBACK(mmgui_main_tray_tooltip_show_signal), mmguiapp);
-	gtk_status_icon_set_has_tooltip(mmguiapp->window->statusicon, TRUE);
+	/*Window state*/
+	g_signal_handler_block(G_OBJECT(mmguiapp->window->showwin_ind), mmguiapp->window->traysigid);
+	gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(mmguiapp->window->showwin_ind), ((!mmguiapp->options->invisible) && (!mmguiapp->options->minimized)));
+	g_signal_handler_unblock(G_OBJECT(mmguiapp->window->showwin_ind), mmguiapp->window->traysigid);
 }
+
+#endif
 
 /*Ayatana*/
 static void mmgui_main_ayatana_event_callback(enum _mmgui_ayatana_event event, gpointer ayatana, gpointer data, gpointer userdata)
@@ -2206,8 +2186,10 @@ static gboolean mmgui_main_application_build_user_interface(mmgui_application_t 
 	/*Builder object is not needed anymore*/
 	g_object_unref(G_OBJECT(builder));
 	
-	mmgui_main_tray_icon_init(mmguiapp);
-	
+	#if RESOURCE_INDICATOR_ENABLED
+		mmgui_main_tray_icon_build(mmguiapp);
+	#endif
+		
 	return TRUE;
 }
 
@@ -2370,6 +2352,11 @@ static void mmgui_main_continue_initialization(mmgui_application_t mmguiapp, mmg
 	#if RESOURCE_SPELLCHECKER_ENABLED
 		mmgui_main_sms_spellcheck_init(mmguiapp);
 	#endif
+	
+	#if RESOURCE_INDICATOR_ENABLED
+		mmgui_main_tray_icon_init(mmguiapp);
+	#endif
+	
 	/*Restore window geometry*/
 	if (mmguiapp->options->savegeometry) {
 		if ((mmguiapp->options->wgwidth >= 1) && (mmguiapp->options->wgheight >= 1)) {
