@@ -1,0 +1,34 @@
+.TH modem-manager-gui "1" "Sep 2015" "Modem Manager GUI v0.0.18" "User Commands"
+.SH NAME
+modem-manager-gui \- simple graphical interface for Modem Manager daemon.
+.SH SYNOPSIS
+.B modem-manager-gui
+[ \-i ] [ \-m module ] [ \-c module ] [ \-l ]...
+.SH DESCRIPTION
+.PP
+This program is simple graphical interface for Modem Manager 0.6/0.7,
+Wader and oFono daemons using dbus interface.
+.TP
+\fB\-i, \-\-invisible\fR
+Do not show window on start
+.TP
+\fB\-m, \-\-mmmodule\fR
+Use specified modem management module
+.TP
+\fB\-c, \-\-cmmodule\fR
+Use specified connection management module
+.TP
+\fB\-l, \-\-listmodules\fR
+List all available modules and exit
+.SH AUTHOR
+Written by Alex. See the about dialog for all contributors.
+.SH "REPORTING BUGS"
+Report bugs to <alex@linuxonly.ru>, or to the bug tracker section on
+site <http://linuxonly.ru>.
+.SH COPYRIGHT
+Copyright \(co 2012-2015 Alex
+.br
+This is free software.  You may redistribute copies of it under the terms of
+the GNU General Public License <http://www.gnu.org/licenses/gpl.html>.
+.SH "SEE ALSO"
+\fBmmcli\fR(1)

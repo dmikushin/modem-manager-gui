@@ -1,0 +1,92 @@
+#
+# Translators:
+# Rendiyono Wahyu Saputro <rendi.7936@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Modem Manager GUI\n"
+"POT-Creation-Date: 2015-09-30 22:02+0300\n"
+"PO-Revision-Date: 2015-09-30 17:47+0000\n"
+"Last-Translator: Alex <alex@linuxonly.ru>\n"
+"Language-Team: Indonesian (http://www.transifex.com/ethereal/modem-manager-"
+"gui/language/id/)\n"
+"Language: id\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. (itstool) path: application/name
+#: modem-manager-gui.appdata.xml.in:7
+msgid "Modem Manager GUI"
+msgstr "Modem Manager GUI"
+
+#. (itstool) path: application/summary
+#: modem-manager-gui.appdata.xml.in:8
+msgid "Control EDGE/3G/4G broadband modem specific functions"
+msgstr "Mengendalikan fungsi khusus modem broadband EDGE/3G/4G"
+
+#. (itstool) path: description/p
+#: modem-manager-gui.appdata.xml.in:10
+msgid ""
+"Simple graphical interface compatible with Modem manager, Wader and oFono "
+"system services able to control EDGE/3G/4G broadband modem specific "
+"functions."
+msgstr ""
+"Antarmuka grafis simpel dan kompatibel dengan Modem manager, layanan sistem "
+"Wader dan oFono dapat mengendalikan fungsi khusus modem broadband EDGE/3G/4G."
+
+#. (itstool) path: description/p
+#: modem-manager-gui.appdata.xml.in:14
+msgid ""
+"You can check balance of your SIM card, send or receive SMS messages, "
+"control mobile traffic consuption and more using Modem Manager GUI."
+msgstr ""
+"Anda bisa mengecek saldo kartu SIM anda, mengirim atau menerima pesan SMS, "
+"mengendalikan konsumsi trafik mobile, dan lainnya menggunakan Modem Manager "
+"GUI."
+
+#. (itstool) path: description/p
+#: modem-manager-gui.appdata.xml.in:18
+msgid "Current features:"
+msgstr "Fitur saat ini:"
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:21
+msgid "Send and receive SMS messages and store messages in database"
+msgstr "Kirim dan terima pesan SMS dan simpan pesan dalam basis data"
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:22
+msgid ""
+"Initiate USSD requests and read answers (also using interactive sessions)"
+msgstr ""
+"Memulai permintaan USSD dan baca jawaban (juga menggunakan sesi interaktif)"
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:23
+msgid ""
+"View device information: operator name, device mode, IMEI, IMSI, signal level"
+msgstr ""
+"Tampilkan informasi perangkat: nama operator, mode perangkat, IMEI, IMSI, "
+"dan tingkat sinyal"
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:24
+msgid "Scan available mobile networks"
+msgstr "Pindai jaringan selular yang tersedia"
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:25
+msgid "View mobile traffic statistics and set limits"
+msgstr "Tampilkan statistik trafik selular dan tetapkan batas"
+
+#. (itstool) path: description/p
+#: modem-manager-gui.appdata.xml.in:27
+msgid ""
+"Please note that some features may be not available due to limitations of "
+"different system services or even different versions of system service in "
+"use."
+msgstr ""
+"Harap dicatat bahwa ada beberapa fitur yang tidak tersedia karena "
+"keterbatasan dari layanan sistem yang berbeda atau versi layanan sistem yang "
+"digunakan."

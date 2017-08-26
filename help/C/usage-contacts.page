@@ -1,0 +1,49 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      xmlns:e="http://projectmallard.org/experimental/"
+      type="guide"
+      id="usage-contacts">
+
+  <info>
+    <link type="guide" xref="index#usage"/>
+    <revision pkgversion="0.0.18" version="0.1" date="2015-10-02" status="incomplete"/>
+    <desc>
+      Use your contact lists.
+    </desc>
+    <credit type="author">
+      <name>Mario Blättermann</name>
+      <email>mario.blaettermann@gmail.com</email>
+    </credit>
+    <credit type="author">
+      <name>Alex</name>
+      <email>alex@linuxonly.ru</email>
+    </credit>
+    <license>
+      <p>Creative Commons Share Alike 3.0</p>
+    </license>
+  </info>
+
+   <title>Contact lists</title>
+      <p>Broadband modem has access to contacts stored on SIM card. Some modems can also store contacts
+       in internal memory. <app>Modem Manager GUI</app> can work with contacts from these storages and also
+       can export contacts from system contacts storages. Supported system contact storages are: Evolution Data
+       Server used by GNOME applications (GNOME contacts section) and Akonadi server used by KDE applications
+       (KDE contacts section).</p>
+
+      <p>
+       <media type="image" mime="image/png" src="figures/contacts-window.png">
+         Contacts window of <app>Modem Manager GUI</app>.
+       </media>
+      </p>
+
+      <p>Use <gui style="button">New contact</gui> button to fill form and add new contact to SIM card or
+      modem storage, <gui style="button">Remove contact</gui> button to remove selected contact form SIM card
+      or modem storage and <gui style="button">Send SMS</gui> button to compose and send SMS message to selected
+      contact (either from SIM card or modem, or exported from system contacts storage).</p>
+      
+      <note style="hint">
+       <p>Some backeds don't support modem contacts manipulation functions. For example, ModemManager doesn't
+       work with contacts from SIM card and modem memory at all (this functionality isn't implemented yet), and
+       oFono can only export contacts from SIM card (this is developer's decision).</p>
+      </note>
+      
+</page>

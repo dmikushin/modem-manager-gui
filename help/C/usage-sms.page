@@ -1,0 +1,51 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      xmlns:e="http://projectmallard.org/experimental/"
+      type="guide"
+      id="usage-sms">
+
+  <info>
+    <link type="guide" xref="index#usage"/>
+    <link type="seealso" xref="usage-config"/>
+    <revision pkgversion="0.0.18" version="0.1" date="2015-10-02" status="incomplete"/>
+    <desc>
+      Use <app>Modem Manager GUI</app> for sending and receiving SMS.
+    </desc>
+    <credit type="author">
+      <name>Mario Blättermann</name>
+      <email>mario.blaettermann@gmail.com</email>
+    </credit>
+    <credit type="author">
+      <name>Alex</name>
+      <email>alex@linuxonly.ru</email>
+    </credit>
+    <license>
+      <p>Creative Commons Share Alike 3.0</p>
+    </license>
+  </info>
+
+   <title>SMS</title>
+      <p>Most broadband modems able to send and receive SMS messages just like any
+       mobile phone. You can use <app>Modem Manager GUI</app> if you want to send or
+       read received SMS messages. Click on the <gui style="button">SMS</gui> button
+       in the toolbar.</p>
+     
+     <p>As you can see, all messages are stored in three folders. You can find received
+      messages in the Incoming folder, sent messages in the Sent folder and saved messages
+      in the Drafts folder.</p>
+
+     <figure>
+      <media type="image" mime="image/png" src="figures/sms-window.png">
+        SMS window of <app>Modem Manager GUI</app>.
+      </media>
+     </figure>
+     
+     <p>You can tweak messages sorting order and SMS special parameters using
+      Preferences window.</p>
+
+     <p>Use <gui style="button">New</gui> button to compose and send or save message,
+      <gui style="button">Remove</gui> button to remove selected message(s) and
+      <gui style="button">Answer</gui> button to answer selected message (if this message
+      has valid number). Don't forget that you can select more than one message
+      at once.</p>
+      
+</page>

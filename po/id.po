@@ -1,0 +1,1709 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Ade Malsasa Akbar <teknoloid@gmail.com>, 2013
+# Arif Budiman <arifpedia@gmail.com>, 2014-2015
+# etc session, 2013
+# Ade Malsasa Akbar <teknoloid@gmail.com>, 2013
+# master <rockmania52@gmail.com>, 2013
+# Rendiyono Wahyu Saputro <rendi.7936@gmail.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Modem Manager GUI\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-10-11 20:38+0300\n"
+"PO-Revision-Date: 2015-10-11 17:30+0000\n"
+"Last-Translator: Alex <alex@linuxonly.ru>\n"
+"Language-Team: Indonesian (http://www.transifex.com/ethereal/modem-manager-gui/language/id/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: id\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: ../src/ayatana.c:129
+msgid "Unread SMS"
+msgstr "SMS belum dibaca"
+
+#: ../src/ayatana.c:303
+msgid "Unread messages"
+msgstr "Pesan belum dibaca"
+
+#: ../src/contacts-page.c:344
+msgid "<b>Error adding contact</b>"
+msgstr "<b>Galat menambahkan kontak</b>"
+
+#: ../src/contacts-page.c:380
+msgid "<b>Remove contact</b>"
+msgstr "<b>Hapus kontak</b>"
+
+#: ../src/contacts-page.c:380
+msgid "Really want to remove contact?"
+msgstr "Sungguh ingin menghapus kontak?"
+
+#: ../src/contacts-page.c:384 ../src/contacts-page.c:389
+msgid "<b>Error removing contact</b>"
+msgstr "<b>Galat menghapus kontak</b>"
+
+#: ../src/contacts-page.c:384
+msgid "Contact not removed from device"
+msgstr "Kontak tidak dihapus dari perangkat"
+
+#: ../src/contacts-page.c:389
+msgid "Contact not selected"
+msgstr "Kontak tidak dipilih"
+
+#: ../src/contacts-page.c:423 ../src/sms-page.c:1587
+msgid "<b>Modem contacts</b>"
+msgstr "<b>Kontak modem</b>"
+
+#: ../src/contacts-page.c:519 ../src/sms-page.c:1552
+msgid "<b>GNOME contacts</b>"
+msgstr "<b>Kontak GNOME</b>"
+
+#: ../src/contacts-page.c:526 ../src/sms-page.c:1569
+msgid "<b>KDE contacts</b>"
+msgstr "<b>Kontak KDE</b>"
+
+#: ../src/contacts-page.c:542 ../resources/modem-manager-gui.ui:2873
+msgid "First name"
+msgstr "Nama depan"
+
+#: ../src/contacts-page.c:546 ../resources/modem-manager-gui.ui:2885
+msgid "First number"
+msgstr "Nomor depan"
+
+#: ../src/contacts-page.c:550 ../resources/modem-manager-gui.ui:2897
+msgid "EMail"
+msgstr "Email"
+
+#: ../src/contacts-page.c:554 ../resources/modem-manager-gui.ui:2909
+msgid "Group"
+msgstr "Grup"
+
+#: ../src/contacts-page.c:558 ../resources/modem-manager-gui.ui:2921
+msgid "Second name"
+msgstr "Nama tengah"
+
+#: ../src/contacts-page.c:562 ../resources/modem-manager-gui.ui:2933
+msgid "Second number"
+msgstr "Nomor akhir"
+
+#: ../src/devices-page.c:253 ../src/devices-page.c:305
+msgid "<b>Error opening device</b>"
+msgstr "Gagal membuka perangkat"
+
+#: ../src/devices-page.c:363
+#, c-format
+msgid ""
+"<b>%s %s</b>\n"
+"Version:%s Port:%s Type:%s"
+msgstr "<b>%s %s</b>\nVersi:%s Port:%s Tipe:%s"
+
+#: ../src/devices-page.c:412
+msgid "Selected"
+msgstr "Dipilih"
+
+#: ../src/devices-page.c:417 ../resources/modem-manager-gui.ui:948
+msgid "Device"
+msgstr "Perangkat"
+
+#: ../src/info-page.c:75 ../src/info-page.c:82 ../src/info-page.c:135
+#: ../src/info-page.c:143
+msgid "Not supported"
+msgstr "Tidak didukung"
+
+#: ../src/main.c:343 ../src/main.c:346 ../src/main.c:349 ../src/main.c:2412
+#: ../src/main.c:2423
+msgid "Error while initialization"
+msgstr "Galat ketika inisialisasi"
+
+#: ../src/main.c:343
+msgid "Unable to start needed system services without correct credentials"
+msgstr ""
+
+#: ../src/main.c:346
+msgid "Unable to communicate with available system services"
+msgstr ""
+
+#: ../src/main.c:446
+msgid "Success"
+msgstr ""
+
+#: ../src/main.c:451
+msgid "Failed"
+msgstr ""
+
+#: ../src/main.c:456 ../src/svcmanager.c:636
+msgid "Timeout"
+msgstr ""
+
+#: ../src/main.c:859
+msgid ""
+"Modem is not ready for operation. Please wait while modem being prepared..."
+msgstr ""
+
+#: ../src/main.c:885
+msgid "Modem must be enabled to read SMS. Enable modem?"
+msgstr "Modem harus diaktifkan untuk membaca SMS. Aktifkan modem?"
+
+#: ../src/main.c:886
+msgid "Modem must be enabled to read and write SMS. Please enable modem."
+msgstr "Modem harus diaktifkan untuk membaca dan menulis SMS. Silakan aktifkan modem."
+
+#: ../src/main.c:887
+msgid ""
+"Modem must be registered in mobile network to receive and send SMS. Please "
+"wait..."
+msgstr "Modem harus didaftarkan pada jaringan mobile untuk menerima dan mengirim SMS. Mohon tunggu..."
+
+#: ../src/main.c:888
+msgid "Modem must be unlocked to receive and send SMS. Please enter PIN code."
+msgstr "Modem harus tidak terkunci untuk menerima dan mengirim SMS. Silakan masukkan kode PIN."
+
+#: ../src/main.c:889
+msgid "Modem manager does not support SMS manipulation functions."
+msgstr "Modem manager tidak mendukung fungsi manipulasi SMS."
+
+#: ../src/main.c:890
+msgid "Modem manager does not support sending of SMS messages."
+msgstr "Modem manager tidak mendukung pengiriman SMS."
+
+#: ../src/main.c:907
+msgid "Modem must be enabled to send USSD. Enable modem?"
+msgstr "Modem harus diaktifkan untuk mengirim USSD. Aktifkan modem?"
+
+#: ../src/main.c:908
+msgid "Modem must be enabled to send USSD. Please enable modem."
+msgstr "Modem harus diaktifkan untuk mengirim USSD. Silakan aktifkan modem."
+
+#: ../src/main.c:909
+msgid ""
+"Modem must be registered in mobile network to send USSD. Please wait..."
+msgstr "Modem harus didaftarkan pada jaringan mobile untuk mengirim USSD. Modon tunggu..."
+
+#: ../src/main.c:910
+msgid "Modem must be unlocked to send USSD. Please enter PIN code."
+msgstr "Modem harus tidak terkunci untuk mengirim USSD. Silakan masukkan kode PIN."
+
+#: ../src/main.c:911
+msgid "Modem manager does not support sending of USSD requests."
+msgstr "Modem manager tidak mendukung pengiriman permintaan USSD. "
+
+#: ../src/main.c:937
+msgid "Modem must be enabled to scan for available networks. Enable modem?"
+msgstr "Modem harus diaktifkan untuk memindai pada jaringan yang tersedia. Aktifkan modem?"
+
+#: ../src/main.c:938
+msgid ""
+"Modem must be enabled to scan for available networks. Please enable modem."
+msgstr "Modem harus diaktifkan untuk memindai pada jaringan yang tersedia. Silakan aktifkan modem."
+
+#: ../src/main.c:940
+msgid ""
+"Modem must be unlocked to scan for available networks. Please enter PIN "
+"code."
+msgstr "Modem harus tidak terkunci untuk memindai jaringan yang tersedia. Silakan masukkan kode PIN."
+
+#: ../src/main.c:941
+msgid "Modem manager does not support scanning for available mobile networks."
+msgstr "Modem manager tidak mendukung pemindaian jaringan mobile yang tersedia."
+
+#: ../src/main.c:942
+msgid "Modem is connected now. Please disconnect to scan."
+msgstr "Modem sedang terhubung sekarang. Silakan putuskan untuk memindai."
+
+#: ../src/main.c:972
+msgid "Modem must be enabled to export contacts from it. Enable modem?"
+msgstr "Modem harus diaktifkan untuk mengekspor kontak darinya. Aktifkan?"
+
+#: ../src/main.c:973
+msgid "Modem must be enabled to export contacts from it. Please enable modem."
+msgstr "Modem harus diaktifkan untuk mengekspor kontak darinya. Silakan aktifkan modem."
+
+#: ../src/main.c:975
+msgid ""
+"Modem must be unlocked to export contacts from it. Please enter PIN code."
+msgstr "Modem harus tidak terkunci untuk mengekspor kontak darinya. Silakan masukkan kode PIN."
+
+#: ../src/main.c:976
+msgid "Modem manager does not support modem contacts manipulation functions."
+msgstr "Modem manager tidak mendukung fungsi manipulasi kontak modem. "
+
+#: ../src/main.c:977
+msgid "Modem manager does not support modem contacts edition functions."
+msgstr "Modem manager tidak mendukung fungsi edit kontak modem."
+
+#: ../src/main.c:1023
+msgid "<b>Enable modem</b>"
+msgstr "<b>Aktifkan modem</b>"
+
+#: ../src/main.c:1025
+msgid "Enabling device..."
+msgstr ""
+
+#: ../src/main.c:1306 ../src/main.c:1337
+msgid "Modem Manager GUI window hidden"
+msgstr "Jendela Modem Manager GUI tersembunyi"
+
+#: ../src/main.c:1306 ../src/main.c:1337
+msgid "Use tray icon or messaging menu to show window again"
+msgstr "Gunakan tray icon atau menu pesan untuk menampilkan jendela kembali"
+
+#: ../src/main.c:1392
+msgid "Error while displaying the help contents"
+msgstr "Galat ketika menampilkan isi bantuan"
+
+#: ../src/main.c:1471
+msgid "No devices found in system"
+msgstr "Tidak ada perangkat yang ditemukan pada sistem"
+
+#: ../src/main.c:1512
+#, c-format
+msgid "%s disconnected"
+msgstr "%s terputus"
+
+#: ../src/main.c:1665
+#, c-format
+msgid "Unread messages: %u"
+msgstr "Pesan baru: %u"
+
+#: ../src/main.c:1668 ../src/main.c:1671 ../src/main.c:1684
+msgid "No unread messages"
+msgstr "Tak ada pesan yang dapat dibaca"
+
+#: ../src/main.c:1688
+msgid "Show window"
+msgstr "Tampilkan jendela"
+
+#: ../src/main.c:1694
+msgid "New SMS"
+msgstr "SMS baru"
+
+#: ../src/main.c:1700 ../src/main.c:2337
+msgid "Quit"
+msgstr "Keluar"
+
+#: ../src/main.c:2267
+msgid "_Devices"
+msgstr "_Perangkat"
+
+#: ../src/main.c:2269
+msgid "_SMS"
+msgstr "_SMS"
+
+#: ../src/main.c:2271
+msgid "_USSD"
+msgstr "_USSD"
+
+#: ../src/main.c:2273
+msgid "_Info"
+msgstr "_Informasi"
+
+#: ../src/main.c:2275
+msgid "S_can"
+msgstr "P_indai"
+
+#: ../src/main.c:2277
+msgid "_Traffic"
+msgstr "_Trafik"
+
+#: ../src/main.c:2279
+msgid "C_ontacts"
+msgstr "K_ontak"
+
+#: ../src/main.c:2283
+msgid "_Quit"
+msgstr "_Keluar"
+
+#: ../src/main.c:2289
+msgid "_Actions"
+msgstr "_Aksi"
+
+#: ../src/main.c:2292
+msgid "_Preferences"
+msgstr "_Preferensi"
+
+#: ../src/main.c:2295
+msgid "_Edit"
+msgstr "_Sunting"
+
+#: ../src/main.c:2298 ../src/main.c:2302
+msgid "_Help"
+msgstr "_Bantuan"
+
+#: ../src/main.c:2300
+msgid "_About"
+msgstr "_Tentang"
+
+#: ../src/main.c:2309 ../resources/modem-manager-gui.ui:331
+#: ../resources/modem-manager-gui.ui:648
+msgid "Devices"
+msgstr "Perangkat"
+
+#: ../src/main.c:2311 ../src/sms-page.c:1835
+#: ../resources/modem-manager-gui.ui:347 ../resources/modem-manager-gui.ui:782
+#: ../resources/modem-manager-gui.ui:3470
+msgid "SMS"
+msgstr "SMS"
+
+#: ../src/main.c:2313 ../resources/modem-manager-gui.ui:363
+#: ../resources/modem-manager-gui.ui:899
+msgid "USSD"
+msgstr "USSD"
+
+#: ../src/main.c:2315 ../resources/modem-manager-gui.ui:379
+#: ../resources/modem-manager-gui.ui:1322
+msgid "Info"
+msgstr "Informasi"
+
+#: ../src/main.c:2317 ../resources/modem-manager-gui.ui:395
+#: ../resources/modem-manager-gui.ui:1417
+msgid "Scan"
+msgstr "Pindai"
+
+#: ../src/main.c:2319 ../resources/modem-manager-gui.ui:411
+#: ../resources/modem-manager-gui.ui:1563
+#: ../resources/modem-manager-gui.ui:3964
+msgid "Traffic"
+msgstr "Lalu lintas jaringan"
+
+#: ../src/main.c:2321 ../resources/modem-manager-gui.ui:427
+#: ../resources/modem-manager-gui.ui:1674
+msgid "Contacts"
+msgstr "Kontak"
+
+#: ../src/main.c:2326 ../resources/modem-manager-gui.ui:3141
+msgid "Preferences"
+msgstr "Preferensi"
+
+#: ../src/main.c:2331
+msgid "Help"
+msgstr "Bantuan"
+
+#: ../src/main.c:2333 ../resources/modem-manager-gui.ui:1719
+msgid "About"
+msgstr "Tentang"
+
+#: ../src/main.c:2412 ../src/main.c:2465
+msgid ""
+"Unable to find MMGUI modules. Please check if application installed "
+"correctly"
+msgstr ""
+
+#: ../src/main.c:2423
+msgid "Interface building error"
+msgstr "Galat membangun antarmuka"
+
+#: ../src/main.c:2477
+msgid "Modem management modules:\n"
+msgstr "Modul manajemen modem:\n"
+
+#: ../src/main.c:2478 ../src/main.c:2482
+msgid "Module"
+msgstr "Modul"
+
+#: ../src/main.c:2478 ../src/main.c:2482 ../src/ussd-page.c:544
+msgid "Description"
+msgstr "Penjelasan"
+
+#: ../src/main.c:2481
+msgid "Connection management modules:\n"
+msgstr "Modul manajemen Koneksi:\n"
+
+#: ../src/main.c:2520
+#, c-format
+msgid "Segmentation fault at address: %p\n"
+msgstr "Segmentation fault pada alamat: %p\n"
+
+#: ../src/main.c:2523
+msgid "Stack trace:\n"
+msgstr "Stack trace:\n"
+
+#: ../src/main.c:2589
+msgid "Do not show window on start"
+msgstr "Jangan tampilkan jendela ketika memulai"
+
+#: ../src/main.c:2590
+msgid "Use specified modem management module"
+msgstr "Gunakan modul manajemen modem tertentu"
+
+#: ../src/main.c:2591
+msgid "Use specified connection management module"
+msgstr "Menggunakan modul manajemen koneksi tertentu"
+
+#: ../src/main.c:2592
+msgid "List all available modules and exit"
+msgstr "Tampilkan semua modul yang tersedia dan keluar"
+
+#: ../src/main.c:2629
+msgid "- tool for EDGE/3G/4G modem specific functions control"
+msgstr "- perangkat lunak untuk mengatur fungsi khusus pada modem EDGE/3G/4G"
+
+#: ../src/main.c:2636
+#, c-format
+msgid "Command line option parsing failed: %s\n"
+msgstr "Penjelasan kegagalan opsi baris perintah: %s\n"
+
+#: ../src/preferences-window.c:111 ../src/strformat.c:352
+#: ../src/welcome-window.c:197
+msgid "Undefined"
+msgstr "Tidak didefinisikan"
+
+#: ../src/scan-page.c:44
+msgid "Scanning networks..."
+msgstr ""
+
+#: ../src/scan-page.c:46
+msgid "Device error"
+msgstr "Perangkat galat"
+
+#: ../src/scan-page.c:97
+#, c-format
+msgid ""
+"<b>%s</b>\n"
+"<small>%s ID: %u Availability: %s Access tech: %s</small>"
+msgstr "<b>%s</b>\n<small>%s ID: %u Tersedia: %s Akses teknologi: %s</small>"
+
+#: ../src/scan-page.c:135
+msgid "<b>Error scanning networks</b>"
+msgstr "<b>Galat memindai jaringan</b>"
+
+#: ../src/scan-page.c:149 ../resources/modem-manager-gui.ui:1071
+msgid "Operator"
+msgstr "Operator"
+
+#: ../src/sms-page.c:283
+#, c-format
+msgid "Received %u new SMS messages"
+msgstr "Diterima %u pesan SMS baru"
+
+#: ../src/sms-page.c:285 ../src/sms-page.c:363
+msgid "Received new SMS message"
+msgstr "Pesan SMS baru telah diterima"
+
+#: ../src/sms-page.c:297
+msgid "Message senders: "
+msgstr "Pengirim:"
+
+#: ../src/sms-page.c:431 ../src/sms-page.c:1100
+#, c-format
+msgid ""
+"<b>%s</b>\n"
+"<small>%s</small>"
+msgstr "<b>%s</b>\n<small>%s</small>"
+
+#: ../src/sms-page.c:485
+msgid ""
+"<b>SMS number is not valid</b>\n"
+"<small>Only numbers from 2 to 20 digits without\n"
+"letters and symbols can be used</small>"
+msgstr "<b>Nomor SMS tidak sah</b>\n<small>Hanya nomor dari 2 hingga 20 digit tanpa\nhuruf dan simbol yang bisa dipakai</small>"
+
+#: ../src/sms-page.c:487
+msgid ""
+"<b>SMS text is not valid</b>\n"
+"<small>Please write some text to send</small>"
+msgstr "<b>Teks SMS tidak sah</b>\n<small>Tulis teks untuk dapat mengirim</small>"
+
+#: ../src/sms-page.c:612
+#, c-format
+msgid "Sending SMS to number \"%s\"..."
+msgstr ""
+
+#: ../src/sms-page.c:634
+msgid "Wrong number or device not ready"
+msgstr "Salah nomor atau perangkat tidak siap"
+
+#: ../src/sms-page.c:640
+msgid "Saving SMS..."
+msgstr ""
+
+#: ../src/sms-page.c:711
+#, c-format
+msgid "Really want to remove messages (%u) ?"
+msgstr ""
+
+#: ../src/sms-page.c:712
+msgid "<b>Remove messages</b>"
+msgstr ""
+
+#: ../src/sms-page.c:734
+#, c-format
+msgid "Some messages weren't removed (%u)"
+msgstr ""
+
+#: ../src/sms-page.c:1024
+msgid "Incoming"
+msgstr ""
+
+#: ../src/sms-page.c:1029
+msgid ""
+"This is folder for your incoming SMS messages.\n"
+"You can answer selected message using 'Answer' button."
+msgstr "Folder ini untuk pesan yang Anda terima.\nAnda dapat menjawab pesan terpilih menggunakan tombol 'Jawab'."
+
+#: ../src/sms-page.c:1034
+msgid "Sent"
+msgstr ""
+
+#: ../src/sms-page.c:1039
+msgid "This is folder for your sent SMS messages."
+msgstr "Folder ini untuk pesan terkirim Anda."
+
+#: ../src/sms-page.c:1044
+msgid "Drafts"
+msgstr ""
+
+#: ../src/sms-page.c:1049
+msgid ""
+"This is folder for your SMS message drafts.\n"
+"Select message and click 'Answer' button to start editing."
+msgstr "Folder ini untuk draf pesan singkat Anda.\nPilih pesan dan klik tombol 'Jawab' untuk mulai mengubahnya."
+
+#: ../src/sms-page.c:1156
+msgid ""
+"<b>Incoming</b>\n"
+"<small>Incoming messages</small>"
+msgstr "<b>Masuk</b>\n<small>Pesan masuk</small>"
+
+#: ../src/sms-page.c:1157
+msgid ""
+"<b>Sent</b>\n"
+"<small>Sent messages</small>"
+msgstr "<b>Kirim</b>\n<small>Mengirim pesan</small>"
+
+#: ../src/sms-page.c:1158
+msgid ""
+"<b>Drafts</b>\n"
+"<small>Message drafts</small>"
+msgstr "<b>Draf</b>\n<small>Draf pesan</small>"
+
+#: ../src/sms-page.c:1686 ../resources/modem-manager-gui.ui:3037
+msgid "Disabled"
+msgstr ""
+
+#: ../src/strformat.c:39
+#, c-format
+msgid "<small><b>%.3f kbps</b></small>"
+msgstr "<small><b>%.3f kbps</b></small>"
+
+#: ../src/strformat.c:41
+#, c-format
+msgid "%.3f kbps"
+msgstr "%.3f kbps"
+
+#: ../src/strformat.c:46
+#, c-format
+msgid "<small><b>%.3g Mbps</b></small>"
+msgstr "<small><b>%.3g Mbps</b></small>"
+
+#: ../src/strformat.c:48
+#, c-format
+msgid "%.3g Mbps"
+msgstr "%.3g Mbps"
+
+#: ../src/strformat.c:53
+#, c-format
+msgid "<small><b>%.3g Gbps</b></small>"
+msgstr "<small><b>%.3g Gbps</b></small>"
+
+#: ../src/strformat.c:55
+#, c-format
+msgid "%.3g Gbps"
+msgstr "%.3g Gbps"
+
+#: ../src/strformat.c:87
+#, c-format
+msgid "<small><b>%u sec</b></small>"
+msgstr "<small><b>%u detik</b></small>"
+
+#: ../src/strformat.c:89
+#, c-format
+msgid "%u sec"
+msgstr "%u detik"
+
+#: ../src/strformat.c:93
+#, c-format
+msgid "<small><b>%s:%s</b></small>"
+msgstr "<small><b>%s:%s</b></small>"
+
+#: ../src/strformat.c:95
+#, c-format
+msgid "%s:%s"
+msgstr "%s:%s"
+
+#: ../src/strformat.c:99
+#, c-format
+msgid "<small><b>%s:%s:%s</b></small>"
+msgstr "<small><b>%s:%s:%s</b></small>"
+
+#: ../src/strformat.c:101
+#, c-format
+msgid "%s:%s:%s"
+msgstr "%s:%s:%s"
+
+#: ../src/strformat.c:105
+msgid "<small><b>%"
+msgstr "<small><b>%"
+
+#: ../src/strformat.c:107
+msgid "%"
+msgstr "%"
+
+#: ../src/strformat.c:124
+#, c-format
+msgid "<small><b>%u</b></small>"
+msgstr "<small><b>%u</b></small>"
+
+#: ../src/strformat.c:126
+#, c-format
+msgid "%u"
+msgstr "%u"
+
+#: ../src/strformat.c:131
+#, c-format
+msgid "<small><b>%.3g Kb</b></small>"
+msgstr "<small><b>%.3g Kb</b></small>"
+
+#: ../src/strformat.c:133
+#, c-format
+msgid "%.3g Kb"
+msgstr "%.3g Kb"
+
+#: ../src/strformat.c:138
+#, c-format
+msgid "<small><b>%.3g Mb</b></small>"
+msgstr "<small><b>%.3g Mb</b></small>"
+
+#: ../src/strformat.c:140
+#, c-format
+msgid "%.3g Mb"
+msgstr "%.3g Mb"
+
+#: ../src/strformat.c:145
+#, c-format
+msgid "<small><b>%.3g Gb</b></small>"
+msgstr "<small><b>%.3g Gb</b></small>"
+
+#: ../src/strformat.c:147
+#, c-format
+msgid "%.3g Gb"
+msgstr "%.3g Gb"
+
+#: ../src/strformat.c:152
+#, c-format
+msgid "<small><b>%.3g Tb</b></small>"
+msgstr "<small><b>%.3g Tb</b></small>"
+
+#: ../src/strformat.c:154
+#, c-format
+msgid "%.3g Tb"
+msgstr "%.3g Tb"
+
+#: ../src/strformat.c:186
+msgid "Today, %T"
+msgstr "Hari ini, %T"
+
+#: ../src/strformat.c:187 ../src/strformat.c:191 ../src/strformat.c:195
+#: ../src/strformat.c:206 ../src/strformat.c:236 ../src/strformat.c:244
+#: ../src/strformat.c:252 ../src/strformat.c:323 ../src/traffic-page.c:134
+#, c-format
+msgid "Unknown"
+msgstr "Tidak diketahui"
+
+#: ../src/strformat.c:190
+msgid "Yesterday, %T"
+msgstr "Kemarin, %T"
+
+#: ../src/strformat.c:194
+msgid "%d %B %Y, %T"
+msgstr "%d %B %Y, %T"
+
+#: ../src/strformat.c:246
+msgid "Available"
+msgstr "Tersedia"
+
+#: ../src/strformat.c:248
+msgid "Current"
+msgstr "Saat ini"
+
+#: ../src/strformat.c:250
+msgid "Forbidden"
+msgstr "Dilarang"
+
+#: ../src/strformat.c:286
+msgid "Not registered"
+msgstr "Belum terdaftar"
+
+#: ../src/strformat.c:288
+msgid "Home network"
+msgstr "Jaringan rumah"
+
+#: ../src/strformat.c:290
+msgid "Searching"
+msgstr "Mencari"
+
+#: ../src/strformat.c:292
+msgid "Registration denied"
+msgstr "Registrasi ditolak"
+
+#: ../src/strformat.c:294 ../src/strformat.c:298
+msgid "Unknown status"
+msgstr "Status tidak diketahui"
+
+#: ../src/strformat.c:296
+msgid "Roaming network"
+msgstr "Jaringan roaming"
+
+#: ../src/strformat.c:337
+#, c-format
+msgid "%3.0f minutes"
+msgstr "%3.0f menit"
+
+#: ../src/strformat.c:341
+#, c-format
+msgid "%3.1f hours"
+msgstr "%3.1f jam"
+
+#: ../src/strformat.c:345
+#, c-format
+msgid "%2.0f days"
+msgstr "%2.0f hari"
+
+#: ../src/strformat.c:349
+#, c-format
+msgid "%2.0f weeks"
+msgstr "%2.0f minggu"
+
+#: ../src/strformat.c:364
+#, c-format
+msgid "%2.0f sec"
+msgstr "%2.0f detik"
+
+#: ../src/strformat.c:367
+#, c-format
+msgid "%u min, %u sec"
+msgstr "%u menit, %u detik"
+
+#: ../src/svcmanager.c:689
+msgid "Job canceled"
+msgstr ""
+
+#: ../src/svcmanager.c:691
+msgid "Systemd timeout reached"
+msgstr ""
+
+#: ../src/svcmanager.c:693
+msgid "Service activation failed"
+msgstr ""
+
+#: ../src/svcmanager.c:695
+msgid "Service depends on already failed service"
+msgstr ""
+
+#: ../src/svcmanager.c:697
+msgid "Service skipped"
+msgstr ""
+
+#: ../src/svcmanager.c:699
+msgid "Unknown error"
+msgstr ""
+
+#: ../src/svcmanager.c:764
+msgid "Unknown actvation status"
+msgstr ""
+
+#: ../src/svcmanager.c:835
+msgid "Unknown entity type"
+msgstr ""
+
+#: ../src/traffic-page.c:246
+msgid "Day"
+msgstr "Hari"
+
+#: ../src/traffic-page.c:250
+msgid "Received data"
+msgstr "Data diterima"
+
+#: ../src/traffic-page.c:254
+msgid "Transmitted data"
+msgstr "Data terkirim"
+
+#: ../src/traffic-page.c:258
+msgid "Session time"
+msgstr "Durasi sesi"
+
+#: ../src/traffic-page.c:482
+msgid "Application"
+msgstr "Aplikasi"
+
+#: ../src/traffic-page.c:486
+msgid "PID"
+msgstr "PID"
+
+#: ../src/traffic-page.c:490
+msgid "Protocol"
+msgstr "Protokol"
+
+#: ../src/traffic-page.c:494 ../src/welcome-window.c:269
+msgid "State"
+msgstr "Status"
+
+#: ../src/traffic-page.c:498
+msgid "Buffer"
+msgstr "Buffer"
+
+#: ../src/traffic-page.c:502
+msgid "Port"
+msgstr "Port"
+
+#: ../src/traffic-page.c:506
+msgid "Destination"
+msgstr "Tujuan"
+
+#: ../src/traffic-page.c:532
+msgid "Traffic limit exceeded"
+msgstr "Melebihi batas lalu lintas jaringan"
+
+#: ../src/traffic-page.c:536
+msgid "Time limit exceeded"
+msgstr "Melebihi batas waktu"
+
+#: ../src/traffic-page.c:723
+#, c-format
+msgid ""
+"Traffic: %s, limit set to: %s\n"
+"Time: %s, limit set to: %s\n"
+"Please check entered values and try once more"
+msgstr "Jaringan: %s, batas diatur ke: %s\nWaktu: %s, batas diatur ke: %s\nSilakan periksa nilai yang dimasukkan dan cobalah sekali lagi"
+
+#: ../src/traffic-page.c:728
+msgid "Wrong traffic and time limit values"
+msgstr "Nilai lalu lintas jaringan dan batasan waktu salah"
+
+#: ../src/traffic-page.c:731
+#, c-format
+msgid ""
+"Traffic: %s, limit set to: %s\n"
+"Please check entered values and try once more"
+msgstr "Traffic: %s, Ubah batasan pada: %s\nSilakan periksa nilai yang dimasukkan dan cobalah sekali lagi"
+
+#: ../src/traffic-page.c:734
+msgid "Wrong traffic limit value"
+msgstr "Salah penetapan batas traffic jaringan"
+
+#: ../src/traffic-page.c:737
+#, c-format
+msgid ""
+"Time: %s, limit set to: %s\n"
+"Please check entered values and try once more"
+msgstr "Waktu: %s, batas diatur ke: %s\nSilakan periksa nilai yang dimasukkan dan cobalah sekali lagi"
+
+#: ../src/traffic-page.c:740
+msgid "Wrong time limit value"
+msgstr "Batas nilai waktu salah"
+
+#: ../src/traffic-page.c:834 ../src/traffic-page.c:858
+#: ../src/traffic-page.c:882
+msgid "<small><b>Disconnected</b></small>"
+msgstr "<small><b>Terputus</b></small>"
+
+#: ../src/traffic-page.c:846 ../src/traffic-page.c:852
+#: ../src/traffic-page.c:870 ../src/traffic-page.c:876
+msgid "<small><b>Limit</b></small>"
+msgstr "<small><b>Batasan</b></small>"
+
+#: ../src/traffic-page.c:849 ../src/traffic-page.c:855
+#: ../src/traffic-page.c:873 ../src/traffic-page.c:879
+msgid "<small><b>Disabled</b></small>"
+msgstr "<small><b>Nonaktif</b></small>"
+
+#: ../src/traffic-page.c:1022
+msgid "kbps"
+msgstr "kbps"
+
+#: ../src/traffic-page.c:1032
+msgid "sec"
+msgstr "detik"
+
+#: ../src/traffic-page.c:1086
+msgid "RX speed"
+msgstr "Kecepatan RX"
+
+#: ../src/traffic-page.c:1105
+msgid "TX speed"
+msgstr "Kecepatan TX"
+
+#: ../src/traffic-page.c:1121
+msgid "Parameter"
+msgstr "Parameter"
+
+#: ../src/traffic-page.c:1126
+msgid "Value"
+msgstr "Nilai"
+
+#: ../src/traffic-page.c:1132
+msgid "<small><b>Session</b></small>"
+msgstr ""
+
+#: ../src/traffic-page.c:1135 ../src/traffic-page.c:1159
+#: ../src/traffic-page.c:1171
+msgid "<small><b>Received data</b></small>"
+msgstr "<small><b>Data diterima</b></small>"
+
+#: ../src/traffic-page.c:1138 ../src/traffic-page.c:1162
+#: ../src/traffic-page.c:1174
+msgid "<small><b>Transmitted data</b></small>"
+msgstr "<small><b>Data ditransfer</b></small>"
+
+#: ../src/traffic-page.c:1141
+msgid "<small><b>Receive speed</b></small>"
+msgstr "<small><b>Kecepatan menerima</b></small>"
+
+#: ../src/traffic-page.c:1144
+msgid "<small><b>Transmit speed</b></small>"
+msgstr "<small><b>Kecepatan mengirim</b></small>"
+
+#: ../src/traffic-page.c:1147
+msgid "<small><b>Session time</b></small>"
+msgstr "<small><b>Waktu sesi</b></small>"
+
+#: ../src/traffic-page.c:1150
+msgid "<small><b>Traffic left</b></small>"
+msgstr "<small><b>Sisa traffic</b></small>"
+
+#: ../src/traffic-page.c:1153
+msgid "<small><b>Time left</b></small>"
+msgstr "<small><b>Sisa waktu</b></small>"
+
+#: ../src/traffic-page.c:1156
+msgid "<small><b>Month</b></small>"
+msgstr ""
+
+#: ../src/traffic-page.c:1165 ../src/traffic-page.c:1177
+msgid "<small><b>Total time</b></small>"
+msgstr ""
+
+#: ../src/traffic-page.c:1168
+msgid "<small><b>Year</b></small>"
+msgstr ""
+
+#: ../src/traffic-page.c:1202
+msgid "Traffic limit exceeded... It's time to take rest \\(^_^)/"
+msgstr "Batas lalu lintas jaringan terlampaui... Saatnya beristirahat"
+
+#: ../src/traffic-page.c:1227
+msgid "Time limit exceeded... Go sleep and have nice dreams -_-"
+msgstr "Batas waktu telah terlampaui... Tidurlah dan mimpi indah"
+
+#: ../src/ussd-page.c:68
+msgid "Sample command"
+msgstr "Contoh perintah"
+
+#: ../src/ussd-page.c:290 ../src/ussd-page.c:311
+msgid ""
+"<b>USSD request is not valid</b>\n"
+"<small>Request must be 160 symbols long\n"
+"started with '*' and ended with '#'</small>"
+msgstr "<b>Permintaan USSD tidak sah</b>\n<small>Permintaan harus terdiri dari 160 simbol\ndimulai dengan '*' dan diakhiri dengan '#'</small>"
+
+#: ../src/ussd-page.c:395
+#, c-format
+msgid "Sending USSD request %s..."
+msgstr ""
+
+#: ../src/ussd-page.c:402
+#, c-format
+msgid "Sending USSD response %s..."
+msgstr ""
+
+#: ../src/ussd-page.c:413 ../src/ussd-page.c:416 ../src/ussd-page.c:419
+msgid "<b>Error sending USSD</b>"
+msgstr "<b>Galat mengirim USSD</b>"
+
+#: ../src/ussd-page.c:413
+msgid "Wrong USSD request or device not ready"
+msgstr "Permintaan USSD salah atau perangkat belum siap"
+
+#: ../src/ussd-page.c:416
+msgid "USSD session terminated. You can send new request"
+msgstr "Sesi USSD dihentikan. Anda dapat mengirim permintaan baru"
+
+#: ../src/ussd-page.c:419
+msgid "Wrong USSD request"
+msgstr "Permintaan USSD salah"
+
+#: ../src/ussd-page.c:442
+msgid ""
+"\n"
+"USSD session is active. Waiting for your input...\n"
+msgstr "\nSessi USSD telah aktif. Tunggulah untuk data masukan anda...\n"
+
+#: ../src/ussd-page.c:455
+msgid ""
+"\n"
+"No answer received..."
+msgstr ""
+
+#: ../src/ussd-page.c:538
+msgid "Command"
+msgstr "Perintah"
+
+#: ../src/welcome-window.c:246 ../resources/modem-manager-gui.ui:284
+msgid "_Let's Start!"
+msgstr ""
+
+#: ../src/welcome-window.c:265
+msgid "Service"
+msgstr ""
+
+#: ../src/welcome-window.c:280
+msgid "_Close"
+msgstr ""
+
+#: ../src/welcome-window.c:310
+msgid "Activation..."
+msgstr ""
+
+#: ../src/welcome-window.c:330
+msgid "<span foreground=\"green\">Success</span>"
+msgstr ""
+
+#: ../src/welcome-window.c:333
+#, c-format
+msgid "<span foreground=\"red\">%s</span>"
+msgstr ""
+
+#: ../resources/modem-manager-gui.ui:57
+msgid "Welcome"
+msgstr ""
+
+#: ../resources/modem-manager-gui.ui:106
+msgid ""
+"Despite of it's name, Modem Manager GUI supports different backends. Please "
+"select backends you plan to use. If not sure, just do not change anything."
+msgstr "Meskipun dari namanya, Modem Manager GUI mendukung backend yang berbeda. Silahkan pilih backend yang kamu rencanakan untuk digunakan. Jika tidak yakin, jangan ubah apapun."
+
+#: ../resources/modem-manager-gui.ui:121
+#: ../resources/modem-manager-gui.ui:3593
+msgid "Modem manager"
+msgstr "Pengelola modem"
+
+#: ../resources/modem-manager-gui.ui:136
+#: ../resources/modem-manager-gui.ui:3605
+msgid "Connection manager"
+msgstr "Pengelola koneksi"
+
+#: ../resources/modem-manager-gui.ui:170
+msgid "Welcome to Modem Manager GUI"
+msgstr ""
+
+#: ../resources/modem-manager-gui.ui:184
+msgid "Enable services after activation"
+msgstr ""
+
+#: ../resources/modem-manager-gui.ui:212
+msgid "Services activation"
+msgstr ""
+
+#: ../resources/modem-manager-gui.ui:228
+msgid ""
+"Modem Manager GUI uses special system services to communicate with modems "
+"and network stack. Please wait until all needed services being activated."
+msgstr ""
+
+#: ../resources/modem-manager-gui.ui:309
+msgid "Modem Manager GUI"
+msgstr "Modem Manager GUI"
+
+#: ../resources/modem-manager-gui.ui:329
+msgid "View and select available devices <b>CTRL+F1</b>"
+msgstr "Menampilkan dan memilih perangkat yang tersedia <b>CTRL+F1</b>"
+
+#: ../resources/modem-manager-gui.ui:345
+msgid "Send and receive SMS messages <b>CTRL+F2</b>"
+msgstr "Kirim dan terima pesan SMS <b>CTRL+F2</b>"
+
+#: ../resources/modem-manager-gui.ui:361
+msgid "Send USSD requests <b>CTRL+F3</b>"
+msgstr "Kirim permintaan USSD <b>CTRL+F3</b>"
+
+#: ../resources/modem-manager-gui.ui:377
+msgid "View active device information <b>CTRL+F4</b>"
+msgstr "Menampilkan informasi perangkat aktif <b>CTRL+F4</b>"
+
+#: ../resources/modem-manager-gui.ui:393
+msgid "Scan existing mobile networks <b>CTRL+F5</b>"
+msgstr "Memindai jaringan mobile yang ada <b>CTRL+F5</b>"
+
+#: ../resources/modem-manager-gui.ui:409
+msgid "Monitor network traffic <b>CTRL+F6</b>"
+msgstr "Monitor lalu lintas jaringan <b>CTRL+F6</b>"
+
+#: ../resources/modem-manager-gui.ui:425
+msgid "View system and modem addressbooks <b>CTRL+F7</b>"
+msgstr "Tampilkan buku alamat sistem dan modem <b>CTRL+F7</b>"
+
+#: ../resources/modem-manager-gui.ui:457
+msgid "_Stop"
+msgstr ""
+
+#: ../resources/modem-manager-gui.ui:555
+msgid "Connection"
+msgstr "Koneksi"
+
+#: ../resources/modem-manager-gui.ui:580 ../resources/modem-manager-gui.ui:850
+msgid "Edit"
+msgstr "Sunting"
+
+#: ../resources/modem-manager-gui.ui:598
+msgid "Activate"
+msgstr "Aktifkan"
+
+#: ../resources/modem-manager-gui.ui:668
+msgid "Send new SMS message <b>CTRL+N</b>"
+msgstr "Kirim pesan SMS baru <b>CTRL+N</b>"
+
+#: ../resources/modem-manager-gui.ui:670
+msgid "New"
+msgstr "Baru"
+
+#: ../resources/modem-manager-gui.ui:684
+msgid "Remove selected message <b>CTRL+D</b>"
+msgstr "Hapus pesan terpilih <b>CTRL+D</b>"
+
+#: ../resources/modem-manager-gui.ui:686
+#: ../resources/modem-manager-gui.ui:2036
+msgid "Remove"
+msgstr "Hapus"
+
+#: ../resources/modem-manager-gui.ui:700
+msgid "Answer selected message <b>CTRL+A</b>"
+msgstr "Balas pesan terpilih <b>CTRL+A</b>"
+
+#: ../resources/modem-manager-gui.ui:702
+msgid "Answer"
+msgstr "Jawab"
+
+#: ../resources/modem-manager-gui.ui:801
+msgid "Request"
+msgstr "Meminta"
+
+#: ../resources/modem-manager-gui.ui:832
+#: ../resources/modem-manager-gui.ui:3006
+msgid "Send"
+msgstr "Kirim"
+
+#: ../resources/modem-manager-gui.ui:836
+msgid "Send ussd request <b>CTRL+S</b>"
+msgstr "Kirim permintaan USSD <b>CTRL+S</b>"
+
+#: ../resources/modem-manager-gui.ui:854
+msgid "Edit USSD commands list <b>CTRL+E</b>"
+msgstr "Sunting daftar perintah USSD <b>CTRL+E</b>"
+
+#: ../resources/modem-manager-gui.ui:973
+msgid "IMEI"
+msgstr "IMEI"
+
+#: ../resources/modem-manager-gui.ui:998
+msgid "IMSI/ESN"
+msgstr "IMSI/ESN"
+
+#: ../resources/modem-manager-gui.ui:1026
+msgid "<b>Equipment</b>"
+msgstr "<b>Perlengkapan</b>"
+
+#: ../resources/modem-manager-gui.ui:1096
+msgid "Mode"
+msgstr "Mode"
+
+#: ../resources/modem-manager-gui.ui:1121
+msgid "Signal level"
+msgstr "Tingkat sinyal"
+
+#: ../resources/modem-manager-gui.ui:1133
+msgid "Operator code"
+msgstr "Kode operator"
+
+#: ../resources/modem-manager-gui.ui:1158
+msgid "Registration"
+msgstr "Registrasi"
+
+#: ../resources/modem-manager-gui.ui:1201
+#: ../resources/modem-manager-gui.ui:2261
+msgid "<b>Network</b>"
+msgstr "<b>Jaringan</b>"
+
+#: ../resources/modem-manager-gui.ui:1246
+msgid ""
+"3GPP Location\n"
+"<small>MCC/MNC/LAC/RNC/CID</small>"
+msgstr "Lokasi 3GPP\n<small>MCC/MNC/LAC/RNC/CID</small>"
+
+#: ../resources/modem-manager-gui.ui:1260
+msgid ""
+"GPS location\n"
+"<small>Longitude/Latiude</small>"
+msgstr "Lokasi GPS\n<small>Longitude/Latiude</small>"
+
+#: ../resources/modem-manager-gui.ui:1303
+msgid "<b>Location</b>"
+msgstr "<b>Lokasi</b>"
+
+#: ../resources/modem-manager-gui.ui:1366
+msgid "Scan available mobile networks <b>CTRL+S</b>"
+msgstr "Memindai jaringan mobile yang tersedia <b>CTRL+S</b>"
+
+#: ../resources/modem-manager-gui.ui:1368
+msgid "Start scan"
+msgstr "Mulai memindai"
+
+#: ../resources/modem-manager-gui.ui:1391
+msgid "Create connection"
+msgstr "Buat Koneksi"
+
+#: ../resources/modem-manager-gui.ui:1437
+msgid "Set traffic amount or time limit for disconnect <b>CTRL+L</b>"
+msgstr "Atur batasan jumlah trafik atau waktu untuk memutuskan <b>CTRL+L</b>"
+
+#: ../resources/modem-manager-gui.ui:1439
+msgid "Set limit"
+msgstr "Atur batasan"
+
+#: ../resources/modem-manager-gui.ui:1453
+msgid "View list of active network connections <b>CTRL+C</b>"
+msgstr "Tampilkan daftar koneksi jaringan yang aktif <b>CTRL+C</b>"
+
+#: ../resources/modem-manager-gui.ui:1455
+#: ../resources/modem-manager-gui.ui:1954
+msgid "Connections"
+msgstr "Koneksi"
+
+#: ../resources/modem-manager-gui.ui:1469
+msgid "View daily traffic statistics <b>CTRL+S</b>"
+msgstr "Tampilkan statistik trafik harian <b>CTRL+S</b>"
+
+#: ../resources/modem-manager-gui.ui:1471
+msgid "Statistics"
+msgstr "Statistik"
+
+#: ../resources/modem-manager-gui.ui:1522
+msgid "Transmission speed"
+msgstr "Kecepatan transmisi"
+
+#: ../resources/modem-manager-gui.ui:1583
+msgid "Add new contact to modem addressbook <b>CTRL+N</b>"
+msgstr "Tambah kontak baru di buku alamat modem <b>CTRL+N</b>"
+
+#: ../resources/modem-manager-gui.ui:1585
+#: ../resources/modem-manager-gui.ui:2745
+msgid "New contact"
+msgstr "Kontak baru"
+
+#: ../resources/modem-manager-gui.ui:1599
+msgid "Remove contact from modem addressbook <b>CTRL+D</b>"
+msgstr "Hapus kontak dari buku alamat modem <b>CTRL+D</b>"
+
+#: ../resources/modem-manager-gui.ui:1601
+msgid "Remove contact"
+msgstr "Hapus kontak"
+
+#: ../resources/modem-manager-gui.ui:1625
+msgid "Send SMS message to selected contact <b>CTRL+S</b>"
+msgstr "Kirim pesan SMS kepada kontak terpilih <b>CTRL+S</b>"
+
+#: ../resources/modem-manager-gui.ui:1627
+msgid "Send SMS"
+msgstr "Kirim SMS"
+
+#: ../resources/modem-manager-gui.ui:1729
+msgid "Copyright 2012-2015 Alex"
+msgstr ""
+
+#: ../resources/modem-manager-gui.ui:1730
+msgid "Tool for EDGE/3G/4G modem specific functions control"
+msgstr "Alat untuk mengendalikan fungsi khusus pada modem EDGE/3G/4G"
+
+#: ../resources/modem-manager-gui.ui:1732
+msgid "Homepage"
+msgstr "Situs Resmi"
+
+#: ../resources/modem-manager-gui.ui:1733
+msgid "GPL3"
+msgstr "GPL3"
+
+#: ../resources/modem-manager-gui.ui:1735
+msgid "English: Alex <alex@linuxonly.ru>"
+msgstr "English: Alex <alex@linuxonly.ru>"
+
+#: ../resources/modem-manager-gui.ui:1767
+msgid "Add new connection"
+msgstr "Tambah koneksi baru"
+
+#: ../resources/modem-manager-gui.ui:1846
+msgid "Active connections"
+msgstr "Koneksi aktif"
+
+#: ../resources/modem-manager-gui.ui:1899
+msgid "Terminate selected application using SIGTERM signal <b>CTRL+T</b>"
+msgstr "Hentikan aplikasi yang dipilih menggunakan SIGTERM signal <b>CTRL+T</b>"
+
+#: ../resources/modem-manager-gui.ui:1901
+msgid "Terminate application"
+msgstr "Hentikan aplikasi"
+
+#: ../resources/modem-manager-gui.ui:2018
+msgid "Add new broadband connection"
+msgstr "Tambah koneksi broadband baru"
+
+#: ../resources/modem-manager-gui.ui:2020
+#: ../resources/modem-manager-gui.ui:4374
+msgid "Add"
+msgstr "Tambah"
+
+#: ../resources/modem-manager-gui.ui:2034
+msgid "Remove selected connection"
+msgstr "Hapus koneksi yang dipilih"
+
+#: ../resources/modem-manager-gui.ui:2050
+msgid "Save changes"
+msgstr "Simpan perubahan"
+
+#: ../resources/modem-manager-gui.ui:2052
+#: ../resources/modem-manager-gui.ui:3021
+msgid "Save"
+msgstr "Simpan"
+
+#: ../resources/modem-manager-gui.ui:2131
+msgid "Name"
+msgstr "Nama"
+
+#: ../resources/modem-manager-gui.ui:2144
+msgid "APN"
+msgstr "APN"
+
+#: ../resources/modem-manager-gui.ui:2169
+msgid "<b>Connection</b>"
+msgstr "<b>Koneksi</b>"
+
+#: ../resources/modem-manager-gui.ui:2202
+msgid "Network ID"
+msgstr "ID Jaringan"
+
+#: ../resources/modem-manager-gui.ui:2222
+msgid "Home"
+msgstr "Rumah"
+
+#: ../resources/modem-manager-gui.ui:2238
+msgid "Home and roaming"
+msgstr "Rumah dan roaming"
+
+#: ../resources/modem-manager-gui.ui:2294
+msgid "Access number"
+msgstr "Nomor Akses"
+
+#: ../resources/modem-manager-gui.ui:2307
+msgid "User name"
+msgstr "Nama Pengguna"
+
+#: ../resources/modem-manager-gui.ui:2320
+msgid "Password"
+msgstr "Kata Sandi"
+
+#: ../resources/modem-manager-gui.ui:2368
+msgid "<b>Authentication</b>"
+msgstr "<b>Autentifikasi</b>"
+
+#: ../resources/modem-manager-gui.ui:2397
+msgid "Dynamic"
+msgstr "Dinamik"
+
+#: ../resources/modem-manager-gui.ui:2413
+msgid "Static"
+msgstr "Statik"
+
+#: ../resources/modem-manager-gui.ui:2434
+msgid "DNS 1"
+msgstr "DNS 1"
+
+#: ../resources/modem-manager-gui.ui:2447
+msgid "DNS 2"
+msgstr "DNS 2"
+
+#: ../resources/modem-manager-gui.ui:2484
+msgid "<b>DNS</b>"
+msgstr "<b>DNS</b>"
+
+#: ../resources/modem-manager-gui.ui:2539
+msgid "Error"
+msgstr "Galat"
+
+#: ../resources/modem-manager-gui.ui:2645
+msgid "Ask me again"
+msgstr "Tanyakan nanti"
+
+#: ../resources/modem-manager-gui.ui:2663
+msgid "<b>Quit or minimize?</b>"
+msgstr "<b>Keluar atau minimize?</b>"
+
+#: ../resources/modem-manager-gui.ui:2675
+msgid "What do you want application to do on window close?"
+msgstr "Anda menutup jendela, apa yang Anda ingin aplikasi lakukan?"
+
+#: ../resources/modem-manager-gui.ui:2684
+msgid "Just quit"
+msgstr "Keluar saja"
+
+#: ../resources/modem-manager-gui.ui:2699
+msgid "Minimize to tray or messaging menu"
+msgstr "Minimize ke menu tray atau perpesanan"
+
+#: ../resources/modem-manager-gui.ui:2957
+msgid "New SMS message"
+msgstr "Pesan SMS baru"
+
+#: ../resources/modem-manager-gui.ui:3073
+msgid "Number"
+msgstr "Nomor"
+
+#: ../resources/modem-manager-gui.ui:3217
+msgid "Use sounds for events"
+msgstr "Gunakan suara untuk kejadian"
+
+#: ../resources/modem-manager-gui.ui:3232
+msgid "Hide window to tray on close"
+msgstr "Sembunyikan jendela ke tray saat menutup"
+
+#: ../resources/modem-manager-gui.ui:3247
+msgid "Save window geometry and placement"
+msgstr "Simpan ukuran dan posisi jendela"
+
+#: ../resources/modem-manager-gui.ui:3262
+msgid "Add program to autostart list"
+msgstr "Tambah program ke daftar otomatis jalan"
+
+#: ../resources/modem-manager-gui.ui:3283
+msgid "<b>Behaviour</b>"
+msgstr "<b>Kelakuan</b>"
+
+#: ../resources/modem-manager-gui.ui:3293
+msgid "Behaviour"
+msgstr "Tingkah Laku"
+
+#: ../resources/modem-manager-gui.ui:3322
+msgid "Concatenate messages"
+msgstr "Menyatukan pesan"
+
+#: ../resources/modem-manager-gui.ui:3337
+msgid "Expand folders"
+msgstr "Memperluas folder"
+
+#: ../resources/modem-manager-gui.ui:3352
+msgid "Place old messages on top"
+msgstr "Letakkan pesan lama di atas"
+
+#: ../resources/modem-manager-gui.ui:3373
+msgid "<b>Presentation</b>"
+msgstr "<b>Presentasi</b>"
+
+#: ../resources/modem-manager-gui.ui:3403
+msgid "Validity period"
+msgstr "Masa berlaku"
+
+#: ../resources/modem-manager-gui.ui:3412
+msgid "Send delivery report if possible"
+msgstr "Kirim laporan pengiriman jika mungkin"
+
+#: ../resources/modem-manager-gui.ui:3450
+msgid "<b>Message parameters</b>"
+msgstr "<b>Parameter Pesan</b>"
+
+#: ../resources/modem-manager-gui.ui:3521
+msgid "RX Speed graph color"
+msgstr "Warna grafik kecepatan RX"
+
+#: ../resources/modem-manager-gui.ui:3533
+msgid "TX Speed graph color"
+msgstr "Warna grafik kecepatan TX"
+
+#: ../resources/modem-manager-gui.ui:3548
+msgid "<b>Traffic</b>"
+msgstr "<b>Trafik</b>"
+
+#: ../resources/modem-manager-gui.ui:3561
+msgid "Graphs"
+msgstr "Grafik"
+
+#: ../resources/modem-manager-gui.ui:3646
+msgid "<b>Preferred backends</b>"
+msgstr "<b>Backend yang disukai</b>"
+
+#: ../resources/modem-manager-gui.ui:3677
+msgid "Enable device"
+msgstr "Aktifkan perangkat"
+
+#: ../resources/modem-manager-gui.ui:3689
+msgid "Send SMS message"
+msgstr "Kirim pesan SMS"
+
+#: ../resources/modem-manager-gui.ui:3701
+msgid "Send USSD request"
+msgstr "Kirim permintaan USSD"
+
+#: ../resources/modem-manager-gui.ui:3713
+msgid "Scan networks"
+msgstr "Pindai jaringan"
+
+#: ../resources/modem-manager-gui.ui:3792
+msgid "<b>Opertions timeouts</b>"
+msgstr "<b>Operasi kehabisan waktu</b>"
+
+#: ../resources/modem-manager-gui.ui:3812
+msgid "Modules"
+msgstr "Modul"
+
+#: ../resources/modem-manager-gui.ui:3836
+msgid "Question"
+msgstr "Pertanyaan"
+
+#: ../resources/modem-manager-gui.ui:3869
+msgid "Traffic limits"
+msgstr "Batas lalu lintas jaringan"
+
+#: ../resources/modem-manager-gui.ui:3931
+msgid "Eanble traffic limit"
+msgstr "Aktifkan batasan lalu lintas jaringan"
+
+#: ../resources/modem-manager-gui.ui:3946
+msgid "Enable time limit"
+msgstr "Aktifkan batasan waktu"
+
+#: ../resources/modem-manager-gui.ui:3989
+msgid "Mb"
+msgstr "Mb"
+
+#: ../resources/modem-manager-gui.ui:3990
+msgid "Gb"
+msgstr "Gb"
+
+#: ../resources/modem-manager-gui.ui:3991
+msgid "Tb"
+msgstr "Tb"
+
+#: ../resources/modem-manager-gui.ui:4004
+#: ../resources/modem-manager-gui.ui:4095
+msgid "Message"
+msgstr "Pesan"
+
+#: ../resources/modem-manager-gui.ui:4028
+#: ../resources/modem-manager-gui.ui:4119
+msgid "Action"
+msgstr "Tindakan"
+
+#: ../resources/modem-manager-gui.ui:4041
+#: ../resources/modem-manager-gui.ui:4132
+msgid "Show message"
+msgstr "Tampilkan Pesan"
+
+#: ../resources/modem-manager-gui.ui:4042
+#: ../resources/modem-manager-gui.ui:4133
+msgid "Disconnect"
+msgstr "Putuskan"
+
+#: ../resources/modem-manager-gui.ui:4056
+msgid "Time"
+msgstr "Waktu"
+
+#: ../resources/modem-manager-gui.ui:4081
+msgid "Minutes"
+msgstr "Menit"
+
+#: ../resources/modem-manager-gui.ui:4082
+msgid "Hours"
+msgstr "Jam"
+
+#: ../resources/modem-manager-gui.ui:4159
+msgid "Traffic statistics"
+msgstr "Statistik lalu lintas jaringan"
+
+#: ../resources/modem-manager-gui.ui:4213
+msgid "Selected statistics period"
+msgstr "Periode statistik terpilih"
+
+#: ../resources/modem-manager-gui.ui:4254
+msgid "January"
+msgstr "Januari"
+
+#: ../resources/modem-manager-gui.ui:4255
+msgid "February"
+msgstr "Februari"
+
+#: ../resources/modem-manager-gui.ui:4256
+msgid "March"
+msgstr "Maret"
+
+#: ../resources/modem-manager-gui.ui:4257
+msgid "April"
+msgstr "April"
+
+#: ../resources/modem-manager-gui.ui:4258
+msgid "May"
+msgstr "Mei"
+
+#: ../resources/modem-manager-gui.ui:4259
+msgid "June"
+msgstr "Juni"
+
+#: ../resources/modem-manager-gui.ui:4260
+msgid "July"
+msgstr "Juli"
+
+#: ../resources/modem-manager-gui.ui:4261
+msgid "August"
+msgstr "Agustus"
+
+#: ../resources/modem-manager-gui.ui:4262
+msgid "September"
+msgstr "Septembar"
+
+#: ../resources/modem-manager-gui.ui:4263
+msgid "October"
+msgstr "Oktober"
+
+#: ../resources/modem-manager-gui.ui:4264
+msgid "November"
+msgstr "November"
+
+#: ../resources/modem-manager-gui.ui:4265
+msgid "December"
+msgstr "Desember"
+
+#: ../resources/modem-manager-gui.ui:4319
+msgid "USSD commands"
+msgstr "Perintah USSD"
+
+#: ../resources/modem-manager-gui.ui:4372
+msgid "Add new USSD command <b>CTRL+N</b>"
+msgstr "Tambah perintah USSD baru <b>CTRL+N</b>"
+
+#: ../resources/modem-manager-gui.ui:4388
+msgid "Remove selected USSD command <b>CTRL+D</b>"
+msgstr "Hapus perintah USSD terpilih <b>CTRL+D</b>"
+
+#: ../resources/modem-manager-gui.ui:4390
+msgid "Delete"
+msgstr "Hapus"
+
+#: ../resources/modem-manager-gui.ui:4414
+msgid ""
+"Force USSD answer encoding change from GSM7 to UCS2 (useful for Huawei "
+"modems) <b>CTRL+E</b>"
+msgstr "Paksa balasan USSD mengubah enkoding dari GSM7 ke UCS2 (berguna untuk modem Huawei) <b>CTRL+E</b>"
+
+#: ../resources/modem-manager-gui.ui:4416
+msgid "Change message encoding"
+msgstr "Ubah enkoding pesan"

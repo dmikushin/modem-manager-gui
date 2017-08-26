@@ -1,0 +1,56 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      type="guide" style="task"
+      id="index">
+
+  <info>
+    <desc>Help for Modem Manager GUI.</desc>
+    <title type='link' role="trail"><media type="image" src="figures/gnome-hello-logo.png"/></title>
+    <title type='text'>Modem Manager GUI</title>
+    <revision version="0.1" date="2015-10-02" status="incomplete"/>
+    <credit type="author">
+      <name>Mario Blättermann</name>
+      <email>mario.blaettermann@gmail.com</email>
+    </credit>
+
+    <license>
+      <p>Creative Commons Share Alike 3.0</p>
+    </license>
+
+  </info>
+
+  <title><media type="image" src="figures/modem-manager-gui-logo.png">GNOME Hello logo</media>Modem Manager GUI manual</title>
+  
+  <p>
+   <app>Modem Manager GUI</app> is a graphical frontend for the ModemManager daemon
+   which is able to control specific modem functions.
+  </p>
+      <p>
+       You can use <app>Modem Manager GUI</app> for the following tasks:
+      </p>
+      <list>
+       <item>
+        <p>Send and receive SMS messages with messages concatenation</p>
+       </item>
+       <item>
+        <p>Send USSD requests and receive answers in system encoding</p>
+       </item>
+       <item>
+        <p>Get modem and SIM information (device info, operator name, mode, IMEI,
+        IMSI/ESN, Signal level)</p>
+       </item>
+       <item>
+        <p>Scan available mobile networks</p>
+       </item>
+       <item>
+        <p>Control data transmission process and set session traffic and time limits</p>
+       </item>
+      </list>
+
+  <section id="usage" style="2column">
+    <title>Usage</title>
+  </section>
+  
+    <section id="contributing">
+    <title>Contribute to the project</title>
+  </section>
+</page>

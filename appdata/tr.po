@@ -1,0 +1,94 @@
+#
+# Translators:
+# Ozancan Karataş <ozancankaratas96@outlook.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Modem Manager GUI\n"
+"POT-Creation-Date: 2015-10-06 21:00+0300\n"
+"PO-Revision-Date: 2015-10-05 12:50+0000\n"
+"Last-Translator: Ozancan Karataş <ozancankaratas96@outlook.com>\n"
+"Language-Team: Turkish (http://www.transifex.com/ethereal/modem-manager-gui/"
+"language/tr/)\n"
+"Language: tr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. (itstool) path: application/name
+#: modem-manager-gui.appdata.xml.in:7
+msgid "Modem Manager GUI"
+msgstr "Modem Manager GUI"
+
+#. (itstool) path: application/summary
+#: modem-manager-gui.appdata.xml.in:8
+msgid "Control EDGE/3G/4G broadband modem specific functions"
+msgstr "Belirli EDGE/3G/4G geniş bant modem işlevlerini denetleyin"
+
+#. (itstool) path: description/p
+#: modem-manager-gui.appdata.xml.in:10
+msgid ""
+"Simple graphical interface compatible with Modem manager, Wader and oFono "
+"system services able to control EDGE/3G/4G broadband modem specific "
+"functions."
+msgstr ""
+"Modem yöneticisi ile uyumlu basit görsel arabirim, Wader ve oFono sistem "
+"hizmetleri kullanarak belirli EDGE/3G/4G geniş bant modem işlevlerini "
+"denetlemenizi sağlar."
+
+#. (itstool) path: description/p
+#: modem-manager-gui.appdata.xml.in:14
+msgid ""
+"You can check balance of your SIM card, send or receive SMS messages, "
+"control mobile traffic consuption and more using Modem Manager GUI."
+msgstr ""
+"SIM kart bakiyenizi denetleyebilir, SMS mesajları gönderip alabilir, mobil "
+"trafik tüketimini ve daha fazla kullanım denetimini Modem Manager GUI ile "
+"gerçekleştirebilirsiniz."
+
+#. (itstool) path: description/p
+#: modem-manager-gui.appdata.xml.in:18
+msgid "Current features:"
+msgstr "Kullanılabilecek özellikler:"
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:21
+msgid "Send and receive SMS messages and store messages in database"
+msgstr "SMS mesajları gönderip alın ve onları veritabanında saklayın"
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:22
+msgid ""
+"Initiate USSD requests and read answers (also using interactive sessions)"
+msgstr ""
+"USSD istekleri başlatın ve yanıtları okuyun (ayrıca eş zamanlı oturumlar "
+"kullanılabilir)"
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:23
+msgid ""
+"View device information: operator name, device mode, IMEI, IMSI, signal level"
+msgstr ""
+"Aygıt bilgilerini görüntüleyin: İşletmeci adı, aygıt kipi, IMEI, IMSI, "
+"sinyal düzeyi"
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:24
+msgid "Scan available mobile networks"
+msgstr "Kullanılabilir mobil ağları tarayın"
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:25
+msgid "View mobile traffic statistics and set limits"
+msgstr "Mobil trafik istatistiklerini görüntüleyin ve sınırlamalar uygulayın"
+
+#. (itstool) path: description/p
+#: modem-manager-gui.appdata.xml.in:27
+msgid ""
+"Please note that some features may be not available due to limitations of "
+"different system services or even different versions of system service in "
+"use."
+msgstr ""
+"Bazı özelliklerin farklı sistem hizmetlerinin sınırlandırmaları nedeniyle ya "
+"da farklı sistem hizmeti sürümlerinde kullanılamayabileceğini lütfen "
+"unutmayın."

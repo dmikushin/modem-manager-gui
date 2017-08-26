@@ -1,0 +1,34 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      xmlns:e="http://projectmallard.org/experimental/"
+      type="guide"
+      id="report-bugs">
+
+  <info>
+    <link type="guide" xref="index#contributing"/>
+    <revision pkgversion="0.0.18" version="0.1" date="2015-10-02" status="incomplete"/>
+    <desc>
+      Report bugs and request new features.
+    </desc>
+    <credit type="author">
+      <name>Mario Blättermann</name>
+      <email>mario.blaettermann@gmail.com</email>
+    </credit>
+    <license>
+      <p>Creative Commons Share Alike 3.0</p>
+    </license>
+  </info>
+
+  <title>Report bugs</title>
+      <p>If you found a bug in <app>Modem Manager GUI</app>, you can use the
+      <link href="http://linuxonly.ru/cms/e107_plugins/bug_tracker/bugs.php">
+      Bug Tracker</link>.</p>
+      
+      <p>Before filing a new bug, please have a look at <link href="http://linuxonly.ru/cms/e107_plugins/bug_tracker/bugs.php?0.view.3.0.0">
+      the existing ones</link> first. Maybe someone else has already encountered the
+      same problem? Then you might write your comments there.</p>
+    
+      <note style="info">
+      <p>You can also use the Bug Tracker for feature requests.</p>
+      </note>
+
+</page>

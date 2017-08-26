@@ -1,0 +1,209 @@
+#!/bin/sh
+
+#      configure
+#      
+#      Copyright 2012-2015 Alex <alex@linuxonly.ru>
+#                     2013 Graham Inggs <graham@nerve.org.za>
+#      
+#      This program is free software: you can redistribute it and/or modify
+#      it under the terms of the GNU General Public License as published by
+#      the Free Software Foundation; either version 3 of the License, or
+#      (at your option) any later version.
+#      
+#      This program is distributed in the hope that it will be useful,
+#      but WITHOUT ANY WARRANTY; without even the implied warranty of
+#      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#      GNU General Public License for more details.
+#      
+#      You should have received a copy of the GNU General Public License
+#      along with this program. If not, see <http://www.gnu.org/licenses/>.
+
+
+prefix="/usr"
+libpath="/usr/lib"
+addlibsnames=""
+prefixchanged=false
+libpathchanged=false
+ofonoplugin=true
+spellchecker=1
+
+cflags=$CFLAGS
+if [ "x$cflags" = x ] ; then
+    cflags='-mtune=native -O3'
+fi
+
+for arg_iter in "$@"; do
+    arg=${arg_iter%%=*}
+    arg_value=${arg_iter#*=}
+    case $arg in
+        --help)
+echo "This script generates Modem Manager GUI configuration and build files. It also
+checks if all dependencies are fulfilled.
+Used without arguments, default settings are applied. Arguments are :
+    --help : Display this message and exit.
+    --prefix=PATH : Set PATH as file-system root for installation.
+    --libdir=PATH : Set PATH as a directory for libraries.
+    --cflags=PARAMETERS : Pass PARAMETERS to the compiler."
+            exit 0;;
+
+        --prefix)
+            prefixchanged=true
+            prefix=$(eval echo $arg_value);;
+
+        --libdir)
+            libpathchanged=true
+            libpath=$(eval echo $arg_value);;
+
+        --cflags)
+            echo "Using : \"$arg_value\" as compilation options."
+            cflags="$arg_value ";;
+
+        
+    esac
+done
+
+if $prefixchanged ; then
+    if ! $libpathchanged ; then 
+            libpath="$prefix/lib"
+    fi
+fi
+
+echo -n "Checking dependencies... "
+
+if ! pkg-config --exists 'gtk+-3.0 >= 3.4.0'; then
+	echo "ERROR: Please install GTK+ version 3.4.0 or later with development headers."
+	exit 1
+fi
+
+if ! test -e "/usr/include/gdbm/gdbm.h"; then
+	if ! test -e "/usr/include/gdbm.h"; then
+		echo "ERROR: Please install GDBM library with development headers."
+		exit 1
+	fi
+fi
+
+if ! pkg-config --exists 'ofono >= 1.9'; then
+	echo "WARNING: oFono plugin won't be built. Please install oFono development package for version 1.9 or later if you want better oFono experience."
+	ofonoplugin=false
+fi
+
+if ! pkg-config --exists 'gtkspell3-3.0 >= 3.0.3'; then
+	echo "WARNING: Spell checking won't be supported. Please install gtkspell version 3.0.3 or later with development headers if you want to use it."
+	spellchecker=0
+else
+	if [ -z "$addlibsnames" ]; then
+ 		addlibsnames="gtkspell3-3.0"
+	else
+		addlibsnames="${addlibsnames} gtkspell3-3.0"
+	fi	
+fi
+
+echo done
+
+
+echo -n "Generating Makefile_h... "
+echo "#WARNING: Auto-generated file, edit with care.
+CFLAGS := $cflags
+LIBPATH := $libpath
+PREFIX := $prefix
+ADDLIBSNAMES := $addlibsnames
+OFONOPLUGIN := $ofonoplugin" > Makefile_h
+echo done
+
+echo -n "Generating resources.h... "
+echo "/*
+ *      resources.h
+ *      
+ *      Copyright 2012-2015 Alex <alex@linuxonly.ru>
+ *      
+ *      This program is free software: you can redistribute it and/or modify
+ *      it under the terms of the GNU General Public License as published by
+ *      the Free Software Foundation; either version 3 of the License, or
+ *      (at your option) any later version.
+ *      
+ *      This program is distributed in the hope that it will be useful,
+ *      but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *      GNU General Public License for more details.
+ *      
+ *      You should have received a copy of the GNU General Public License
+ *      along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/* WARNING: Auto-generated file, edit with care. */
+
+#ifndef __RESOURCES_H__
+#define __RESOURCES_H__
+
+#define RESOURCE_MAINWINDOW_ICON         \"$prefix/share/pixmaps/modem-manager-gui.png\"
+#define RESOURCE_MAINWINDOW_UI           \"$prefix/share/modem-manager-gui/ui/modem-manager-gui.ui\"
+
+#define RESOURCE_TOOLBAR_DEV             \"$prefix/share/modem-manager-gui/pixmaps/dev-tb.png\"
+#define RESOURCE_TOOLBAR_SMS             \"$prefix/share/modem-manager-gui/pixmaps/sms-tb.png\"
+#define RESOURCE_TOOLBAR_USSD            \"$prefix/share/modem-manager-gui/pixmaps/ussd-tb.png\"
+#define RESOURCE_TOOLBAR_INFO            \"$prefix/share/modem-manager-gui/pixmaps/info-tb.png\"
+#define RESOURCE_TOOLBAR_SCAN            \"$prefix/share/modem-manager-gui/pixmaps/scan-tb.png\"
+#define RESOURCE_TOOLBAR_CONT            \"$prefix/share/modem-manager-gui/pixmaps/cont-tb.png\"
+#define RESOURCE_TOOLBAR_TRAFFIC         \"$prefix/share/modem-manager-gui/pixmaps/traffic-tb.png\"
+#define RESOURCE_SMS_READ                \"$prefix/share/modem-manager-gui/pixmaps/sms-read.png\"
+#define RESOURCE_SMS_UNREAD              \"$prefix/share/modem-manager-gui/pixmaps/sms-unread.png\"
+#define RESOURCE_MESSAGE_RECIEVED        \"$prefix/share/modem-manager-gui/pixmaps/message-received.png\"
+#define RESOURCE_MESSAGE_SENT            \"$prefix/share/modem-manager-gui/pixmaps/message-sent.png\"
+#define RESOURCE_MESSAGE_DRAFTS          \"$prefix/share/modem-manager-gui/pixmaps/message-drafts.png\"
+#define RESOURCE_INFO_EQUIPMENT          \"$prefix/share/modem-manager-gui/pixmaps/info-equipment.png\"
+#define RESOURCE_INFO_NETWORK            \"$prefix/share/modem-manager-gui/pixmaps/info-network.png\"
+#define RESOURCE_INFO_LOCATION           \"$prefix/share/modem-manager-gui/pixmaps/info-location.png\"
+#define RESOURCE_SIGNAL_0                \"$prefix/share/modem-manager-gui/pixmaps/signal-0.png\"
+#define RESOURCE_SIGNAL_25               \"$prefix/share/modem-manager-gui/pixmaps/signal-25.png\"
+#define RESOURCE_SIGNAL_50               \"$prefix/share/modem-manager-gui/pixmaps/signal-50.png\"
+#define RESOURCE_SIGNAL_75               \"$prefix/share/modem-manager-gui/pixmaps/signal-75.png\"
+#define RESOURCE_SIGNAL_100              \"$prefix/share/modem-manager-gui/pixmaps/signal-100.png\"
+
+#define RESOURCE_SOUND_MESSAGE           \"$prefix/share/modem-manager-gui/sounds/message.ogg\"
+
+#define RESOURCE_DESKTOP_FILE            \"$prefix/share/applications/modem-manager-gui.desktop\"
+
+#define RESOURCE_MODULES_DIR             \"$libpath/modem-manager-gui/modules/\"
+
+#define RESOURCE_LOCALE_DIR              \"$prefix/share/locale/\"
+#define RESOURCE_LOCALE_DOMAIN           \"modem-manager-gui\"
+
+#define RESOURCE_PROVIDERS_DB            \"$prefix/share/mobile-broadband-provider-info/serviceproviders.xml\"
+
+#define RESOURCE_SPELLCHECKER_ENABLED    $spellchecker
+
+#endif // __RESOURCES_H__" > src/resources.h
+echo done
+
+echo -n "Generating launcher... "
+echo "[Desktop Entry]
+Name=Modem Manager GUI
+GenericName=Broadband modem management tool
+GenericName[ru]=Инструмент для управления модемом
+Comment=Graphical interface for Modem manager daemon control
+Comment[ru]=Программа для управления специфическими функциями EDGE/3G/4G модемов
+Comment[uz]=EDGE/3G/4G modemning o'ziga xos vazifalarini boshqarish vositasi
+Comment[uk]=Інструмент для керування специфічними функціями EDGE/3G/4G модемів
+Comment[pt_BR]=Ferramenta para controle de funções específicas de modem EDGE/3G/4G
+Comment[tr]=EDGE/3G/4G modemler için özel işlev kontrol aracı
+Comment[id]=Perangkat lunak untuk mengendalikan fungsi spesifik modem EDGE/3G/4G
+Comment[de]=Werkzeug zur Steuerung spezifischer Funktionen von EDGE/3G/4G-Modems
+Comment[ast]=Interfaz gráfica de control del daemon de xestión del módem
+Comment[zh_CN]=调制解调器管理工具的图形用户界面
+Comment[fr]=Interface graphique pour la commande du démon de gestion de modem
+Comment[gl]=Interface gráfica para controlar o daemon do xestor o módem
+Comment[ms]=Antaramuka bergrafik untuk kawalan daemon pengurus Modem
+Comment[ro]=Interfață grafică pentru administrarea serviciului pentru modemuri
+Comment[pt]=Interface gráfica para controlo daemon do gestor de Modem
+Comment[sl]=Grafični vmesnik za nadzorovanje ozadnjega programa upravljalnika modema
+Comment[es]=Interfaz gráfico para el control del Servicio de gestión del modem
+Comment[sv]=Grafiskt gränssnitt för kontroll av modemhanteraredemon
+Exec=modem-manager-gui
+Icon=modem-manager-gui
+Terminal=false
+Type=Application
+Categories=System;
+Keywords=modem;manager;sms;ussd;" > resources/modem-manager-gui.desktop
+echo done
+
+

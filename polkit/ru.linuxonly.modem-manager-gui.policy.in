@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE policyconfig PUBLIC
+ "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
+ "http://www.freedesktop.org/standards/PolicyKit/1.0/policyconfig.dtd">
+<policyconfig>
+  <vendor>The LinuxONLY Project</vendor>
+  <vendor_url>http://www.linuxonly.ru/</vendor_url>
+
+  <action id="ru.linuxonly.modem-manager-gui.manage-services">
+    <description>Enable and start modem management services</description>
+    <message>Modem management services aren't running. You need to authenticate to enable and start these services.</message>
+    <defaults>
+      <allow_any>no</allow_any>
+      <allow_inactive>no</allow_inactive>
+      <allow_active>auth_admin_keep</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.imply">org.freedesktop.systemd1.manage-units org.freedesktop.systemd1.manage-unit-files</annotate>
+  </action>
+  
+  <action id="ru.linuxonly.modem-manager-gui.manage-modem-mm07">
+    <description>Use modem management service</description>
+    <message>Modem management service needs your credentials. You need to authenticate to use this service.</message>
+    <defaults>
+      <allow_any>no</allow_any>
+      <allow_inactive>no</allow_inactive>
+      <allow_active>yes</allow_active>
+    </defaults>
+    <annotate key="org.freedesktop.policykit.imply">org.freedesktop.ModemManager1.Control org.freedesktop.ModemManager1.Device.Control org.freedesktop.ModemManager1.Messaging org.freedesktop.ModemManager1.USSD org.freedesktop.ModemManager1.Contacts org.freedesktop.ModemManager1.Location</annotate>
+  </action>
+
+</policyconfig>

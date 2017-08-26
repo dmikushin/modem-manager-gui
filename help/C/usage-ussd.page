@@ -1,0 +1,61 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      xmlns:e="http://projectmallard.org/experimental/"
+      type="guide"
+      id="usage-ussd">
+
+  <info>
+    <link type="guide" xref="index#usage"/>
+    <revision pkgversion="0.0.18" version="0.1" date="2015-10-02" status="incomplete"/>
+    <desc>
+      Use <app>Modem Manager GUI</app> for send USSD codes and receive the answers.
+    </desc>
+    <credit type="author">
+      <name>Mario Blättermann</name>
+      <email>mario.blaettermann@gmail.com</email>
+    </credit>
+    <credit type="author">
+      <name>Alex</name>
+      <email>alex@linuxonly.ru</email>
+    </credit>
+    <license>
+      <p>Creative Commons Share Alike 3.0</p>
+    </license>
+  </info>
+
+   <title>USSD codes</title>
+   <p><app>Modem Manager GUI</app> is able to send USSD codes. These codes are controlling
+     some network functions, for example the visibility of your phone number when sending a SMS.</p>
+   
+   <p>To use the USSD functions, click on the <gui style="button">USSD</gui> button
+     in the toolbar.</p>
+
+   <figure>
+    <media type="image" mime="image/png" src="figures/ussd-window.png">
+      USSD window of <app>Modem Manager GUI</app>.
+    </media>
+   </figure>
+   
+   <p>In the text entry on top of the window, the code <cmd>*100#</cmd> is already displayed.
+   This code is the usual one for requesting the balance for a prepaid card. If you like
+   to send another code, click on the <gui style="button">Edit</gui> button on the right</p>.
+
+   <p><app>Modem Manager GUI</app> supports interactive USSD sessions, so pay attention to hints
+    displayed under USSD answers. You can send USSD responses using text entry for USSD commands. If
+    you'll send new USSD command while USSD session is active, this session will be closed automatically.</p>
+   
+   <note style="hint">
+     <p>If you use Huawei device and get unreadable USSD answers, you can try to click on the
+      <gui style="button">Edit</gui> button and toggle the <gui style="button">Change message encoding</gui>
+      button in the toolbar of opened window.</p>
+   </note>
+
+   <note style="hint">
+     <p>USSD codes are only available in networks which use the
+     <link href="http://en.wikipedia.org/wiki/3rd_Generation_Partnership_Project">3GPP standards
+     </link>.</p>
+   </note>
+   
+   <p>You can use such codes for many purposes: change plan, request balance, block number, etc.</p> 
+      
+      
+</page>

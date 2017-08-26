@@ -1,0 +1,42 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      xmlns:e="http://projectmallard.org/experimental/"
+      type="guide"
+      id="contrib-translations">
+
+  <info>
+    <link type="guide" xref="index#contributing"/>
+    <revision pkgversion="0.0.18" version="0.1" date="2015-10-02" status="incomplete"/>
+    <desc>
+      Translate <app>Modem Manager GUI</app> into your native language.
+    </desc>
+    <credit type="author">
+      <name>Mario Blättermann</name>
+      <email>mario.blaettermann@gmail.com</email>
+    </credit>
+    <license>
+      <p>Creative Commons Share Alike 3.0</p>
+    </license>
+  </info>
+
+   <title>Translations</title>
+      <p>The graphical user interface, the traditional man page and the Gnome-style
+      user manual of <app>Modem Manager GUI</app> can be translated into your language.
+      </p>
+      <p>
+      There is a <link href="https://www.transifex.com/projects/p/modem-manager-gui/">
+      project page on Transifex</link> where existing translations are hosted and also
+      new ones can be provided.
+      </p>
+
+      <p>For general help on how Transifex works, see the
+      <link href="http://support.transifex.com/">Transifex Help Desk</link>.</p>
+      
+      <note style="info">
+      <p>For your work you should have a look at the rules and dictionaries
+      of the local <link href="https://l10n.gnome.org/teams/">Gnome translation teams
+      </link>. Although <app>Modem Manager GUI</app> shouldn't be considered as
+      pure Gnome software, it will be often used in GTK based environments and should
+      match the conceptual world of such applications.</p>
+      </note>
+      
+</page>

@@ -1,0 +1,47 @@
+* Sun Oct 11 2015 <alex@linuxonly.ru>
+  * Version 0.0.18 release
+
+* Thu Aug 28 2014 <alex@linuxonly.ru>
+  * Version 0.0.17 release
+
+* Sat Jul 20 2013 <alex@linuxonly.ru>
+  * Version 0.0.16 release
+
+* Sat Jan 12 2013 <alex@linuxonly.ru>
+  * Icons for SMS folders added
+
+* Wed Jan 2 2013 <alex@linuxonly.ru>
+  * Ukrainian localization added
+
+* Mon Dec 31 2012 Alex <alex@linuxonly.ru>
+  * USSD session support and additional request validation
+  * USSD commands list added
+  * SMS folders added
+  * SMS concatenation can be disabled
+  * Uzbek localization added
+
+* Thu Sep 06 2012 Alex <alex@linuxonly.ru>
+  * Traffic limits control
+  * USSD session support and additional request validation
+
+* Wed Aug 22 2012 Alex <alex@linuxonly.ru>
+  * SMS message validation changes
+
+* Thu Aug 16 2012 Alex <alex@linuxonly.ru>
+  * Traffic statistics and SMS updates can be disabled
+
+* Wed Aug 08 2012 Alex <alex@linuxonly.ru>
+  * Libindicate can be disabled
+
+* Tue Jul 17 2012 Alex <alex@linuxonly.ru>
+  * Ubuntu ARB suggested fixes
+
+* Sat Jul 7 2012 Alex <alex@linuxonly.ru>
+  * Libindicate support (unread SMS indication)
+  * Libnotify support (new SMS indication)
+  * Russian localization added
+  * Simple man page added
+
+* Fri Jul 6 2012 Alex <alex@linuxonly.ru>
+  * Initial release
+

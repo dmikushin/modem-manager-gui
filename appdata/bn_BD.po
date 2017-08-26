@@ -1,0 +1,81 @@
+#
+# Translators:
+# Reazul Iqbal <reazuliqbal@yahoo.com>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: Modem Manager GUI\n"
+"POT-Creation-Date: 2015-09-30 22:02+0300\n"
+"PO-Revision-Date: 2015-09-30 17:47+0000\n"
+"Last-Translator: Alex <alex@linuxonly.ru>\n"
+"Language-Team: Bengali (Bangladesh) (http://www.transifex.com/ethereal/modem-"
+"manager-gui/language/bn_BD/)\n"
+"Language: bn_BD\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. (itstool) path: application/name
+#: modem-manager-gui.appdata.xml.in:7
+msgid "Modem Manager GUI"
+msgstr "মডেম ম্যানেজার জি ইউ আই"
+
+#. (itstool) path: application/summary
+#: modem-manager-gui.appdata.xml.in:8
+msgid "Control EDGE/3G/4G broadband modem specific functions"
+msgstr "EDGE/3G/4G ব্রডব্যান্ড মডেমের কার্যকারিতা নিয়ন্ত্রণ করুন"
+
+#. (itstool) path: description/p
+#: modem-manager-gui.appdata.xml.in:10
+msgid ""
+"Simple graphical interface compatible with Modem manager, Wader and oFono "
+"system services able to control EDGE/3G/4G broadband modem specific "
+"functions."
+msgstr ""
+
+#. (itstool) path: description/p
+#: modem-manager-gui.appdata.xml.in:14
+msgid ""
+"You can check balance of your SIM card, send or receive SMS messages, "
+"control mobile traffic consuption and more using Modem Manager GUI."
+msgstr ""
+
+#. (itstool) path: description/p
+#: modem-manager-gui.appdata.xml.in:18
+msgid "Current features:"
+msgstr "বর্তমান সুবিধাসমূহ:"
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:21
+msgid "Send and receive SMS messages and store messages in database"
+msgstr ""
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:22
+msgid ""
+"Initiate USSD requests and read answers (also using interactive sessions)"
+msgstr ""
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:23
+msgid ""
+"View device information: operator name, device mode, IMEI, IMSI, signal level"
+msgstr ""
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:24
+msgid "Scan available mobile networks"
+msgstr ""
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:25
+msgid "View mobile traffic statistics and set limits"
+msgstr ""
+
+#. (itstool) path: description/p
+#: modem-manager-gui.appdata.xml.in:27
+msgid ""
+"Please note that some features may be not available due to limitations of "
+"different system services or even different versions of system service in "
+"use."
+msgstr ""

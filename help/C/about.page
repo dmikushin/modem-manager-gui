@@ -1,0 +1,42 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      xmlns:e="http://projectmallard.org/experimental/"
+      type="topic"
+      id="about">
+
+  <info>
+    <link type="seealso" xref="index"/>
+     <revision pkgversion="0.0.18" version="0.1" date="2015-10-02" status="incomplete"/>
+    <desc>
+      Information about <app>Modem Manager GUI</app>.
+    </desc>
+    <credit type="author">
+      <name>Mario Blättermann</name>
+      <email>mario.blaettermann@gmail.com</email>
+    </credit>
+    <license>
+      <p>Creative Commons Share Alike 3.0</p>
+    </license>    
+  </info>
+
+    <title>About <app>Modem Manager GUI</app></title>
+
+    <p> <app>Modem Manager GUI</app> was written by
+      <link href="mailto:alex@linuxonly.ru">Alex</link>.
+      To find more information about <app>Modem Manager GUI</app>, please visit the 
+      <link href="http://linuxonly.ru/cms/page.php?7" type="http"><app>Modem Manager GUI</app> Web
+      page</link>.
+    </p>
+    <p>
+      To report a bug or make a suggestion regarding this application or
+      this manual, follow the directions at the
+      <link href="http://linuxonly.ru/cms/e107_plugins/bug_tracker/bugs.php" type="http"><app>Modem Manager GUI</app> bug tracker</link>.
+    </p>
+
+    <p> This program is distributed under the terms of the GNU
+      General Public license version 3, as published by the Free Software
+      Foundation. A copy of this license can be found at this
+      <link href="help:gpl" type="help">link</link>, or in the file
+      COPYING included with the source code of this program.
+    </p>
+    
+</page>

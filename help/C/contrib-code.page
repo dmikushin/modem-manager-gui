@@ -1,0 +1,29 @@
+<page xmlns="http://projectmallard.org/1.0/"
+      xmlns:e="http://projectmallard.org/experimental/"
+      type="guide"
+      id="contrib-code">
+
+  <info>
+    <link type="guide" xref="index#contributing"/>
+     <revision pkgversion="0.0.18" version="0.1" date="2015-10-02" status="incomplete"/>
+    <desc>
+      How you can help make <app>Modem Manager GUI </app> better.
+    </desc>
+    <credit type="author">
+      <name>Mario Blättermann</name>
+      <email>mario.blaettermann@gmail.com</email>
+    </credit>
+    <license>
+      <p>Creative Commons Share Alike 3.0</p>
+    </license>
+  </info>
+
+  <title>Provide code</title>
+      <p><app>Modem Manager GUI</app> has a version control system at SourceForge.net.
+      You can clone the repository with the following command:</p>
+    
+      <p><cmd>hg clone http://hg.code.sf.net/p/modem-manager-gui/code-0 modem-manager-gui-code-0</cmd></p>
+      
+      <p>Note, this clone command doesn't give you write access to the repository.</p>
+
+</page>
