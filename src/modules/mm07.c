@@ -2349,7 +2349,7 @@ static time_t mmgui_module_str_to_time(const gchar *str)
 	len = strlen(str);
 	
 	if (len > 12) {
-		if (str[12] == '+') {
+		if ((str[12] == '+') || (str[12] == '-')) {
 			//v.0.4.998 timestamp format
 			for (i=0; i<6; i++) {
 				strncpy(strbuf, str+(i*2), 2);
