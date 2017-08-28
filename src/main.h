@@ -1,7 +1,7 @@
 /*
  *      main.h
  *      
- *      Copyright 2012-2014 Alex <alex@linuxonly.ru>
+ *      Copyright 2012-2017 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -72,6 +72,7 @@ enum _mmgui_main_infobar_result {
 struct _mmgui_main_window {
 	//Window
 	GtkWidget *window;
+	GtkWidget *windowbox;
 	GtkWidget *toolbar;
 	GtkWidget *statusbar;
 	GtkWidget *infobar;

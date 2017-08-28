@@ -435,7 +435,7 @@ static gboolean mmgui_ui_infobar_show_result_timer(gpointer data)
 	mmguiapp->window->infobartimeout = 0;
 	
 	/*Hide infobar*/
-	gtk_widget_hide(mmguiapp->window->infobar);
+	gtk_widget_set_visible(mmguiapp->window->infobar, FALSE);
 	
 	return G_SOURCE_REMOVE;
 }
@@ -466,7 +466,7 @@ void mmgui_ui_infobar_show_result(mmgui_application_t mmguiapp, gint result, gch
 		case MMGUI_MAIN_INFOBAR_RESULT_INTERRUPT:
 		default:
 			/*Hide infobar instantly*/
-			gtk_widget_hide(mmguiapp->window->infobar);
+			gtk_widget_set_visible(mmguiapp->window->infobar, FALSE);
 			return;
 	}
 	
@@ -482,11 +482,17 @@ void mmgui_ui_infobar_show_result(mmgui_application_t mmguiapp, gint result, gch
 	}
 	gtk_label_set_label(GTK_LABEL(mmguiapp->window->infobarlabel), resmessage);
 	g_free(resmessage);
-	gtk_widget_hide(mmguiapp->window->infobarstopbutton);
+	gtk_widget_set_visible(mmguiapp->window->infobarstopbutton, FALSE);
 	
 	/*Show infobar if not visible*/
 	if (!gtk_widget_get_visible(mmguiapp->window->infobar)) {
-		gtk_widget_show(mmguiapp->window->infobar);
+		/*Workaround for GNOME bug #710888 (https://bugzilla.gnome.org/show_bug.cgi?id=710888)*/
+		g_object_ref(mmguiapp->window->infobar);
+		gtk_container_remove(GTK_CONTAINER(mmguiapp->window->windowbox), mmguiapp->window->infobar);
+		gtk_box_pack_start(GTK_BOX(mmguiapp->window->windowbox), mmguiapp->window->infobar, FALSE, TRUE, 0);
+		gtk_box_reorder_child(GTK_BOX(mmguiapp->window->windowbox), mmguiapp->window->infobar, 1);
+		/*Show infobar*/
+		gtk_widget_set_visible(mmguiapp->window->infobar, TRUE);
 	}
 	
 	/*Unblock controls*/
@@ -576,7 +582,7 @@ void mmgui_ui_infobar_show(mmgui_application_t mmguiapp, gchar *message, gint ty
 		gtk_widget_set_visible(mmguiapp->window->infobarimage, FALSE);
 		gtk_widget_set_visible(mmguiapp->window->infobarspinner, TRUE);
 		gtk_spinner_start(GTK_SPINNER(mmguiapp->window->infobarspinner));
-		gtk_widget_show(mmguiapp->window->infobarstopbutton);
+		gtk_widget_set_visible(mmguiapp->window->infobarstopbutton, TRUE);
 		/*Set new timeout timer */
 		mmguiapp->window->infobartimeout = g_timeout_add_seconds(MMGUI_MAIN_OPERATION_TIMEOUT, mmgui_ui_infobar_timeout_timer, mmguiapp);
 	} else {
@@ -585,15 +591,20 @@ void mmgui_ui_infobar_show(mmgui_application_t mmguiapp, gchar *message, gint ty
 		gtk_widget_set_visible(mmguiapp->window->infobarimage, TRUE);
 		gtk_widget_set_visible(mmguiapp->window->infobarspinner, FALSE);
 		gtk_spinner_stop(GTK_SPINNER(mmguiapp->window->infobarspinner));
-		gtk_widget_hide(mmguiapp->window->infobarstopbutton);
+		gtk_widget_set_visible(mmguiapp->window->infobarstopbutton, FALSE);
 	}
 	
 	/*Set infobar label text*/
 	gtk_widget_set_visible(mmguiapp->window->infobarlabel, TRUE);
 	gtk_label_set_text(GTK_LABEL(mmguiapp->window->infobarlabel), message);
 	
+	/*Workaround for GNOME bug #710888 (https://bugzilla.gnome.org/show_bug.cgi?id=710888)*/
+	g_object_ref(mmguiapp->window->infobar);
+	gtk_container_remove(GTK_CONTAINER(mmguiapp->window->windowbox), mmguiapp->window->infobar);
+	gtk_box_pack_start(GTK_BOX(mmguiapp->window->windowbox), mmguiapp->window->infobar, FALSE, TRUE, 0);
+	gtk_box_reorder_child(GTK_BOX(mmguiapp->window->windowbox), mmguiapp->window->infobar, 1);
 	/*Show infobar*/
-	gtk_widget_show(mmguiapp->window->infobar);
+	gtk_widget_set_visible(mmguiapp->window->infobar, TRUE);
 }
 
 void mmgui_ui_infobar_process_stop_signal(GtkInfoBar *info_bar, gint response_id, gpointer data)
@@ -1863,6 +1874,7 @@ static gboolean mmgui_main_application_build_user_interface(mmgui_application_t 
 		/*Window*/
 		{"window", &(mmguiapp->window->window)},
 		/*Controls*/
+		{"windowbox", &(mmguiapp->window->windowbox)},
 		{"toolbar", &(mmguiapp->window->toolbar)},
 		{"statusbar", &(mmguiapp->window->statusbar)},
 		{"infobar", &(mmguiapp->window->infobar)},
