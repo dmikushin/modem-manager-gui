@@ -367,7 +367,7 @@ static gboolean mmgui_addressbooks_get_akonadi_command_status(gchar *status, mmg
 		command->statusid = MMGUI_ADDRESSBOOKS_AKONADI_STATUS_ID_OK;
 	} else if ((status[0] == 'N') && (status[1] == 'O')) {
 		command->statusid = MMGUI_ADDRESSBOOKS_AKONADI_STATUS_ID_NO;
-	} else if ((status[0] == 'B') && (status[1] == 'A') && (status[1] == 'D')) {
+	} else if ((status[0] == 'B') && (status[1] == 'A') && (status[2] == 'D')) {
 		command->statusid = MMGUI_ADDRESSBOOKS_AKONADI_STATUS_ID_BAD;
 	} else {
 		command->statusid = MMGUI_ADDRESSBOOKS_AKONADI_STATUS_ID_NO;
