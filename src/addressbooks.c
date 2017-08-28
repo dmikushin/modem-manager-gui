@@ -1024,6 +1024,8 @@ mmgui_addressbooks_t mmgui_addressbooks_new(mmgui_event_ext_callback callback, m
 	mmgui_addressbooks_t addressbooks;
 	gboolean libopened;
 	guint akonadistatus;
+	const gchar *desktop;
+	const gchar *version;
 
 	if (callback == NULL) return NULL;
 
@@ -1033,104 +1035,110 @@ mmgui_addressbooks_t mmgui_addressbooks_new(mmgui_event_ext_callback callback, m
 	addressbooks->libcache = libcache;
 	addressbooks->userdata = userdata;
 	addressbooks->workthread = NULL;
-
+	
+	/*Get name of current desktop enviroment*/
+	desktop = getenv("XDG_CURRENT_DESKTOP");
+	
 	/*libebook*/
 	addressbooks->ebookmodule = NULL;
 	addressbooks->gnomesupported = FALSE;
 	addressbooks->gnomecontacts = NULL;
-
-	if (mmgui_libpaths_cache_check_library_version(libcache, "libebook-1.2", 12, 3, 0)) {
-		/*Open module*/
-		addressbooks->ebookmodule = g_module_open(mmgui_libpaths_cache_get_library_full_path(libcache, "libebook-1.2"), G_MODULE_BIND_LAZY);
-		if (addressbooks->ebookmodule != NULL) {
-			libopened = TRUE;
-			libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_query_field_exists", (gpointer *)&(addressbooks->e_book_query_field_exists));
-			libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_query_or", (gpointer *)&(addressbooks->e_book_query_or));
-			libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_query_unref", (gpointer *)&(addressbooks->e_book_query_unref));
-			libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_contact_get_const", (gpointer *)&(addressbooks->e_contact_get_const));
-			libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_contact_get", (gpointer *)&(addressbooks->e_contact_get));
-			if ((libopened) && (mmgui_libpaths_cache_check_library_version(libcache, "libebook-1.2", 16, 3, 0))) {
-				/*Version 3.16 ... ?*/
-				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_client_connect_sync", (gpointer *)&(addressbooks->e_book_client_connect_sync316));
-				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_source_registry_new_sync", (gpointer *)&(addressbooks->e_source_registry_new_sync));
-				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_source_registry_ref_builtin_address_book", (gpointer *)&(addressbooks->e_source_registry_ref_builtin_address_book));
-				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_query_to_string", (gpointer *)&(addressbooks->e_book_query_to_string));
-				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_client_get_contacts_sync", (gpointer *)&(addressbooks->e_book_client_get_contacts_sync));
-				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_source_get_display_name", (gpointer *)&(addressbooks->e_source_get_display_name));
-				addressbooks->e_book_client_connect_sync = NULL;
-				addressbooks->e_book_new_system_addressbook = NULL;
-				addressbooks->e_book_open = NULL;
-				addressbooks->e_book_get_contacts = NULL;
-				addressbooks->e_book_get_source = NULL;
-			} else if ((libopened) && (mmgui_libpaths_cache_check_library_version(libcache, "libebook-1.2", 14, 3, 0))) {
-				/*Version 3.8 ... 3.16*/
-				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_client_connect_sync", (gpointer *)&(addressbooks->e_book_client_connect_sync));
-				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_source_registry_new_sync", (gpointer *)&(addressbooks->e_source_registry_new_sync));
-				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_source_registry_ref_builtin_address_book", (gpointer *)&(addressbooks->e_source_registry_ref_builtin_address_book));
-				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_query_to_string", (gpointer *)&(addressbooks->e_book_query_to_string));
-				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_client_get_contacts_sync", (gpointer *)&(addressbooks->e_book_client_get_contacts_sync));
-				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_source_get_display_name", (gpointer *)&(addressbooks->e_source_get_display_name));
-				addressbooks->e_book_client_connect_sync316 = NULL;
-				addressbooks->e_book_new_system_addressbook = NULL;
-				addressbooks->e_book_open = NULL;
-				addressbooks->e_book_get_contacts = NULL;
-				addressbooks->e_book_get_source = NULL;
-			} else if ((libopened) && (mmgui_libpaths_cache_check_library_version(libcache, "libebook-1.2", 13, 3, 0))) {
-				/*Versions 3.4 ... 3.8*/
-				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_client_new", (gpointer *)&(addressbooks->e_book_client_new));
-				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_client_open_sync", (gpointer *)&(addressbooks->e_client_open_sync));
-				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_source_registry_new_sync", (gpointer *)&(addressbooks->e_source_registry_new_sync));
-				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_source_registry_ref_builtin_address_book", (gpointer *)&(addressbooks->e_source_registry_ref_builtin_address_book));
-				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_query_to_string", (gpointer *)&(addressbooks->e_book_query_to_string));
-				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_client_get_contacts_sync", (gpointer *)&(addressbooks->e_book_client_get_contacts_sync));
-				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_source_peek_name", (gpointer *)&(addressbooks->e_source_get_display_name));
-				addressbooks->e_book_client_connect_sync = NULL;
-				addressbooks->e_book_client_connect_sync316 = NULL;
-				addressbooks->e_book_new_system_addressbook = NULL;
-				addressbooks->e_book_open = NULL;
-				addressbooks->e_book_get_contacts = NULL;
-				addressbooks->e_book_get_source = NULL;
-			} else if (libopened) {
-				/*Versions 3.0 ... 3.4*/
-				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_new_system_addressbook", (gpointer *)&(addressbooks->e_book_new_system_addressbook));
-				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_open", (gpointer *)&(addressbooks->e_book_open));
-				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_get_contacts", (gpointer *)&(addressbooks->e_book_get_contacts));
-				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_get_source", (gpointer *)&(addressbooks->e_book_get_source));
-				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_source_peek_name", (gpointer *)&(addressbooks->e_source_get_display_name));
-				addressbooks->e_book_client_connect_sync = NULL;
-				addressbooks->e_book_client_connect_sync316 = NULL;
-				addressbooks->e_source_registry_new_sync = NULL;
-				addressbooks->e_source_registry_ref_builtin_address_book = NULL;
-				addressbooks->e_book_client_new = NULL;
-				addressbooks->e_client_open_sync = NULL;
-				addressbooks->e_book_query_to_string = NULL;
-				addressbooks->e_book_client_get_contacts_sync = NULL;
-			}
-			/*If some functions not exported, close library*/
-			if (!libopened) {
-				addressbooks->e_book_query_field_exists = NULL;
-				addressbooks->e_book_query_or = NULL;
-				addressbooks->e_source_registry_new_sync = NULL;
-				addressbooks->e_source_registry_ref_builtin_address_book = NULL;
-				addressbooks->e_source_get_display_name = NULL;
-				addressbooks->e_book_client_new = NULL;
-				addressbooks->e_client_open_sync = NULL;
-				addressbooks->e_book_query_to_string = NULL;
-				addressbooks->e_book_client_get_contacts_sync = NULL;
-				addressbooks->e_book_new_system_addressbook = NULL;
-				addressbooks->e_book_open = NULL;
-				addressbooks->e_book_get_contacts = NULL;
-				addressbooks->e_book_query_unref = NULL;
-				addressbooks->e_contact_get_const = NULL;
-				addressbooks->e_contact_get = NULL;
-				/*Close module*/
-				g_module_close(addressbooks->ebookmodule);
-				addressbooks->ebookmodule = NULL;
-				addressbooks->gnomesupported = FALSE;
-			} else {
-				/*Get contacts*/
-				addressbooks->gnomesupported = TRUE;
-				//mmgui_addressbooks_get_gnome_contacts(addressbooks, libcache);
+	
+	/*GNOME code path*/
+	if (g_strcmp0(desktop, "GNOME") == 0) {
+		if (mmgui_libpaths_cache_check_library_version(libcache, "libebook-1.2", 12, 3, 0)) {
+			/*Open module*/
+			addressbooks->ebookmodule = g_module_open(mmgui_libpaths_cache_get_library_full_path(libcache, "libebook-1.2"), G_MODULE_BIND_LAZY);
+			if (addressbooks->ebookmodule != NULL) {
+				libopened = TRUE;
+				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_query_field_exists", (gpointer *)&(addressbooks->e_book_query_field_exists));
+				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_query_or", (gpointer *)&(addressbooks->e_book_query_or));
+				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_query_unref", (gpointer *)&(addressbooks->e_book_query_unref));
+				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_contact_get_const", (gpointer *)&(addressbooks->e_contact_get_const));
+				libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_contact_get", (gpointer *)&(addressbooks->e_contact_get));
+				if ((libopened) && (mmgui_libpaths_cache_check_library_version(libcache, "libebook-1.2", 16, 3, 0))) {
+					/*Version 3.16 ... ?*/
+					libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_client_connect_sync", (gpointer *)&(addressbooks->e_book_client_connect_sync316));
+					libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_source_registry_new_sync", (gpointer *)&(addressbooks->e_source_registry_new_sync));
+					libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_source_registry_ref_builtin_address_book", (gpointer *)&(addressbooks->e_source_registry_ref_builtin_address_book));
+					libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_query_to_string", (gpointer *)&(addressbooks->e_book_query_to_string));
+					libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_client_get_contacts_sync", (gpointer *)&(addressbooks->e_book_client_get_contacts_sync));
+					libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_source_get_display_name", (gpointer *)&(addressbooks->e_source_get_display_name));
+					addressbooks->e_book_client_connect_sync = NULL;
+					addressbooks->e_book_new_system_addressbook = NULL;
+					addressbooks->e_book_open = NULL;
+					addressbooks->e_book_get_contacts = NULL;
+					addressbooks->e_book_get_source = NULL;
+				} else if ((libopened) && (mmgui_libpaths_cache_check_library_version(libcache, "libebook-1.2", 14, 3, 0))) {
+					/*Version 3.8 ... 3.16*/
+					libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_client_connect_sync", (gpointer *)&(addressbooks->e_book_client_connect_sync));
+					libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_source_registry_new_sync", (gpointer *)&(addressbooks->e_source_registry_new_sync));
+					libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_source_registry_ref_builtin_address_book", (gpointer *)&(addressbooks->e_source_registry_ref_builtin_address_book));
+					libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_query_to_string", (gpointer *)&(addressbooks->e_book_query_to_string));
+					libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_client_get_contacts_sync", (gpointer *)&(addressbooks->e_book_client_get_contacts_sync));
+					libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_source_get_display_name", (gpointer *)&(addressbooks->e_source_get_display_name));
+					addressbooks->e_book_client_connect_sync316 = NULL;
+					addressbooks->e_book_new_system_addressbook = NULL;
+					addressbooks->e_book_open = NULL;
+					addressbooks->e_book_get_contacts = NULL;
+					addressbooks->e_book_get_source = NULL;
+				} else if ((libopened) && (mmgui_libpaths_cache_check_library_version(libcache, "libebook-1.2", 13, 3, 0))) {
+					/*Versions 3.4 ... 3.8*/
+					libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_client_new", (gpointer *)&(addressbooks->e_book_client_new));
+					libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_client_open_sync", (gpointer *)&(addressbooks->e_client_open_sync));
+					libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_source_registry_new_sync", (gpointer *)&(addressbooks->e_source_registry_new_sync));
+					libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_source_registry_ref_builtin_address_book", (gpointer *)&(addressbooks->e_source_registry_ref_builtin_address_book));
+					libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_query_to_string", (gpointer *)&(addressbooks->e_book_query_to_string));
+					libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_client_get_contacts_sync", (gpointer *)&(addressbooks->e_book_client_get_contacts_sync));
+					libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_source_peek_name", (gpointer *)&(addressbooks->e_source_get_display_name));
+					addressbooks->e_book_client_connect_sync = NULL;
+					addressbooks->e_book_client_connect_sync316 = NULL;
+					addressbooks->e_book_new_system_addressbook = NULL;
+					addressbooks->e_book_open = NULL;
+					addressbooks->e_book_get_contacts = NULL;
+					addressbooks->e_book_get_source = NULL;
+				} else if (libopened) {
+					/*Versions 3.0 ... 3.4*/
+					libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_new_system_addressbook", (gpointer *)&(addressbooks->e_book_new_system_addressbook));
+					libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_open", (gpointer *)&(addressbooks->e_book_open));
+					libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_get_contacts", (gpointer *)&(addressbooks->e_book_get_contacts));
+					libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_book_get_source", (gpointer *)&(addressbooks->e_book_get_source));
+					libopened = libopened && g_module_symbol(addressbooks->ebookmodule, "e_source_peek_name", (gpointer *)&(addressbooks->e_source_get_display_name));
+					addressbooks->e_book_client_connect_sync = NULL;
+					addressbooks->e_book_client_connect_sync316 = NULL;
+					addressbooks->e_source_registry_new_sync = NULL;
+					addressbooks->e_source_registry_ref_builtin_address_book = NULL;
+					addressbooks->e_book_client_new = NULL;
+					addressbooks->e_client_open_sync = NULL;
+					addressbooks->e_book_query_to_string = NULL;
+					addressbooks->e_book_client_get_contacts_sync = NULL;
+				}
+				/*If some functions not exported, close library*/
+				if (!libopened) {
+					addressbooks->e_book_query_field_exists = NULL;
+					addressbooks->e_book_query_or = NULL;
+					addressbooks->e_source_registry_new_sync = NULL;
+					addressbooks->e_source_registry_ref_builtin_address_book = NULL;
+					addressbooks->e_source_get_display_name = NULL;
+					addressbooks->e_book_client_new = NULL;
+					addressbooks->e_client_open_sync = NULL;
+					addressbooks->e_book_query_to_string = NULL;
+					addressbooks->e_book_client_get_contacts_sync = NULL;
+					addressbooks->e_book_new_system_addressbook = NULL;
+					addressbooks->e_book_open = NULL;
+					addressbooks->e_book_get_contacts = NULL;
+					addressbooks->e_book_query_unref = NULL;
+					addressbooks->e_contact_get_const = NULL;
+					addressbooks->e_contact_get = NULL;
+					/*Close module*/
+					g_module_close(addressbooks->ebookmodule);
+					addressbooks->ebookmodule = NULL;
+					addressbooks->gnomesupported = FALSE;
+				} else {
+					/*Get contacts*/
+					addressbooks->gnomesupported = TRUE;
+					//mmgui_addressbooks_get_gnome_contacts(addressbooks, libcache);
+				}
 			}
 		}
 	}
@@ -1138,17 +1146,25 @@ mmgui_addressbooks_t mmgui_addressbooks_new(mmgui_event_ext_callback callback, m
 	/*KDE addressbook*/
 	addressbooks->kdecontacts = NULL;
 	addressbooks->kdesupported = FALSE;
-
-	if (mmgui_addressbooks_session_service_activate(MMGUI_ADDRESSBOOKS_AKONADI_DBUS_INTERFACE, &akonadistatus)) {
-		/*Open socket*/
-		addressbooks->aksocket = mmgui_addressbooks_open_kde_socket();
-		if (addressbooks->aksocket != -1) {
-			/*Akonadi server started*/
-			addressbooks->kdesupported = TRUE;
-			//mmgui_addressbooks_get_kde_contacts(addressbooks);
-		} else {
-			/*Akonadi server not available*/
-			addressbooks->kdesupported = FALSE;
+	
+	/*KDE code path*/
+	if (g_strcmp0(desktop, "KDE") == 0) {
+		/*Get KDE version information*/
+		version = getenv("KDE_SESSION_VERSION");
+		/*For now only KDE 4 version supported*/
+		if (g_strcmp0(version, "4") == 0) {
+			if (mmgui_addressbooks_session_service_activate(MMGUI_ADDRESSBOOKS_AKONADI_DBUS_INTERFACE, &akonadistatus)) {
+				/*Open socket*/
+				addressbooks->aksocket = mmgui_addressbooks_open_kde_socket();
+				if (addressbooks->aksocket != -1) {
+					/*Akonadi server started*/
+					addressbooks->kdesupported = TRUE;
+					//mmgui_addressbooks_get_kde_contacts(addressbooks);
+				} else {
+					/*Akonadi server not available*/
+					addressbooks->kdesupported = FALSE;
+				}
+			}
 		}
 	}
 
