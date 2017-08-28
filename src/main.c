@@ -1388,6 +1388,7 @@ static void mmgui_main_ui_help_menu_item_activate_signal(GSimpleAction *action, 
 {
 	mmgui_application_t mmguiapp;
 	GError *error;
+	GtkWidget *dialog;
 	
 	mmguiapp = (mmgui_application_t)data;
 	
@@ -1395,8 +1396,15 @@ static void mmgui_main_ui_help_menu_item_activate_signal(GSimpleAction *action, 
 	
 	error = NULL;
 	
-	if (!gtk_show_uri(gtk_widget_get_screen(mmguiapp->window->window), "help:modem-manager-gui", gtk_get_current_event_time(), &error)) {
-		mmgui_main_application_unresolved_error(mmguiapp, _("Error while displaying the help contents"), error->message);
+	if (!gtk_show_uri_on_window(GTK_WINDOW(mmguiapp->window->window), "help:modem-manager-gui", gtk_get_current_event_time(), &error)) {
+		dialog = gtk_message_dialog_new(GTK_WINDOW(mmguiapp->window->window),
+										GTK_DIALOG_MODAL,
+										GTK_MESSAGE_ERROR,
+										GTK_BUTTONS_OK,
+										"%s: %s", _("Error while displaying the help contents"), error->message);
+		gtk_window_set_title(GTK_WINDOW(dialog), "Modem Manager GUI");
+		gtk_dialog_run(GTK_DIALOG(dialog));
+		gtk_widget_destroy(dialog);
 		g_error_free(error);
 	}
 }
