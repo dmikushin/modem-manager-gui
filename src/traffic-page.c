@@ -1,7 +1,7 @@
 /*
  *      traffic-page.c
  *      
- *      Copyright 2012-2015 Alex <alex@linuxonly.ru>
+ *      Copyright 2012-2017 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -1024,7 +1024,11 @@ void mmgui_main_traffic_speed_plot_draw(GtkWidget *widget, cairo_t *cr, gpointer
 	for (i=0; i<19; i++) {
 		cairo_move_to(cr, 30-5+(i*(gint)((width-60)/19.0)), height-8);
 		memset(strbuffer, 0, sizeof(strbuffer));
-		g_snprintf(strbuffer, sizeof(strbuffer), "%i", (i+1)*MMGUI_THREAD_SLEEP_PERIOD);
+		if (mmguiapp->options->graphrighttoleft) {
+			g_snprintf(strbuffer, sizeof(strbuffer), "%i", (19-i+1)*MMGUI_THREAD_SLEEP_PERIOD);
+		} else {
+			g_snprintf(strbuffer, sizeof(strbuffer), "%i", (i+1)*MMGUI_THREAD_SLEEP_PERIOD);
+		}
 		cairo_show_text(cr, strbuffer);
 	}
 	
@@ -1037,16 +1041,31 @@ void mmgui_main_traffic_speed_plot_draw(GtkWidget *widget, cairo_t *cr, gpointer
 		cairo_set_source_rgba(cr, txr, txg, txb, 1.0);
 		cairo_set_line_width(cr, 2.5);
 		cairo_set_line_join(cr, CAIRO_LINE_JOIN_ROUND); 
-		c = 1;
-		for (i=device->speedindex-1; i>=0; i--) {
-			if (i == device->speedindex-1) {
-				cairo_arc(cr, 30, height-30-(gint)(device->speedvalues[1][i]*((height-60)/maxvalue)), 2.0, 0*(3.14/180.0), 360*(3.14/180.0));
-				cairo_move_to(cr, 30, height-30-(gint)(device->speedvalues[1][i]*((height-60)/maxvalue)));
-			} else {
-				cairo_line_to(cr, 30+(c*(gint)((width-60)/19.0)), height-30-(gint)(device->speedvalues[1][i]*((height-60)/maxvalue)));
-				cairo_arc(cr, 30+(c*(gint)((width-60)/19.0)), height-30-(gint)(device->speedvalues[1][i]*((height-60)/maxvalue)), 2.0, 0*(3.14/180.0), 360*(3.14/180.0));
-				cairo_move_to(cr, 30+(c*(gint)((width-60)/19.0)), height-30-(gint)(device->speedvalues[1][i]*((height-60)/maxvalue)));
-				c++;
+		if (mmguiapp->options->graphrighttoleft) {
+			c = device->speedindex-1;
+			for (i=0; i<device->speedindex; i++) {
+				if (i == device->speedindex-1) {
+					cairo_arc(cr, graphlen+30, height-30-(gint)(device->speedvalues[1][i]*((height-60)/maxvalue)), 2.0, 0*(3.14/180.0), 360*(3.14/180.0));
+					cairo_move_to(cr, graphlen+30, height-30-(gint)(device->speedvalues[1][i]*((height-60)/maxvalue)));
+				} else {
+					cairo_line_to(cr, graphlen+30-(c*(gint)((width-60)/19.0)), height-30-(gint)(device->speedvalues[1][i]*((height-60)/maxvalue)));
+					cairo_arc(cr, graphlen+30-(c*(gint)((width-60)/19.0)), height-30-(gint)(device->speedvalues[1][i]*((height-60)/maxvalue)), 2.0, 0*(3.14/180.0), 360*(3.14/180.0));
+					cairo_move_to(cr, graphlen+30-(c*(gint)((width-60)/19.0)), height-30-(gint)(device->speedvalues[1][i]*((height-60)/maxvalue)));
+					c--;
+				}
+			}
+		} else {
+			c = device->speedindex-1;
+			for (i=0; i<device->speedindex; i++) {
+				if (i == device->speedindex-1) {
+					cairo_arc(cr, 30, height-30-(gint)(device->speedvalues[1][i]*((height-60)/maxvalue)), 2.0, 0*(3.14/180.0), 360*(3.14/180.0));
+					cairo_move_to(cr, 30, height-30-(gint)(device->speedvalues[1][i]*((height-60)/maxvalue)));
+				} else {
+					cairo_line_to(cr, 30+(c*(gint)((width-60)/19.0)), height-30-(gint)(device->speedvalues[1][i]*((height-60)/maxvalue)));
+					cairo_arc(cr, 30+(c*(gint)((width-60)/19.0)), height-30-(gint)(device->speedvalues[1][i]*((height-60)/maxvalue)), 2.0, 0*(3.14/180.0), 360*(3.14/180.0));
+					cairo_move_to(cr, 30+(c*(gint)((width-60)/19.0)), height-30-(gint)(device->speedvalues[1][i]*((height-60)/maxvalue)));
+					c--;
+				}
 			}
 		}
 		cairo_stroke(cr);
@@ -1054,16 +1073,31 @@ void mmgui_main_traffic_speed_plot_draw(GtkWidget *widget, cairo_t *cr, gpointer
 		cairo_set_source_rgba(cr, rxr, rxg, rxb, 1.0);
 		cairo_set_line_width(cr, 2.5);
 		cairo_set_line_join(cr, CAIRO_LINE_JOIN_ROUND); 
-		c = 1;
-		for (i=device->speedindex-1; i>=0; i--) {
-			if (i == device->speedindex-1) {
-				cairo_arc(cr, 30, height-30-(gint)(device->speedvalues[0][i]*((height-60)/maxvalue)), 2.0, 0*(3.14/180.0), 360*(3.14/180.0));
-				cairo_move_to(cr, 30, height-30-(gint)(device->speedvalues[0][i]*((height-60)/maxvalue)));
-			} else {
-				cairo_line_to(cr, 30+(c*(gint)((width-60)/19.0)), height-30-(gint)(device->speedvalues[0][i]*((height-60)/maxvalue)));
-				cairo_arc(cr, 30+(c*(gint)((width-60)/19.0)), height-30-(gint)(device->speedvalues[0][i]*((height-60)/maxvalue)), 2.0, 0*(3.14/180.0), 360*(3.14/180.0));
-				cairo_move_to(cr, 30+(c*(gint)((width-60)/19.0)), height-30-(gint)(device->speedvalues[0][i]*((height-60)/maxvalue)));
-				c++;
+		if (mmguiapp->options->graphrighttoleft) {
+			c = device->speedindex-1;
+			for (i=0; i<device->speedindex; i++) {
+				if (i == device->speedindex-1) {
+					cairo_arc(cr, graphlen+30, height-30-(gint)(device->speedvalues[0][i]*((height-60)/maxvalue)), 2.0, 0*(3.14/180.0), 360*(3.14/180.0));
+					cairo_move_to(cr, graphlen+30, height-30-(gint)(device->speedvalues[0][i]*((height-60)/maxvalue)));
+				} else {
+					cairo_line_to(cr, graphlen+30-(c*(gint)((width-60)/19.0)), height-30-(gint)(device->speedvalues[0][i]*((height-60)/maxvalue)));
+					cairo_arc(cr, graphlen+30-(c*(gint)((width-60)/19.0)), height-30-(gint)(device->speedvalues[0][i]*((height-60)/maxvalue)), 2.0, 0*(3.14/180.0), 360*(3.14/180.0));
+					cairo_move_to(cr, graphlen+30-(c*(gint)((width-60)/19.0)), height-30-(gint)(device->speedvalues[0][i]*((height-60)/maxvalue)));
+					c--;
+				}
+			}
+		} else {
+			c = device->speedindex-1;
+			for (i=0; i<device->speedindex; i++) {
+				if (i == device->speedindex-1) {
+					cairo_arc(cr, 30, height-30-(gint)(device->speedvalues[0][i]*((height-60)/maxvalue)), 2.0, 0*(3.14/180.0), 360*(3.14/180.0));
+					cairo_move_to(cr, 30, height-30-(gint)(device->speedvalues[0][i]*((height-60)/maxvalue)));
+				} else {
+					cairo_line_to(cr, 30+(c*(gint)((width-60)/19.0)), height-30-(gint)(device->speedvalues[0][i]*((height-60)/maxvalue)));
+					cairo_arc(cr, 30+(c*(gint)((width-60)/19.0)), height-30-(gint)(device->speedvalues[0][i]*((height-60)/maxvalue)), 2.0, 0*(3.14/180.0), 360*(3.14/180.0));
+					cairo_move_to(cr, 30+(c*(gint)((width-60)/19.0)), height-30-(gint)(device->speedvalues[0][i]*((height-60)/maxvalue)));
+					c--;
+				}
 			}
 		}
 		cairo_stroke(cr);

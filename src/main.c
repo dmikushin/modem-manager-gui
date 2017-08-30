@@ -1907,6 +1907,7 @@ static gboolean mmgui_main_settings_load(mmgui_application_t mmguiapp)
 		}
 		g_free(strparam);
 	#endif
+	mmguiapp->options->graphrighttoleft = gmm_settings_get_boolean(mmguiapp->settings, "graph_right_to_left", FALSE);
 	
 	/*SMS options*/
 	mmguiapp->options->concatsms = gmm_settings_get_boolean(mmguiapp->settings, "sms_concatenation", FALSE);
@@ -2121,6 +2122,7 @@ static gboolean mmgui_main_application_build_user_interface(mmgui_application_t 
 		{"prefsmsreportcb", &(mmguiapp->window->prefsmsreportcb)},
 		{"preftrafficrxcolor", &(mmguiapp->window->preftrafficrxcolor)},
 		{"preftraffictxcolor", &(mmguiapp->window->preftraffictxcolor)},
+		{"preftrafficmovdircombo", &(mmguiapp->window->preftrafficmovdircombo)},
 		{"prefbehavioursounds", &(mmguiapp->window->prefbehavioursounds)},
 		{"prefbehaviourhide", &(mmguiapp->window->prefbehaviourhide)},
 		{"prefbehaviourgeom", &(mmguiapp->window->prefbehaviourgeom)},

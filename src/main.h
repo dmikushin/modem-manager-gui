@@ -271,6 +271,7 @@ struct _mmgui_main_window {
 	GtkWidget *prefsmsreportcb;
 	GtkWidget *preftrafficrxcolor;
 	GtkWidget *preftraffictxcolor;
+	GtkWidget *preftrafficmovdircombo;
 	GtkWidget *prefbehavioursounds;
 	GtkWidget *prefbehaviourhide;
 	GtkWidget *prefbehaviourgeom;
@@ -341,6 +342,7 @@ struct _mmgui_cli_options {
 		GdkColor rxtrafficcolor;
 		GdkColor txtrafficcolor;
 	#endif
+	gboolean graphrighttoleft;
 	/*Behaviour*/
 	gboolean usesounds;
 	gboolean hidetotray;

@@ -163,7 +163,7 @@ void mmgui_preferences_window_activate_signal(GSimpleAction *action, GVariant *p
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefbehavioursounds), mmguiapp->options->usesounds);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefbehaviourgeom), mmguiapp->options->savegeometry);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefbehaviourautostart), autostart);
-	/*Show graph color settings*/
+	/*Show graph color and movement direction settings*/
 	#if GTK_CHECK_VERSION(3,4,0)
 		gtk_color_chooser_set_rgba(GTK_COLOR_CHOOSER(mmguiapp->window->preftrafficrxcolor), (const GdkRGBA *)&mmguiapp->options->rxtrafficcolor);
 		gtk_color_chooser_set_rgba(GTK_COLOR_CHOOSER(mmguiapp->window->preftraffictxcolor), (const GdkRGBA *)&mmguiapp->options->txtrafficcolor);
@@ -173,6 +173,7 @@ void mmgui_preferences_window_activate_signal(GSimpleAction *action, GVariant *p
 		gtk_color_button_set_color(GTK_COLOR_BUTTON(mmguiapp->window->preftrafficrxcolor), (const GdkColor *)&(mmguiapp->options->rxtrafficcolor));
 		gtk_color_button_set_color(GTK_COLOR_BUTTON(mmguiapp->window->preftraffictxcolor), (const GdkColor *)&(mmguiapp->options->txtrafficcolor));
 	#endif
+	gtk_combo_box_set_active(GTK_COMBO_BOX(mmguiapp->window->preftrafficmovdircombo), mmguiapp->options->graphrighttoleft ? 1 : 0);
 	/*Show modules settings*/
 	gtk_range_set_value(GTK_RANGE(mmguiapp->window->prefenabletimeoutscale), (gdouble)mmguiapp->coreoptions->enabletimeout);
 	gtk_range_set_value(GTK_RANGE(mmguiapp->window->prefsendsmstimeoutscale), (gdouble)mmguiapp->coreoptions->sendsmstimeout);
@@ -259,7 +260,7 @@ void mmgui_preferences_window_activate_signal(GSimpleAction *action, GVariant *p
 		} else if ((!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefbehaviourautostart))) && (autostart)) {
 			mmgui_main_application_remove_from_autostart(mmguiapp);
 		}
-		/*Save graph colors*/
+		/*Save graph colors and movement direction*/
 		#if GTK_CHECK_VERSION(3,4,0)
 			gtk_color_chooser_get_rgba(GTK_COLOR_CHOOSER(mmguiapp->window->preftrafficrxcolor), &(mmguiapp->options->rxtrafficcolor));
 			strcolor = gdk_rgba_to_string((const GdkRGBA *)&mmguiapp->options->rxtrafficcolor);
@@ -279,6 +280,8 @@ void mmgui_preferences_window_activate_signal(GSimpleAction *action, GVariant *p
 			gmm_settings_set_string(mmguiapp->settings, "graph_tx_color", strcolor);
 			g_free(strcolor);
 		#endif
+		mmguiapp->options->graphrighttoleft = (gboolean)gtk_combo_box_get_active(GTK_COMBO_BOX(mmguiapp->window->preftrafficmovdircombo));
+		gmm_settings_set_boolean(mmguiapp->settings, "graph_right_to_left", (gboolean)gtk_combo_box_get_active(GTK_COMBO_BOX(mmguiapp->window->preftrafficmovdircombo)));
 		/*Save and apply modules settings*/
 		mmguiapp->coreoptions->enabletimeout = (gint)gtk_range_get_value(GTK_RANGE(mmguiapp->window->prefenabletimeoutscale));
 		gmm_settings_set_int(mmguiapp->settings, "modules_enable_device_timeout", (gint)gtk_range_get_value(GTK_RANGE(mmguiapp->window->prefenabletimeoutscale)));
