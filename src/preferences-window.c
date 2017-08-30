@@ -1,7 +1,7 @@
 /*
  *      preferences-window.c
  *      
- *      Copyright 2015 Alex <alex@linuxonly.ru>
+ *      Copyright 2015-2017 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -152,18 +152,18 @@ void mmgui_preferences_window_activate_signal(GSimpleAction *action, GVariant *p
 	
 	autostart = mmgui_main_application_is_in_autostart(mmguiapp);
 		
-	//Show SMS settings
+	/*Show SMS settings*/
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefsmsconcat), mmguiapp->options->concatsms);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefsmsexpand), mmguiapp->options->smsexpandfolders);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefsmsoldontop), mmguiapp->options->smsoldontop);
 	gtk_range_set_value(GTK_RANGE(mmguiapp->window->prefsmsvalidityscale), (gdouble)mmguiapp->options->smsvalidityperiod);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefsmsreportcb), mmguiapp->options->smsdeliveryreport);
-	//Show behaviour settings
+	/*Show behaviour settings*/
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefbehaviourhide), mmguiapp->options->hidetotray);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefbehavioursounds), mmguiapp->options->usesounds);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefbehaviourgeom), mmguiapp->options->savegeometry);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefbehaviourautostart), autostart);
-	//Show graph color settings
+	/*Show graph color settings*/
 	#if GTK_CHECK_VERSION(3,4,0)
 		gtk_color_chooser_set_rgba(GTK_COLOR_CHOOSER(mmguiapp->window->preftrafficrxcolor), (const GdkRGBA *)&mmguiapp->options->rxtrafficcolor);
 		gtk_color_chooser_set_rgba(GTK_COLOR_CHOOSER(mmguiapp->window->preftraffictxcolor), (const GdkRGBA *)&mmguiapp->options->txtrafficcolor);
@@ -222,10 +222,20 @@ void mmgui_preferences_window_activate_signal(GSimpleAction *action, GVariant *p
 		}
 	}
 	
+	/*Show active pages*/
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefactivepagessmscb), mmguiapp->options->smspageenabled);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefactivepagesussdcb), mmguiapp->options->ussdpageenabled);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefactivepagesinfocb), mmguiapp->options->infopageenabled);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefactivepagesscancb), mmguiapp->options->scanpageenabled);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefactivepagestrafficcb), mmguiapp->options->trafficpageenabled);
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefactivepagescontactscb), mmguiapp->options->contactspageenabled);
+	
+	
 	response = gtk_dialog_run(GTK_DIALOG(mmguiapp->window->prefdialog));
 	
+	
 	if (response > 0) {
-		//Save SMS settings
+		/*Save SMS settings*/
 		mmguiapp->options->concatsms = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefsmsconcat));
 		gmm_settings_set_boolean(mmguiapp->settings, "sms_concatenation", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefsmsconcat)));
 		mmguiapp->options->smsexpandfolders = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefsmsexpand));
@@ -236,7 +246,7 @@ void mmgui_preferences_window_activate_signal(GSimpleAction *action, GVariant *p
 		gmm_settings_set_int(mmguiapp->settings, "sms_validity_period", (gint)gtk_range_get_value(GTK_RANGE(mmguiapp->window->prefsmsvalidityscale)));
 		mmguiapp->options->smsdeliveryreport = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefsmsreportcb));
 		gmm_settings_set_boolean(mmguiapp->settings, "sms_send_delivery_report", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefsmsreportcb)));
-		//Save program behaviour settings
+		/*Save program behaviour settings*/
 		mmguiapp->options->hidetotray = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefbehaviourhide));
 		gmm_settings_set_boolean(mmguiapp->settings, "behaviour_hide_to_tray", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefbehaviourhide)));
 		mmguiapp->options->usesounds = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefbehavioursounds));
@@ -249,7 +259,7 @@ void mmgui_preferences_window_activate_signal(GSimpleAction *action, GVariant *p
 		} else if ((!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefbehaviourautostart))) && (autostart)) {
 			mmgui_main_application_remove_from_autostart(mmguiapp);
 		}
-		//Save graph colors
+		/*Save graph colors*/
 		#if GTK_CHECK_VERSION(3,4,0)
 			gtk_color_chooser_get_rgba(GTK_COLOR_CHOOSER(mmguiapp->window->preftrafficrxcolor), &(mmguiapp->options->rxtrafficcolor));
 			strcolor = gdk_rgba_to_string((const GdkRGBA *)&mmguiapp->options->rxtrafficcolor);
@@ -304,6 +314,21 @@ void mmgui_preferences_window_activate_signal(GSimpleAction *action, GVariant *p
 				gmm_settings_set_string(mmguiapp->settings, "modules_preferred_connection_manager", mmguiapp->coreoptions->cmmodule);
 			}
 		}
+		
+		/*Save active pages*/
+		mmguiapp->options->smspageenabled = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefactivepagessmscb));
+		gmm_settings_set_boolean(mmguiapp->settings, "pages_sms_enabled", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefactivepagessmscb)));
+		mmguiapp->options->ussdpageenabled = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefactivepagesussdcb));
+		gmm_settings_set_boolean(mmguiapp->settings, "pages_ussd_enabled", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefactivepagesussdcb)));
+		mmguiapp->options->infopageenabled = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefactivepagesinfocb));
+		gmm_settings_set_boolean(mmguiapp->settings, "pages_info_enabled", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefactivepagesinfocb)));
+		mmguiapp->options->scanpageenabled = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefactivepagesscancb));
+		gmm_settings_set_boolean(mmguiapp->settings, "pages_scan_enabled", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefactivepagesscancb)));
+		mmguiapp->options->trafficpageenabled = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefactivepagestrafficcb));
+		gmm_settings_set_boolean(mmguiapp->settings, "pages_traffic_enabled", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefactivepagestrafficcb)));
+		mmguiapp->options->contactspageenabled = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefactivepagescontactscb));
+		gmm_settings_set_boolean(mmguiapp->settings, "pages_contacts_enabled", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefactivepagescontactscb)));
+		mmgui_main_window_update_active_pages(mmguiapp);
 	}
 	
 	gtk_widget_hide(mmguiapp->window->prefdialog);

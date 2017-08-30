@@ -111,22 +111,28 @@ static void mmgui_main_contacts_list_cursor_changed_signal(GtkTreeView *tree_vie
 				mmguiapp->window->contactssmsmenu = NULL;
 			}
 			//Create new menu
-			mmguiapp->window->contactssmsmenu = gtk_menu_new();
+			if (mmguiapp->options->smspageenabled) {
+				mmguiapp->window->contactssmsmenu = gtk_menu_new();
+			}
 			//Contacts numbers validation						
 			if ((contact->number != NULL) && (mmguicore_sms_validate_number((const gchar *)contact->number))) {
-				menu_sms1 = gtk_menu_item_new_with_label(contact->number);
-				gtk_menu_shell_append(GTK_MENU_SHELL(mmguiapp->window->contactssmsmenu), menu_sms1);
-				appdata[0].mmguiapp = mmguiapp;
-				appdata[0].data = GINT_TO_POINTER(0);
-				g_signal_connect(G_OBJECT(menu_sms1), "activate", G_CALLBACK(mmgui_main_contacts_sms_menu_activate_signal), &(appdata[0]));
+				if (mmguiapp->options->smspageenabled) {
+					menu_sms1 = gtk_menu_item_new_with_label(contact->number);
+					gtk_menu_shell_append(GTK_MENU_SHELL(mmguiapp->window->contactssmsmenu), menu_sms1);
+					appdata[0].mmguiapp = mmguiapp;
+					appdata[0].data = GINT_TO_POINTER(0);
+					g_signal_connect(G_OBJECT(menu_sms1), "activate", G_CALLBACK(mmgui_main_contacts_sms_menu_activate_signal), &(appdata[0]));
+				}
 				validated = TRUE;
 			}
 			if ((contact->number2 != NULL) && (mmguicore_sms_validate_number((const gchar *)contact->number2))) {
-				menu_sms2 = gtk_menu_item_new_with_label(contact->number2);
-				gtk_menu_shell_append(GTK_MENU_SHELL(mmguiapp->window->contactssmsmenu), menu_sms2);
-				appdata[1].mmguiapp = mmguiapp;
-				appdata[1].data = GINT_TO_POINTER(1);
-				g_signal_connect(G_OBJECT(menu_sms2), "activate", G_CALLBACK(mmgui_main_contacts_sms_menu_activate_signal), &(appdata[1]));
+				if (mmguiapp->options->smspageenabled) {
+					menu_sms2 = gtk_menu_item_new_with_label(contact->number2);
+					gtk_menu_shell_append(GTK_MENU_SHELL(mmguiapp->window->contactssmsmenu), menu_sms2);
+					appdata[1].mmguiapp = mmguiapp;
+					appdata[1].data = GINT_TO_POINTER(1);
+					g_signal_connect(G_OBJECT(menu_sms2), "activate", G_CALLBACK(mmgui_main_contacts_sms_menu_activate_signal), &(appdata[1]));
+				}
 				validated = TRUE;
 			}
 			//Set buttons state
@@ -137,10 +143,13 @@ static void mmgui_main_contacts_list_cursor_changed_signal(GtkTreeView *tree_vie
 				} else {
 					gtk_widget_set_sensitive(mmguiapp->window->removecontactbutton, FALSE);
 				}
-				gtk_widget_set_sensitive(mmguiapp->window->smstocontactbutton, TRUE);
-				//Show menu if contact data validated
-				gtk_widget_show_all(GTK_WIDGET(mmguiapp->window->contactssmsmenu));
-				gtk_menu_tool_button_set_menu(GTK_MENU_TOOL_BUTTON(mmguiapp->window->smstocontactbutton), mmguiapp->window->contactssmsmenu);
+				/*SMS send button*/
+				if (mmguiapp->options->smspageenabled) {
+					gtk_widget_set_sensitive(mmguiapp->window->smstocontactbutton, TRUE);
+					//Show menu if contact data validated
+					gtk_widget_show_all(GTK_WIDGET(mmguiapp->window->contactssmsmenu));
+					gtk_menu_tool_button_set_menu(GTK_MENU_TOOL_BUTTON(mmguiapp->window->smstocontactbutton), mmguiapp->window->contactssmsmenu);
+				}
 			} else {
 				gtk_widget_set_sensitive(mmguiapp->window->removecontactbutton, FALSE);
 				gtk_widget_set_sensitive(mmguiapp->window->smstocontactbutton, FALSE);

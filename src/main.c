@@ -1140,12 +1140,16 @@ static void mmgui_main_ui_application_menu_set_state(mmgui_application_t mmguiap
 		
 	if (mmguiapp == NULL) return;
 	
+	/*Pages list*/
 	action = g_action_map_lookup_action(G_ACTION_MAP(mmguiapp->gtkapplication), "section");
-	
-	if (action == NULL) return;
-	
-	/*Set state of section in application menu application menu*/
-	g_simple_action_set_enabled(G_SIMPLE_ACTION(action), enabled);
+	if (action != NULL) {
+		g_simple_action_set_enabled(G_SIMPLE_ACTION(action), enabled);
+	}
+	/*Preferences entry*/
+	action = g_action_map_lookup_action(G_ACTION_MAP(mmguiapp->gtkapplication), "preferences");
+	if (action != NULL) {
+		g_simple_action_set_enabled(G_SIMPLE_ACTION(action), enabled);
+	}
 }
 
 void mmgui_main_ui_devices_button_toggled_signal(GObject *object, gpointer data)
@@ -1236,6 +1240,89 @@ void mmgui_main_ui_contacts_button_toggled_signal(GObject *object, gpointer data
 	
 	if (gtk_toggle_tool_button_get_active(GTK_TOGGLE_TOOL_BUTTON(object))) {
 		mmgui_main_ui_open_page(mmguiapp, MMGUI_MAIN_PAGE_CONTACTS);
+	}
+}
+
+void mmgui_main_window_update_active_pages(mmgui_application_t mmguiapp)
+{
+	guint setpage;
+	
+	if (mmguiapp == NULL) return;
+	
+	setpage = gtk_notebook_get_current_page(GTK_NOTEBOOK(mmguiapp->window->notebook));
+	
+	switch (setpage) {
+		case MMGUI_MAIN_PAGE_DEVICES:
+			break;
+		case MMGUI_MAIN_PAGE_SMS:
+			if (!mmguiapp->options->smspageenabled) {
+				gtk_toggle_tool_button_set_active(GTK_TOGGLE_TOOL_BUTTON(mmguiapp->window->devbutton), TRUE);
+			}
+			break;
+		case MMGUI_MAIN_PAGE_USSD:
+			if (!mmguiapp->options->ussdpageenabled) {
+				gtk_toggle_tool_button_set_active(GTK_TOGGLE_TOOL_BUTTON(mmguiapp->window->devbutton), TRUE);
+			}
+			break;
+		case MMGUI_MAIN_PAGE_INFO:
+			if (!mmguiapp->options->infopageenabled) {
+				gtk_toggle_tool_button_set_active(GTK_TOGGLE_TOOL_BUTTON(mmguiapp->window->devbutton), TRUE);
+			}
+			break;
+		case MMGUI_MAIN_PAGE_SCAN:
+			if (!mmguiapp->options->scanpageenabled) {
+				gtk_toggle_tool_button_set_active(GTK_TOGGLE_TOOL_BUTTON(mmguiapp->window->devbutton), TRUE);
+			}
+			break;
+		case MMGUI_MAIN_PAGE_TRAFFIC:
+			if (!mmguiapp->options->trafficpageenabled) {
+				gtk_toggle_tool_button_set_active(GTK_TOGGLE_TOOL_BUTTON(mmguiapp->window->devbutton), TRUE);
+			}
+			break;
+		case MMGUI_MAIN_PAGE_CONTACTS:
+			if (!mmguiapp->options->contactspageenabled) {
+				gtk_toggle_tool_button_set_active(GTK_TOGGLE_TOOL_BUTTON(mmguiapp->window->devbutton), TRUE);
+			}
+			break;
+		default:
+			break;
+	}
+	
+	/*Hiding toolbar buttons*/
+	gtk_widget_set_visible(GTK_WIDGET(mmguiapp->window->smsbutton), mmguiapp->options->smspageenabled);
+	gtk_widget_set_visible(GTK_WIDGET(mmguiapp->window->ussdbutton), mmguiapp->options->ussdpageenabled);
+	gtk_widget_set_visible(GTK_WIDGET(mmguiapp->window->infobutton), mmguiapp->options->infopageenabled);
+	gtk_widget_set_visible(GTK_WIDGET(mmguiapp->window->scanbutton), mmguiapp->options->scanpageenabled);
+	gtk_widget_set_visible(GTK_WIDGET(mmguiapp->window->trafficbutton), mmguiapp->options->trafficpageenabled);
+	gtk_widget_set_visible(GTK_WIDGET(mmguiapp->window->contactsbutton), mmguiapp->options->contactspageenabled);
+	
+	/*Rebilding menu section*/
+	g_menu_remove_all(mmguiapp->window->appsection);
+	g_menu_append(mmguiapp->window->appsection, _("_Devices"), "app.section::devices");
+	mmgui_add_accelerator_with_parameter(mmguiapp->gtkapplication, "<Primary>F1", "app.section", "devices");
+	if (mmguiapp->options->smspageenabled) {
+		g_menu_append(mmguiapp->window->appsection, _("_SMS"), "app.section::sms");
+		mmgui_add_accelerator_with_parameter(mmguiapp->gtkapplication, "<Primary>F2", "app.section", "sms");
+	}
+	if (mmguiapp->options->ussdpageenabled) {	
+		g_menu_append(mmguiapp->window->appsection, _("_USSD"), "app.section::ussd");
+		mmgui_add_accelerator_with_parameter(mmguiapp->gtkapplication, "<Primary>F3", "app.section", "ussd");
+	}
+	if (mmguiapp->options->infopageenabled) {
+		g_menu_append(mmguiapp->window->appsection, _("_Info"), "app.section::info");
+		mmgui_add_accelerator_with_parameter(mmguiapp->gtkapplication, "<Primary>F4", "app.section", "info");
+	}
+	if (mmguiapp->options->scanpageenabled) {
+		g_menu_append(mmguiapp->window->appsection, _("S_can"), "app.section::scan");
+		mmgui_add_accelerator_with_parameter(mmguiapp->gtkapplication, "<Primary>F5", "app.section", "scan");
+	}
+	if (mmguiapp->options->trafficpageenabled) {
+		g_menu_append(mmguiapp->window->appsection, _("_Traffic"), "app.section::traffic");
+		mmgui_add_accelerator_with_parameter(mmguiapp->gtkapplication, "<Primary>F6", "app.section", "traffic");
+	}
+	if (mmguiapp->options->contactspageenabled) {
+		g_menu_append(mmguiapp->window->appsection, _("C_ontacts"), "app.section::contacts");
+		mmgui_add_accelerator_with_parameter(mmguiapp->gtkapplication, "<Primary>F7", "app.section", "contacts");
 	}
 }
 
@@ -1465,7 +1552,7 @@ static void mmgui_main_ui_section_menu_item_activate_signal(GSimpleAction *actio
 		toolbutton = mmguiapp->window->devbutton;
 	}
 	
-	if (gtk_widget_get_sensitive(toolbutton)) {
+	if ((gtk_widget_get_sensitive(toolbutton)) && (gtk_widget_get_visible(toolbutton))) {
 		gtk_toggle_tool_button_set_active(GTK_TOGGLE_TOOL_BUTTON(toolbutton), TRUE);
 		g_debug("Application menu item activated: %s\n", state);
 	}
@@ -1775,7 +1862,10 @@ static gboolean mmgui_main_settings_ui_load(mmgui_application_t mmguiapp)
 	if (mmguiapp == NULL) return FALSE;
 	if ((mmguiapp->window == NULL) || (mmguiapp->settings == NULL)) return FALSE;
 	
-	//Get last opened device and open it
+	/*Toolbar buttons*/
+	mmgui_main_window_update_active_pages(mmguiapp);
+	
+	/*Get last opened device and open it*/
 	strparam = gmm_settings_get_string(mmguiapp->settings, "device_identifier", MMGUI_MAIN_DEFAULT_DEVICE_IDENTIFIER);
 	mmgui_main_device_select_from_list(mmguiapp, strparam);
 	g_free(strparam);
@@ -1844,6 +1934,14 @@ static gboolean mmgui_main_settings_load(mmgui_application_t mmguiapp)
 	if (mmguiapp->coreoptions->cmmodule == NULL) {
 		mmguiapp->coreoptions->cmmodule = gmm_settings_get_string(mmguiapp->settings, "modules_preferred_connection_manager", NULL);
 	}
+	
+	/*Active pages*/
+	mmguiapp->options->smspageenabled = gmm_settings_get_boolean(mmguiapp->settings, "pages_sms_enabled", TRUE);
+	mmguiapp->options->ussdpageenabled = gmm_settings_get_boolean(mmguiapp->settings, "pages_ussd_enabled", TRUE);
+	mmguiapp->options->infopageenabled = gmm_settings_get_boolean(mmguiapp->settings, "pages_info_enabled", TRUE);
+	mmguiapp->options->scanpageenabled = gmm_settings_get_boolean(mmguiapp->settings, "pages_scan_enabled", TRUE);
+	mmguiapp->options->trafficpageenabled = gmm_settings_get_boolean(mmguiapp->settings, "pages_traffic_enabled", TRUE);
+	mmguiapp->options->contactspageenabled = gmm_settings_get_boolean(mmguiapp->settings, "pages_contacts_enabled", TRUE);
 	
 	/*Window geometry*/
 	mmguiapp->options->wgwidth = gmm_settings_get_int(mmguiapp->settings, "window_geometry_width", -1);
@@ -2033,6 +2131,12 @@ static gboolean mmgui_main_application_build_user_interface(mmgui_application_t 
 		{"prefscannetworkstimeoutscale", &(mmguiapp->window->prefscannetworkstimeoutscale)},
 		{"prefmodulesmmcombo", &(mmguiapp->window->prefmodulesmmcombo)},
 		{"prefmodulescmcombo", &(mmguiapp->window->prefmodulescmcombo)},
+		{"prefactivepagessmscb", &(mmguiapp->window->prefactivepagessmscb)},
+		{"prefactivepagesussdcb", &(mmguiapp->window->prefactivepagesussdcb)},
+		{"prefactivepagesinfocb", &(mmguiapp->window->prefactivepagesinfocb)},
+		{"prefactivepagesscancb", &(mmguiapp->window->prefactivepagesscancb)},
+		{"prefactivepagestrafficcb", &(mmguiapp->window->prefactivepagestrafficcb)},
+		{"prefactivepagescontactscb", &(mmguiapp->window->prefactivepagescontactscb)},
 		/*Exit dialog*/
 		{"exitaskagain", &(mmguiapp->window->exitaskagain)},
 		{"exitcloseradio", &(mmguiapp->window->exitcloseradio)},
@@ -2238,7 +2342,7 @@ static void mmgui_main_application_startup_signal(GtkApplication *application, g
 	mmgui_application_t mmguiapp;
 	GtkSettings *gtksettings;
 	gboolean showappmenu, showmenubar;
-	GMenu *menu, *actsection, *appsection, *prefsection, *helpsection, *quitsection;
+	GMenu *menu, *actsection, /**appsection,*/ *prefsection, *helpsection, *quitsection;
 	static GActionEntry app_actions[] = {
 		{ "section", mmgui_main_ui_section_menu_item_activate_signal, "s", "'devices'", NULL },
 		{ "preferences", mmgui_preferences_window_activate_signal, NULL, NULL, NULL },
@@ -2264,29 +2368,15 @@ static void mmgui_main_application_startup_signal(GtkApplication *application, g
 	
 	if ((showmenubar) || ((!showappmenu) && (!showmenubar))) {
 		/*Classic menubar*/
-		/*Pages*/
-		appsection = g_menu_new();
-		g_menu_append(appsection, _("_Devices"), "app.section::devices");
-		mmgui_add_accelerator_with_parameter(application, "<Primary>F1", "app.section", "devices");
-		g_menu_append(appsection, _("_SMS"), "app.section::sms");
-		mmgui_add_accelerator_with_parameter(application, "<Primary>F2", "app.section", "sms");
-		g_menu_append(appsection, _("_USSD"), "app.section::ussd");
-		mmgui_add_accelerator_with_parameter(application, "<Primary>F3", "app.section", "ussd");
-		g_menu_append(appsection, _("_Info"), "app.section::info");
-		mmgui_add_accelerator_with_parameter(application, "<Primary>F4", "app.section", "info");
-		g_menu_append(appsection, _("S_can"), "app.section::scan");
-		mmgui_add_accelerator_with_parameter(application, "<Primary>F5", "app.section", "scan");
-		g_menu_append(appsection, _("_Traffic"), "app.section::traffic");
-		mmgui_add_accelerator_with_parameter(application, "<Primary>F6", "app.section", "traffic");
-		g_menu_append(appsection, _("C_ontacts"), "app.section::contacts");
-		mmgui_add_accelerator_with_parameter(application, "<Primary>F7", "app.section", "contacts");
+		/*Pages - empty section to be filled later*/
+		mmguiapp->window->appsection = g_menu_new();
 		/*Quit*/
 		quitsection = g_menu_new();
 		g_menu_append(quitsection, _("_Quit"), "app.quit");
 		mmgui_add_accelerator(application, "<Primary>q", "app.quit");
 		/*Actions menu*/
 		actsection = g_menu_new();
-		g_menu_append_section(actsection, NULL, G_MENU_MODEL(appsection));
+		g_menu_append_section(actsection, NULL, G_MENU_MODEL(mmguiapp->window->appsection));
 		g_menu_append_section(actsection, NULL, G_MENU_MODEL(quitsection));
 		g_menu_append_submenu(menu, _("_Actions"), G_MENU_MODEL(actsection));
 		/*Preferences*/
@@ -2306,23 +2396,9 @@ static void mmgui_main_application_startup_signal(GtkApplication *application, g
 		gtk_application_set_menubar(application, G_MENU_MODEL(menu));
 	} else if (showappmenu) {
 		/*GNOME 3 - style appmenu*/
-		/*Toolbar actions*/
-		appsection = g_menu_new();
-		g_menu_append(appsection, _("Devices"), "app.section::devices");
-		mmgui_add_accelerator_with_parameter(application, "<Primary>F1", "app.section", "devices");
-		g_menu_append(appsection, _("SMS"), "app.section::sms");
-		mmgui_add_accelerator_with_parameter(application, "<Primary>F2", "app.section", "sms");
-		g_menu_append(appsection, _("USSD"), "app.section::ussd");
-		mmgui_add_accelerator_with_parameter(application, "<Primary>F3", "app.section", "ussd");
-		g_menu_append(appsection, _("Info"), "app.section::info");
-		mmgui_add_accelerator_with_parameter(application, "<Primary>F4", "app.section", "info");
-		g_menu_append(appsection, _("Scan"), "app.section::scan");
-		mmgui_add_accelerator_with_parameter(application, "<Primary>F5", "app.section", "scan");
-		g_menu_append(appsection, _("Traffic"), "app.section::traffic");
-		mmgui_add_accelerator_with_parameter(application, "<Primary>F6", "app.section", "traffic");
-		g_menu_append(appsection, _("Contacts"), "app.section::contacts");
-		mmgui_add_accelerator_with_parameter(application, "<Primary>F7", "app.section", "contacts");
-		g_menu_append_section(menu, NULL, G_MENU_MODEL(appsection));
+		/*Toolbar actions - empty section to be filled later*/
+		mmguiapp->window->appsection = g_menu_new();
+		g_menu_append_section(menu, NULL, G_MENU_MODEL(mmguiapp->window->appsection));
 		/*Preferences*/
 		prefsection = g_menu_new();
 		g_menu_append(prefsection, _("Preferences"), "app.preferences");

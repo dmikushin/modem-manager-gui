@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.18.3 -->
+<!-- Generated with glade 3.20.0 -->
 <interface>
   <requires lib="gtk+" version="3.4"/>
   <object class="GtkSizeGroup" id="conneditsizegroup"/>
@@ -117,8 +117,8 @@
                       <object class="GtkLabel" id="welcomemmlabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
                         <property name="label" translatable="yes">Modem manager</property>
+                        <property name="xalign">0</property>
                         <attributes>
                           <attribute name="scale" value="1"/>
                         </attributes>
@@ -132,8 +132,8 @@
                       <object class="GtkLabel" id="welcomecmlabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="xalign">0</property>
                         <property name="label" translatable="yes">Connection manager</property>
+                        <property name="xalign">0</property>
                       </object>
                       <packing>
                         <property name="left_attach">0</property>
@@ -472,9 +472,6 @@
                 <property name="position">0</property>
               </packing>
             </child>
-            <action-widgets>
-              <action-widget response="-7">infobarstopbutton</action-widget>
-            </action-widgets>
             <child internal-child="content_area">
               <object class="GtkBox" id="infobarcontentarea">
                 <property name="can_focus">False</property>
@@ -944,8 +941,8 @@
                               <object class="GtkLabel" id="devicelabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">Device</property>
+                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -969,8 +966,8 @@
                               <object class="GtkLabel" id="imeilabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">IMEI</property>
+                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -994,8 +991,8 @@
                               <object class="GtkLabel" id="imsilabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">IMSI/ESN</property>
+                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1067,8 +1064,8 @@
                               <object class="GtkLabel" id="operatorlabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">Operator</property>
+                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1092,8 +1089,8 @@
                               <object class="GtkLabel" id="modelabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">Mode</property>
+                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1117,8 +1114,8 @@
                               <object class="GtkLabel" id="signallevellabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">Signal level</property>
+                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1129,8 +1126,8 @@
                               <object class="GtkLabel" id="operatorcodelabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">Operator code</property>
+                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1154,8 +1151,8 @@
                               <object class="GtkLabel" id="regstatelabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">Registration</property>
+                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1242,10 +1239,10 @@
                               <object class="GtkLabel" id="3gpplocationlabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">3GPP Location
 &lt;small&gt;MCC/MNC/LAC/RNC/CID&lt;/small&gt;</property>
                                 <property name="use_markup">True</property>
+                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -1256,10 +1253,10 @@
                               <object class="GtkLabel" id="gpslocationlabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">GPS location
 &lt;small&gt;Longitude/Latiude&lt;/small&gt;</property>
                                 <property name="use_markup">True</property>
+                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -2127,8 +2124,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="hexpand">True</property>
-                                    <property name="xalign">0</property>
                                     <property name="label" translatable="yes">Name</property>
+                                    <property name="xalign">0</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -2140,8 +2137,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="hexpand">True</property>
-                                    <property name="xalign">0</property>
                                     <property name="label" translatable="yes">APN</property>
+                                    <property name="xalign">0</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -2198,8 +2195,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                   <object class="GtkLabel" id="connnetidlabel">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="xalign">0</property>
                                     <property name="label" translatable="yes">Network ID</property>
+                                    <property name="xalign">0</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -2290,8 +2287,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="hexpand">True</property>
-                                    <property name="xalign">0</property>
                                     <property name="label" translatable="yes">Access number</property>
+                                    <property name="xalign">0</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -2303,8 +2300,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="hexpand">True</property>
-                                    <property name="xalign">0</property>
                                     <property name="label" translatable="yes">User name</property>
+                                    <property name="xalign">0</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -2316,8 +2313,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="hexpand">True</property>
-                                    <property name="xalign">0</property>
                                     <property name="label" translatable="yes">Password</property>
+                                    <property name="xalign">0</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -2430,8 +2427,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="hexpand">True</property>
-                                    <property name="xalign">0</property>
                                     <property name="label" translatable="yes">DNS 1</property>
+                                    <property name="xalign">0</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -2443,8 +2440,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
                                     <property name="hexpand">True</property>
-                                    <property name="xalign">0</property>
                                     <property name="label" translatable="yes">DNS 2</property>
+                                    <property name="xalign">0</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
@@ -2869,8 +2866,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
               <object class="GtkLabel" id="contactnamelabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">First name</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -2881,8 +2878,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
               <object class="GtkLabel" id="contactnumberlabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">First number</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -2893,8 +2890,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
               <object class="GtkLabel" id="contactemaillabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">EMail</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -2905,8 +2902,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
               <object class="GtkLabel" id="contactgrouplabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Group</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -2917,8 +2914,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
               <object class="GtkLabel" id="contactname2label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Second name</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -2929,8 +2926,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
               <object class="GtkLabel" id="contactnumber2label">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Second number</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -3200,6 +3197,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
               <object class="GtkFrame" id="prefbehaviourframe">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="border_width">10</property>
                 <property name="label_xalign">0</property>
                 <property name="shadow_type">none</property>
                 <child>
@@ -3300,7 +3298,9 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
               <object class="GtkBox" id="prefsmsbox">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="border_width">10</property>
                 <property name="orientation">vertical</property>
+                <property name="spacing">5</property>
                 <child>
                   <object class="GtkFrame" id="prefsmsframe">
                     <property name="visible">True</property>
@@ -3313,7 +3313,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                         <property name="can_focus">False</property>
                         <property name="left_padding">12</property>
                         <child>
-                          <object class="GtkBox" id="box6">
+                          <object class="GtkBox" id="prefsmspresentationbox">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="orientation">vertical</property>
@@ -3478,6 +3478,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
               <object class="GtkFrame" id="preftrafficframe">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="border_width">10</property>
                 <property name="label_xalign">0</property>
                 <property name="shadow_type">none</property>
                 <child>
@@ -3517,8 +3518,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                           <object class="GtkLabel" id="preftrafficrxcolorlabel">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="xalign">0</property>
                             <property name="label" translatable="yes">RX Speed graph color</property>
+                            <property name="xalign">0</property>
                           </object>
                           <packing>
                             <property name="left_attach">0</property>
@@ -3529,8 +3530,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                           <object class="GtkLabel" id="preftraffictxcolorlabel">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
-                            <property name="xalign">0</property>
                             <property name="label" translatable="yes">TX Speed graph color</property>
+                            <property name="xalign">0</property>
                           </object>
                           <packing>
                             <property name="left_attach">0</property>
@@ -3569,7 +3570,9 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
               <object class="GtkBox" id="prefmodulesbox">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
+                <property name="border_width">10</property>
                 <property name="orientation">vertical</property>
+                <property name="spacing">5</property>
                 <child>
                   <object class="GtkFrame" id="prefmodulesbackendsframe">
                     <property name="visible">True</property>
@@ -3585,12 +3588,14 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                           <object class="GtkGrid" id="prfmodulesbackendsgrid">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="row_spacing">5</property>
+                            <property name="column_spacing">5</property>
                             <child>
                               <object class="GtkLabel" id="prefmodulesmmlabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">Modem manager</property>
+                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="left_attach">0</property>
@@ -3601,8 +3606,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                               <object class="GtkLabel" id="prefmodulescmlabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">Connection manager</property>
+                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="left_attach">0</property>
@@ -3669,12 +3674,14 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                           <object class="GtkGrid" id="prefmodulestimeoutsgrid">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="row_spacing">5</property>
+                            <property name="column_spacing">5</property>
                             <child>
                               <object class="GtkLabel" id="prefenabletimeoutslabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">Enable device</property>
+                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="left_attach">0</property>
@@ -3685,8 +3692,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                               <object class="GtkLabel" id="prefsendsmstimeoutlabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">Send SMS message</property>
+                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="left_attach">0</property>
@@ -3697,8 +3704,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                               <object class="GtkLabel" id="prefsendussdtimeoutlabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">Send USSD request</property>
+                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="left_attach">0</property>
@@ -3709,8 +3716,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                               <object class="GtkLabel" id="prefscantimeoutlabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
-                                <property name="xalign">0</property>
                                 <property name="label" translatable="yes">Scan networks</property>
+                                <property name="xalign">0</property>
                               </object>
                               <packing>
                                 <property name="left_attach">0</property>
@@ -3813,6 +3820,151 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
               </object>
               <packing>
                 <property name="position">3</property>
+                <property name="tab_fill">False</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkFrame" id="prefactivepagesframe">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="border_width">10</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">none</property>
+                <child>
+                  <object class="GtkAlignment" id="prefactivepagesalignment">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="left_padding">12</property>
+                    <child>
+                      <object class="GtkBox" id="prefactivepagesbox">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="orientation">vertical</property>
+                        <child>
+                          <object class="GtkCheckButton" id="prefactivepagesdevicescb">
+                            <property name="label" translatable="yes">Devices</property>
+                            <property name="visible">True</property>
+                            <property name="sensitive">False</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">False</property>
+                            <property name="active">True</property>
+                            <property name="draw_indicator">True</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">0</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkCheckButton" id="prefactivepagessmscb">
+                            <property name="label" translatable="yes">SMS</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">False</property>
+                            <property name="draw_indicator">True</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkCheckButton" id="prefactivepagesussdcb">
+                            <property name="label" translatable="yes">USSD</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">False</property>
+                            <property name="draw_indicator">True</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkCheckButton" id="prefactivepagesinfocb">
+                            <property name="label" translatable="yes">Info</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">False</property>
+                            <property name="draw_indicator">True</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">3</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkCheckButton" id="prefactivepagesscancb">
+                            <property name="label" translatable="yes">Scan</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">False</property>
+                            <property name="draw_indicator">True</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">4</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkCheckButton" id="prefactivepagestrafficcb">
+                            <property name="label" translatable="yes">Traffic</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">False</property>
+                            <property name="draw_indicator">True</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">5</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkCheckButton" id="prefactivepagescontactscb">
+                            <property name="label" translatable="yes">Contacts</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">False</property>
+                            <property name="draw_indicator">True</property>
+                          </object>
+                          <packing>
+                            <property name="expand">False</property>
+                            <property name="fill">True</property>
+                            <property name="position">6</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child type="label">
+                  <object class="GtkLabel" id="prefactivepageslabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">&lt;b&gt;Active pages&lt;/b&gt;</property>
+                    <property name="use_markup">True</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="position">4</property>
+              </packing>
+            </child>
+            <child type="tab">
+              <object class="GtkLabel" id="prefpageslabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Pages</property>
+              </object>
+              <packing>
+                <property name="position">4</property>
                 <property name="tab_fill">False</property>
               </packing>
             </child>
@@ -3960,8 +4112,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
               <object class="GtkLabel" id="trafficamountlabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Traffic</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -4000,8 +4152,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
               <object class="GtkLabel" id="trafficmessagelabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Message</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -4024,8 +4176,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
               <object class="GtkLabel" id="trafficactionlabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Action</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -4052,8 +4204,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
               <object class="GtkLabel" id="timeamountlabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Time</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -4091,8 +4243,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
               <object class="GtkLabel" id="timemessagelabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Message</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>
@@ -4115,8 +4267,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
               <object class="GtkLabel" id="timeactionlabel">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="xalign">0</property>
                 <property name="label" translatable="yes">Action</property>
+                <property name="xalign">0</property>
               </object>
               <packing>
                 <property name="left_attach">0</property>

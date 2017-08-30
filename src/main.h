@@ -281,12 +281,20 @@ struct _mmgui_main_window {
 	GtkWidget *prefscannetworkstimeoutscale;
 	GtkWidget *prefmodulesmmcombo;
 	GtkWidget *prefmodulescmcombo;
+	GtkWidget *prefactivepagessmscb;
+	GtkWidget *prefactivepagesussdcb;
+	GtkWidget *prefactivepagesinfocb;
+	GtkWidget *prefactivepagesscancb;
+	GtkWidget *prefactivepagestrafficcb;
+	GtkWidget *prefactivepagescontactscb;
 	//Exit dialog
 	GtkWidget *exitaskagain;
 	GtkWidget *exitcloseradio;
 	GtkWidget *exithideradio;
 	/*Keyboard acceletators*/
 	GtkAccelGroup *accelgroup;
+	/*Pages menu section*/
+	GMenu *appsection;
 	/*Page shortcuts*/
 	GSList *pageshortcuts;
 	/*Closures for SMS page*/
@@ -319,15 +327,13 @@ struct _mmgui_cli_options {
 	gboolean invisible;
 	gboolean minimized;
 	gboolean hidenotifyshown;
-	/*gboolean nostatistics;
-	gboolean nosmsupdate;*/
-	//SMS
+	/*SMS*/
 	gboolean concatsms;
 	gboolean smsexpandfolders;
 	gboolean smsoldontop;
 	gboolean smsdeliveryreport;
 	gint smsvalidityperiod;
-	//Traffic graph
+	/*Traffic graph*/
 	#if GTK_CHECK_VERSION(3,4,0)
 		GdkRGBA rxtrafficcolor;
 		GdkRGBA txtrafficcolor;
@@ -335,16 +341,23 @@ struct _mmgui_cli_options {
 		GdkColor rxtrafficcolor;
 		GdkColor txtrafficcolor;
 	#endif
-	//Behaviour
+	/*Behaviour*/
 	gboolean usesounds;
 	gboolean hidetotray;
 	gboolean askforhide;
 	gboolean savegeometry;
-	//Window geometry
+	/*Window geometry*/
 	gint wgwidth;
 	gint wgheight;
 	gint wgposx;
 	gint wgposy;
+	/*Active pages*/
+	gboolean smspageenabled;
+	gboolean ussdpageenabled;
+	gboolean infopageenabled;
+	gboolean scanpageenabled;
+	gboolean trafficpageenabled;
+	gboolean contactspageenabled;
 };
 
 typedef struct _mmgui_cli_options *mmgui_cli_options_t;
@@ -391,6 +404,7 @@ void mmgui_main_ui_info_button_toggled_signal(GObject *object, gpointer data);
 void mmgui_main_ui_scan_button_toggled_signal(GObject *object, gpointer data);
 void mmgui_main_ui_traffic_button_toggled_signal(GObject *object, gpointer data);
 void mmgui_main_ui_contacts_button_toggled_signal(GObject *object, gpointer data);
+void mmgui_main_window_update_active_pages(mmgui_application_t mmguiapp);
 gboolean mmgui_main_ui_window_delete_event_signal(GtkWidget *widget, GdkEvent  *event, gpointer data);
 void mmgui_main_ui_window_destroy_signal(GObject *object, gpointer data);
 gchar *mmgui_main_ui_message_validity_scale_value_format(GtkScale *scale, gdouble value, gpointer user_data);
