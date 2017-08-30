@@ -1,7 +1,7 @@
 /*
  *      netlink.c
  *      
- *      Copyright 2012-2013 Alex <alex@linuxonly.ru>
+ *      Copyright 2012-2017 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -37,6 +37,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <net/if.h>
+#include <limits.h>
 
 #include "netlink.h"
 
@@ -71,7 +72,7 @@ static gboolean mmgui_netlink_numeric_name(gchar *dirname)
 
 static gboolean mmgui_netlink_process_access(gchar *dirname, uid_t uid)
 {
-	gchar fullpath[128];
+	gchar fullpath[PATH_MAX];
 	struct stat pathstat;
 	
 	if (!mmgui_netlink_numeric_name(dirname)) return FALSE;
@@ -93,7 +94,7 @@ static gboolean mmgui_netlink_process_access(gchar *dirname, uid_t uid)
 
 static gboolean mmgui_netlink_socket_access(gchar *dirname, gchar *sockname, guint inode)
 {
-	gchar fullpath[128];
+	gchar fullpath[PATH_MAX];
 	struct stat fdstat;
 	
 	if (!mmgui_netlink_numeric_name(sockname)) return FALSE;
@@ -116,7 +117,7 @@ static gboolean mmgui_netlink_socket_access(gchar *dirname, gchar *sockname, gui
 static gchar *mmgui_netlink_process_name(gchar *dirname, gchar *appname, gsize appsize)
 {
 	gint fd, i;
-	gchar fpath[128];
+	gchar fpath[PATH_MAX];
 	ssize_t linkchars;
 		
 	if ((dirname == NULL) || (dirname[0] == '\0')) return NULL;
@@ -159,7 +160,7 @@ static gboolean mmgui_netlink_get_process(guint inode, gchar *appname, gsize nam
 {
 	DIR *procdir, *fddir;
 	struct dirent *procde, *fdde;
-	gchar fdirpath[128];
+	gchar fdirpath[PATH_MAX];
 	
 	if ((appname == NULL) || (namesize == 0) || (apppid == NULL)) return FALSE;
 	
