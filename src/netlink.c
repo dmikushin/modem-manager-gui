@@ -1,7 +1,7 @@
 /*
  *      netlink.c
  *      
- *      Copyright 2012-2017 Alex <alex@linuxonly.ru>
+ *      Copyright 2012-2013 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by

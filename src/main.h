@@ -27,6 +27,7 @@
 #include "modem-settings.h"
 #include "notifications.h"
 #include "ayatana.h"
+#include "providersdb.h"
 #include "addressbooks.h"
 
 #if RESOURCE_SPELLCHECKER_ENABLED
@@ -38,6 +39,7 @@
 #endif
 
 #define MMGUI_MAIN_DEFAULT_DEVICE_IDENTIFIER  "00000000000000000000000"
+#define MMGUI_MAIN_DEFAULT_CONNECTION_UUID    "00000000-0000-4000-0000-000000000000"
 
 #define MMGUI_MAIN_OPERATION_TIMEOUT          120
 
@@ -143,23 +145,18 @@ struct _mmgui_main_window {
 	GtkWidget *conneditdialog;
 	GtkWidget *connaddtoolbutton;
 	GtkWidget *connremovetoolbutton;
-	GtkWidget *connsavetoolbutton;
 	GtkWidget *contreeview;
-	GtkWidget *connnamecombobox;
-	GtkWidget *connnamecomboboxentry;
+	GtkWidget *connnameentry;
 	GtkWidget *connnameapnentry;
-	GtkWidget *connnethomeradiobutton;
-	GtkWidget *connnetroamradiobutton;
-	GtkWidget *connnetidentry;
+	GtkWidget *connnametechcombo;
+	GtkWidget *connnetroamingcheckbutton;
+	GtkWidget *connnetidspinbutton;
 	GtkWidget *connauthnumberentry;
 	GtkWidget *connauthusernameentry;
 	GtkWidget *connauthpassentry;
-	GtkWidget *conndnsdynradiobutton;
-	GtkWidget *conndnsstradiobutton;
 	GtkWidget *conndns1entry;
 	GtkWidget *conndns2entry;
-	/*Add connection dialog*/
-	GtkWidget *connadddialog;
+	GtkWidget *providersmenu;
 	//SMS page
 	GtkWidget *smsinfobar;
 	GtkWidget *smsinfobarlabel;
@@ -298,6 +295,9 @@ struct _mmgui_main_window {
 	GMenu *appsection;
 	/*Page shortcuts*/
 	GSList *pageshortcuts;
+	/*Closures for Devices page*/
+	GClosure *conneditorclosure;
+	GClosure *connactivateclosure;
 	/*Closures for SMS page*/
 	GClosure *newsmsclosure;
 	GClosure *removesmsclosure;
@@ -380,6 +380,7 @@ struct _mmgui_application {
 	mmgui_notifications_t notifications;
 	mmgui_addressbooks_t addressbooks;
 	mmgui_ayatana_t ayatana;
+	mmgui_providers_db_t providersdb;
 };
 
 typedef struct _mmgui_application *mmgui_application_t;
@@ -396,7 +397,7 @@ gboolean mmgui_main_ui_question_dialog_open(mmgui_application_t mmguiapp, gchar 
 gboolean mmgui_main_ui_error_dialog_open(mmgui_application_t mmguiapp, gchar *caption, gchar *text);
 
 void mmgui_ui_infobar_show_result(mmgui_application_t mmguiapp, gint result, gchar *message);
-void mmgui_ui_infobar_show(mmgui_application_t mmguiapp, gchar *message, gint type);
+void mmgui_ui_infobar_show(mmgui_application_t mmguiapp, gchar *message, gint type, gboolean canbestopped);
 
 gboolean mmgui_main_ui_test_device_state(mmgui_application_t mmguiapp, guint setpage);
 void mmgui_main_ui_devices_button_toggled_signal(GObject *object, gpointer data);

@@ -1,7 +1,7 @@
 /*
  *      mmguicore.h
  *      
- *      Copyright 2013-2014 Alex <alex@linuxonly.ru>
+ *      Copyright 2013-2017 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -56,6 +56,7 @@ enum _mmgui_event {
 	MMGUI_EVENT_LOCATION_CHANGE,
 	/*Modem events*/
 	MMGUI_EVENT_MODEM_ENABLE_RESULT,
+	MMGUI_EVENT_MODEM_CONNECTION_RESULT,
 	MMGUI_EVENT_SCAN_RESULT,
 	MMGUI_EVENT_USSD_RESULT,
 	MMGUI_EVENT_NET_STATUS,
@@ -259,6 +260,12 @@ enum _mmgui_contacts_capabilities {
     MMGUI_CONTACTS_CAPS_EXTENDED     = 1 << 3
 };
 
+enum _mmgui_connection_manager_caps {
+	MMGUI_CONNECTION_MANAGER_CAPS_BASIC = 0,
+	MMGUI_CONNECTION_MANAGER_CAPS_MANAGEMENT = 1 << 1,
+	MMGUI_CONNECTION_MANAGER_CAPS_MONITORING = 1 << 2
+};
+
 enum _mmgui_device_operation {
 	MMGUI_DEVICE_OPERATION_IDLE = 0,
 	MMGUI_DEVICE_OPERATION_ENABLE,
@@ -364,6 +371,7 @@ struct _mmguidevice {
 	gboolean prepared;
 	//gboolean powered;
 	enum _mmgui_device_operation operation;
+	gboolean conntransition;
 	//Info
 	gchar *manufacturer;
 	gchar *model;
@@ -414,6 +422,22 @@ struct _mmguidevice {
 
 typedef struct _mmguidevice *mmguidevice_t;
 
+struct _mmguiconn {
+	gchar *uuid;
+	gchar *name;
+	gchar *number;
+	gchar *username;
+	gchar *password;
+	gchar *apn;
+	guint networkid;
+	guint type;
+	gboolean homeonly;
+	gchar *dns1;
+	gchar *dns2;
+};
+
+typedef struct _mmguiconn *mmguiconn_t;
+
 //Modem manager module functions 
 typedef gboolean (*mmgui_module_init_func)(mmguimodule_t module);
 typedef gboolean (*mmgui_module_open_func)(gpointer mmguicore);
@@ -442,12 +466,27 @@ typedef gint (*mmgui_module_contacts_add_func)(gpointer mmguicore, mmgui_contact
 //Connection manager module functions
 typedef gboolean (*mmgui_module_connection_open_func)(gpointer mmguicore);
 typedef gboolean (*mmgui_module_connection_close_func)(gpointer mmguicore);
+
+typedef guint (*mmgui_module_connection_enum_func)(gpointer mmguicore, GSList **connlist);
+typedef mmguiconn_t (*mmgui_module_connection_add_func)(gpointer mmguicore, const gchar *name, const gchar *number, const gchar *username, const gchar *password, const gchar *apn, guint networkid, guint type, gboolean homeonly, const gchar *dns1, const gchar *dns2);
+typedef mmguiconn_t (*mmgui_module_connection_update_func)(gpointer mmguicore, mmguiconn_t connection, const gchar *name, const gchar *number, const gchar *username, const gchar *password, const gchar *apn, guint networkid, gboolean homeonly, const gchar *dns1, const gchar *dns2);
+typedef gboolean (*mmgui_module_connection_remove_func)(gpointer mmguicore, mmguiconn_t connection);
+
 typedef gchar *(*mmgui_module_connection_last_error_func)(gpointer mmguicore);
+
 typedef gboolean (*mmgui_module_device_connection_open_func)(gpointer mmguicore, mmguidevice_t device);
 typedef gboolean (*mmgui_module_device_connection_close_func)(gpointer mmguicore);
 typedef gboolean (*mmgui_module_device_connection_status_func)(gpointer mmguicore);
 typedef guint64 (*mmgui_module_device_connection_timestamp_func)(gpointer mmguicore);
+
+typedef gchar *(*mmgui_module_device_connection_get_active_uuid_func)(gpointer mmguicore);
+
+typedef gboolean (*mmgui_module_device_connection_connect_func)(gpointer mmguicore, mmguiconn_t connection);
+
 typedef gboolean (*mmgui_module_device_connection_disconnect_func)(gpointer mmguicore);
+
+
+
 
 struct _mmguicore {
 	//Modules list
@@ -492,15 +531,24 @@ struct _mmguicore {
 	//Connection manager module functions
 	mmgui_module_connection_open_func connection_open_func;
 	mmgui_module_connection_close_func connection_close_func;
+	mmgui_module_connection_enum_func connection_enum_func;
+	mmgui_module_connection_add_func connection_add_func;
+	mmgui_module_connection_update_func connection_update_func;
+	mmgui_module_connection_remove_func connection_remove_func;
 	mmgui_module_connection_last_error_func connection_last_error_func;
 	mmgui_module_device_connection_open_func device_connection_open_func;
 	mmgui_module_device_connection_close_func device_connection_close_func;
 	mmgui_module_device_connection_status_func device_connection_status_func;
 	mmgui_module_device_connection_timestamp_func device_connection_timestamp_func;
+	mmgui_module_device_connection_get_active_uuid_func device_connection_get_active_uuid_func;
+	mmgui_module_device_connection_connect_func device_connection_connect_func;
 	mmgui_module_device_connection_disconnect_func device_connection_disconnect_func;
 	//Devices
 	GSList *devices;
 	mmguidevice_t device;
+	/*Connections*/
+	guint cmcaps;
+	GSList *connections;
 	//Callbacks
 	mmgui_event_int_callback eventcb;
 	mmgui_event_ext_callback extcb;
@@ -526,6 +574,7 @@ struct _mmguicore {
 		GMutex *workthreadmutex;
 		GMutex *connsyncmutex;
 	#endif
+	
 };
 
 typedef struct _mmguicore *mmguicore_t;
@@ -535,6 +584,17 @@ typedef struct _mmguicore *mmguicore_t;
 //GSList *mmguicore_modules_info(void);
 GSList *mmguicore_modules_get_list(mmguicore_t mmguicore);
 void mmguicore_modules_mm_set_timeouts(mmguicore_t mmguicore, gint operation1, gint timeout1, ...);
+/*Connections*/
+gboolean mmguicore_connections_enum(mmguicore_t mmguicore);
+GSList *mmguicore_connections_get_list(mmguicore_t mmguicore);
+mmguiconn_t mmguicore_connections_add(mmguicore_t mmguicore, const gchar *name, const gchar *number, const gchar *username, const gchar *password, const gchar *apn, guint networkid, guint type, gboolean homeonly, const gchar *dns1, const gchar *dns2);
+gboolean mmguicore_connections_update(mmguicore_t mmguicore, const gchar *uuid, const gchar *name, const gchar *number, const gchar *username, const gchar *password, const gchar *apn, guint networkid, gboolean homeonly, const gchar *dns1, const gchar *dns2);
+gboolean mmguicore_connections_remove(mmguicore_t mmguicore, const gchar *uuid);
+gchar *mmguicore_connections_get_active_uuid(mmguicore_t mmguicore);
+gboolean mmguicore_connections_connect(mmguicore_t mmguicore, const gchar *uuid);
+gboolean mmguicore_connections_disconnect(mmguicore_t mmguicore);
+guint mmguicore_connections_get_capabilities(mmguicore_t mmguicore);
+gboolean mmguicore_connections_get_transition_flag(mmguicore_t mmguicore);
 //Devices
 gboolean mmguicore_devices_enum(mmguicore_t mmguicore);
 gboolean mmguicore_devices_open(mmguicore_t mmguicore, guint deviceid, gboolean openfirst);

@@ -3,6 +3,11 @@
 <interface>
   <requires lib="gtk+" version="3.4"/>
   <object class="GtkSizeGroup" id="conneditsizegroup"/>
+  <object class="GtkAdjustment" id="connnetidadjustment">
+    <property name="upper">999999</property>
+    <property name="step_increment">1</property>
+    <property name="page_increment">10</property>
+  </object>
   <object class="GtkAdjustment" id="prefenebledevicetimeoutadjustment">
     <property name="lower">20</property>
     <property name="upper">120</property>
@@ -308,8 +313,8 @@
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Modem Manager GUI</property>
     <property name="window_position">center</property>
-    <property name="default_width">735</property>
-    <property name="default_height">550</property>
+    <property name="default_width">850</property>
+    <property name="default_height">600</property>
     <signal name="delete-event" handler="mmgui_main_ui_window_delete_event_signal" swapped="no"/>
     <signal name="destroy" handler="mmgui_main_ui_window_destroy_signal" swapped="no"/>
     <child>
@@ -540,15 +545,14 @@
                 <property name="orientation">vertical</property>
                 <child>
                   <object class="GtkBox" id="devconnbox">
+                    <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="spacing">5</property>
                     <child>
                       <object class="GtkLabel" id="devconnlabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="margin_left">5</property>
-                        <property name="margin_right">5</property>
-                        <property name="margin_top">5</property>
-                        <property name="margin_bottom">5</property>
                         <property name="label" translatable="yes">Connection</property>
                       </object>
                       <packing>
@@ -561,10 +565,6 @@
                       <object class="GtkComboBox" id="devconncb">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
-                        <property name="margin_left">5</property>
-                        <property name="margin_right">5</property>
-                        <property name="margin_top">5</property>
-                        <property name="margin_bottom">5</property>
                       </object>
                       <packing>
                         <property name="expand">True</property>
@@ -578,10 +578,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="margin_left">5</property>
-                        <property name="margin_right">5</property>
-                        <property name="margin_top">5</property>
-                        <property name="margin_bottom">5</property>
+                        <property name="tooltip_markup" translatable="yes">Open connection editor &lt;b&gt;CTRL+E&lt;/b&gt;</property>
                         <signal name="clicked" handler="mmgui_main_conn_edit_button_clicked_signal" swapped="no"/>
                       </object>
                       <packing>
@@ -596,10 +593,8 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">True</property>
-                        <property name="margin_left">5</property>
+                        <property name="tooltip_markup" translatable="yes">Activate or deactivate connection &lt;b&gt;CTRL+A&lt;/b&gt;</property>
                         <property name="margin_right">5</property>
-                        <property name="margin_top">5</property>
-                        <property name="margin_bottom">5</property>
                         <signal name="clicked" handler="mmgui_main_conn_ctl_button_clicked_signal" swapped="no"/>
                       </object>
                       <packing>
@@ -612,6 +607,7 @@
                   <packing>
                     <property name="expand">False</property>
                     <property name="fill">True</property>
+                    <property name="padding">5</property>
                     <property name="position">0</property>
                   </packing>
                 </child>
@@ -1722,10 +1718,10 @@
     <property name="skip_pager_hint">True</property>
     <property name="transient_for">window</property>
     <property name="program_name">Modem Manager GUI</property>
-    <property name="version">0.0.18</property>
-    <property name="copyright" translatable="yes">Copyright 2012-2015 Alex</property>
+    <property name="version">0.0.19</property>
+    <property name="copyright" translatable="yes">Copyright 2012-2017 Alex</property>
     <property name="comments" translatable="yes">Tool for EDGE/3G/4G modem specific functions control</property>
-    <property name="website">http://linuxonly.ru</property>
+    <property name="website">http://linuxonly.ru/page/modem-manager-gui</property>
     <property name="website_label" translatable="yes">Homepage</property>
     <property name="license" translatable="yes">GPL3</property>
     <property name="authors">Alex &lt;alex@linuxonly.ru&gt;</property>
@@ -1755,84 +1751,6 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
         </child>
         <child>
           <placeholder/>
-        </child>
-      </object>
-    </child>
-  </object>
-  <object class="GtkDialog" id="connadddialog">
-    <property name="can_focus">False</property>
-    <property name="title" translatable="yes">Add new connection</property>
-    <property name="modal">True</property>
-    <property name="default_width">320</property>
-    <property name="default_height">260</property>
-    <property name="type_hint">dialog</property>
-    <property name="transient_for">window</property>
-    <child internal-child="vbox">
-      <object class="GtkBox" id="connadddialog-vbox">
-        <property name="can_focus">False</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">2</property>
-        <child internal-child="action_area">
-          <object class="GtkButtonBox" id="connadddialog-action_area">
-            <property name="can_focus">False</property>
-            <property name="layout_style">end</property>
-            <child>
-              <object class="GtkButton" id="connaddclosebutton">
-                <property name="label">gtk-close</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkButton" id="connaddnewbutton">
-                <property name="label">gtk-add</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">True</property>
-                <property name="use_stock">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="pack_type">end</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkScrolledWindow" id="connaddscrolledwindow">
-            <property name="visible">True</property>
-            <property name="can_focus">True</property>
-            <property name="vexpand">True</property>
-            <property name="shadow_type">in</property>
-            <child>
-              <object class="GtkTreeView" id="connaddtreeview">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <child internal-child="selection">
-                  <object class="GtkTreeSelection" id="treeview-selection12"/>
-                </child>
-              </object>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
         </child>
       </object>
     </child>
@@ -1950,7 +1868,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
     <property name="can_focus">False</property>
     <property name="title" translatable="yes">Connections</property>
     <property name="window_position">center-on-parent</property>
-    <property name="default_width">580</property>
+    <property name="default_width">650</property>
     <property name="default_height">400</property>
     <property name="type_hint">dialog</property>
     <property name="transient_for">window</property>
@@ -2009,14 +1927,15 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <child>
-                  <object class="GtkToolButton" id="connaddtoolbutton">
+                  <object class="GtkMenuToolButton" id="connaddtoolbutton">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
                     <property name="tooltip_text" translatable="yes">Add new broadband connection</property>
                     <property name="is_important">True</property>
-                    <property name="label" translatable="yes">Add</property>
+                    <property name="label" translatable="yes">Add connection</property>
                     <property name="use_underline">True</property>
                     <property name="icon_name">list-add</property>
+                    <signal name="clicked" handler="mmgui_main_connection_editor_add_button_clicked_signal" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -2030,25 +1949,10 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                     <property name="can_focus">False</property>
                     <property name="tooltip_text" translatable="yes">Remove selected connection</property>
                     <property name="is_important">True</property>
-                    <property name="label" translatable="yes">Remove</property>
+                    <property name="label" translatable="yes">Remove connection</property>
                     <property name="use_underline">True</property>
                     <property name="icon_name">list-remove</property>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="homogeneous">True</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkToolButton" id="connsavetoolbutton">
-                    <property name="visible">True</property>
-                    <property name="sensitive">False</property>
-                    <property name="can_focus">False</property>
-                    <property name="tooltip_text" translatable="yes">Save changes</property>
-                    <property name="is_important">True</property>
-                    <property name="label" translatable="yes">Save</property>
-                    <property name="use_underline">True</property>
-                    <property name="icon_name">document-save</property>
+                    <signal name="clicked" handler="mmgui_main_connection_editor_remove_button_clicked_signal" swapped="no"/>
                   </object>
                   <packing>
                     <property name="expand">False</property>
@@ -2066,7 +1970,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
               <object class="GtkPaned" id="connpaned">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="position">200</property>
+                <property name="position">220</property>
                 <child>
                   <object class="GtkScrolledWindow" id="conscrolledwindow">
                     <property name="visible">True</property>
@@ -2096,6 +2000,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                       <object class="GtkFrame" id="connnameframe">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="border_width">5</property>
                         <property name="label_xalign">0</property>
                         <property name="shadow_type">none</property>
                         <child>
@@ -2107,12 +2012,15 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                               <object class="GtkGrid" id="connnamegrid">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
+                                <property name="row_spacing">5</property>
                                 <property name="column_spacing">10</property>
                                 <child>
                                   <object class="GtkEntry" id="connnameapnentry">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="hexpand">True</property>
+                                    <signal name="changed" handler="mmgui_main_connection_editor_apn_changed_signal" swapped="no"/>
+                                    <signal name="insert-text" handler="mmgui_main_connection_editor_apn_insert_text_handler" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
@@ -2123,7 +2031,6 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                   <object class="GtkLabel" id="connnamelabel">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="hexpand">True</property>
                                     <property name="label" translatable="yes">Name</property>
                                     <property name="xalign">0</property>
                                   </object>
@@ -2136,7 +2043,6 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                   <object class="GtkLabel" id="connnameapnlabel">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="hexpand">True</property>
                                     <property name="label" translatable="yes">APN</property>
                                     <property name="xalign">0</property>
                                   </object>
@@ -2149,6 +2055,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                   <object class="GtkEntry" id="connnameentry">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
+                                    <signal name="changed" handler="mmgui_main_connection_editor_name_changed_signal" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
@@ -2179,6 +2086,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                       <object class="GtkFrame" id="connnetframe">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="border_width">5</property>
                         <property name="label_xalign">0</property>
                         <property name="shadow_type">none</property>
                         <child>
@@ -2190,6 +2098,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                               <object class="GtkGrid" id="connnetgrid">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
+                                <property name="row_spacing">5</property>
                                 <property name="column_spacing">10</property>
                                 <child>
                                   <object class="GtkLabel" id="connnetidlabel">
@@ -2204,47 +2113,32 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkEntry" id="connnetidentry">
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="hexpand">True</property>
-                                  </object>
-                                  <packing>
-                                    <property name="left_attach">1</property>
-                                    <property name="top_attach">1</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkRadioButton" id="connnethomeradiobutton">
-                                    <property name="label" translatable="yes">Home</property>
+                                  <object class="GtkCheckButton" id="connnetroamingcheckbutton">
+                                    <property name="label" translatable="yes">Enable roaming</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="receives_default">False</property>
-                                    <property name="hexpand">True</property>
-                                    <property name="xalign">0</property>
-                                    <property name="active">True</property>
                                     <property name="draw_indicator">True</property>
+                                    <signal name="toggled" handler="mmgui_main_connection_editor_home_only_toggled_signal" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
                                     <property name="top_attach">0</property>
+                                    <property name="width">2</property>
                                   </packing>
                                 </child>
                                 <child>
-                                  <object class="GtkRadioButton" id="connnetroamradiobutton">
-                                    <property name="label" translatable="yes">Home and roaming</property>
+                                  <object class="GtkSpinButton" id="connnetidspinbutton">
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
-                                    <property name="receives_default">False</property>
                                     <property name="hexpand">True</property>
-                                    <property name="xalign">0</property>
-                                    <property name="active">True</property>
-                                    <property name="draw_indicator">True</property>
-                                    <property name="group">connnethomeradiobutton</property>
+                                    <property name="adjustment">connnetidadjustment</property>
+                                    <signal name="changed" handler="mmgui_main_connection_editor_network_id_changed_signal" swapped="no"/>
+                                    <signal name="insert-text" handler="mmgui_main_connection_editor_id_insert_text_handler" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
-                                    <property name="top_attach">0</property>
+                                    <property name="top_attach">1</property>
                                   </packing>
                                 </child>
                               </object>
@@ -2270,6 +2164,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                       <object class="GtkFrame" id="connauthframeframe">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="border_width">5</property>
                         <property name="label_xalign">0</property>
                         <property name="shadow_type">none</property>
                         <child>
@@ -2281,12 +2176,12 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                               <object class="GtkGrid" id="connauthgrid">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
+                                <property name="row_spacing">5</property>
                                 <property name="column_spacing">10</property>
                                 <child>
                                   <object class="GtkLabel" id="connauthnumberlabel">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="hexpand">True</property>
                                     <property name="label" translatable="yes">Access number</property>
                                     <property name="xalign">0</property>
                                   </object>
@@ -2299,7 +2194,6 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                   <object class="GtkLabel" id="connauthusernamelabel">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="hexpand">True</property>
                                     <property name="label" translatable="yes">User name</property>
                                     <property name="xalign">0</property>
                                   </object>
@@ -2312,7 +2206,6 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                   <object class="GtkLabel" id="connauthpasslabel">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="hexpand">True</property>
                                     <property name="label" translatable="yes">Password</property>
                                     <property name="xalign">0</property>
                                   </object>
@@ -2326,6 +2219,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="hexpand">True</property>
+                                    <signal name="changed" handler="mmgui_main_connection_editor_number_changed_signal" swapped="no"/>
+                                    <signal name="insert-text" handler="mmgui_main_connection_editor_number_insert_text_handler" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
@@ -2337,6 +2232,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="hexpand">True</property>
+                                    <signal name="changed" handler="mmgui_main_connection_editor_username_changed_signal" swapped="no"/>
+                                    <signal name="insert-text" handler="mmgui_main_connection_editor_credentials_insert_text_handler" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
@@ -2348,6 +2245,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                     <property name="visible">True</property>
                                     <property name="can_focus">True</property>
                                     <property name="hexpand">True</property>
+                                    <signal name="changed" handler="mmgui_main_connection_editor_password_changed_signal" swapped="no"/>
+                                    <signal name="insert-text" handler="mmgui_main_connection_editor_credentials_insert_text_handler" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
@@ -2377,6 +2276,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                       <object class="GtkFrame" id="conndnsframe">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="border_width">5</property>
                         <property name="label_xalign">0</property>
                         <property name="shadow_type">none</property>
                         <child>
@@ -2388,86 +2288,58 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                               <object class="GtkGrid" id="conndnsgrid">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
+                                <property name="row_spacing">5</property>
                                 <property name="column_spacing">10</property>
-                                <child>
-                                  <object class="GtkRadioButton" id="conndnsdynradiobutton">
-                                    <property name="label" translatable="yes">Dynamic</property>
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="receives_default">False</property>
-                                    <property name="hexpand">True</property>
-                                    <property name="xalign">0</property>
-                                    <property name="active">True</property>
-                                    <property name="draw_indicator">True</property>
-                                  </object>
-                                  <packing>
-                                    <property name="left_attach">0</property>
-                                    <property name="top_attach">0</property>
-                                  </packing>
-                                </child>
-                                <child>
-                                  <object class="GtkRadioButton" id="conndnsstradiobutton">
-                                    <property name="label" translatable="yes">Static</property>
-                                    <property name="visible">True</property>
-                                    <property name="can_focus">True</property>
-                                    <property name="receives_default">False</property>
-                                    <property name="hexpand">True</property>
-                                    <property name="xalign">0</property>
-                                    <property name="active">True</property>
-                                    <property name="draw_indicator">True</property>
-                                    <property name="group">conndnsdynradiobutton</property>
-                                  </object>
-                                  <packing>
-                                    <property name="left_attach">1</property>
-                                    <property name="top_attach">0</property>
-                                  </packing>
-                                </child>
                                 <child>
                                   <object class="GtkLabel" id="conndns1label">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="hexpand">True</property>
                                     <property name="label" translatable="yes">DNS 1</property>
                                     <property name="xalign">0</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
-                                    <property name="top_attach">1</property>
+                                    <property name="top_attach">0</property>
                                   </packing>
                                 </child>
                                 <child>
                                   <object class="GtkLabel" id="conndns2label">
                                     <property name="visible">True</property>
                                     <property name="can_focus">False</property>
-                                    <property name="hexpand">True</property>
                                     <property name="label" translatable="yes">DNS 2</property>
                                     <property name="xalign">0</property>
                                   </object>
                                   <packing>
                                     <property name="left_attach">0</property>
-                                    <property name="top_attach">2</property>
+                                    <property name="top_attach">1</property>
                                   </packing>
                                 </child>
                                 <child>
                                   <object class="GtkEntry" id="conndns1entry">
                                     <property name="visible">True</property>
+                                    <property name="sensitive">False</property>
                                     <property name="can_focus">True</property>
                                     <property name="hexpand">True</property>
+                                    <signal name="changed" handler="mmgui_main_connection_editor_dns1_changed_signal" swapped="no"/>
+                                    <signal name="insert-text" handler="mmgui_main_connection_editor_dns_insert_text_handler" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
-                                    <property name="top_attach">1</property>
+                                    <property name="top_attach">0</property>
                                   </packing>
                                 </child>
                                 <child>
                                   <object class="GtkEntry" id="conndns2entry">
                                     <property name="visible">True</property>
+                                    <property name="sensitive">False</property>
                                     <property name="can_focus">True</property>
                                     <property name="hexpand">True</property>
+                                    <signal name="changed" handler="mmgui_main_connection_editor_dns2_changed_signal" swapped="no"/>
+                                    <signal name="insert-text" handler="mmgui_main_connection_editor_dns_insert_text_handler" swapped="no"/>
                                   </object>
                                   <packing>
                                     <property name="left_attach">1</property>
-                                    <property name="top_attach">2</property>
+                                    <property name="top_attach">1</property>
                                   </packing>
                                 </child>
                               </object>
@@ -2512,20 +2384,18 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
       </object>
     </child>
     <action-widgets>
-      <action-widget response="1">conncancelbutton</action-widget>
-      <action-widget response="0">connokbutton</action-widget>
+      <action-widget response="-6">conncancelbutton</action-widget>
+      <action-widget response="-5">connokbutton</action-widget>
     </action-widgets>
   </object>
-  <object class="GtkSizeGroup" id="connlabelsizegroup">
+  <object class="GtkSizeGroup" id="conneditdialogsizegroup">
     <widgets>
       <widget name="connnamelabel"/>
       <widget name="connnameapnlabel"/>
       <widget name="connnetidlabel"/>
-      <widget name="connnethomeradiobutton"/>
       <widget name="connauthnumberlabel"/>
       <widget name="connauthusernamelabel"/>
       <widget name="connauthpasslabel"/>
-      <widget name="conndnsdynradiobutton"/>
       <widget name="conndns1label"/>
       <widget name="conndns2label"/>
     </widgets>

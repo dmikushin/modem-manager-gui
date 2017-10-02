@@ -22,12 +22,19 @@
 
 #include <glib.h>
 
+enum _mmgui_providers_db_entry_usage {
+	MMGUI_PROVIDERS_DB_ENTRY_USAGE_INTERNET = 0,
+	MMGUI_PROVIDERS_DB_ENTRY_USAGE_MMS,
+	MMGUI_PROVIDERS_DB_ENTRY_USAGE_OTHER
+};
+
 struct _mmgui_providers_db_entry {
 	gchar country[3];
 	gchar *name;
 	gchar *apn;
 	GArray *id;
 	guint tech;
+	guint usage;
 	gchar *username;
 	gchar *password;
 	gchar *dns1;
@@ -51,6 +58,8 @@ typedef struct _mmgui_providers_db *mmgui_providers_db_t;
 
 mmgui_providers_db_t mmgui_providers_db_create(void);
 void mmgui_providers_db_close(mmgui_providers_db_t db);
-
+GSList *mmgui_providers_get_list(mmgui_providers_db_t db);
+const gchar *mmgui_providers_provider_get_country_name(mmgui_providers_db_entry_t entry);
+guint mmgui_providers_provider_get_network_id(mmgui_providers_db_entry_t entry);
 
 #endif /* __PROVIDERSDB_H__ */

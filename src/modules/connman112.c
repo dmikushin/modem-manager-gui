@@ -1,7 +1,7 @@
 /*
  *      connman112.c
  *      
- *      Copyright 2014 Alex <alex@linuxonly.ru>
+ *      Copyright 2014-2017 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -326,6 +326,8 @@ G_MODULE_EXPORT gboolean mmgui_module_connection_open(gpointer mmguicore)
 	
 	moduledata = (moduledata_t *)&mmguicorelc->cmoduledata;
 	
+	mmguicorelc->cmcaps = MMGUI_CONNECTION_MANAGER_CAPS_BASIC;
+	
 	(*moduledata) = g_new0(struct _mmguimoduledata, 1);
 	
 	error = NULL;
@@ -393,6 +395,26 @@ G_MODULE_EXPORT gboolean mmgui_module_connection_close(gpointer mmguicore)
 	}
 	
 	return TRUE;
+}
+
+G_MODULE_EXPORT guint mmgui_module_connection_enum(gpointer mmguicore, GSList **connlist)
+{
+	return 0;
+}
+
+G_MODULE_EXPORT mmguiconn_t mmgui_module_connection_add(gpointer mmguicore, const gchar *name, const gchar *number, const gchar *username, const gchar *password, const gchar *apn, guint networkid, guint type, gboolean homeonly, const gchar *dns1, const gchar *dns2)
+{
+	return FALSE;
+}
+
+G_MODULE_EXPORT gboolean mmgui_module_connection_update(gpointer mmguicore, mmguiconn_t connection, const gchar *name, const gchar *number, const gchar *username, const gchar *password, const gchar *apn, guint networkid, gboolean homeonly, const gchar *dns1, const gchar *dns2)
+{
+	return FALSE;
+}
+
+G_MODULE_EXPORT gboolean mmgui_module_connection_remove(gpointer mmguicore, mmguiconn_t connection)
+{
+	return FALSE;
 }
 
 G_MODULE_EXPORT gchar *mmgui_module_connection_last_error(gpointer mmguicore)
@@ -504,6 +526,16 @@ G_MODULE_EXPORT guint64 mmgui_module_device_connection_timestamp(gpointer mmguic
 	}
 	
 	return timestamp;
+}
+
+G_MODULE_EXPORT gchar *mmgui_module_device_connection_get_active_uuid(gpointer mmguicore)
+{
+	return NULL;
+}
+
+G_MODULE_EXPORT gboolean mmgui_module_device_connection_connect(gpointer mmguicore, mmguiconn_t connection)
+{
+	return FALSE;
 }
 
 G_MODULE_EXPORT gboolean mmgui_module_device_connection_disconnect(gpointer mmguicore)

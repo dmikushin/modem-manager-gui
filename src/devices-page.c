@@ -1,7 +1,7 @@
 /*
  *      devices-page.c
  *      
- *      Copyright 2012-2014 Alex <alex@linuxonly.ru>
+ *      Copyright 2012-2017 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
  *      You should have received a copy of the GNU General Public License
  *      along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
- 
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -35,12 +35,15 @@
 
 #include "devices-page.h"
 #include "info-page.h"
+#include "connection-editor-window.h"
 #include "main.h"
 
 static gboolean mmgui_main_device_list_unselect_foreach(GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer data);
 static void mmgui_main_device_list_select_signal(GtkCellRendererToggle *cell_renderer, gchar *path, gpointer data);
 static void mmgui_main_device_remove_from_list(mmgui_application_t mmguiapp, guint devid);
 static void mmgui_main_device_add_to_list(mmgui_application_t mmguiapp, mmguidevice_t device, GtkTreeModel *model);
+
+static void mmgui_main_device_connections_controls_set_sensitive(mmgui_application_t mmguiapp, gboolean sensitive);
 
 /*Devices*/
 gboolean mmgui_main_device_handle_added_from_thread(gpointer data)
@@ -53,14 +56,12 @@ gboolean mmgui_main_device_handle_added_from_thread(gpointer data)
 	if (mmguiappdata == NULL) return FALSE;
 	
 	device = (mmguidevice_t)mmguiappdata->data;
-	//Add device to list
+	/*Add device to list*/
 	mmgui_main_device_add_to_list(mmguiappdata->mmguiapp, device, NULL);
-	//If no device opened, open that one
+	/*If no device opened, open that one*/
 	if (mmguicore_devices_get_current(mmguiappdata->mmguiapp->core) == NULL) {
 		mmgui_main_device_select_from_list(mmguiappdata->mmguiapp, device->persistentid);
 	}
-	//Unlock control buttons
-	mmgui_main_ui_control_buttons_disable(mmguiappdata->mmguiapp, FALSE);
 	
 	g_free(mmguiappdata);
 	
@@ -71,20 +72,23 @@ gboolean mmgui_main_device_handle_removed_from_thread(gpointer data)
 {
 	mmgui_application_data_t mmguiappdata;
 	guint id;
+	GtkTreeModel *model;
 	
 	mmguiappdata = (mmgui_application_data_t)data;
 	
 	if (mmguiappdata == NULL) return FALSE;
 	
 	id = GPOINTER_TO_UINT(mmguiappdata->data);
-	//Remove device from list
+	/*Remove device from list*/
 	mmgui_main_device_remove_from_list(mmguiappdata->mmguiapp, id);
-	//Look for available devices
-	if (mmguicore_devices_get_list(mmguiappdata->mmguiapp->core) == NULL) {
-		//No devices available, lock control buttons
+	/*Look for available devices*/
+	if (!g_slist_length(mmguicore_devices_get_list(mmguiappdata->mmguiapp->core))) {
+		/*No devices available, lock control buttons*/
 		mmgui_main_ui_control_buttons_disable(mmguiappdata->mmguiapp, TRUE);
+		/*Update connections controls*/
+		mmgui_main_device_connections_update_state(mmguiappdata->mmguiapp);
 	} else if (mmguicore_devices_get_current(mmguiappdata->mmguiapp->core) == NULL) {
-		//If no device opened, open default one
+		/*If no device opened, open default one*/
 		mmgui_main_device_select_from_list(mmguiappdata->mmguiapp, NULL);
 	}
 	
@@ -206,11 +210,49 @@ gboolean mmgui_main_device_handle_connection_status_from_thread(gpointer data)
 	setpage = gtk_notebook_get_current_page(GTK_NOTEBOOK(mmguiappdata->mmguiapp->window->notebook));
 	mmgui_main_ui_test_device_state(mmguiappdata->mmguiapp, setpage);
 	
+	/*Update connection controls*/
+	mmgui_main_device_connections_update_state(mmguiappdata->mmguiapp);
+	
 	g_free(mmguiappdata);
 	
 	g_debug("Device connection status: %u\n", connstatus);
 	
 	return FALSE;
+}
+
+static void mmgui_main_device_list_set_sensitive(GtkCellLayout *cell_layout, GtkCellRenderer *cell, GtkTreeModel *tree_model, GtkTreeIter *iter, gpointer data)
+{
+	mmgui_application_t mmguiapp;
+	gboolean sensitive;
+	
+	mmguiapp = (mmgui_application_t)data;
+	
+	if (mmguiapp == NULL) return;
+	
+	gtk_tree_model_get(tree_model, iter, MMGUI_MAIN_DEVLIST_SENSITIVE, &sensitive, -1);
+	
+	g_object_set(cell, "sensitive", sensitive, NULL);
+}
+
+void mmgui_main_device_list_block_selection(mmgui_application_t mmguiapp, gboolean block)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	gboolean valid;
+	gboolean enabled;
+	
+	if (mmguiapp == NULL) return;
+	
+	model = gtk_tree_view_get_model(GTK_TREE_VIEW(mmguiapp->window->devlist));
+	
+	if (model != NULL) {
+		for (valid = gtk_tree_model_get_iter_first(model, &iter); valid; valid = gtk_tree_model_iter_next(model, &iter)) {
+			gtk_tree_model_get(model, &iter, MMGUI_MAIN_DEVLIST_ENABLED, &enabled, -1);
+			if (!enabled) {
+				gtk_list_store_set(GTK_LIST_STORE(model), &iter, MMGUI_MAIN_DEVLIST_SENSITIVE, !block, -1);
+			}
+		}
+	}
 }
 
 static gboolean mmgui_main_device_list_unselect_foreach(GtkTreeModel *model, GtkTreePath *path, GtkTreeIter *iter, gpointer data)
@@ -302,11 +344,13 @@ gboolean mmgui_main_device_select_from_list(mmgui_application_t mmguiapp, gchar 
 			return TRUE;
 		} else {
 			mmgui_main_ui_control_buttons_disable(mmguiapp, TRUE);
+			mmgui_main_device_connections_update_state(mmguiapp);
 			mmgui_main_ui_error_dialog_open(mmguiapp, _("<b>Error opening device</b>"), mmguicore_get_last_error(mmguiapp->core));
 		}
 	} else {
 		g_debug("No devices to select\n");
 		mmgui_main_ui_control_buttons_disable(mmguiapp, TRUE);
+		mmgui_main_device_connections_update_state(mmguiapp);
 	}
 	
 	return FALSE;
@@ -367,6 +411,7 @@ static void mmgui_main_device_add_to_list(mmgui_application_t mmguiapp, mmguidev
 													MMGUI_MAIN_DEVLIST_DESCRIPTION, markup,
 													MMGUI_MAIN_DEVLIST_ID, device->id,
 													MMGUI_MAIN_DEVLIST_IDENTIFIER, device->persistentid,
+													MMGUI_MAIN_DEVLIST_SENSITIVE, TRUE,
 													-1);
 	
 	g_free(devmanufacturer);
@@ -412,40 +457,415 @@ void mmgui_main_device_list_init(mmgui_application_t mmguiapp)
 	column = gtk_tree_view_column_new_with_attributes(_("Selected"), tbrenderer, "active", MMGUI_MAIN_DEVLIST_ENABLED, NULL);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(mmguiapp->window->devlist), column);
 	gtk_cell_renderer_toggle_set_radio(GTK_CELL_RENDERER_TOGGLE(tbrenderer), TRUE);
+	gtk_cell_layout_set_cell_data_func(GTK_CELL_LAYOUT(column), tbrenderer, mmgui_main_device_list_set_sensitive, mmguiapp, NULL);
 		
 	renderer = gtk_cell_renderer_text_new();
 	column = gtk_tree_view_column_new_with_attributes(_("Device"), renderer, "markup", MMGUI_MAIN_DEVLIST_DESCRIPTION, NULL);
 	gtk_tree_view_append_column(GTK_TREE_VIEW(mmguiapp->window->devlist), column);
 	
-	store = gtk_list_store_new(MMGUI_MAIN_DEVLIST_COLUMNS, G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_INT, G_TYPE_STRING);
+	store = gtk_list_store_new(MMGUI_MAIN_DEVLIST_COLUMNS, G_TYPE_BOOLEAN, G_TYPE_STRING, G_TYPE_INT, G_TYPE_STRING, G_TYPE_BOOLEAN);
 	gtk_tree_view_set_model(GTK_TREE_VIEW(mmguiapp->window->devlist), GTK_TREE_MODEL(store));
 	g_object_unref(store);
 	
-	//Device selection signal
+	/*Device selection signal*/
 	g_signal_connect(G_OBJECT(tbrenderer), "toggled", G_CALLBACK(mmgui_main_device_list_select_signal), mmguiapp);
+}
+
+static void mmgui_main_device_connections_controls_set_sensitive(mmgui_application_t mmguiapp, gboolean sensitive)
+{
+	guint conncaps;
+	
+	if (mmguiapp == NULL) return;
+	
+	conncaps = mmguicore_connections_get_capabilities(mmguiapp->core);
+	if (conncaps & MMGUI_CONNECTION_MANAGER_CAPS_MANAGEMENT) {
+		
+		printf("update\n");
+				
+		gtk_widget_set_sensitive(mmguiapp->window->devconncb, sensitive);
+		gtk_widget_set_sensitive(mmguiapp->window->devconnctl, sensitive);
+	}
+}
+
+void mmgui_main_device_connections_list_init(mmgui_application_t mmguiapp)
+{
+	GtkCellRenderer *tbrenderer;
+	GtkCellRenderer *renderer;
+	GtkTreeViewColumn *column;
+	GtkListStore *store;
+	
+	if (mmguiapp == NULL) return;
+	
+	renderer = gtk_cell_renderer_text_new();
+	gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(mmguiapp->window->devconncb), renderer, TRUE);
+	gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(mmguiapp->window->devconncb), renderer, "text", 0, NULL);
+	
+	store = gtk_list_store_new(MMGUI_MAIN_CONNLIST_COLUMNS, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_UINT);
+	gtk_combo_box_set_model(GTK_COMBO_BOX(mmguiapp->window->devconncb), GTK_TREE_MODEL(store));
+	g_object_unref(store);
+}
+
+void mmgui_main_connection_update_name_in_list(mmgui_application_t mmguiapp, const gchar *name, const gchar *uuid)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	gchar *curuuid;
+	
+	if ((mmguiapp == NULL) || (name == NULL) || (uuid == NULL)) return;
+	
+	model = gtk_combo_box_get_model(GTK_COMBO_BOX(mmguiapp->window->devconncb));
+	
+	if (model != NULL) {
+		if (gtk_tree_model_get_iter_first(model, &iter)) {
+			do {
+				gtk_tree_model_get(model, &iter, MMGUI_MAIN_CONNLIST_UUID, &curuuid, -1);
+				if (uuid != NULL) {
+					if (g_strcmp0(uuid, curuuid) == 0) {
+						gtk_list_store_set(GTK_LIST_STORE(model), &iter, MMGUI_MAIN_CONNLIST_NAME, name, -1);
+						g_free(curuuid);
+						break;
+					}
+					g_free(curuuid);
+				}
+			} while (gtk_tree_model_iter_next(model, &iter));
+		}
+	}
+}
+
+void mmgui_main_connection_remove_from_list(mmgui_application_t mmguiapp, const gchar *uuid)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	GtkTreePath *activepath, *curpath;
+	gchar *curuuid;
+	gboolean changeconn;
+	
+	if ((mmguiapp == NULL) || (uuid == NULL)) return;
+	
+	model = gtk_combo_box_get_model(GTK_COMBO_BOX(mmguiapp->window->devconncb));
+	
+	activepath = NULL;
+	changeconn = FALSE;
+	
+	if (model != NULL) {
+		if (gtk_combo_box_get_active_iter(GTK_COMBO_BOX(mmguiapp->window->devconncb), &iter)) {
+			activepath = gtk_tree_model_get_path(model, &iter);
+		}
+		if (gtk_tree_model_get_iter_first(model, &iter)) {
+			do {
+				gtk_tree_model_get(model, &iter, MMGUI_MAIN_CONNLIST_UUID, &curuuid, -1);
+				if (uuid != NULL) {
+					if (g_strcmp0(uuid, curuuid) == 0) {
+						/*Check if selected connection has to be removed*/
+						if (activepath != NULL) {
+							curpath = gtk_tree_model_get_path(model, &iter);
+							if (curpath != NULL) {
+								if (gtk_tree_path_compare((const GtkTreePath *)activepath, (const GtkTreePath *)curpath) == 0) {
+									changeconn = TRUE;
+								}
+								gtk_tree_path_free(curpath);
+							}
+						}
+						/*Remove connection*/
+						gtk_list_store_remove(GTK_LIST_STORE(model), &iter);
+						/*Select first connection if current connection was removed*/
+						if (changeconn) {
+							gtk_combo_box_set_active(GTK_COMBO_BOX(mmguiapp->window->devconncb), 0);
+						}
+						g_free(curuuid);
+						break;
+					}
+					g_free(curuuid);
+				}
+			} while (gtk_tree_model_iter_next(model, &iter));
+		}
+		if (activepath != NULL) {
+			gtk_tree_path_free(activepath);
+		}
+	}
+}
+
+void mmgui_main_connection_add_to_list(mmgui_application_t mmguiapp, const gchar *name, const gchar *uuid, guint type, GtkTreeModel *model)
+{
+	GtkTreeModel *localmodel;
+	GtkTreeIter iter;
+	
+	if ((mmguiapp == NULL) || (name == NULL) || (uuid == NULL)) return;
+	
+	if (mmguiapp->core->device == NULL) return;
+	if (mmguiapp->core->device->type != type) return;
+	
+	/*Model is supplied only on initial list filling stage*/
+	if (model == NULL) {
+		localmodel = gtk_combo_box_get_model(GTK_COMBO_BOX(mmguiapp->window->devconncb));
+	} else {
+		localmodel = model;
+	}
+	
+	if (localmodel != NULL) {
+		/*Add connection*/
+		gtk_list_store_append(GTK_LIST_STORE(localmodel), &iter);
+		gtk_list_store_set(GTK_LIST_STORE(localmodel), &iter, MMGUI_MAIN_CONNLIST_NAME, name,
+															MMGUI_MAIN_CONNLIST_UUID, uuid,
+															MMGUI_MAIN_CONNLIST_TYPE, type,
+															-1);
+		/*Show added connection if there is no active one*/
+		if ((model == NULL) && (!mmguicore_devices_get_connected(mmguiapp->core))) {
+			gtk_combo_box_set_active_iter(GTK_COMBO_BOX(mmguiapp->window->devconncb), &iter);
+			/*Set connection activation button sensitive*/
+			gtk_widget_set_sensitive(mmguiapp->window->devconnctl, TRUE);
+		}
+	}
+}
+
+gboolean mmgui_main_device_connection_select_from_list(mmgui_application_t mmguiapp, const gchar *uuid)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	gboolean selected;
+	gchar *curuuid;
+		
+	if (mmguiapp == NULL) return FALSE;
+	
+	model = gtk_combo_box_get_model(GTK_COMBO_BOX(mmguiapp->window->devconncb));
+	
+	if (model == NULL) return FALSE;
+	
+	selected = FALSE;
+	
+	/*Select requested connection*/
+	if (uuid != NULL) {
+		if (gtk_tree_model_get_iter_first(model, &iter)) {
+			do {
+				gtk_tree_model_get(model, &iter, MMGUI_MAIN_CONNLIST_UUID, &curuuid, -1);
+				if (uuid != NULL) {
+					if (g_strcmp0(uuid, curuuid) == 0) {
+						gtk_combo_box_set_active_iter(GTK_COMBO_BOX(mmguiapp->window->devconncb), &iter);
+						selected = TRUE;
+						break;
+					}
+					g_free(curuuid);
+				}
+			} while (gtk_tree_model_iter_next(model, &iter));
+		}
+	}
+	
+	/*If requested connection not found, select first one*/
+	if (!selected) {
+		if (gtk_tree_model_get_iter_first(model, &iter)) {
+			gtk_tree_model_get(model, &iter, MMGUI_MAIN_CONNLIST_UUID, &curuuid, -1);
+			gtk_combo_box_set_active_iter(GTK_COMBO_BOX(mmguiapp->window->devconncb), &iter);
+			selected = TRUE;
+		}
+	}
+	
+	/*Save UUID for future use*/
+	if (selected) {
+		g_free(curuuid);
+		return TRUE;
+	}
+	
+	return FALSE;
+}
+
+gchar *mmgui_main_connection_get_active_uuid(mmgui_application_t mmguiapp)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	gchar *uuid;
+	
+	if (mmguiapp == NULL) return NULL;
+	
+	uuid = NULL;
+	
+	model = gtk_combo_box_get_model(GTK_COMBO_BOX(mmguiapp->window->devconncb));
+	
+	if (model != NULL) {
+		if (gtk_combo_box_get_active_iter(GTK_COMBO_BOX(mmguiapp->window->devconncb), &iter)) {
+			gtk_tree_model_get(model, &iter, MMGUI_MAIN_CONNLIST_UUID, &uuid, -1);
+		}
+	}
+	
+	return uuid; 
+}
+
+void mmgui_main_device_connections_list_fill(mmgui_application_t mmguiapp)
+{
+	GtkTreeModel *model;
+	GSList *connections;
+	GSList *iterator;
+	mmguiconn_t connection;
+	
+	if (mmguiapp == NULL) return;
+	
+	/*Fill combo box*/
+	model = gtk_combo_box_get_model(GTK_COMBO_BOX(mmguiapp->window->devconncb));
+	if (model != NULL) {
+		g_object_ref(model);
+		gtk_combo_box_set_model(GTK_COMBO_BOX(mmguiapp->window->devconncb), NULL);
+		gtk_list_store_clear(GTK_LIST_STORE(model));
+		connections = mmguicore_connections_get_list(mmguiapp->core);
+		if (connections != NULL) {
+			for (iterator=connections; iterator; iterator=iterator->next) {
+				connection = (mmguiconn_t)iterator->data;
+				mmgui_main_connection_add_to_list(mmguiapp, connection->name, connection->uuid, connection->type, model);
+			}
+		}
+		gtk_combo_box_set_model(GTK_COMBO_BOX(mmguiapp->window->devconncb), model);
+		g_object_unref(model);
+	}
+}
+
+void mmgui_main_device_restore_settings_for_modem(mmgui_application_t mmguiapp)
+{
+	if (mmguiapp == NULL) return;	
+	
+	/*Update state*/
+	mmgui_main_device_connections_update_state(mmguiapp);
+}
+
+void mmgui_main_device_connections_update_state(mmgui_application_t mmguiapp)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	gchar *uuid, *curuuid, *lastuuid;
+	guint conncaps;
+	
+	if (mmguiapp == NULL) return;
+	if (mmguiapp->core == NULL) return;
+	
+	conncaps = mmguicore_connections_get_capabilities(mmguiapp->core);
+	if ((conncaps & MMGUI_CONNECTION_MANAGER_CAPS_MANAGEMENT) && (mmguicore_devices_get_current(mmguiapp->core) != NULL)) {
+		if (!mmguicore_devices_get_connected(mmguiapp->core)) {
+			model = gtk_combo_box_get_model(GTK_COMBO_BOX(mmguiapp->window->devconncb));
+			if (model != NULL) {
+				if (gtk_tree_model_get_iter_first(model, &iter)) {
+					/*Select last used connection*/
+					lastuuid = mmgui_modem_settings_get_string(mmguiapp->modemsettings, "connection_used", MMGUI_MAIN_DEFAULT_CONNECTION_UUID);
+					if (lastuuid != NULL) {
+						mmgui_main_device_connection_select_from_list(mmguiapp, lastuuid);
+						g_free(lastuuid);
+					}
+					gtk_widget_set_sensitive(mmguiapp->window->devconnctl, TRUE);
+				} else {
+					gtk_widget_set_sensitive(mmguiapp->window->devconnctl, FALSE);
+				}
+			}
+			/*Update controls state*/
+			gtk_widget_set_sensitive(mmguiapp->window->devconncb, TRUE);
+			gtk_widget_set_sensitive(mmguiapp->window->devconneditor, TRUE);
+			gtk_button_set_label(GTK_BUTTON(mmguiapp->window->devconnctl), _("Activate"));
+		} else {
+			uuid = mmguicore_connections_get_active_uuid(mmguiapp->core);
+			if (uuid != NULL) {
+				model = gtk_combo_box_get_model(GTK_COMBO_BOX(mmguiapp->window->devconncb));
+				if (model != NULL) {
+					if (gtk_tree_model_get_iter_first(model, &iter)) {
+						do {
+							gtk_tree_model_get(model, &iter, MMGUI_MAIN_CONNLIST_UUID, &curuuid, -1);
+							if (curuuid != NULL) {
+								if (g_strcmp0(uuid, curuuid) == 0) {
+									gtk_combo_box_set_active_iter(GTK_COMBO_BOX(mmguiapp->window->devconncb), &iter);
+									g_free(curuuid);
+									break;
+								}
+								g_free(curuuid);
+							}
+						} while (gtk_tree_model_iter_next(model, &iter));
+					}
+				}
+				g_free(uuid);
+			}
+			gtk_widget_set_sensitive(mmguiapp->window->devconncb, FALSE);
+			gtk_widget_set_sensitive(mmguiapp->window->devconneditor, TRUE);
+			gtk_widget_set_sensitive(mmguiapp->window->devconnctl, TRUE);
+			gtk_button_set_label(GTK_BUTTON(mmguiapp->window->devconnctl), _("Deactivate"));
+		}
+	} else {
+		/*Block controls*/
+		gtk_widget_set_sensitive(mmguiapp->window->devconncb, FALSE);
+		gtk_widget_set_sensitive(mmguiapp->window->devconneditor, FALSE);
+		gtk_widget_set_sensitive(mmguiapp->window->devconnctl, FALSE);
+		gtk_button_set_label(GTK_BUTTON(mmguiapp->window->devconnctl), _("Activate"));
+		model = gtk_combo_box_get_model(GTK_COMBO_BOX(mmguiapp->window->devconncb));
+		if (model != NULL) {
+			gtk_list_store_clear(GTK_LIST_STORE(model));
+		}
+	}
+}
+
+void mmgui_main_device_switch_connection_state(mmgui_application_t mmguiapp)
+{
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	gchar *name, *uuid, *statusmsg;
+		
+	if (mmguiapp == NULL) return;
+	if (mmguiapp->core == NULL) return;
+	if (mmguicore_devices_get_current(mmguiapp->core) == NULL) return;
+	
+	model = gtk_combo_box_get_model(GTK_COMBO_BOX(mmguiapp->window->devconncb));
+	if (model != NULL) {
+		if (gtk_combo_box_get_active_iter(GTK_COMBO_BOX(mmguiapp->window->devconncb), &iter)) {
+			/*Get needed information*/
+			gtk_tree_model_get(model, &iter, MMGUI_MAIN_CONNLIST_NAME, &name,
+											MMGUI_MAIN_CONNLIST_UUID, &uuid,
+											-1);
+			if ((name != NULL) && (uuid != NULL)) {
+				if (!mmguicore_devices_get_connected(mmguiapp->core)) {
+					/*Initiate connection*/
+					mmguicore_connections_connect(mmguiapp->core, uuid);
+					/*Save connection identifier*/
+					mmgui_modem_settings_set_string(mmguiapp->modemsettings, "connection_used", uuid);
+					/*Show progress infobar*/
+					statusmsg = g_strdup_printf(_("Connecting to %s..."), name);
+					mmgui_ui_infobar_show(mmguiapp, statusmsg, MMGUI_MAIN_INFOBAR_TYPE_PROGRESS, FALSE);
+					/*Deactivate controls*/
+					gtk_widget_set_sensitive(mmguiapp->window->devconncb, FALSE);
+					gtk_widget_set_sensitive(mmguiapp->window->devconnctl, FALSE);
+					/*Block devices list*/
+					mmgui_main_device_list_block_selection(mmguiapp, TRUE);
+					/*Free resources*/
+					g_free(statusmsg);
+				} else {
+					/*Show progress infobar*/
+					statusmsg = g_strdup_printf(_("Disconnecting from %s..."), name);
+					mmgui_ui_infobar_show(mmguiapp, statusmsg, MMGUI_MAIN_INFOBAR_TYPE_PROGRESS, FALSE);
+					/*Disconnect from network*/
+					mmguicore_connections_disconnect(mmguiapp->core);
+					/*Activate controls*/
+					gtk_widget_set_sensitive(mmguiapp->window->devconncb, FALSE);
+					gtk_widget_set_sensitive(mmguiapp->window->devconnctl, FALSE);
+					/*Block devices list*/
+					mmgui_main_device_list_block_selection(mmguiapp, TRUE);
+					/*Free resources*/
+					g_free(statusmsg);
+				}
+				g_free(name);
+				g_free(uuid);
+			}
+		}
+	}
 }
 
 void mmgui_main_conn_edit_button_clicked_signal(GtkButton *button, gpointer data)
 {
 	mmgui_application_t mmguiapp;
-	gint response;
 	
 	mmguiapp = (mmgui_application_t)data;
 	
 	if (mmguiapp == NULL) return;
-	/*TEST CURRENT DEVICE*/
 	
-	response = gtk_dialog_run(GTK_DIALOG(mmguiapp->window->conneditdialog));
-	
-	if (response > 0) {
-		
-	}
-	
-	gtk_widget_hide(mmguiapp->window->conneditdialog);
+	mmgui_main_connection_editor_window_open(mmguiapp);
 }
 
 void mmgui_main_conn_ctl_button_clicked_signal(GtkButton *button, gpointer data)
 {
+	mmgui_application_t mmguiapp;
 	
+	mmguiapp = (mmgui_application_t)data;
 	
+	if (mmguiapp == NULL) return;
+	
+	mmgui_main_device_switch_connection_state(mmguiapp);
 }

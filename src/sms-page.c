@@ -610,7 +610,7 @@ gboolean mmgui_main_sms_send(mmgui_application_t mmguiapp, const gchar *number, 
 		if (result == MMGUI_MAIN_NEW_SMS_DIALOG_SEND) {
 			/*Start progress menubar*/
 			statusmsg = g_strdup_printf(_("Sending SMS to number \"%s\"..."), resnumber);
-			mmgui_ui_infobar_show(mmguiapp, statusmsg, MMGUI_MAIN_INFOBAR_TYPE_PROGRESS);
+			mmgui_ui_infobar_show(mmguiapp, statusmsg, MMGUI_MAIN_INFOBAR_TYPE_PROGRESS, TRUE);
 			g_free(statusmsg);
 			/*Send message*/
 			if (mmguicore_sms_send(mmguiapp->core, resnumber, restext, mmguiapp->options->smsvalidityperiod, mmguiapp->options->smsdeliveryreport)) {
@@ -637,7 +637,7 @@ gboolean mmgui_main_sms_send(mmgui_application_t mmguiapp, const gchar *number, 
 		/*Save message*/
 		} else if (result == MMGUI_MAIN_NEW_SMS_DIALOG_SAVE) {
 			/*Start progress menubar*/
-			mmgui_ui_infobar_show(mmguiapp, _("Saving SMS..."), MMGUI_MAIN_INFOBAR_TYPE_PROGRESS);
+			mmgui_ui_infobar_show(mmguiapp, _("Saving SMS..."), MMGUI_MAIN_INFOBAR_TYPE_PROGRESS, TRUE);
 			/*Form message*/
 			message = mmgui_smsdb_message_create();
 			mmgui_smsdb_message_set_number(message, resnumber);

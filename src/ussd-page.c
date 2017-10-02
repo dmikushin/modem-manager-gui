@@ -407,7 +407,7 @@ void mmgui_main_ussd_request_send(mmgui_application_t mmguiapp)
 				gtk_text_buffer_delete_mark(buffer, position);
 				//show progress dialog
 				//mmgui_main_ui_progress_dialog_open(mmguiapp);
-				mmgui_ui_infobar_show(mmguiapp, statusmsg, MMGUI_MAIN_INFOBAR_TYPE_PROGRESS);
+				mmgui_ui_infobar_show(mmguiapp, statusmsg, MMGUI_MAIN_INFOBAR_TYPE_PROGRESS, TRUE);
 				g_free(statusmsg);
 			} else {
 				mmgui_main_ui_error_dialog_open(mmguiapp, _("<b>Error sending USSD</b>"), _("Wrong USSD request or device not ready"));

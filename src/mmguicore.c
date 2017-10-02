@@ -1,7 +1,7 @@
 /*
  *      mmguicore.c
  *      
- *      Copyright 2013-2015 Alex <alex@linuxonly.ru>
+ *      Copyright 2013-2017 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -67,7 +67,7 @@
 #define MMGUI_MAX_USSD_REQUEST_LENGTH    160
 /*Commands*/
 #define MMGUI_THREAD_STOP_CMD            0x00
-
+#define MMGUI_THREAD_REFRESH_CMD         0x01
 
 
 static gboolean mmguicore_modules_enumerate(mmguicore_t mmguicore);
@@ -85,6 +85,7 @@ static gpointer mmguicore_work_thread(gpointer data);
 static void mmguicore_traffic_count(mmguicore_t mmguicore, guint64 rxbytes, guint64 txbytes);
 static void mmguicore_traffic_zero(mmguicore_t mmguicore);
 static void mmguicore_traffic_limits(mmguicore_t mmguicore);
+static void mmguicore_update_connection_status(mmguicore_t mmguicore, gboolean sendresult, gboolean result);
 
 static void mmguicore_event_callback(enum _mmgui_event event, gpointer mmguicore, gpointer data)
 {
@@ -120,13 +121,16 @@ static void mmguicore_event_callback(enum _mmgui_event event, gpointer mmguicore
 			if (mmguicorelc->extcb != NULL) {
 				(mmguicorelc->extcb)(event, mmguicorelc, data, mmguicorelc->userdata);
 			}
-			break;	
+			break;
 		case MMGUI_EVENT_DEVICE_CONNECTION_STATUS:
-			if (mmguicorelc->extcb != NULL) {
-				(mmguicorelc->extcb)(event, mmguicorelc, data, mmguicorelc->userdata);
+			if (mmguicorelc->cmcaps & MMGUI_CONNECTION_MANAGER_CAPS_MONITORING) {
+				mmguicore_update_connection_status(mmguicorelc, FALSE, FALSE);
+			} else {
+				if (mmguicorelc->extcb != NULL) {
+					(mmguicorelc->extcb)(event, mmguicorelc, data, mmguicorelc->userdata);
+				}
 			}
 			break;
-		
 		case MMGUI_EVENT_SMS_LIST_READY:
 			if (mmguicorelc->extcb != NULL) {
 				(mmguicorelc->extcb)(event, mmguicorelc, data, mmguicorelc->userdata);
@@ -145,6 +149,15 @@ static void mmguicore_event_callback(enum _mmgui_event event, gpointer mmguicore
 		case MMGUI_EVENT_USSD_RESULT:
 			if (mmguicorelc->extcb != NULL) {
 				(mmguicorelc->extcb)(event, mmguicorelc, data, mmguicorelc->userdata);
+			}
+			break;
+		case MMGUI_EVENT_MODEM_CONNECTION_RESULT:
+			if (mmguicorelc->cmcaps & MMGUI_CONNECTION_MANAGER_CAPS_MONITORING) {
+				mmguicore_update_connection_status(mmguicore, TRUE, GPOINTER_TO_UINT(data));
+			} else {
+				if (mmguicorelc->extcb != NULL) {
+					(mmguicorelc->extcb)(event, mmguicorelc, data, mmguicorelc->userdata);
+				}
 			}
 			break;
 		case MMGUI_EVENT_SCAN_RESULT:
@@ -1020,22 +1033,34 @@ static gboolean mmguicore_modules_cm_open(mmguicore_t mmguicore, mmguimodule_t m
 		//Module function pointers
 		openstatus = openstatus && g_module_symbol(mmguicore->cmodule, "mmgui_module_connection_open", (gpointer *)&(mmguicore->connection_open_func));
 		openstatus = openstatus && g_module_symbol(mmguicore->cmodule, "mmgui_module_connection_close", (gpointer *)&(mmguicore->connection_close_func));
+		openstatus = openstatus && g_module_symbol(mmguicore->cmodule, "mmgui_module_connection_enum", (gpointer *)&(mmguicore->connection_enum_func));
+		openstatus = openstatus && g_module_symbol(mmguicore->cmodule, "mmgui_module_connection_add", (gpointer *)&(mmguicore->connection_add_func));
+		openstatus = openstatus && g_module_symbol(mmguicore->cmodule, "mmgui_module_connection_update", (gpointer *)&(mmguicore->connection_update_func));
+		openstatus = openstatus && g_module_symbol(mmguicore->cmodule, "mmgui_module_connection_remove", (gpointer *)&(mmguicore->connection_remove_func));
 		openstatus = openstatus && g_module_symbol(mmguicore->cmodule, "mmgui_module_connection_last_error", (gpointer *)&(mmguicore->connection_last_error_func));
 		openstatus = openstatus && g_module_symbol(mmguicore->cmodule, "mmgui_module_device_connection_open", (gpointer *)&(mmguicore->device_connection_open_func));
 		openstatus = openstatus && g_module_symbol(mmguicore->cmodule, "mmgui_module_device_connection_close", (gpointer *)&(mmguicore->device_connection_close_func));
 		openstatus = openstatus && g_module_symbol(mmguicore->cmodule, "mmgui_module_device_connection_status", (gpointer *)&(mmguicore->device_connection_status_func));
 		openstatus = openstatus && g_module_symbol(mmguicore->cmodule, "mmgui_module_device_connection_timestamp", (gpointer *)&(mmguicore->device_connection_timestamp_func));
+		openstatus = openstatus && g_module_symbol(mmguicore->cmodule, "mmgui_module_device_connection_get_active_uuid", (gpointer *)&(mmguicore->device_connection_get_active_uuid_func));
+		openstatus = openstatus && g_module_symbol(mmguicore->cmodule, "mmgui_module_device_connection_connect", (gpointer *)&(mmguicore->device_connection_connect_func));
 		openstatus = openstatus && g_module_symbol(mmguicore->cmodule, "mmgui_module_device_connection_disconnect", (gpointer *)&(mmguicore->device_connection_disconnect_func));
-				
+		
 		if (!openstatus) {
 			//Module function pointers
 			mmguicore->connection_open_func = NULL;
 			mmguicore->connection_close_func = NULL;
+			mmguicore->connection_enum_func = NULL;
+			mmguicore->connection_add_func = NULL;
+			mmguicore->connection_update_func = NULL;
+			mmguicore->connection_remove_func = NULL;
 			mmguicore->connection_last_error_func = NULL;
 			mmguicore->device_connection_open_func = NULL;
 			mmguicore->device_connection_close_func = NULL;
 			mmguicore->device_connection_status_func = NULL;
 			mmguicore->device_connection_timestamp_func = NULL;
+			mmguicore->device_connection_get_active_uuid_func = NULL;
+			mmguicore->device_connection_connect_func = NULL;
 			mmguicore->device_connection_disconnect_func = NULL;
 			
 			g_module_close(mmguicore->cmodule);
@@ -1104,11 +1129,17 @@ static gboolean mmguicore_modules_close(mmguicore_t mmguicore)
 		//Module function pointers
 		mmguicore->connection_open_func = NULL;
 		mmguicore->connection_close_func = NULL;
+		mmguicore->connection_enum_func = NULL;
+		mmguicore->connection_add_func = NULL;
+		mmguicore->connection_update_func = NULL;
+		mmguicore->connection_remove_func = NULL;
 		mmguicore->connection_last_error_func = NULL;
 		mmguicore->device_connection_open_func = NULL;
 		mmguicore->device_connection_close_func = NULL;
 		mmguicore->device_connection_status_func = NULL;
 		mmguicore->device_connection_timestamp_func = NULL;
+		mmguicore->device_connection_get_active_uuid_func = NULL;
+		mmguicore->device_connection_connect_func = NULL;
 		mmguicore->device_connection_disconnect_func = NULL;
 		
 		mmguicore->cmoduleptr = NULL;
@@ -1206,6 +1237,222 @@ void mmguicore_modules_mm_set_timeouts(mmguicore_t mmguicore, gint operation1, g
 	}
 	
 	va_end(args);
+}
+
+
+static gint mmguicore_connections_compare(gconstpointer a, gconstpointer b)
+{
+	mmguiconn_t connection;
+	const gchar *uuid;
+	
+	connection = (mmguiconn_t)a;
+	uuid = (const gchar *)b;
+	
+	return g_strcmp0(connection->uuid, uuid);
+}
+
+static gint mmguicore_connections_name_compare(gconstpointer a, gconstpointer b)
+{
+	mmguiconn_t connection1, connection2;
+	
+	connection1 = (mmguiconn_t)a;
+	connection2 = (mmguiconn_t)b;
+	
+	return g_strcmp0(connection1->name, connection2->name);
+}
+
+static void mmguicore_connections_free_single(mmguiconn_t connection)
+{
+	if (connection != NULL) return;
+	
+	if (connection->uuid != NULL) {
+		g_free(connection->uuid);
+	}
+	if (connection->name != NULL) {
+		g_free(connection->name);
+	}
+	if (connection->number != NULL) {
+		g_free(connection->number);
+	}
+	if (connection->username != NULL) {
+		g_free(connection->username);
+	}
+	if (connection->password != NULL) {
+		g_free(connection->password);
+	}
+	if (connection->apn != NULL) {
+		g_free(connection->apn);
+	}
+	if (connection->dns1 != NULL) {
+		g_free(connection->dns1);
+	}
+	if (connection->dns2 != NULL) {
+		g_free(connection->dns2);
+	}
+}
+
+static void mmguicore_connections_free_foreach(gpointer data, gpointer user_data)
+{
+	mmguiconn_t connection;
+	
+	if (data != NULL) return;
+	
+	connection = (mmguiconn_t)data;
+	
+	mmguicore_connections_free_single(connection);
+}
+
+static void mmguicore_connections_free(mmguicore_t mmguicore)
+{
+	if (mmguicore == NULL) return;
+	
+	g_slist_foreach(mmguicore->connections, mmguicore_connections_free_foreach, NULL);
+		
+	g_slist_free(mmguicore->connections);
+	
+	mmguicore->connections = NULL;
+}
+
+gboolean mmguicore_connections_enum(mmguicore_t mmguicore)
+{
+	GSList *iterator;
+	mmguiconn_t connection;
+	
+	if ((mmguicore == NULL) || (mmguicore->connection_enum_func == NULL)) return FALSE;
+		
+	if (mmguicore->connections != NULL) {
+		mmguicore_connections_free(mmguicore);
+	}
+	
+	(mmguicore->connection_enum_func)(mmguicore, &(mmguicore->connections));
+	
+	/*for (iterator=mmguicore->connections; iterator; iterator=iterator->next) {
+		connection = iterator->data;
+		g_debug("Connection: %s\n", connection->name);
+	}*/
+	
+	if (mmguicore->connections != NULL) {
+		mmguicore->connections = g_slist_sort(mmguicore->connections, mmguicore_connections_name_compare);
+	}
+	
+	return TRUE;
+}
+
+GSList *mmguicore_connections_get_list(mmguicore_t mmguicore)
+{
+	if (mmguicore == NULL) return NULL;
+	
+	return mmguicore->connections;
+}
+
+mmguiconn_t mmguicore_connections_add(mmguicore_t mmguicore, const gchar *name, const gchar *number, const gchar *username, const gchar *password, const gchar *apn, guint networkid, guint type, gboolean homeonly, const gchar *dns1, const gchar *dns2)
+{
+	mmguiconn_t connection;
+	
+	if ((mmguicore == NULL) || (name == NULL) || (mmguicore->connection_add_func == NULL)) return NULL;
+	
+	connection = (mmguicore->connection_add_func)(mmguicore, name, number, username, password, apn, networkid, type, homeonly, dns1, dns2);
+	
+	if (connection != NULL) {
+		mmguicore->connections = g_slist_append(mmguicore->connections, connection);
+	}
+	
+	return connection;
+}
+
+gboolean mmguicore_connections_update(mmguicore_t mmguicore, const gchar *uuid, const gchar *name, const gchar *number, const gchar *username, const gchar *password, const gchar *apn, guint networkid, gboolean homeonly, const gchar *dns1, const gchar *dns2)
+{
+	GSList *connptr;
+	mmguiconn_t connection;
+	
+	if ((mmguicore == NULL) || (uuid == NULL) || (name == NULL) || (mmguicore->connection_update_func == NULL)) return FALSE;
+	
+	connptr = g_slist_find_custom(mmguicore->connections, uuid, mmguicore_connections_compare);
+	if (connptr != NULL) {
+		connection = connptr->data;
+		if ((mmguicore->connection_update_func)(mmguicore, connection, name, number, username, password, apn, networkid, homeonly, dns1, dns2)) {
+			return TRUE;
+		}
+	}
+	
+	return FALSE;
+}
+
+gboolean mmguicore_connections_remove(mmguicore_t mmguicore, const gchar *uuid)
+{
+	GSList *connptr;
+	mmguiconn_t connection;
+	
+	if ((mmguicore == NULL) || (uuid == NULL) || (mmguicore->connection_remove_func == NULL)) return FALSE;
+	
+	connptr = g_slist_find_custom(mmguicore->connections, uuid, mmguicore_connections_compare);
+	if (connptr != NULL) {
+		connection = connptr->data;
+		if ((mmguicore->connection_remove_func)(mmguicore, connection)) {
+			mmguicore_connections_free_single(connection);
+			mmguicore->connections = g_slist_remove(mmguicore->connections, connection);
+			return TRUE;
+		}
+	}
+	
+	return TRUE;
+}
+
+gchar *mmguicore_connections_get_active_uuid(mmguicore_t mmguicore)
+{
+	if ((mmguicore == NULL) || (mmguicore->device_connection_get_active_uuid_func == NULL)) return NULL;
+	
+	
+	return (mmguicore->device_connection_get_active_uuid_func)(mmguicore);
+}
+
+gboolean mmguicore_connections_connect(mmguicore_t mmguicore, const gchar *uuid)
+{
+	GSList *connptr;
+	mmguiconn_t connection;
+	
+	if ((mmguicore == NULL) || (uuid == NULL) || (mmguicore->device_connection_connect_func == NULL)) return FALSE;
+	
+	connptr = g_slist_find_custom(mmguicore->connections, uuid, mmguicore_connections_compare);
+	if (connptr != NULL) {
+		connection = connptr->data;
+		if ((mmguicore->device_connection_connect_func)(mmguicore, connection)) {
+			return TRUE;
+		}
+	}
+	
+	return FALSE;
+}
+
+gboolean mmguicore_connections_disconnect(mmguicore_t mmguicore)
+{
+	if ((mmguicore == NULL) || (mmguicore->device_connection_disconnect_func == NULL)) return FALSE;
+	
+	if ((mmguicore->device != NULL) && (mmguicore->device->connected)) {
+		if ((mmguicore->device_connection_disconnect_func)(mmguicore)) {
+			return TRUE;
+		}
+	}
+	
+	return FALSE;
+}
+
+guint mmguicore_connections_get_capabilities(mmguicore_t mmguicore)
+{
+	if (mmguicore == NULL) return MMGUI_CONNECTION_MANAGER_CAPS_MANAGEMENT;
+			
+	return mmguicore->cmcaps;
+}
+
+gboolean mmguicore_connections_get_transition_flag(mmguicore_t mmguicore)
+{
+	if (mmguicore == NULL) return FALSE;
+	
+	if (mmguicore->device != NULL) {
+		return mmguicore->device->conntransition;
+	}
+			
+	return FALSE;
 }
 
 static void mmguicore_devices_free_single(mmguidevice_t device)
@@ -1362,6 +1609,7 @@ static gint mmguicore_devices_open_compare(gconstpointer a, gconstpointer b)
 gboolean mmguicore_devices_open(mmguicore_t mmguicore, guint deviceid, gboolean openfirst)
 {
 	GSList *deviceptr;
+	guint workthreadcmd;
 	
 	if (mmguicore == NULL) return FALSE;
 	if ((mmguicore->devices == NULL) || (mmguicore->devices_open_func == NULL)) return FALSE;
@@ -1401,8 +1649,18 @@ gboolean mmguicore_devices_open(mmguicore_t mmguicore, guint deviceid, gboolean 
 			if (mmguicore->device_connection_open_func != NULL) {
 				(mmguicore->device_connection_open_func)(mmguicore, deviceptr->data);
 			}
-			
-			/*Callback*/
+			/*Update connection parameters*/
+			if (mmguicore->cmcaps & MMGUI_CONNECTION_MANAGER_CAPS_MONITORING) {
+				/*Update connection parameters in main thread*/
+				mmguicore_update_connection_status(mmguicore, FALSE, FALSE);
+			} else {
+				/*Send command to refresh connection state in work thread*/
+				workthreadcmd = MMGUI_THREAD_REFRESH_CMD;
+				if (write(mmguicore->workthreadctl[1], &workthreadcmd, sizeof(workthreadcmd)) != sizeof(workthreadcmd)) {
+					g_debug("Unable to send refresh command\n");
+				}
+			}
+			/*Generate event*/
 			if (mmguicore->extcb != NULL) {
 				(mmguicore->extcb)(MMGUI_EVENT_DEVICE_OPENED, mmguicore, mmguicore->device, mmguicore->userdata);
 			}
@@ -1441,7 +1699,18 @@ gboolean mmguicore_devices_open(mmguicore_t mmguicore, guint deviceid, gboolean 
 				if (mmguicore->device_connection_open_func != NULL) {
 					(mmguicore->device_connection_open_func)(mmguicore, mmguicore->devices->data);
 				}
-				/*Callback*/
+				/*Update connection parameters*/
+				if (mmguicore->cmcaps & MMGUI_CONNECTION_MANAGER_CAPS_MONITORING) {
+					/*Update connection parameters in main thread*/
+					mmguicore_update_connection_status(mmguicore, FALSE, FALSE);
+				} else {
+					/*Send command to refresh connection state in work thread*/
+					workthreadcmd = MMGUI_THREAD_REFRESH_CMD;
+					if (write(mmguicore->workthreadctl[1], &workthreadcmd, sizeof(workthreadcmd)) != sizeof(workthreadcmd)) {
+						g_debug("Unable to send refresh command\n");
+					}
+				}
+				/*Generate event*/
 				if (mmguicore->extcb != NULL) {
 					(mmguicore->extcb)(MMGUI_EVENT_DEVICE_OPENED, mmguicore, mmguicore->device, mmguicore->userdata);
 				}
@@ -2321,11 +2590,17 @@ mmguicore_t mmguicore_init(mmgui_event_ext_callback callback, mmgui_core_options
 	//Connection manager module functions
 	mmguicore->connection_open_func = NULL;
 	mmguicore->connection_close_func = NULL;
+	mmguicore->connection_enum_func = NULL;
+	mmguicore->connection_add_func = NULL;
+	mmguicore->connection_update_func = NULL;
+	mmguicore->connection_remove_func = NULL;
 	mmguicore->connection_last_error_func = NULL;
 	mmguicore->device_connection_open_func = NULL;
 	mmguicore->device_connection_close_func = NULL;
 	mmguicore->device_connection_status_func = NULL;
 	mmguicore->device_connection_timestamp_func = NULL;
+	mmguicore->device_connection_get_active_uuid_func = NULL;
+	mmguicore->device_connection_connect_func = NULL;
 	mmguicore->device_connection_disconnect_func = NULL;
 	/*Work thread*/
 	mmguicore->workthread = NULL;
@@ -2433,16 +2708,18 @@ void mmguicore_close(mmguicore_t mmguicore)
 			g_mutex_lock(mmguicore->workthreadmutex);
 		#endif
 		//Send command for thread termination
-		if (write(mmguicore->workthreadctl[0], &workthreadcmd, sizeof(workthreadcmd)) > 0) {
+		if (write(mmguicore->workthreadctl[1], &workthreadcmd, sizeof(workthreadcmd)) > 0) {
 			//Wait for thread termination
 			g_thread_join(mmguicore->workthread);
 			//Close thread control pipe
-			close(mmguicore->workthreadctl[0]);
+			close(mmguicore->workthreadctl[1]);
 			//Drop mutex
 			#if GLIB_CHECK_VERSION(2,32,0)
+				g_mutex_unlock(&mmguicore->workthreadmutex);
 				g_mutex_clear(&mmguicore->workthreadmutex);
 				g_mutex_clear(&mmguicore->connsyncmutex);
 			#else
+				g_mutex_unlock(mmguicore->workthreadmutex);
 				g_mutex_free(mmguicore->workthreadmutex);
 				g_mutex_free(mmguicore->connsyncmutex);
 			#endif
@@ -2513,7 +2790,7 @@ static gpointer mmguicore_work_thread(gpointer data)
 	intfdnum = 0;
 	connfdnum = 0;
 	
-	ctlfd = mmguicore->workthreadctl[1];
+	ctlfd = mmguicore->workthreadctl[0];
 	
 	if (ctlfd != -1) {
 		ctlfdnum = activesockets;
@@ -2559,7 +2836,6 @@ static gpointer mmguicore_work_thread(gpointer data)
 	
 	while (TRUE) {
 		pollstatus = poll(pollfds, activesockets, 1000);
-		
 		if (pollstatus > 0) {
 			//Work thread control
 			if (pollfds[ctlfdnum].revents & POLLIN) {
@@ -2577,11 +2853,14 @@ static gpointer mmguicore_work_thread(gpointer data)
 					}
 				}
 				/*Receive data*/
-				recvbytes = recv(ctlfd, &workthreadcmd, sizeof(workthreadcmd), 0);
+				recvbytes = read(ctlfd, &workthreadcmd, sizeof(workthreadcmd));
 				if (recvbytes > 0) {
 					if (workthreadcmd == MMGUI_THREAD_STOP_CMD) {
-						//Terminate thread
+						/*Terminate thread*/
 						break;
+					} else if (workthreadcmd == MMGUI_THREAD_REFRESH_CMD) {
+						/*Refresh connection state*/
+						ifstatetime = time(NULL);
 					}
 				} else {
 					g_debug("Work thread: Control command not received\n");
@@ -2598,7 +2877,7 @@ static gpointer mmguicore_work_thread(gpointer data)
 		
 		currenttime = time(NULL);
 		
-		if (mmguicore->device != NULL) {
+		if ((mmguicore->device != NULL) && (!mmguicore->cmcaps & MMGUI_CONNECTION_MANAGER_CAPS_MONITORING)) {
 			if (abs((gint)difftime(ifstatetime, currenttime)) <= 15) {
 				//Save old values
 				g_debug("Requesting network interface state information\n");
@@ -2683,7 +2962,7 @@ static gpointer mmguicore_work_thread(gpointer data)
 						//Interface created
 						if (event.type & MMGUI_NETLINK_INTERFACE_EVENT_TYPE_ADD) {
 							g_debug("Created network interface event\n");
-							if (mmguicore->device != NULL) {
+							if ((mmguicore->device != NULL) && (!mmguicore->cmcaps & MMGUI_CONNECTION_MANAGER_CAPS_MONITORING)) {
 								if ((!mmguicore->device->connected) && (event.up) && (event.running)) {
 									/*PPP or Ethernet interface*/
 									g_debug("Created network interface event signal\n");
@@ -2700,7 +2979,7 @@ static gpointer mmguicore_work_thread(gpointer data)
 						//Interface removed
 						if (event.type & MMGUI_NETLINK_INTERFACE_EVENT_TYPE_REMOVE) {
 							g_debug("Removed network interface event\n");
-							if (mmguicore->device != NULL) {
+							if ((mmguicore->device != NULL) && (!mmguicore->cmcaps & MMGUI_CONNECTION_MANAGER_CAPS_MONITORING)) {
 								if ((mmguicore->device->connected) && (g_str_equal(mmguicore->device->interface, event.ifname))) {
 									g_debug("Removed network interface event signal\n");
 									ifstatetime = time(NULL);
@@ -2775,7 +3054,7 @@ static gpointer mmguicore_work_thread(gpointer data)
 		#endif
 	}
 	//Close thread control pipe descriptor
-	close(mmguicore->workthreadctl[1]);
+	close(mmguicore->workthreadctl[0]);
 	
 	return NULL;
 }
@@ -2892,6 +3171,42 @@ static void mmguicore_traffic_limits(mmguicore_t mmguicore)
 				if (mmguicore->extcb != NULL) {
 					(mmguicore->extcb)(MMGUI_EVENT_TIME_LIMIT, mmguicore, NULL, mmguicore->userdata);
 				}
+			}
+		}
+	}
+}
+
+static void mmguicore_update_connection_status(mmguicore_t mmguicore, gboolean sendresult, gboolean result)
+{
+	if (mmguicore == NULL) return;
+	
+	if (!mmguicore->device->connected) {
+		/*Close traffic database session*/
+		mmgui_trafficdb_session_close(mmguicore->device->trafficdb);
+		/*Zero traffic values in UI*/
+		mmguicore_traffic_zero(mmguicore);
+		if (sendresult) {
+			if (mmguicore->extcb != NULL) {
+				(mmguicore->extcb)(MMGUI_EVENT_MODEM_CONNECTION_RESULT, mmguicore, GUINT_TO_POINTER(result), mmguicore->userdata);
+			}
+		} else {
+			if (mmguicore->extcb != NULL) {
+				(mmguicore->extcb)(MMGUI_EVENT_DEVICE_CONNECTION_STATUS, mmguicore, GUINT_TO_POINTER(FALSE), mmguicore->userdata);
+			}
+		}
+	} else {
+		/*Get session start timestamp*/
+		mmguicore->device->sessionstarttime = (time_t)mmguicore_devices_get_connection_timestamp(mmguicore);
+		mmguicore->device->sessiontime = llabs((gint64)difftime(time(NULL), mmguicore->device->sessionstarttime));
+		/*Open traffic database session*/
+		mmgui_trafficdb_session_new(mmguicore->device->trafficdb, mmguicore->device->sessionstarttime);
+		if (sendresult) {
+			if (mmguicore->extcb != NULL) {
+				(mmguicore->extcb)(MMGUI_EVENT_MODEM_CONNECTION_RESULT, mmguicore, GUINT_TO_POINTER(result), mmguicore->userdata);
+			}
+		} else {
+			if (mmguicore->extcb != NULL) {
+				(mmguicore->extcb)(MMGUI_EVENT_DEVICE_CONNECTION_STATUS, mmguicore, GUINT_TO_POINTER(TRUE), mmguicore->userdata);
 			}
 		}
 	}

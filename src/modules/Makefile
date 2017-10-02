@@ -9,10 +9,10 @@ LIBMOD2    = `pkg-config --libs glib-2.0` `pkg-config --libs gmodule-2.0` `pkg-c
 LIBMOD5    = `pkg-config --libs glib-2.0` `pkg-config --libs gmodule-2.0` `pkg-config --libs gio-2.0` -lgdbm -lrt
 OBJMOD1    = smsdb.o encoding.o mm06.o
 OBJMOD2    = smsdb.o encoding.o mm07.o
-OBJMOD3    = nm09.o
+OBJMOD3    = uuid.o nm09.o
 OBJMOD4    = pppd245.o
 OBJMOD5    = smsdb.o encoding.o historyshm.o vcard.o ofono109.o
-OBJMOD6    = connman112.o
+OBJMOD6    = uuid.o connman112.o
 LIBDIR     = $(LIBPATH)/modem-manager-gui/modules/
 
 all: mm06 mm07 nm09 pppd245 ofono109 connman112

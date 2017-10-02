@@ -1187,7 +1187,7 @@ G_MODULE_EXPORT guint mmgui_module_devices_enum(gpointer mmguicore, GSList **dev
 		devpath = g_dbus_object_get_object_path(G_DBUS_OBJECT(object->data));
 		g_debug("Device object path: %s\n", devpath);
 		*devicelist = g_slist_prepend(*devicelist, mmgui_module_device_new(mmguicore, devpath));
-		devnum++;	
+		devnum++;
 	}
 	g_list_foreach(objects, (GFunc)g_object_unref, NULL);
 	g_list_free(objects);

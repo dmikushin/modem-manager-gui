@@ -41,7 +41,7 @@ void mmgui_main_scan_start(mmgui_application_t mmguiapp)
 	if (mmguiapp == NULL) return;
 	
 	if (mmguicore_networks_scan(mmguiapp->core)) {
-		mmgui_ui_infobar_show(mmguiapp, _("Scanning networks..."), MMGUI_MAIN_INFOBAR_TYPE_PROGRESS);
+		mmgui_ui_infobar_show(mmguiapp, _("Scanning networks..."), MMGUI_MAIN_INFOBAR_TYPE_PROGRESS, TRUE);
 	} else {
 		mmgui_ui_infobar_show_result(mmguiapp, MMGUI_MAIN_INFOBAR_RESULT_FAIL, _("Device error"));
 	}

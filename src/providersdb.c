@@ -23,6 +23,7 @@
 #include <glib.h>
 
 #include "providersdb.h"
+#include "mmguicore.h"
 #include "resources.h"
 
 enum _mmgui_providers_db_params {
@@ -34,16 +35,17 @@ enum _mmgui_providers_db_params {
 	MMGUI_PROVIDERS_DB_PARAM_NETWORK_ID,
 	MMGUI_PROVIDERS_DB_PARAM_SID,
 	MMGUI_PROVIDERS_DB_PARAM_APN,
+	MMGUI_PROVIDERS_DB_PARAM_USAGE,
 	MMGUI_PROVIDERS_DB_PARAM_USERNAME,
 	MMGUI_PROVIDERS_DB_PARAM_PASSWORD,
 	MMGUI_PROVIDERS_DB_PARAM_DNS,
 	MMGUI_PROVIDERS_DB_PARAM_NULL
 };
 
-enum _mmgui_providers_db_tech {
+/*enum _mmgui_providers_db_tech {
 	MMGUI_PROVIDERS_DB_TECH_GSM = 0,
 	MMGUI_PROVIDERS_DB_TECH_CDMA
-};
+};*/
 
 const gchar *mmgui_providersdb_countries[250][2] = {
 	{"Afghanistan", "af"},
@@ -399,6 +401,53 @@ void mmgui_providers_db_close(mmgui_providers_db_t db)
 	g_free(db);
 }
 
+GSList *mmgui_providers_get_list(mmgui_providers_db_t db)
+{
+	if (db == NULL) return NULL;
+	
+	return db->providers;
+}
+
+const gchar *mmgui_providers_provider_get_country_name(mmgui_providers_db_entry_t entry)
+{
+	gint i;
+	
+	if (entry == NULL) return "";
+	
+	for (i = 0; mmgui_providersdb_countries[i][0] != NULL; i++) {
+		if (g_strcmp0(mmgui_providersdb_countries[i][1], entry->country) == 0) {
+			return mmgui_providersdb_countries[i][0];
+		}
+	}
+	
+	return entry->country;
+}
+
+guint mmgui_providers_provider_get_network_id(mmgui_providers_db_entry_t entry)
+{
+	guint value, mcc, mnc, mul;
+	
+	if (entry == NULL) return 0;
+	
+	if (entry->id == NULL) return 0;
+	
+	value = g_array_index(entry->id, guint, 0);
+	
+	if (entry->tech == MMGUI_DEVICE_TYPE_GSM) {
+		/*GSM uses combined value of MCC and MNC*/
+		mcc = (value & 0xffff0000) >> 16;
+		mnc = value & 0x0000ffff;
+		mul = 1;
+		while (mul <= mnc) {
+			mul *= 10;
+		}
+		return mcc * mul + mnc;
+	} else {
+		/*CDMA uses one value - SID*/
+		return value;
+	}
+}
+
 static gboolean mmgui_providers_db_xml_parse(mmgui_providers_db_t db)
 {
 	GMarkupParser mp;
@@ -408,12 +457,14 @@ static gboolean mmgui_providers_db_xml_parse(mmgui_providers_db_t db)
 	if (db == NULL) return FALSE;
 	if (db->file == NULL) return FALSE;
 	
+	/*Prepare callbacks*/
 	mp.start_element = mmgui_providers_db_xml_get_element;
 	mp.end_element = mmgui_providers_db_xml_end_element;
 	mp.text = mmgui_providers_db_xml_get_value;
 	mp.passthrough = NULL;
 	mp.error = NULL;
 	
+	/*Parse XML*/
 	mpc = g_markup_parse_context_new(&mp, 0, db, NULL);
 	g_markup_parse_context_parse(mpc, g_mapped_file_get_contents(db->file), g_mapped_file_get_length(db->file), &error);
 	if (error != NULL) {
@@ -422,6 +473,9 @@ static gboolean mmgui_providers_db_xml_parse(mmgui_providers_db_t db)
 		return FALSE;
 	}
 	g_markup_parse_context_free(mpc);
+	
+	/*Sort providers list*/
+	db->providers = g_slist_sort(db->providers, (GCompareFunc)g_strcmp0);
 	
 	return TRUE;
 }
@@ -452,8 +506,10 @@ static void mmgui_providers_db_xml_get_element(GMarkupParseContext *context, con
 		db->curparam = MMGUI_PROVIDERS_DB_PARAM_GSM;
 	} else if (g_str_equal(element, "cdma")) {
 		entry = g_new0(struct _mmgui_providers_db_entry, 1);
+		/*Usage*/
+		//entry->usage = MMGUI_PROVIDERS_DB_ENTRY_USAGE_INTERNET;
 		/*Technology*/
-		entry->tech = MMGUI_PROVIDERS_DB_TECH_CDMA;
+		entry->tech = MMGUI_DEVICE_TYPE_CDMA/*MMGUI_PROVIDERS_DB_TECH_CDMA*/;
 		/*Country*/
 		memcpy(entry->country, db->curcountry, sizeof(entry->country));
 		/*Operator name*/
@@ -524,8 +580,10 @@ static void mmgui_providers_db_xml_get_element(GMarkupParseContext *context, con
 		if ((attr_names[0] != NULL) && (attr_values[0] != NULL)) {
 			if (g_str_equal(attr_names[0], "value")) {
 				entry = g_new0(struct _mmgui_providers_db_entry, 1);
+				/*Usage*/
+				//entry->usage = MMGUI_PROVIDERS_DB_ENTRY_USAGE_INTERNET;
 				/*Technology*/
-				entry->tech = MMGUI_PROVIDERS_DB_TECH_GSM;
+				entry->tech = MMGUI_DEVICE_TYPE_GSM/*MMGUI_PROVIDERS_DB_TECH_GSM*/;
 				/*Country*/
 				memcpy(entry->country, db->curcountry, sizeof(entry->country));
 				/*Operator name*/
@@ -547,6 +605,22 @@ static void mmgui_providers_db_xml_get_element(GMarkupParseContext *context, con
 			}
 		}
 		db->curparam = MMGUI_PROVIDERS_DB_PARAM_APN;
+	} else if (g_str_equal(element, "usage")) {
+		if (db->curentry != NULL) {
+			if ((attr_names[0] != NULL) && (attr_values[0] != NULL)) {
+				if (g_str_equal(attr_names[0], "type")) {
+					if (g_str_equal(attr_values[0], "internet")) {
+						db->curentry->usage = MMGUI_PROVIDERS_DB_ENTRY_USAGE_INTERNET;
+					} else if (g_str_equal(attr_values[0], "mms")) {
+						db->curentry->usage = MMGUI_PROVIDERS_DB_ENTRY_USAGE_MMS;
+					} else {
+						db->curentry->usage = MMGUI_PROVIDERS_DB_ENTRY_USAGE_OTHER;
+					}
+				}
+			}
+		}
+		
+		db->curparam = MMGUI_PROVIDERS_DB_PARAM_USAGE;
 	} else if (g_str_equal(element, "username")) {
 		db->curparam = MMGUI_PROVIDERS_DB_PARAM_USERNAME;
 	} else if (g_str_equal(element, "password")) {

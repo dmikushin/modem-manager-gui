@@ -1,7 +1,7 @@
 /*
  *      main.c
  *      
- *      Copyright 2012-2015 Alex <alex@linuxonly.ru>
+ *      Copyright 2012-2017 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -58,6 +58,7 @@
 #include "devices-page.h"
 #include "preferences-window.h"
 #include "welcome-window.h"
+#include "connection-editor-window.h"
 
 #include "main.h"
 
@@ -79,7 +80,9 @@
 #define MMGUI_MAIN_DEFAULT_TX_GRAPH_RGB_COLOR   "#99114d"
 
 enum _mmgui_main_control_shortcuts {
-	MMGUI_MAIN_CONTROL_SHORTCUT_SMS_NEW = 0,
+	MMGUI_MAIN_CONTROL_SHORTCUT_DEVICES_CONNECTION_EDITOR = 0,
+	MMGUI_MAIN_CONTROL_SHORTCUT_DEVICES_CONNECTION_ACTIVATE,
+	MMGUI_MAIN_CONTROL_SHORTCUT_SMS_NEW,
 	MMGUI_MAIN_CONTROL_SHORTCUT_SMS_REMOVE,
 	MMGUI_MAIN_CONTROL_SHORTCUT_SMS_ANSWER,
 	MMGUI_MAIN_CONTROL_SHORTCUT_USSD_EDITOR,
@@ -187,6 +190,9 @@ static void mmgui_main_event_callback(enum _mmgui_event event, gpointer mmguicor
 			break;
 		case MMGUI_EVENT_DEVICE_OPENED:
 			mmguiapp->modemsettings = mmgui_modem_settings_open(mmguiapp->core->device->persistentid);
+			/*Devices*/
+			mmgui_main_device_connections_list_fill(mmguiapp);
+			mmgui_main_device_restore_settings_for_modem(mmguiapp);
 			/*SMS*/
 			mmgui_main_sms_list_clear(mmguiapp);
 			mmgui_main_sms_list_fill(mmguiapp);
@@ -267,6 +273,17 @@ static void mmgui_main_event_callback(enum _mmgui_event event, gpointer mmguicor
 			} else {
 				mmgui_ui_infobar_show_result(mmguiapp, MMGUI_MAIN_INFOBAR_RESULT_FAIL, mmguicore_get_last_error(mmguiapp->core));
 			}
+			break;
+		case MMGUI_EVENT_MODEM_CONNECTION_RESULT:
+			if (GPOINTER_TO_UINT(data)) {
+				mmgui_ui_infobar_show_result(mmguiapp, MMGUI_MAIN_INFOBAR_RESULT_SUCCESS, NULL);
+			} else {
+				mmgui_ui_infobar_show_result(mmguiapp, MMGUI_MAIN_INFOBAR_RESULT_FAIL, mmguicore_get_last_error(mmguiapp->core));
+			}
+			/*Unblock device selection*/
+			mmgui_main_device_list_block_selection(mmguiapp, FALSE);
+			/*Update status*/
+			mmgui_main_device_connections_update_state(mmguiapp);
 			break;
 		case MMGUI_EVENT_SCAN_RESULT:
 			if (data != NULL) {
@@ -528,7 +545,7 @@ static gboolean mmgui_ui_infobar_timeout_timer(gpointer data)
 	return G_SOURCE_REMOVE;
 }
 
-void mmgui_ui_infobar_show(mmgui_application_t mmguiapp, gchar *message, gint type)
+void mmgui_ui_infobar_show(mmgui_application_t mmguiapp, gchar *message, gint type, gboolean canbestopped)
 {
 	gchar *iconname;
 	GtkMessageType msgtype;
@@ -582,7 +599,9 @@ void mmgui_ui_infobar_show(mmgui_application_t mmguiapp, gchar *message, gint ty
 		gtk_widget_set_visible(mmguiapp->window->infobarimage, FALSE);
 		gtk_widget_set_visible(mmguiapp->window->infobarspinner, TRUE);
 		gtk_spinner_start(GTK_SPINNER(mmguiapp->window->infobarspinner));
-		gtk_widget_set_visible(mmguiapp->window->infobarstopbutton, TRUE);
+		if (canbestopped) {
+			gtk_widget_set_visible(mmguiapp->window->infobarstopbutton, TRUE);
+		}
 		/*Set new timeout timer */
 		mmguiapp->window->infobartimeout = g_timeout_add_seconds(MMGUI_MAIN_OPERATION_TIMEOUT, mmgui_ui_infobar_timeout_timer, mmguiapp);
 	} else {
@@ -643,10 +662,34 @@ void mmgui_ui_infobar_process_stop_signal(GtkInfoBar *info_bar, gint response_id
 
 static void mmgui_main_ui_page_control_disable(mmgui_application_t mmguiapp, guint page, gboolean disable, gboolean onlylimited)
 {
+	GtkTreeModel *model;
+	GtkTreeIter iter;
+	
 	if ((mmguiapp == NULL) || (page > MMGUI_MAIN_PAGE_CONTACTS)) return;
 	
 	switch (page) {
 		case MMGUI_MAIN_PAGE_DEVICES:
+			if (!disable) {
+				if (!mmguicore_devices_get_connected(mmguiapp->core)) {
+					gtk_widget_set_sensitive(mmguiapp->window->devconncb, TRUE);
+					gtk_widget_set_sensitive(mmguiapp->window->devconneditor, TRUE);
+					/*Button must be sensitive only if there is selectable connection*/
+					model = gtk_combo_box_get_model(GTK_COMBO_BOX(mmguiapp->window->devconncb));
+					if (model != NULL) {
+						if (gtk_tree_model_get_iter_first(model, &iter)) {
+							gtk_widget_set_sensitive(mmguiapp->window->devconnctl, TRUE);
+						} else {
+							gtk_widget_set_sensitive(mmguiapp->window->devconnctl, FALSE);
+						}
+					} else {
+						gtk_widget_set_sensitive(mmguiapp->window->devconnctl, FALSE);
+					}
+				}
+			} else {
+				gtk_widget_set_sensitive(mmguiapp->window->devconncb, FALSE);
+				gtk_widget_set_sensitive(mmguiapp->window->devconneditor, FALSE);
+				gtk_widget_set_sensitive(mmguiapp->window->devconnctl, FALSE);
+			}
 			break;
 		case MMGUI_MAIN_PAGE_SMS:
 			gtk_widget_set_sensitive(mmguiapp->window->newsmsbutton, !disable);
@@ -696,6 +739,12 @@ static void mmgui_main_ui_page_setup_shortcuts(mmgui_application_t mmguiapp, gui
 	
 	switch (setpage) {
 		case MMGUI_MAIN_PAGE_DEVICES:
+			/*Open connection editor*/
+			gtk_accel_group_connect(mmguiapp->window->accelgroup, GDK_KEY_E, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE, mmguiapp->window->conneditorclosure);
+			mmguiapp->window->pageshortcuts = g_slist_prepend(mmguiapp->window->pageshortcuts, mmguiapp->window->conneditorclosure);
+			/*Activate/deactivate connection*/
+			gtk_accel_group_connect(mmguiapp->window->accelgroup, GDK_KEY_A, GDK_CONTROL_MASK, GTK_ACCEL_VISIBLE, mmguiapp->window->connactivateclosure);
+			mmguiapp->window->pageshortcuts = g_slist_prepend(mmguiapp->window->pageshortcuts, mmguiapp->window->connactivateclosure);
 			break;
 		case MMGUI_MAIN_PAGE_SMS:
 			/*send sms message*/
@@ -771,6 +820,21 @@ static void mmgui_main_ui_page_use_shortcuts_signal(gpointer data)
 	
 	switch (setpage) {
 		case MMGUI_MAIN_PAGE_DEVICES:
+			if (!blocked) {
+				pagecaps = mmguicore_connections_get_capabilities(appdata->mmguiapp->core);
+				if (pagecaps & MMGUI_CONNECTION_MANAGER_CAPS_MANAGEMENT) {
+					/*Open connection editor*/
+					if (shortcut == MMGUI_MAIN_CONTROL_SHORTCUT_DEVICES_CONNECTION_EDITOR) {
+						mmgui_main_connection_editor_window_open(appdata->mmguiapp);					
+					}
+					/*Activate/deactivate connection*/
+					if (!mmguicore_connections_get_transition_flag(appdata->mmguiapp->core)) {
+						if (shortcut == MMGUI_MAIN_CONTROL_SHORTCUT_DEVICES_CONNECTION_ACTIVATE) {
+							mmgui_main_device_switch_connection_state(appdata->mmguiapp);
+						}
+					}
+				}
+			}
 			break;
 		case MMGUI_MAIN_PAGE_SMS:
 			if ((enabled) && (!blocked)) {
@@ -868,6 +932,15 @@ gboolean mmgui_main_ui_test_device_state(mmgui_application_t mmguiapp, guint set
 	
 	if (mmguiapp == NULL) return FALSE;
 	
+	/*No devices*/
+	if (!g_slist_length(mmguicore_devices_get_list(mmguiapp->core))) {
+		/*Show 'No devices' message*/
+		mmgui_ui_infobar_show(mmguiapp, _("No devices found in system"), MMGUI_MAIN_INFOBAR_TYPE_INFO, FALSE);
+		mmgui_main_ui_page_control_disable(mmguiapp, MMGUI_MAIN_PAGE_DEVICES, TRUE, FALSE);
+		return TRUE;
+	}
+	
+	/*Devices available*/
 	locked = mmguicore_devices_get_locked(mmguiapp->core);
 	enabled = mmguicore_devices_get_enabled(mmguiapp->core);
 	registered = mmguicore_devices_get_registered(mmguiapp->core);
@@ -885,16 +958,21 @@ gboolean mmgui_main_ui_test_device_state(mmgui_application_t mmguiapp, guint set
 	switch (setpage) {
 		case MMGUI_MAIN_PAGE_DEVICES:
 			trytoenable = FALSE;
-			trytounlock = FALSE;
+			trytounlock = TRUE;
 			needreg = FALSE;
 			enablemessage = NULL;
 			notenabledmessage = NULL;
 			regmessage = NULL;
-			lockedmessage = NULL;
-			nonfuncmessage = NULL;
+			lockedmessage = _("Modem must be unlocked to connect to Internet. Please enter PIN code.");
+			nonfuncmessage = _("Network manager does not support Internet connection management functions.");
 			limfuncmessage = NULL;
 			nonfunctional = FALSE;
-			limfunctional = FALSE;
+			pagecaps = mmguicore_connections_get_capabilities(mmguiapp->core);
+			if (pagecaps & MMGUI_CONNECTION_MANAGER_CAPS_MANAGEMENT) {
+				nonfunctional = FALSE;
+			} else {
+				nonfunctional = TRUE;
+			}
 			break;
 		case MMGUI_MAIN_PAGE_SMS:
 			trytoenable = TRUE;
@@ -1023,12 +1101,12 @@ gboolean mmgui_main_ui_test_device_state(mmgui_application_t mmguiapp, guint set
 	
 	if (!prepared) {
 		g_debug("Not prepared\n");
-		mmgui_ui_infobar_show(mmguiapp, prepmessage, MMGUI_MAIN_INFOBAR_TYPE_INFO);
+		mmgui_ui_infobar_show(mmguiapp, prepmessage, MMGUI_MAIN_INFOBAR_TYPE_INFO, TRUE);
 		mmgui_main_ui_page_control_disable(mmguiapp, setpage, TRUE, FALSE);
 	} else if (locked) {
 		g_debug("SIM locked\n");
 		if (trytounlock) {
-			mmgui_ui_infobar_show(mmguiapp, lockedmessage, MMGUI_MAIN_INFOBAR_TYPE_INFO);
+			mmgui_ui_infobar_show(mmguiapp, lockedmessage, MMGUI_MAIN_INFOBAR_TYPE_INFO, TRUE);
 		} else {
 			if (mmguiapp->window->infobartimeout == 0) {
 				mmgui_ui_infobar_show_result(mmguiapp, MMGUI_MAIN_INFOBAR_RESULT_INTERRUPT, NULL);
@@ -1040,27 +1118,27 @@ gboolean mmgui_main_ui_test_device_state(mmgui_application_t mmguiapp, guint set
 			g_debug("Must be enabled\n");
 			if (mmgui_main_ui_question_dialog_open(mmguiapp, _("<b>Enable modem</b>"), enablemessage)) {
 				if (mmguicore_devices_enable(mmguiapp->core, TRUE)) {
-					mmgui_ui_infobar_show(mmguiapp, _("Enabling device..."), MMGUI_MAIN_INFOBAR_TYPE_PROGRESS);
+					mmgui_ui_infobar_show(mmguiapp, _("Enabling device..."), MMGUI_MAIN_INFOBAR_TYPE_PROGRESS, TRUE);
 				} else {
 					mmgui_ui_infobar_show_result(mmguiapp, MMGUI_MAIN_INFOBAR_RESULT_FAIL, mmguicore_get_last_error(mmguiapp->core));
 				}
 			} else {
 				g_debug("Not enabled\n");
-				mmgui_ui_infobar_show(mmguiapp, notenabledmessage, MMGUI_MAIN_INFOBAR_TYPE_INFO);
+				mmgui_ui_infobar_show(mmguiapp, notenabledmessage, MMGUI_MAIN_INFOBAR_TYPE_INFO, TRUE);
 				mmgui_main_ui_page_control_disable(mmguiapp, setpage, TRUE, TRUE);
 			}
 		} else {
 			if ((needreg) && (!registered)) {
 				g_debug("Must be registered\n");
-				mmgui_ui_infobar_show(mmguiapp, regmessage, MMGUI_MAIN_INFOBAR_TYPE_INFO);
+				mmgui_ui_infobar_show(mmguiapp, regmessage, MMGUI_MAIN_INFOBAR_TYPE_INFO, TRUE);
 				mmgui_main_ui_page_control_disable(mmguiapp, setpage, TRUE, TRUE);
 			} else if (nonfunctional) {
 				g_debug("Nonfunctional\n");
-				mmgui_ui_infobar_show(mmguiapp, nonfuncmessage, MMGUI_MAIN_INFOBAR_TYPE_INFO);
+				mmgui_ui_infobar_show(mmguiapp, nonfuncmessage, MMGUI_MAIN_INFOBAR_TYPE_INFO, TRUE);
 				mmgui_main_ui_page_control_disable(mmguiapp, setpage, TRUE, FALSE);
 			} else if (limfunctional) {
 				g_debug("Limited functional\n");
-				mmgui_ui_infobar_show(mmguiapp, limfuncmessage, MMGUI_MAIN_INFOBAR_TYPE_INFO);
+				mmgui_ui_infobar_show(mmguiapp, limfuncmessage, MMGUI_MAIN_INFOBAR_TYPE_INFO, TRUE);
 				mmgui_main_ui_page_control_disable(mmguiapp, setpage, TRUE, TRUE);
 			} else {
 				g_debug("Fully functional\n");
@@ -1570,22 +1648,23 @@ void mmgui_main_ui_control_buttons_disable(mmgui_application_t mmguiapp, gboolea
 	gtk_widget_set_sensitive(mmguiapp->window->scanbutton, !disable);
 	gtk_widget_set_sensitive(mmguiapp->window->trafficbutton, !disable);
 	gtk_widget_set_sensitive(mmguiapp->window->contactsbutton, !disable);
+	
 	/*Application menu*/
 	mmgui_main_ui_application_menu_set_state(mmguiapp, !disable);
 	
+	/*Hide infobar*/
+	mmgui_ui_infobar_show_result(mmguiapp, MMGUI_MAIN_INFOBAR_RESULT_INTERRUPT, NULL);
+	
 	if (disable) {
-		mmgui_ui_infobar_show_result(mmguiapp, MMGUI_MAIN_INFOBAR_RESULT_INTERRUPT, NULL);
 		/*Toolbar*/
 		gtk_toggle_tool_button_set_active(GTK_TOGGLE_TOOL_BUTTON(mmguiapp->window->devbutton), TRUE);
 		gtk_notebook_set_current_page(GTK_NOTEBOOK(mmguiapp->window->notebook), MMGUI_MAIN_PAGE_DEVICES);
 		/*Application menu*/
 		mmgui_main_ui_application_menu_set_page(mmguiapp, MMGUI_MAIN_PAGE_DEVICES);
-		/*Show infobar*/
-		mmgui_ui_infobar_show(mmguiapp, _("No devices found in system"), MMGUI_MAIN_INFOBAR_TYPE_INFO);
-	} else {
-		/*Hide infobar*/
-		mmgui_ui_infobar_show_result(mmguiapp, MMGUI_MAIN_INFOBAR_RESULT_INTERRUPT, NULL);
 	}
+	
+	/*Update state*/
+	mmgui_main_ui_test_device_state(mmguiapp, MMGUI_MAIN_PAGE_DEVICES);
 }
 
 gboolean mmgui_main_ui_update_statusbar_from_thread(gpointer data)
@@ -2014,23 +2093,17 @@ static gboolean mmgui_main_application_build_user_interface(mmgui_application_t 
 		{"conneditdialog", &(mmguiapp->window->conneditdialog)},
 		{"connaddtoolbutton", &(mmguiapp->window->connaddtoolbutton)},
 		{"connremovetoolbutton", &(mmguiapp->window->connremovetoolbutton)},
-		{"connsavetoolbutton", &(mmguiapp->window->connsavetoolbutton)},
 		{"contreeview", &(mmguiapp->window->contreeview)},
-		{"connnamecombobox", &(mmguiapp->window->connnamecombobox)},
-		{"connnamecomboboxentry", &(mmguiapp->window->connnamecomboboxentry)},
+		{"connnameentry", &(mmguiapp->window->connnameentry)},
 		{"connnameapnentry", &(mmguiapp->window->connnameapnentry)},
-		{"connnethomeradiobutton", &(mmguiapp->window->connnethomeradiobutton)},
-		{"connnetroamradiobutton", &(mmguiapp->window->connnetroamradiobutton)},
-		{"connnetidentry", &(mmguiapp->window->connnetidentry)},
+		{"connnametechcombo", &(mmguiapp->window->connnametechcombo)},
+		{"connnetroamingcheckbutton", &(mmguiapp->window->connnetroamingcheckbutton)},
+		{"connnetidspinbutton", &(mmguiapp->window->connnetidspinbutton)},
 		{"connauthnumberentry", &(mmguiapp->window->connauthnumberentry)},
 		{"connauthusernameentry", &(mmguiapp->window->connauthusernameentry)},
 		{"connauthpassentry", &(mmguiapp->window->connauthpassentry)},
-		{"conndnsdynradiobutton", &(mmguiapp->window->conndnsdynradiobutton)},
-		{"conndnsstradiobutton", &(mmguiapp->window->conndnsstradiobutton)},
 		{"conndns1entry", &(mmguiapp->window->conndns1entry)},
 		{"conndns2entry", &(mmguiapp->window->conndns2entry)},
-		/*Add connection dialog*/
-		{"connadddialog", &(mmguiapp->window->connadddialog)},
 		/*SMS page*/
 		{"smsinfobar", &(mmguiapp->window->smsinfobar)},
 		{"smsinfobarlabel", &(mmguiapp->window->smsinfobarlabel)},
@@ -2193,12 +2266,16 @@ static gboolean mmgui_main_application_build_user_interface(mmgui_application_t 
 		&(mmguiapp->window->conndialog),
 		&(mmguiapp->window->trafficstatsdialog),
 		&(mmguiapp->window->conneditdialog),
-		&(mmguiapp->window->connadddialog),
 		&(mmguiapp->window->newcontactdialog),
 		&(mmguiapp->window->welcomewindow),
 	};
 	/*Accelerator closures*/
 	struct _mmgui_main_closureset closureset[] = {
+		/*Closures for Devices page*/
+		/*Open connections editor*/
+		{MMGUI_MAIN_CONTROL_SHORTCUT_DEVICES_CONNECTION_EDITOR, &(mmguiapp->window->conneditorclosure)},
+		/*Activate/deactivate connection*/
+		{MMGUI_MAIN_CONTROL_SHORTCUT_DEVICES_CONNECTION_ACTIVATE, &(mmguiapp->window->connactivateclosure)},
 		/*Closures for SMS page*/
 		/*send sms message*/
 		{MMGUI_MAIN_CONTROL_SHORTCUT_SMS_NEW, &(mmguiapp->window->newsmsclosure)},
@@ -2295,6 +2372,8 @@ static gboolean mmgui_main_application_build_user_interface(mmgui_application_t 
 	}
 	/*Initialize lists and text fields*/
 	mmgui_main_device_list_init(mmguiapp);
+	mmgui_main_device_connections_list_init(mmguiapp);
+	mmgui_main_connection_editor_window_list_init(mmguiapp);
 	mmgui_main_sms_list_init(mmguiapp);
 	mmgui_main_ussd_list_init(mmguiapp);
 	mmgui_main_ussd_accelerators_init(mmguiapp);
@@ -2436,9 +2515,16 @@ static void mmgui_main_continue_initialization(mmgui_application_t mmguiapp, mmg
 	mmguiapp->addressbooks = mmgui_addressbooks_new(mmgui_main_event_callback, mmguiapp->libcache, mmguiapp);
 	/*Open ayatana interface*/
 	mmguiapp->ayatana = mmgui_ayatana_new(mmguiapp->libcache, mmgui_main_ayatana_event_callback, mmguiapp);
+	/*Load providers database*/
+	mmguiapp->providersdb = mmgui_providers_db_create();
 	/*Get available devices*/
 	if (mmguicore_devices_enum(mmguiapp->core)) {
 		mmgui_main_device_list_fill(mmguiapp);
+	}
+	/*Get available connections*/
+	if (mmguicore_connections_enum(mmguiapp->core)) {
+		//mmgui_main_device_connections_list_fill(mmguiapp);
+		mmgui_main_connection_editor_window_list_fill(mmguiapp);
 	}
 	/*Load UI-specific settings and open device if any*/
 	mmgui_main_settings_ui_load(mmguiapp);
@@ -2503,6 +2589,9 @@ static void mmgui_main_application_activate_signal(GtkApplication *application, 
 			} else {
 				mmguicore_start(mmguiapp->core);
 			}
+			/*Open home page*/
+			mmgui_main_ui_test_device_state(mmguiapp, MMGUI_MAIN_PAGE_DEVICES);
+			mmgui_main_ui_page_setup_shortcuts(mmguiapp, MMGUI_MAIN_PAGE_DEVICES);
 		} else {
 			/*If GtkBuilder is unable to load .ui file*/
 			mmgui_main_application_unresolved_error(mmguiapp, _("Error while initialization"), _("Interface building error"));
@@ -2525,6 +2614,8 @@ static void mmgui_main_application_shutdown_signal(GtkApplication *application, 
 	mmgui_notifications_close(mmguiapp->notifications);
 	/*Close addressbooks interface*/
 	mmgui_addressbooks_close(mmguiapp->addressbooks);
+	/*Close providers database*/
+	mmgui_providers_db_close(mmguiapp->providersdb);
 	/*Close ayatana interface*/
 	mmgui_ayatana_close(mmguiapp->ayatana);
 	/*Close core interface*/
