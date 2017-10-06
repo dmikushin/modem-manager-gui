@@ -266,6 +266,7 @@ struct _mmgui_main_window {
 	GtkWidget *prefsmsoldontop;
 	GtkWidget *prefsmsvalidityscale;
 	GtkWidget *prefsmsreportcb;
+	GtkWidget *prefsmscommandentry;
 	GtkWidget *preftrafficrxcolor;
 	GtkWidget *preftraffictxcolor;
 	GtkWidget *preftrafficmovdircombo;
@@ -334,6 +335,7 @@ struct _mmgui_cli_options {
 	gboolean smsoldontop;
 	gboolean smsdeliveryreport;
 	gint smsvalidityperiod;
+	gchar *smscustomcommand;
 	/*Traffic graph*/
 	#if GTK_CHECK_VERSION(3,4,0)
 		GdkRGBA rxtrafficcolor;

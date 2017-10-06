@@ -1866,6 +1866,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
   </object>
   <object class="GtkDialog" id="conneditdialog">
     <property name="can_focus">False</property>
+    <property name="border_width">5</property>
     <property name="title" translatable="yes">Connections</property>
     <property name="window_position">center-on-parent</property>
     <property name="default_width">650</property>
@@ -3328,6 +3329,81 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                     <property name="position">1</property>
                   </packing>
                 </child>
+                <child>
+                  <object class="GtkFrame" id="prefsmscommandframe">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label_xalign">0</property>
+                    <property name="shadow_type">none</property>
+                    <child>
+                      <object class="GtkAlignment" id="prefsmscommandalignment">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="left_padding">12</property>
+                        <child>
+                          <object class="GtkGrid" id="prefsmscommandgrid">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="hexpand">True</property>
+                            <property name="row_spacing">5</property>
+                            <property name="column_spacing">5</property>
+                            <child>
+                              <object class="GtkLabel" id="prefsmscommandlabel">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">Command</property>
+                                <property name="xalign">0</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkEntry" id="prefsmscommandentry">
+                                <property name="visible">True</property>
+                                <property name="can_focus">True</property>
+                                <property name="hexpand">True</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">1</property>
+                                <property name="top_attach">0</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <object class="GtkLabel" id="prefsmscommandtip">
+                                <property name="visible">True</property>
+                                <property name="can_focus">False</property>
+                                <property name="label" translatable="yes">&lt;i&gt;&lt;small&gt;Use &lt;b&gt;%n&lt;/b&gt; for message sender number and &lt;b&gt;%t&lt;/b&gt; for it's text (eg. &lt;b&gt;zenity --info --title=%n --text=%t&lt;/b&gt;).&lt;/small&gt;&lt;/i&gt;</property>
+                                <property name="use_markup">True</property>
+                                <property name="wrap">True</property>
+                                <property name="xalign">0</property>
+                              </object>
+                              <packing>
+                                <property name="left_attach">0</property>
+                                <property name="top_attach">1</property>
+                                <property name="width">2</property>
+                              </packing>
+                            </child>
+                          </object>
+                        </child>
+                      </object>
+                    </child>
+                    <child type="label">
+                      <object class="GtkLabel" id="prefsmscommandframelabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">&lt;b&gt;Custom command&lt;/b&gt;</property>
+                        <property name="use_markup">True</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="fill">True</property>
+                    <property name="position">2</property>
+                  </packing>
+                </child>
               </object>
               <packing>
                 <property name="position">1</property>
@@ -3880,6 +3956,12 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
       <action-widget response="0">prefclosebutton</action-widget>
       <action-widget response="1">prefapplybutton</action-widget>
     </action-widgets>
+  </object>
+  <object class="GtkSizeGroup" id="prefsmssizegroup">
+    <widgets>
+      <widget name="prefsmsvaliditylabel"/>
+      <widget name="prefsmscommandlabel"/>
+    </widgets>
   </object>
   <object class="GtkMessageDialog" id="questiondialog">
     <property name="can_focus">False</property>

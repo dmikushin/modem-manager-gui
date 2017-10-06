@@ -1994,7 +1994,10 @@ static gboolean mmgui_main_settings_load(mmgui_application_t mmguiapp)
 	mmguiapp->options->smsoldontop = gmm_settings_get_boolean(mmguiapp->settings, "sms_old_on_top", TRUE);
 	mmguiapp->options->smsvalidityperiod = gmm_settings_get_int(mmguiapp->settings, "sms_validity_period", -1);
 	mmguiapp->options->smsdeliveryreport = gmm_settings_get_boolean(mmguiapp->settings, "sms_send_delivery_report", FALSE);
-		
+	strparam = gmm_settings_get_string(mmguiapp->settings, "sms_custom_command", "");
+	mmguiapp->options->smscustomcommand = g_strcompress(strparam);
+	g_free(strparam);
+	
 	/*Behaviour options*/
 	mmguiapp->options->hidetotray = gmm_settings_get_boolean(mmguiapp->settings, "behaviour_hide_to_tray", FALSE);
 	mmguiapp->options->usesounds = gmm_settings_get_boolean(mmguiapp->settings, "behaviour_use_sounds", TRUE);
@@ -2193,6 +2196,7 @@ static gboolean mmgui_main_application_build_user_interface(mmgui_application_t 
 		{"prefssmsoldontop", &(mmguiapp->window->prefsmsoldontop)},
 		{"prefsmsvalidityscale", &(mmguiapp->window->prefsmsvalidityscale)},
 		{"prefsmsreportcb", &(mmguiapp->window->prefsmsreportcb)},
+		{"prefsmscommandentry", &(mmguiapp->window->prefsmscommandentry)},
 		{"preftrafficrxcolor", &(mmguiapp->window->preftrafficrxcolor)},
 		{"preftraffictxcolor", &(mmguiapp->window->preftraffictxcolor)},
 		{"preftrafficmovdircombo", &(mmguiapp->window->preftrafficmovdircombo)},
@@ -2846,6 +2850,9 @@ int main(int argc, char *argv[])
 	g_object_unref(G_OBJECT(mmguiapp->gtkapplication));
 	
 	if (mmguiapp->options != NULL) {
+		if (mmguiapp->options->smscustomcommand != NULL) {
+			g_free(mmguiapp->options->smscustomcommand);
+		}
 		g_free(mmguiapp->options);
 	}
 	if (mmguiapp->window != NULL) {

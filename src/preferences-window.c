@@ -144,7 +144,11 @@ void mmgui_preferences_window_activate_signal(GSimpleAction *action, GVariant *p
 	gboolean autostart;
 	GtkTreeIter iter;
 	GtkTreeModel *model;
-	
+	gint argcp, i, p;
+	gchar **argvp;
+	gchar *rawcmd;
+	gboolean correctform;
+		
 	mmguiapp = (mmgui_application_t)data;
 	
 	if (mmguiapp == NULL) return;
@@ -158,6 +162,9 @@ void mmgui_preferences_window_activate_signal(GSimpleAction *action, GVariant *p
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefsmsoldontop), mmguiapp->options->smsoldontop);
 	gtk_range_set_value(GTK_RANGE(mmguiapp->window->prefsmsvalidityscale), (gdouble)mmguiapp->options->smsvalidityperiod);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefsmsreportcb), mmguiapp->options->smsdeliveryreport);
+	if (mmguiapp->options->smscustomcommand != NULL) {
+		gtk_entry_set_text(GTK_ENTRY(mmguiapp->window->prefsmscommandentry), mmguiapp->options->smscustomcommand);
+	}
 	/*Show behaviour settings*/
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefbehaviourhide), mmguiapp->options->hidetotray);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefbehavioursounds), mmguiapp->options->usesounds);
@@ -247,6 +254,46 @@ void mmgui_preferences_window_activate_signal(GSimpleAction *action, GVariant *p
 		gmm_settings_set_int(mmguiapp->settings, "sms_validity_period", (gint)gtk_range_get_value(GTK_RANGE(mmguiapp->window->prefsmsvalidityscale)));
 		mmguiapp->options->smsdeliveryreport = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefsmsreportcb));
 		gmm_settings_set_boolean(mmguiapp->settings, "sms_send_delivery_report", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefsmsreportcb)));
+		/*Custom command validation*/
+		if (mmguiapp->options->smscustomcommand != NULL) {
+			g_free(mmguiapp->options->smscustomcommand);
+		}
+		if (g_shell_parse_argv(gtk_entry_get_text(GTK_ENTRY(mmguiapp->window->prefsmscommandentry)), &argcp, &argvp, NULL)) {
+			correctform = TRUE;
+			for (i = 0; i < argcp; i++) {
+				for (p = 0; argvp[i][p] != '\0'; p++) {
+					if (argvp[i][p] == '%') {
+						if ((argvp[i][p + 1] == 'n') || (argvp[i][p + 1] == 't')) {
+							p++;
+						} else {
+							correctform = FALSE;
+							break;
+						}
+					}
+				}
+			}
+			g_strfreev(argvp);
+			if (correctform) {
+				/*Update command*/
+				mmguiapp->options->smscustomcommand = g_strdup(gtk_entry_get_text(GTK_ENTRY(mmguiapp->window->prefsmscommandentry)));
+				/*Save custom command in escaped form*/
+				rawcmd = g_strescape(mmguiapp->options->smscustomcommand, NULL);
+				gmm_settings_set_string(mmguiapp->settings, "sms_custom_command", rawcmd);
+				g_free(rawcmd);
+			} else {
+				/*Update command*/
+				mmguiapp->options->smscustomcommand = g_strdup("");
+				/*Save custom command in escaped form*/
+				gmm_settings_set_string(mmguiapp->settings, "sms_custom_command", "");
+			}
+			
+		} else {
+			/*Update command*/
+			mmguiapp->options->smscustomcommand = g_strdup("");
+			/*Save custom command in escaped form*/
+			gmm_settings_set_string(mmguiapp->settings, "sms_custom_command", "");
+		}
+		
 		/*Save program behaviour settings*/
 		mmguiapp->options->hidetotray = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefbehaviourhide));
 		gmm_settings_set_boolean(mmguiapp->settings, "behaviour_hide_to_tray", gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(mmguiapp->window->prefbehaviourhide)));

@@ -220,6 +220,60 @@ static void mmgui_main_sms_get_message_list_hash_destroy_notify(gpointer data)
 	if (data != NULL) g_free(data);
 }
 
+static void mmgui_main_sms_execute_custom_command(mmgui_application_t mmguiapp, mmgui_sms_message_t message)
+{
+	gint argcp, i, p;
+	gchar **argvp;
+	gboolean tplfound;
+	GString *arg;
+	GError *error;
+	
+	if ((mmguiapp == NULL) || (message == NULL)) return;
+	
+	/*Custom command*/
+	if (g_strcmp0(mmguiapp->options->smscustomcommand, "") != 0) {
+		if (g_shell_parse_argv(mmguiapp->options->smscustomcommand, &argcp, &argvp, NULL)) {
+			for (i = 0; i < argcp; i++) {
+				/*First search for known templates*/
+				tplfound = FALSE;
+				for (p = 0; argvp[i][p] != '\0'; p++) {
+					if (argvp[i][p] == '%') {
+						if ((argvp[i][p + 1] == 'n') || (argvp[i][p + 1] == 't')) {
+							tplfound = TRUE;
+							break;
+						}
+					}
+				}
+				/*Then replace templates if found*/
+				if (tplfound) {
+					arg = g_string_new(NULL);
+					for (p = 0; argvp[i][p] != '\0'; p++) {
+						if (argvp[i][p] == '%') {
+							if (argvp[i][p + 1] == 'n') {
+								g_string_append(arg, mmgui_smsdb_message_get_number(message));
+							} else if (argvp[i][p + 1] == 't') {
+								g_string_append(arg, mmgui_smsdb_message_get_text(message));
+							}
+							p++;
+						} else {
+							g_string_append_c(arg, argvp[i][p]);
+						}
+					}
+					g_free(argvp[i]);
+					argvp[i] = g_string_free(arg, FALSE);
+				}
+			}
+			/*Finally exucute custom command*/
+			error = NULL;
+			if (!g_spawn_async(NULL, argvp, NULL, G_SPAWN_SEARCH_PATH_FROM_ENVP, NULL, NULL, NULL, &error)) {
+				g_debug("Error spawning external command: %s\n", error->message);
+				g_error_free(error);
+			}
+			g_strfreev(argvp);
+		}
+	}
+}
+
 gboolean mmgui_main_sms_get_message_list_from_thread(gpointer data)
 {
 	mmgui_application_data_t mmguiappdata;
@@ -270,6 +324,8 @@ gboolean mmgui_main_sms_get_message_list_from_thread(gpointer data)
 			/*New message received*/
 			nummessages++;
 		}
+		/*Execute custom command*/
+		mmgui_main_sms_execute_custom_command(mmguiappdata->mmguiapp, message);
 		/*Delete message*/
 		mmguicore_sms_delete(mmguiappdata->mmguiapp->core, mmgui_smsdb_message_get_identifier(message));
 		/*Free message*/
@@ -340,7 +396,7 @@ gboolean mmgui_main_sms_get_message_from_thread(gpointer data)
 	gchar *notifycaption, *notifytext;
 	enum _mmgui_notifications_sound soundmode;
 	sms_selection_data_t seldata;
-		
+			
 	mmguiappdata = (mmgui_application_data_t)data;
 	
 	if (mmguiappdata == NULL) return FALSE;
@@ -377,7 +433,10 @@ gboolean mmgui_main_sms_get_message_from_thread(gpointer data)
 	
 	/*Ayatana menu*/
 	mmgui_ayatana_set_unread_messages_number(mmguiappdata->mmguiapp->ayatana, mmgui_smsdb_get_unread_messages(mmguicore_devices_get_sms_db(mmguiappdata->mmguiapp->core)));
-		
+	
+	/*Execute custom command*/
+	mmgui_main_sms_execute_custom_command(mmguiappdata->mmguiapp, message);
+	
 	/*Notification*/
 	mmgui_notifications_show(mmguiappdata->mmguiapp->notifications, notifycaption, notifytext, soundmode, mmgui_main_sms_notification_show_window_callback, seldata);
 	
