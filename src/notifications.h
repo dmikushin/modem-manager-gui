@@ -1,7 +1,7 @@
 /*
  *      notifications.h
  *      
- *      Copyright 2013-2014 Alex <alex@linuxonly.ru>
+ *      Copyright 2013-2017 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -27,20 +27,14 @@
 
 #include "libpaths.h"
 
-typedef enum
-{
+typedef enum {
 	MMGUI_NOTIFICATIONS_URGENCY_LOW,
 	MMGUI_NOTIFICATIONS_URGENCY_NORMAL,
 	MMGUI_NOTIFICATIONS_URGENCY_CRITICAL,
 
 } NotificationsUrgency;
 
-typedef struct _ca_context ca_context;
-typedef struct _ca_proplist ca_proplist;
-
 typedef void (*NotifyActionCallback)(gpointer notification, gchar *action, gpointer userdata);
-
-typedef void (*ca_finish_callback_t)(ca_context *c, guint32 id, gint error_code, void *userdata);
 
 /*libnotify function prototypes*/
 typedef gboolean (*notify_init_func)(const gchar * app_name);
@@ -54,17 +48,6 @@ typedef void (*notify_notification_set_urgency_func)(gpointer notification, Noti
 typedef void (*notify_notification_add_action_func)(gpointer notification, const gchar *action, const gchar *label, NotifyActionCallback callback, gpointer userdata, GFreeFunc freefunc);
 typedef void (*notify_notification_show_func)(gpointer notification, GError **error);
 
-/*libcanberra function prototypes*/
-typedef void (*ca_finish_callback_t)(ca_context *c, guint32 id, gint error_code, gpointer userdata);
-typedef gint (*ca_context_create_func)(ca_context **);
-typedef gint (*ca_context_destroy_func)(ca_context *);
-typedef gint (*ca_context_play_func)(ca_context *c, guint32 id, ...);
-typedef gint (*ca_context_change_props_func)(ca_context *c, ...);
-typedef gint (*ca_proplist_create_func)(ca_proplist **);
-typedef gint (*ca_proplist_destroy_func)(ca_proplist *);
-typedef gint (*ca_proplist_sets_func)(ca_proplist *c, const gchar *key, const gchar *value);
-typedef gint (*ca_context_play_full_func)(ca_context *c, guint32 id,  ca_proplist *p, ca_finish_callback_t cb, gpointer userdata);
-
 enum _mmgui_notifications_sound {
 	MMGUI_NOTIFICATIONS_SOUND_NONE = 0,
 	MMGUI_NOTIFICATIONS_SOUND_INFO,
@@ -72,10 +55,9 @@ enum _mmgui_notifications_sound {
 };
 
 struct _mmgui_notifications {
-	//Modules
+	/*Modules*/
 	GModule *notifymodule;
-	GModule *canberramodule;
-	//libnotify functions
+	/*libnotify functions*/
 	notify_init_func notify_init;
 	notify_get_server_caps_func notify_get_server_caps;
 	notify_notification_new_func notify_notification_new;
@@ -90,17 +72,6 @@ struct _mmgui_notifications {
 	gboolean supportsaction;
 	/*notifications icon*/
 	GdkPixbuf *notifyicon;
-	//libcanberra functions
-	ca_context_create_func ca_context_create;
-	ca_context_destroy_func ca_context_destroy;
-	ca_context_play_func ca_context_play;
-	ca_context_change_props_func ca_context_change_props;
-	ca_proplist_create_func ca_proplist_create;
-	ca_proplist_destroy_func ca_proplist_destroy;
-	ca_proplist_sets_func ca_proplist_sets;
-	ca_context_play_full_func ca_context_play_full;
-	//libcanberra context
-	ca_context *cacontext;
 };
 
 typedef struct _mmgui_notifications *mmgui_notifications_t;

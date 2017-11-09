@@ -8,3 +8,4 @@ Terminal=false
 Type=Application
 Categories=GTK;System;Utility;Network;TelephonyTools;
 Keywords=modem;manager;sms;ussd;
+X-GNOME-UsesNotifications=true

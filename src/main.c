@@ -2514,7 +2514,7 @@ static void mmgui_main_continue_initialization(mmgui_application_t mmguiapp, mmg
 	if (mmguiapp == NULL) return;
 	
 	/*Upadate library cache: name needed libraries first*/
-	mmguiapp->libcache = mmgui_libpaths_cache_new("libnotify", "libcanberra", "libebook-1.2", "libmessaging-menu", "libindicate",  NULL);
+	mmguiapp->libcache = mmgui_libpaths_cache_new("libnotify", "libebook-1.2", "libmessaging-menu", "libindicate",  NULL);
 	/*Notifications object*/
 	mmguiapp->notifications = mmgui_notifications_new(mmguiapp->libcache);
 	/*Address books object*/
