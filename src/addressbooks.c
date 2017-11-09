@@ -1,7 +1,7 @@
 /*
  *      addressbooks.c
  *
- *      Copyright 2013-2015 Alex <alex@linuxonly.ru>
+ *      Copyright 2013-2017 Alex <alex@linuxonly.ru>
  *
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -1045,7 +1045,7 @@ mmgui_addressbooks_t mmgui_addressbooks_new(mmgui_event_ext_callback callback, m
 	addressbooks->gnomecontacts = NULL;
 	
 	/*GNOME code path*/
-	if (g_strcmp0(desktop, "GNOME") == 0) {
+	if (g_strrstr(desktop, "GNOME") != NULL) {
 		if (mmgui_libpaths_cache_check_library_version(libcache, "libebook-1.2", 12, 3, 0)) {
 			/*Open module*/
 			addressbooks->ebookmodule = g_module_open(mmgui_libpaths_cache_get_library_full_path(libcache, "libebook-1.2"), G_MODULE_BIND_LAZY);
