@@ -1026,7 +1026,7 @@ mmgui_addressbooks_t mmgui_addressbooks_new(mmgui_event_ext_callback callback, m
 	guint akonadistatus;
 	const gchar *desktop;
 	const gchar *version;
-
+	
 	if (callback == NULL) return NULL;
 
 	addressbooks = g_new0(struct _mmgui_addressbooks, 1);

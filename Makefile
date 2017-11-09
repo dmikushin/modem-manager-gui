@@ -40,7 +40,6 @@ clean:
 	(cd src && ${MAKE} clean)
 	(cd src/modules && ${MAKE} clean)
 	(cd src/plugins && ${MAKE} clean)
-	(cd resources && ${MAKE} clean)
 	(cd po && ${MAKE} clean)
 	(cd man && ${MAKE} clean)
 	(cd help && ${MAKE} clean)

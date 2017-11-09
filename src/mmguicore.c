@@ -36,7 +36,7 @@
 #include "netlink.h"
 #include "polkit.h"
 #include "svcmanager.h"
-#include "resources.h"
+#include "../resources.h"
 
 /*Module*/
 #define MMGUI_MODULE_FILE_PREFIX         '_'
@@ -696,7 +696,7 @@ static GSList *mmguicore_modules_dir_form_list(mmguicore_t mmguicore, gboolean u
 		length = strlen(modname);
 		if ((length > 3) && (length < 256) && (modname[length-3] == '.') && (modname[length-2] == 's') && (modname[length-1] == 'o')) {
 			/*Full path to module*/
-			modpath = g_strconcat(RESOURCE_MODULES_DIR, modname, NULL);
+			modpath = g_strconcat(RESOURCE_MODULES_DIR, G_DIR_SEPARATOR_S, modname, NULL);
 			/*Test if module exists*/
 			if (g_file_test(modpath, G_FILE_TEST_EXISTS)) {
 				/*Open module*/
@@ -918,7 +918,7 @@ static gboolean mmguicore_modules_mm_open(mmguicore_t mmguicore, mmguimodule_t m
 		}
 	}
 	/*Dynamic loader*/
-	modulepath = g_strconcat(RESOURCE_MODULES_DIR, mmguimodule->filename, NULL);
+	modulepath = g_strconcat(RESOURCE_MODULES_DIR, G_DIR_SEPARATOR_S, mmguimodule->filename, NULL);
 	mmguicore->module = g_module_open(modulepath, G_MODULE_BIND_LAZY);
 	if (mmguicore->module != NULL) {
 		openstatus = TRUE;
@@ -1026,11 +1026,11 @@ static gboolean mmguicore_modules_cm_open(mmguicore_t mmguicore, mmguimodule_t m
 		}
 	}
 	/*Dynamic loader*/
-	modulepath = g_strconcat(RESOURCE_MODULES_DIR, mmguimodule->filename, NULL);
+	modulepath = g_strconcat(RESOURCE_MODULES_DIR, G_DIR_SEPARATOR_S, mmguimodule->filename, NULL);
 	mmguicore->cmodule = g_module_open(modulepath, G_MODULE_BIND_LAZY);
 	if (mmguicore->cmodule != NULL) {
 		openstatus = TRUE;
-		//Module function pointers
+		/*Module function pointers*/
 		openstatus = openstatus && g_module_symbol(mmguicore->cmodule, "mmgui_module_connection_open", (gpointer *)&(mmguicore->connection_open_func));
 		openstatus = openstatus && g_module_symbol(mmguicore->cmodule, "mmgui_module_connection_close", (gpointer *)&(mmguicore->connection_close_func));
 		openstatus = openstatus && g_module_symbol(mmguicore->cmodule, "mmgui_module_connection_enum", (gpointer *)&(mmguicore->connection_enum_func));
@@ -1047,7 +1047,7 @@ static gboolean mmguicore_modules_cm_open(mmguicore_t mmguicore, mmguimodule_t m
 		openstatus = openstatus && g_module_symbol(mmguicore->cmodule, "mmgui_module_device_connection_disconnect", (gpointer *)&(mmguicore->device_connection_disconnect_func));
 		
 		if (!openstatus) {
-			//Module function pointers
+			/*Module function pointers*/
 			mmguicore->connection_open_func = NULL;
 			mmguicore->connection_close_func = NULL;
 			mmguicore->connection_enum_func = NULL;
@@ -1729,12 +1729,6 @@ gboolean mmguicore_devices_close(mmguicore_t mmguicore)
 {
 	gboolean result;
 	
-	#if GLIB_CHECK_VERSION(2,32,0)
-		g_mutex_lock(&mmguicore->workthreadmutex);
-	#else
-		g_mutex_lock(mmguicore->workthreadmutex);
-	#endif
-	
 	result = FALSE; 
 	
 	if (mmguicore->device != NULL) {
@@ -1742,16 +1736,21 @@ gboolean mmguicore_devices_close(mmguicore_t mmguicore)
 		if (mmguicore->extcb != NULL) {
 			(mmguicore->extcb)(MMGUI_EVENT_DEVICE_CLOSING, mmguicore, mmguicore->device, mmguicore->userdata);
 		}
+		#if GLIB_CHECK_VERSION(2,32,0)
+			g_mutex_lock(&mmguicore->workthreadmutex);
+		#else
+			g_mutex_lock(mmguicore->workthreadmutex);
+		#endif
 		if ((mmguicore->devices_close_func)(mmguicore)) {
-			//Close SMS database
+			/*Close SMS database*/
 			mmguicore->device->smscaps = MMGUI_SMS_CAPS_NONE;
 			mmgui_smsdb_close(mmguicore->device->smsdb);
 			mmguicore->device->smsdb = NULL;
-			//Close contacts
+			/*Close contacts*/
 			mmguicore->device->contactscaps = MMGUI_CONTACTS_CAPS_NONE;
 			mmguicore_contacts_free(mmguicore->device->contactslist);
 			mmguicore->device->contactslist = NULL;
-			//Info
+			/*Info*/
 			if (mmguicore->device->operatorname != NULL) {
 				g_free(mmguicore->device->operatorname);
 				mmguicore->device->operatorname = NULL;
@@ -1765,21 +1764,21 @@ gboolean mmguicore_devices_close(mmguicore_t mmguicore)
 				g_free(mmguicore->device->imsi);
 				mmguicore->device->imsi = NULL;
 			}
-			//USSD
+			/*USSD*/
 			mmguicore->device->ussdcaps = MMGUI_USSD_CAPS_NONE;
 			mmguicore->device->ussdencoding = MMGUI_USSD_ENCODING_GSM7;
-			//Location
+			/*Location*/
 			mmguicore->device->locationcaps = MMGUI_LOCATION_CAPS_NONE;
 			memset(mmguicore->device->loc3gppdata, 0, sizeof(mmguicore->device->loc3gppdata));
 			memset(mmguicore->device->locgpsdata, 0, sizeof(mmguicore->device->locgpsdata));
-			//Scan
+			/*Scan*/
 			mmguicore->device->scancaps = MMGUI_SCAN_CAPS_NONE;
-			//Close traffic database session
+			/*Close traffic database session*/
 			mmgui_trafficdb_session_close(mmguicore->device->trafficdb);
-			//Close traffic database
+			/*Close traffic database*/
 			mmgui_trafficdb_close(mmguicore->device->trafficdb);
 			mmguicore->device->trafficdb = NULL;
-			//Traffic
+			/*Traffic*/
 			mmguicore->device->rxbytes = 0;
 			mmguicore->device->txbytes = 0;
 			mmguicore->device->sessiontime = 0;
@@ -1789,27 +1788,24 @@ gboolean mmguicore_devices_close(mmguicore_t mmguicore)
 			mmguicore->device->connected = FALSE;
 			memset(mmguicore->device->speedvalues, 0, sizeof(mmguicore->device->speedvalues));
 			memset(mmguicore->device->interface, 0, sizeof(mmguicore->device->interface));
-			//Zero traffic values in UI
+			/*Zero traffic values in UI*/
 			mmguicore_traffic_zero(mmguicore);
-			//Close connection state source
+			/*Close connection state source*/
 			if (mmguicore->device_connection_close_func != NULL) {
 				(mmguicore->device_connection_close_func)(mmguicore);
 			}
-			//Device
+			/*Device*/
 			mmguicore->device = NULL;
-			
-			//Successfully closed
+			/*Successfully closed*/
 			g_debug("Device successfully closed\n");
-			
 			result = TRUE;
 		}
+		#if GLIB_CHECK_VERSION(2,32,0)
+			g_mutex_unlock(&mmguicore->workthreadmutex);
+		#else
+			g_mutex_unlock(mmguicore->workthreadmutex);
+		#endif
 	}
-	
-	#if GLIB_CHECK_VERSION(2,32,0)
-		g_mutex_unlock(&mmguicore->workthreadmutex);
-	#else
-		g_mutex_unlock(mmguicore->workthreadmutex);
-	#endif
 	
 	return result;
 }
@@ -2034,10 +2030,10 @@ static void mmguicore_sms_merge_foreach(gpointer data, gpointer user_data)
 	
 	if ((g_str_equal(srcnumber, curnumber)) && (srcbinary == curbinary)) {
 		if (abs((gint)difftime(srcts, curts)) <= 5) {
-			//Copy identifier
+			/*Copy identifier*/
 			ident = mmgui_smsdb_message_get_identifier(curmessage);
 			mmgui_smsdb_message_set_identifier(srcmessage, ident, TRUE);
-			//Copy decoded text
+			/*Copy decoded text*/
 			text = mmgui_smsdb_message_get_text(curmessage);
 			if (!srcbinary) {
 				mmgui_smsdb_message_set_text(srcmessage, text, TRUE);
@@ -2046,7 +2042,7 @@ static void mmguicore_sms_merge_foreach(gpointer data, gpointer user_data)
 				mmgui_smsdb_message_set_text(srcmessage, text, TRUE);
 				mmgui_smsdb_message_set_binary(srcmessage, TRUE);
 			}
-			//Mark message obsolete
+			/*Mark message obsolete*/
 			mmgui_smsdb_message_set_read(curmessage, TRUE);
 		}
 	}
@@ -2067,9 +2063,9 @@ GSList *mmguicore_sms_enum(mmguicore_t mmguicore, gboolean concatenation)
 	
 	if (nummessages > 1) {
 		if (concatenation) {
-			//Sort messages by index
+			/*Sort messages by index*/
 			messages = g_slist_sort(messages, mmguicore_sms_sort_index_compare);
-			//Try to concatenate every message and mark already concatenated with 'read' flag
+			/*Try to concatenate every message and mark already concatenated with 'read' flag*/
 			for (iterator=messages; iterator; iterator=iterator->next) {
 				message = iterator->data;
 				if (!mmgui_smsdb_message_get_read(message)) {
@@ -2077,7 +2073,7 @@ GSList *mmguicore_sms_enum(mmguicore_t mmguicore, gboolean concatenation)
 				}
 			}
 		}
-		//After all, sort messages by timestamp
+		/*After all, sort messages by timestamp*/
 		messages = g_slist_sort(messages, mmguicore_sms_sort_timestamp_compare);
 	}
 	
@@ -2314,7 +2310,7 @@ void mmguicore_contacts_free_single(mmgui_contact_t contact, gboolean freestruct
 	if (contact->number2 != NULL) {
 		g_free(contact->number2);
 	}
-	//Free contact structure
+	/*Free contact structure*/
 	if (freestruct) {
 		g_free(contact);
 	}
@@ -2433,7 +2429,7 @@ gboolean mmguicore_contacts_delete(mmguicore_t mmguicore, guint index)
 	if (result) {
 		contactptr = g_slist_find_custom(mmguicore->device->contactslist, GUINT_TO_POINTER(index), mmguicore_contacts_delete_compare);
 		if (contactptr != NULL) {
-			//Remove contact from list
+			/*Remove contact from list*/
 			mmguicore_contacts_free_single(contactptr->data, FALSE);
 			mmguicore->device->contactslist = g_slist_remove(mmguicore->device->contactslist, contactptr->data);
 		}
@@ -2551,19 +2547,19 @@ gboolean mmguicore_interrupt_operation(mmguicore_t mmguicore)
 mmguicore_t mmguicore_init(mmgui_event_ext_callback callback, mmgui_core_options_t options, gpointer userdata)
 {
 	mmguicore_t mmguicore;
-		
+	
 	mmguicore = g_new0(struct _mmguicore, 1);
-	//Modules
+	/*Modules*/
 	mmguicore->modules = NULL;
-	//Modem manager module
+	/*Modem manager module*/
 	mmguicore->module = NULL;
 	mmguicore->moduleptr = NULL;
 	mmguicore->module = NULL;
-	//Connection manager module
+	/*Connection manager module*/
 	mmguicore->cmodule = NULL;
 	mmguicore->cmoduleptr = NULL;
 	mmguicore->cmodule = NULL;
-	//Modem manager module functions
+	/*Modem manager module functions*/
 	mmguicore->open_func = NULL;
 	mmguicore->close_func = NULL;
 	mmguicore->last_error_func = NULL;
@@ -2587,7 +2583,7 @@ mmguicore_t mmguicore_init(mmgui_event_ext_callback callback, mmgui_core_options
 	mmguicore->contacts_enum_func = NULL;
 	mmguicore->contacts_delete_func = NULL;
 	mmguicore->contacts_add_func = NULL;
-	//Connection manager module functions
+	/*Connection manager module functions*/
 	mmguicore->connection_open_func = NULL;
 	mmguicore->connection_close_func = NULL;
 	mmguicore->connection_enum_func = NULL;
@@ -2643,21 +2639,12 @@ gboolean mmguicore_start(mmguicore_t mmguicore)
 static gboolean mmguicore_main(mmguicore_t mmguicore)
 {
 	if (mmguicore == NULL) return FALSE;
-		
+	
 	/*Internal callback*/
 	mmguicore->eventcb = mmguicore_event_callback;
 	
 	/*Select module*/
 	if (!mmguicore_modules_select(mmguicore)) {
-		/*Close modules cache*/
-		mmguicore_modules_close(mmguicore);
-		mmguicore_modules_free(mmguicore);
-		/*Close service manager interface*/
-		mmgui_svcmanager_close(mmguicore->svcmanager);
-		/*Close polkit interface*/
-		mmgui_polkit_close(mmguicore->polkit);
-		/*Free resources*/
-		g_free(mmguicore);
 		return FALSE;
 	}
 	
@@ -2699,27 +2686,19 @@ void mmguicore_close(mmguicore_t mmguicore)
 	mmguicore_devices_close(mmguicore);
 	
 	if (mmguicore->workthread != NULL) {
-		//Stop work thread
+		/*Stop work thread*/
 		workthreadcmd = MMGUI_THREAD_STOP_CMD;
-		//Lock mutex
-		#if GLIB_CHECK_VERSION(2,32,0)
-			g_mutex_lock(&mmguicore->workthreadmutex);
-		#else
-			g_mutex_lock(mmguicore->workthreadmutex);
-		#endif
-		//Send command for thread termination
+		/*Send command for thread termination*/
 		if (write(mmguicore->workthreadctl[1], &workthreadcmd, sizeof(workthreadcmd)) > 0) {
-			//Wait for thread termination
+			/*Wait for thread termination*/
 			g_thread_join(mmguicore->workthread);
-			//Close thread control pipe
+			/*Close thread control pipe*/
 			close(mmguicore->workthreadctl[1]);
-			//Drop mutex
+			/*Free mutexes*/
 			#if GLIB_CHECK_VERSION(2,32,0)
-				g_mutex_unlock(&mmguicore->workthreadmutex);
 				g_mutex_clear(&mmguicore->workthreadmutex);
 				g_mutex_clear(&mmguicore->connsyncmutex);
 			#else
-				g_mutex_unlock(mmguicore->workthreadmutex);
 				g_mutex_free(mmguicore->workthreadmutex);
 				g_mutex_free(mmguicore->connsyncmutex);
 			#endif
@@ -2727,17 +2706,16 @@ void mmguicore_close(mmguicore_t mmguicore)
 	}
 	
 	/*Close netlink interface*/
-	mmgui_netlink_close(mmguicore->netlink);
+	if (mmguicore->netlink != NULL) {
+		mmgui_netlink_close(mmguicore->netlink);
+	}
 	/*Close service manager interface*/
 	mmgui_svcmanager_close(mmguicore->svcmanager);
 	/*Close polkit interface*/
 	mmgui_polkit_close(mmguicore->polkit);
-	
-	//mmguicore_modules_cache_close(mmguicore);
-	
-	//Close opened modules
+	/*Close opened modules*/
 	mmguicore_modules_close(mmguicore);
-	//Free modules list
+	/*Free modules list*/
 	mmguicore_modules_free(mmguicore);
 	
 	g_free(mmguicore);
@@ -2746,26 +2724,26 @@ void mmguicore_close(mmguicore_t mmguicore)
 static gpointer mmguicore_work_thread(gpointer data)
 {
 	mmguicore_t mmguicore;
-	//Shared buffer
+	/*Shared buffer*/
 	gchar *databuf, *radatabuf;
 	gsize databufsize;
-	//Polling variables
+	/*Polling variables*/
 	guint activesockets;
 	gint pollstatus;
 	gint recvbytes;
 	struct pollfd pollfds[3];
-	//Work thread control
+	/*Work thread control*/
 	gint ctlfd, ctlfdnum;
 	gint workthreadcmd;
-	//Interface monitoring
+	/*Interface monitoring*/
 	gint intfd, intfdnum;
 	struct iovec intiov;
 	struct msghdr intmsg;
-	//Connections monitoring
+	/*Connections monitoring*/
 	gint connfd, connfdnum;
 	struct iovec conniov;
 	struct msghdr connmsg;
-	//Events
+	/*Events*/
 	struct _mmgui_netlink_interface_event event;
 	time_t ifstatetime, currenttime;
 	gboolean oldstate;
@@ -2831,13 +2809,13 @@ static gpointer mmguicore_work_thread(gpointer data)
 		activesockets++;
 	}
 	
-	//First we have to get device state
+	/*First we have to get device state*/
 	ifstatetime = time(NULL);
 	
 	while (TRUE) {
 		pollstatus = poll(pollfds, activesockets, 1000);
 		if (pollstatus > 0) {
-			//Work thread control
+			/*Work thread control*/
 			if (pollfds[ctlfdnum].revents & POLLIN) {
 				/*Extend buffer if needed*/
 				recvbytes = recv(ctlfd, NULL, 0, MSG_PEEK | MSG_TRUNC);
@@ -2868,7 +2846,7 @@ static gpointer mmguicore_work_thread(gpointer data)
 			}
 		}
 		
-		//Lock mutex and work with device in safe mode
+		/*Lock mutex and work with device in safe mode*/
 		#if GLIB_CHECK_VERSION(2,32,0)
 			g_mutex_lock(&mmguicore->workthreadmutex);
 		#else
@@ -2877,23 +2855,24 @@ static gpointer mmguicore_work_thread(gpointer data)
 		
 		currenttime = time(NULL);
 		
+		/*Connections monitoring*/
 		if ((mmguicore->device != NULL) && (!mmguicore->cmcaps & MMGUI_CONNECTION_MANAGER_CAPS_MONITORING)) {
 			if (abs((gint)difftime(ifstatetime, currenttime)) <= 15) {
-				//Save old values
+				/*Save old values*/
 				g_debug("Requesting network interface state information\n");
 				oldstate = mmguicore->device->connected;
 				strncpy(oldinterface, mmguicore->device->interface, sizeof(oldinterface));
-				//Request new information
+				/*Request new information*/
 				if (mmguicore_devices_get_connection_status(mmguicore)) {
 					g_debug("Got new interface state\n");
 					if ((oldstate != mmguicore->device->connected) || (!g_str_equal(oldinterface, mmguicore->device->interface))) {
-						//State changed, no need to request information more
+						/*State changed, no need to request information more*/
 						ifstatetime = 0;
-						//Zero values on disconnect
+						/*Zero values on disconnect*/
 						if (!mmguicore->device->connected) {
-							//Close traffic database session
+							/*Close traffic database session*/
 							mmgui_trafficdb_session_close(mmguicore->device->trafficdb);
-							//Zero traffic values in UI
+							/*Zero traffic values in UI*/
 							mmguicore_traffic_zero(mmguicore);
 							/*Device disconnect signal*/
 							if (mmguicore->extcb != NULL) {
@@ -2904,7 +2883,7 @@ static gpointer mmguicore_work_thread(gpointer data)
 							mmguicore->device->sessionstarttime = (time_t)mmguicore_devices_get_connection_timestamp(mmguicore);
 							mmguicore->device->sessiontime = llabs((gint64)difftime(currenttime, mmguicore->device->sessionstarttime));
 							g_debug("Session start time: %" G_GUINT64_FORMAT ", duration: %" G_GUINT64_FORMAT "\n", (guint64)mmguicore->device->sessionstarttime, mmguicore->device->sessiontime);
-							//Open traffic database session
+							/*Open traffic database session*/
 							mmgui_trafficdb_session_new(mmguicore->device->trafficdb, mmguicore->device->sessionstarttime);
 							/*Device connect signal*/
 							if (mmguicore->extcb != NULL) {
@@ -2918,7 +2897,7 @@ static gpointer mmguicore_work_thread(gpointer data)
 		}
 		
 		if (pollstatus == 0) {
-			//Timeout - request data
+			/*Timeout - request data*/
 			if (mmguicore->device != NULL) {
 				if (mmguicore->device->connected) {
 					/*Interface statistics*/
@@ -2930,8 +2909,8 @@ static gpointer mmguicore_work_thread(gpointer data)
 				}
 			}
 		} else if (pollstatus > 0) {
-			//New data available
-			//Interface monitoring
+			/*New data available*/
+			/*Interface monitoring*/
 			if (pollfds[intfdnum].revents & POLLIN) {
 				/*Extend buffer if needed*/
 				recvbytes = recv(intfd, NULL, 0, MSG_PEEK | MSG_TRUNC);
@@ -2950,16 +2929,16 @@ static gpointer mmguicore_work_thread(gpointer data)
 				recvbytes = recvmsg(intfd, &intmsg, 0);
 				if (recvbytes) {
 					if (mmgui_netlink_read_interface_event(mmguicore->netlink, databuf, recvbytes, &event)) {
-						//Traffic statisctics available
+						/*Traffic statisctics available*/
 						if (event.type & MMGUI_NETLINK_INTERFACE_EVENT_TYPE_STATS) {
 							if (mmguicore->device != NULL) {
 								if ((mmguicore->device->connected) && (g_str_equal(mmguicore->device->interface, event.ifname))) {
-									//Count traffic
+									/*Count traffic*/
 									mmguicore_traffic_count(mmguicore, event.rxbytes, event.txbytes);
 								}
 							}
 						}
-						//Interface created
+						/*Interface created*/
 						if (event.type & MMGUI_NETLINK_INTERFACE_EVENT_TYPE_ADD) {
 							g_debug("Created network interface event\n");
 							if ((mmguicore->device != NULL) && (!mmguicore->cmcaps & MMGUI_CONNECTION_MANAGER_CAPS_MONITORING)) {
@@ -2976,7 +2955,7 @@ static gpointer mmguicore_work_thread(gpointer data)
 								}
 							}
 						}
-						//Interface removed
+						/*Interface removed*/
 						if (event.type & MMGUI_NETLINK_INTERFACE_EVENT_TYPE_REMOVE) {
 							g_debug("Removed network interface event\n");
 							if ((mmguicore->device != NULL) && (!mmguicore->cmcaps & MMGUI_CONNECTION_MANAGER_CAPS_MONITORING)) {
@@ -2991,7 +2970,7 @@ static gpointer mmguicore_work_thread(gpointer data)
 					g_debug("Work thread: interface event not received\n");
 				}
 			}
-			//Connections monitoring
+			/*Connections monitoring*/
 			if (pollfds[connfdnum].revents & POLLIN) {
 				/*Extend buffer if needed*/
 				recvbytes = recv(connfd, NULL, 0, MSG_PEEK | MSG_TRUNC);
@@ -3028,14 +3007,14 @@ static gpointer mmguicore_work_thread(gpointer data)
 					g_debug("Work thread: connections data not received\n");
 				}
 			}
-			
 		}
 		
-		//Update internal device state
-		mmguicore_devices_update_device_state(mmguicore);
-		
-		//Handle traffic limits
-		mmguicore_traffic_limits(mmguicore);
+		if (mmguicore->device != NULL) {
+			/*Update internal device state*/
+			mmguicore_devices_update_device_state(mmguicore);
+			/*Handle traffic limits*/
+			mmguicore_traffic_limits(mmguicore);
+		}
 		
 		/*New day time*/
 		if (difftime(mmguicore->newdaytime, currenttime) <= 0) {
@@ -3046,14 +3025,15 @@ static gpointer mmguicore_work_thread(gpointer data)
 			mmguicore->newdaytime = mmgui_trafficdb_get_new_day_timesatmp(currenttime, NULL, NULL);
 		}
 		
-		//Unlock mutex after work finished
+		/*Unlock mutex after work finished*/
 		#if GLIB_CHECK_VERSION(2,32,0)
 			g_mutex_unlock(&mmguicore->workthreadmutex);
 		#else
 			g_mutex_unlock(mmguicore->workthreadmutex);
 		#endif
 	}
-	//Close thread control pipe descriptor
+	
+	/*Close thread control pipe descriptor*/
 	close(mmguicore->workthreadctl[0]);
 	
 	return NULL;
@@ -3075,16 +3055,16 @@ static void mmguicore_traffic_count(mmguicore_t mmguicore, guint64 rxbytes, guin
 	
 	if ((device->connected) && (device->rxbytes <= rxbytes) && (device->txbytes <= txbytes)) {
 		if (device->speedchecktime != 0) {
-			//Time period for speed calculation
+			/*Time period for speed calculation*/
 			timeframe = (guint)difftime(currenttime, device->speedchecktime);
 			device->sessiontime += timeframe;
 			if (device->speedindex < MMGUI_SPEED_VALUES_NUMBER) {
-				//Add new speed value
+				/*Add new speed value*/
 				device->speedvalues[0][device->speedindex] = (gfloat)((rxbytes - device->rxbytes)*8)/(gfloat)(timeframe*1024);
 				device->speedvalues[1][device->speedindex] = (gfloat)((txbytes - device->txbytes)*8)/(gfloat)(timeframe*1024);
 				device->speedindex++;
 			} else {
-				//Move speed values and add new one
+				/*Move speed values and add new one*/
 				memmove(&device->speedvalues[0][0], &device->speedvalues[0][1], sizeof(device->speedvalues[0]) - sizeof(device->speedvalues[0][0]));
 				memmove(&device->speedvalues[1][0], &device->speedvalues[1][1], sizeof(device->speedvalues[1]) - sizeof(device->speedvalues[1][0]));
 				device->speedvalues[0][MMGUI_SPEED_VALUES_NUMBER-1] = (gfloat)((rxbytes - device->rxbytes)*8)/(gfloat)(timeframe*1024);
@@ -3101,14 +3081,14 @@ static void mmguicore_traffic_count(mmguicore_t mmguicore, guint64 rxbytes, guin
 			
 			mmgui_trafficdb_traffic_update(mmguicore->device->trafficdb, &trafficupd);
 		}
-		//Update traffic count
+		/*Update traffic count*/
 		device->rxbytes = rxbytes;
 		device->txbytes = txbytes;
 	}
 	
-	//Set last update time
+	/*Set last update time*/
 	device->speedchecktime = currenttime;
-	//Callback
+	/*Callback*/
 	if (mmguicore->extcb != NULL) {
 		(mmguicore->extcb)(MMGUI_EVENT_NET_STATUS, mmguicore, device, mmguicore->userdata);
 	}
@@ -3121,17 +3101,18 @@ static void mmguicore_traffic_zero(mmguicore_t mmguicore)
 	if (mmguicore == NULL) return;
 	
 	device = mmguicore->device;
+	
 	if (device == NULL) return;	
 	
-	//Zero speed values if device is not connected anymore
+	/*Zero speed values if device is not connected anymore*/
 	mmguicore->device->speedindex = 0;
 	mmguicore->device->speedvalues[0][0] = 0.0;
 	mmguicore->device->speedvalues[1][0] = 0.0;
 	mmguicore->device->rxbytes = 0;
 	mmguicore->device->txbytes = 0;
-	//Set last update time
+	/*Set last update time*/
 	mmguicore->device->speedchecktime = time(NULL);
-	//Callback
+	/*Callback*/
 	if (mmguicore->extcb != NULL) {
 		(mmguicore->extcb)(MMGUI_EVENT_NET_STATUS, mmguicore, NULL, mmguicore->userdata);
 	}
@@ -3142,7 +3123,7 @@ static void mmguicore_traffic_limits(mmguicore_t mmguicore)
 	if (mmguicore == NULL) return;
 	
 	if ((mmguicore->options != NULL) && (mmguicore->device != NULL)) {
-		//Traffic limit
+		/*Traffic limit*/
 		if (mmguicore->options->trafficenabled) {
 			if ((!mmguicore->options->trafficexecuted) && (mmguicore->options->trafficfull < (mmguicore->device->rxbytes + mmguicore->device->txbytes))) {
 				mmguicore->options->trafficexecuted = TRUE;
@@ -3151,14 +3132,14 @@ static void mmguicore_traffic_limits(mmguicore_t mmguicore)
 						(mmguicore->device_connection_disconnect_func)(mmguicore);
 					}
 				}
-				//Callback
+				/*Callback*/
 				if (mmguicore->extcb != NULL) {
 					(mmguicore->extcb)(MMGUI_EVENT_TRAFFIC_LIMIT, mmguicore, NULL, mmguicore->userdata);
 				}
 			}
 		}
 		
-		//Time limit
+		/*Time limit*/
 		if (mmguicore->options->timeenabled) {
 			if ((!mmguicore->options->timeexecuted) && (mmguicore->options->timefull < mmguicore->device->sessiontime)) {
 				mmguicore->options->timeexecuted = TRUE;
@@ -3167,7 +3148,7 @@ static void mmguicore_traffic_limits(mmguicore_t mmguicore)
 						(mmguicore->device_connection_disconnect_func)(mmguicore);
 					}
 				}
-				//Callback
+				/*Callback*/
 				if (mmguicore->extcb != NULL) {
 					(mmguicore->extcb)(MMGUI_EVENT_TIME_LIMIT, mmguicore, NULL, mmguicore->userdata);
 				}

@@ -22,7 +22,7 @@
 
 #include <gtk/gtk.h>
 
-#include "resources.h"
+#include "../resources.h"
 #include "settings.h"
 #include "modem-settings.h"
 #include "notifications.h"

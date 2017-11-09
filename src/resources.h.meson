@@ -1,0 +1,56 @@
+/*
+ *      resources.h
+ *      
+ *      Copyright 2017 Alex <alex@linuxonly.ru>
+ *      
+ *      This program is free software: you can redistribute it and/or modify
+ *      it under the terms of the GNU General Public License as published by
+ *      the Free Software Foundation; either version 3 of the License, or
+ *      (at your option) any later version.
+ *      
+ *      This program is distributed in the hope that it will be useful,
+ *      but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *      GNU General Public License for more details.
+ *      
+ *      You should have received a copy of the GNU General Public License
+ *      along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#ifndef __RESOURCES_H__
+#define __RESOURCES_H__
+
+#mesondefine RESOURCE_NAME
+#mesondefine RESOURCE_VERSION
+#mesondefine RESOURCE_MAINWINDOW_UI
+#mesondefine RESOURCE_MAINWINDOW_ICON
+#mesondefine RESOURCE_TOOLBAR_DEV
+#mesondefine RESOURCE_TOOLBAR_SMS
+#mesondefine RESOURCE_TOOLBAR_USSD
+#mesondefine RESOURCE_TOOLBAR_INFO
+#mesondefine RESOURCE_TOOLBAR_SCAN
+#mesondefine RESOURCE_TOOLBAR_CONT
+#mesondefine RESOURCE_TOOLBAR_TRAFFIC
+#mesondefine RESOURCE_SMS_READ
+#mesondefine RESOURCE_SMS_UNREAD
+#mesondefine RESOURCE_MESSAGE_RECEIVED
+#mesondefine RESOURCE_MESSAGE_SENT
+#mesondefine RESOURCE_MESSAGE_DRAFTS
+#mesondefine RESOURCE_INFO_EQUIPMENT
+#mesondefine RESOURCE_INFO_NETWORK
+#mesondefine RESOURCE_INFO_LOCATION
+#mesondefine RESOURCE_SIGNAL_0
+#mesondefine RESOURCE_SIGNAL_25
+#mesondefine RESOURCE_SIGNAL_50
+#mesondefine RESOURCE_SIGNAL_75
+#mesondefine RESOURCE_SIGNAL_100
+#mesondefine RESOURCE_SOUND_MESSAGE
+#mesondefine RESOURCE_DESKTOP_FILE
+#mesondefine RESOURCE_PROVIDERS_DB
+#mesondefine RESOURCE_MODULES_DIR
+#mesondefine RESOURCE_LOCALE_DIR
+#mesondefine RESOURCE_LOCALE_DOMAIN
+#mesondefine RESOURCE_SPELLCHECKER_ENABLED
+#mesondefine RESOURCE_INDICATOR_ENABLED
+
+#endif // __RESOURCES_H__

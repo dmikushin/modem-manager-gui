@@ -1,7 +1,7 @@
 /*
  *      svcmanager.c
  *
- *      Copyright 2015 Alex <alex@linuxonly.ru>
+ *      Copyright 2015-2017 Alex <alex@linuxonly.ru>
  *
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -383,7 +383,11 @@ mmgui_svcmanager_t mmgui_svcmanager_open(mmgui_polkit_t polkit, mmgui_svcmanager
 	/*Service manager object for system services activation*/
 	svcmanager = g_new0(struct _mmgui_svcmanager, 1);
 	svcmanager->systemdtech = FALSE;
+	svcmanager->managerproxy = NULL;
+	svcmanager->services = NULL;
 	svcmanager->dbustech = FALSE;
+	svcmanager->dbusproxy = NULL;
+	svcmanager->interfaces = NULL;
 	svcmanager->polkit = polkit;
 	svcmanager->callback = callback;
 	svcmanager->userdata = userdata;

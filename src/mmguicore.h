@@ -77,32 +77,32 @@ enum _mmgui_event {
 	MMGUI_EVENT_ADDRESS_BOOKS_EXPORT_FINISHED
 };
 
-//External event callback
+/*External event callback*/
 typedef void (*mmgui_event_ext_callback)(enum _mmgui_event event, gpointer mmguicore, gpointer data, gpointer userdata);
-//Internal event callback
+/*Internal event callback*/
 typedef void (*mmgui_event_int_callback)(enum _mmgui_event event, gpointer mmguicore, gpointer data);
 
 enum _mmgui_module_priority {
-	//module priority levels
+	/*module priority levels*/
 	MMGUI_MODULE_PRIORITY_LOW                = 0,
 	MMGUI_MODULE_PRIORITY_NORMAL             = 1,
 	MMGUI_MODULE_PRIORITY_RECOMMENDED        = 2
 };
 
 enum _mmgui_module_type {
-	//module types
+	/*module types*/
 	MMGUI_MODULE_TYPE_MODEM_MANAGER          = 0,
 	MMGUI_MODULE_TYPE_CONNECTION_MANGER      = 1
 };
 
 enum _mmgui_module_functions {
-	//module functions bitmask
+	/*module functions bitmask*/
 	MMGUI_MODULE_FUNCTION_BASIC              =      0,
 	MMGUI_MODULE_FUNCTION_POLKIT_PROTECTION  = 1 << 0
 };
 
 enum _mmgui_module_requirement {
-	//module requirements
+	/*module requirements*/
 	MMGUI_MODULE_REQUIREMENT_SERVICE = 0x00,
 	MMGUI_MODULE_REQUIREMENT_FILE,
 	MMGUI_MODULE_REQUIREMENT_NONE
@@ -299,15 +299,15 @@ struct _mmgui_scanned_network {
 typedef struct _mmgui_scanned_network *mmgui_scanned_network_t;
 
 struct _mmgui_contact {
-	guint id;        //Internal private number
-	gchar *name;     //Full name of the contact
-	gchar *number;   //Telephone number
-	gchar *email;    //Email address
-	gchar *group;    //Group this contact belongs to
-	gchar *name2;    //Additional contact name
-	gchar *number2;  //Additional contact telephone number
-	gboolean hidden; //Boolean flag to specify whether this entry is hidden or not
-	guint storage;   //Phonebook in which the contact is stored
+	guint id;        /*Internal private number*/
+	gchar *name;     /*Full name of the contact*/
+	gchar *number;   /*Telephone number*/
+	gchar *email;    /*Email address*/
+	gchar *group;    /*Group this contact belongs to*/
+	gchar *name2;    /*Additional contact name*/
+	gchar *number2;  /*Additional contact telephone number*/
+	gboolean hidden; /*Boolean flag to specify whether this entry is hidden or not*/
+	guint storage;   /*Phonebook in which the contact is stored*/
 };
 
 typedef struct _mmgui_contact *mmgui_contact_t;
@@ -369,10 +369,9 @@ struct _mmguidevice {
 	gboolean blocked;
 	gboolean registered;
 	gboolean prepared;
-	//gboolean powered;
 	enum _mmgui_device_operation operation;
 	gboolean conntransition;
-	//Info
+	/*Info*/
 	gchar *manufacturer;
 	gchar *model;
 	gchar *version;
@@ -384,26 +383,25 @@ struct _mmguidevice {
 	enum _mmgui_device_types type;
 	gchar *imei;
 	gchar *imsi;
-	//gchar *operatorcode;
 	gint operatorcode; /*mcc/mnc*/
 	gchar *operatorname;
 	enum _mmgui_reg_status regstatus;
 	guint allmode;
 	enum _mmgui_device_modes mode;
 	guint siglevel;
-	//Location
+	/*Location*/
 	guint locationcaps;
 	guint loc3gppdata[4]; /*mcc/mnc/lac/ci*/
 	gfloat locgpsdata[4]; /*latitude/longitude/altitude/time*/
-	//SMS
+	/*SMS*/
 	guint smscaps;
 	gpointer smsdb;
-	//USSD
+	/*USSD*/
 	guint ussdcaps;
 	enum _mmgui_ussd_encoding ussdencoding;
-	//Scan
+	/*Scan*/
 	guint scancaps;
-	//Traffic
+	/*Traffic*/
 	guint64 rxbytes;
 	guint64 txbytes;
 	guint64 sessiontime;
@@ -415,7 +413,7 @@ struct _mmguidevice {
 	gchar interface[IFNAMSIZ];
 	time_t sessionstarttime;
 	gpointer trafficdb;
-	//Contacts
+	/*Contacts*/
 	guint contactscaps;
 	GSList *contactslist;
 };
@@ -438,7 +436,7 @@ struct _mmguiconn {
 
 typedef struct _mmguiconn *mmguiconn_t;
 
-//Modem manager module functions 
+/*Modem manager module functions*/
 typedef gboolean (*mmgui_module_init_func)(mmguimodule_t module);
 typedef gboolean (*mmgui_module_open_func)(gpointer mmguicore);
 typedef gboolean (*mmgui_module_close_func)(gpointer mmguicore);
@@ -463,48 +461,39 @@ typedef gboolean (*mmgui_module_networks_scan_func)(gpointer mmguicore);
 typedef guint (*mmgui_module_contacts_enum_func)(gpointer mmguicore, GSList **contactslist);
 typedef gboolean (*mmgui_module_contacts_delete_func)(gpointer mmguicore, guint index);
 typedef gint (*mmgui_module_contacts_add_func)(gpointer mmguicore, mmgui_contact_t contact);
-//Connection manager module functions
+/*Connection manager module functions*/
 typedef gboolean (*mmgui_module_connection_open_func)(gpointer mmguicore);
 typedef gboolean (*mmgui_module_connection_close_func)(gpointer mmguicore);
-
 typedef guint (*mmgui_module_connection_enum_func)(gpointer mmguicore, GSList **connlist);
 typedef mmguiconn_t (*mmgui_module_connection_add_func)(gpointer mmguicore, const gchar *name, const gchar *number, const gchar *username, const gchar *password, const gchar *apn, guint networkid, guint type, gboolean homeonly, const gchar *dns1, const gchar *dns2);
 typedef mmguiconn_t (*mmgui_module_connection_update_func)(gpointer mmguicore, mmguiconn_t connection, const gchar *name, const gchar *number, const gchar *username, const gchar *password, const gchar *apn, guint networkid, gboolean homeonly, const gchar *dns1, const gchar *dns2);
 typedef gboolean (*mmgui_module_connection_remove_func)(gpointer mmguicore, mmguiconn_t connection);
-
 typedef gchar *(*mmgui_module_connection_last_error_func)(gpointer mmguicore);
-
 typedef gboolean (*mmgui_module_device_connection_open_func)(gpointer mmguicore, mmguidevice_t device);
 typedef gboolean (*mmgui_module_device_connection_close_func)(gpointer mmguicore);
 typedef gboolean (*mmgui_module_device_connection_status_func)(gpointer mmguicore);
 typedef guint64 (*mmgui_module_device_connection_timestamp_func)(gpointer mmguicore);
-
 typedef gchar *(*mmgui_module_device_connection_get_active_uuid_func)(gpointer mmguicore);
-
 typedef gboolean (*mmgui_module_device_connection_connect_func)(gpointer mmguicore, mmguiconn_t connection);
-
 typedef gboolean (*mmgui_module_device_connection_disconnect_func)(gpointer mmguicore);
 
-
-
-
 struct _mmguicore {
-	//Modules list
+	/*Modules list*/
 	GSList *modules;
-	//Cache
+	/*Cache*/
 	gchar *cachefilename;
 	GKeyFile *cachekeyfile;
 	gboolean updatecache;
 	time_t updcachetime;
-	//Modem manager module
+	/*Modem manager module*/
 	GModule *module;
 	gpointer moduledata;
 	gpointer moduleptr;
-	//Connection manager module
+	/*Connection manager module*/
 	GModule *cmodule;
 	gpointer cmoduledata;
 	gpointer cmoduleptr;
-	//Modem manager module functions 
+	/*Modem manager module functions*/
 	mmgui_module_open_func open_func;
 	mmgui_module_close_func close_func;
 	mmgui_module_last_error_func last_error_func;
@@ -528,7 +517,7 @@ struct _mmguicore {
 	mmgui_module_contacts_enum_func contacts_enum_func;
 	mmgui_module_contacts_delete_func contacts_delete_func;
 	mmgui_module_contacts_add_func contacts_add_func;
-	//Connection manager module functions
+	/*Connection manager module functions*/
 	mmgui_module_connection_open_func connection_open_func;
 	mmgui_module_connection_close_func connection_close_func;
 	mmgui_module_connection_enum_func connection_enum_func;
@@ -543,18 +532,18 @@ struct _mmguicore {
 	mmgui_module_device_connection_get_active_uuid_func device_connection_get_active_uuid_func;
 	mmgui_module_device_connection_connect_func device_connection_connect_func;
 	mmgui_module_device_connection_disconnect_func device_connection_disconnect_func;
-	//Devices
+	/*Devices*/
 	GSList *devices;
 	mmguidevice_t device;
 	/*Connections*/
 	guint cmcaps;
 	GSList *connections;
-	//Callbacks
+	/*Callbacks*/
 	mmgui_event_int_callback eventcb;
 	mmgui_event_ext_callback extcb;
 	/*Core options*/
 	mmgui_core_options_t options;
-	//User data pointer
+	/*User data pointer*/
 	gpointer userdata;
 	/*Netlink interface*/
 	mmgui_netlink_t netlink;
@@ -564,7 +553,7 @@ struct _mmguicore {
 	mmgui_svcmanager_t svcmanager;
 	/*New day time*/
 	time_t newdaytime;
-	//Work thread
+	/*Work thread*/
 	GThread *workthread;
 	gint workthreadctl[2];
 	#if GLIB_CHECK_VERSION(2,32,0)
@@ -580,8 +569,6 @@ struct _mmguicore {
 typedef struct _mmguicore *mmguicore_t;
 
 /*Modules*/
-//void mmguicore_modules_list(mmguicore_t mmguicore, mmgui_modules_enum_callback callback);
-//GSList *mmguicore_modules_info(void);
 GSList *mmguicore_modules_get_list(mmguicore_t mmguicore);
 void mmguicore_modules_mm_set_timeouts(mmguicore_t mmguicore, gint operation1, gint timeout1, ...);
 /*Connections*/
@@ -595,7 +582,7 @@ gboolean mmguicore_connections_connect(mmguicore_t mmguicore, const gchar *uuid)
 gboolean mmguicore_connections_disconnect(mmguicore_t mmguicore);
 guint mmguicore_connections_get_capabilities(mmguicore_t mmguicore);
 gboolean mmguicore_connections_get_transition_flag(mmguicore_t mmguicore);
-//Devices
+/*Devices*/
 gboolean mmguicore_devices_enum(mmguicore_t mmguicore);
 gboolean mmguicore_devices_open(mmguicore_t mmguicore, guint deviceid, gboolean openfirst);
 gboolean mmguicore_devices_enable(mmguicore_t mmguicore, gboolean enabled);
@@ -614,9 +601,9 @@ gpointer mmguicore_devices_get_traffic_db(mmguicore_t mmguicore);
 gboolean mmguicore_devices_get_connection_status(mmguicore_t mmguicore);
 guint64 mmguicore_devices_get_connection_timestamp(mmguicore_t mmguicore);
 guint mmguicore_devices_get_current_operation(mmguicore_t mmguicore);
-//Location
+/*Location*/
 guint mmguicore_location_get_capabilities(mmguicore_t mmguicore);
-//SMS
+/*SMS*/
 guint mmguicore_sms_get_capabilities(mmguicore_t mmguicore);
 void mmguicore_sms_message_free(mmgui_sms_message_t message);
 GSList *mmguicore_sms_enum(mmguicore_t mmguicore, gboolean concatenation);
@@ -624,7 +611,7 @@ mmgui_sms_message_t mmguicore_sms_get(mmguicore_t mmguicore, guint index);
 gboolean mmguicore_sms_delete(mmguicore_t mmguicore, guint index);
 gboolean mmguicore_sms_validate_number(const gchar *number);
 gboolean mmguicore_sms_send(mmguicore_t mmguicore, gchar *number, gchar *text, gint validity, gboolean report);
-//USSD
+/*USSD*/
 guint mmguicore_ussd_get_capabilities(mmguicore_t mmguicore);
 enum _mmgui_ussd_validation mmguicore_ussd_validate_request(gchar *request);
 gboolean mmguicore_ussd_cancel_session(mmguicore_t mmguicore);
@@ -632,28 +619,27 @@ enum _mmgui_ussd_state mmguicore_ussd_get_state(mmguicore_t mmguicore);
 gboolean mmguicore_ussd_send(mmguicore_t mmguicore, gchar *request);
 gboolean mmguicore_ussd_set_encoding(mmguicore_t mmguicore, enum _mmgui_ussd_encoding encoding);
 enum _mmgui_ussd_encoding mmguicore_ussd_get_encoding(mmguicore_t mmguicore);
-//Scan
+/*Scan*/
 guint mmguicore_newtworks_scan_get_capabilities(mmguicore_t mmguicore);
 void mmguicore_networks_scan_free(GSList *networks);
 gboolean mmguicore_networks_scan(mmguicore_t mmguicore);
-//Contacts
+/*Contacts*/
 guint mmguicore_contacts_get_capabilities(mmguicore_t mmguicore);
 void mmguicore_contacts_free_single(mmgui_contact_t contact, gboolean freestruct);
 GSList *mmguicore_contacts_list(mmguicore_t mmguicore);
 mmgui_contact_t mmguicore_contacts_get(mmguicore_t mmguicore, guint index);
 gboolean mmguicore_contacts_delete(mmguicore_t mmguicore, guint index);
 gboolean mmguicore_contacts_add(mmguicore_t mmguicore, mmgui_contact_t contact);
-//Connections
+/*Connections*/
 GSList *mmguicore_open_connections_list(mmguicore_t mmguicore);
 void mmguicore_close_connections_list(mmguicore_t mmguicore);
 GSList *mmguicore_get_connections_changes(mmguicore_t mmguicore);
-//MMGUI Core
+/*MMGUI Core*/
 gchar *mmguicore_get_last_error(mmguicore_t mmguicore);
 gchar *mmguicore_get_last_connection_error(mmguicore_t mmguicore);
 gboolean mmguicore_interrupt_operation(mmguicore_t mmguicore);
 mmguicore_t mmguicore_init(mmgui_event_ext_callback callback, mmgui_core_options_t options, gpointer userdata);
 gboolean mmguicore_start(mmguicore_t mmguicore);
-//void mmguicore_start(mmguicore_t mmguicore);
 void mmguicore_close(mmguicore_t mmguicore);
 
 #endif /* __MMGUICORE_H__ */

@@ -34,7 +34,7 @@
 #include "mmguicore.h"
 #include "smsdb.h"
 #include "contacts-page.h"
-#include "resources.h"
+#include "../resources.h"
 #include "settings.h"
 #include "sms-page.h"
 #include "main.h"
@@ -1221,7 +1221,7 @@ gboolean mmgui_main_sms_list_fill(mmgui_application_t mmguiapp)
 	GtkTreePath **folderpath[3]    = {&mmguiapp->window->incomingpath,
 										&mmguiapp->window->sentpath,
 										&mmguiapp->window->draftspath};
-	const gchar *foldericonfile[3] = {RESOURCE_MESSAGE_RECIEVED, 
+	const gchar *foldericonfile[3] = {RESOURCE_MESSAGE_RECEIVED, 
 										RESOURCE_MESSAGE_SENT, 
 										RESOURCE_MESSAGE_DRAFTS};
 	

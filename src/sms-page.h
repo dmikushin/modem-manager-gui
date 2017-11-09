@@ -23,7 +23,7 @@
 
 #include <gtk/gtk.h>
 
-#include "resources.h"
+#include "../resources.h"
 #include "main.h"
 
 /*SMS*/

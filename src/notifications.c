@@ -24,7 +24,7 @@
 #include <gtk/gtk.h>
 
 #include "notifications.h"
-#include "resources.h"
+#include "../resources.h"
 
 
 mmgui_notifications_t mmgui_notifications_new(mmgui_libpaths_cache_t libcache)

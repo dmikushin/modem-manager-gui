@@ -28,7 +28,7 @@
 #include <glib/gprintf.h>
 
 #include "mmguicore.h"
-#include "resources.h"
+#include "../resources.h"
 
 #include "sms-page.h"
 #include "contacts-page.h"

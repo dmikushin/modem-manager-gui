@@ -159,7 +159,7 @@ echo "/*
 #define RESOURCE_TOOLBAR_TRAFFIC         \"$prefix/share/modem-manager-gui/pixmaps/traffic-tb.png\"
 #define RESOURCE_SMS_READ                \"$prefix/share/modem-manager-gui/pixmaps/sms-read.png\"
 #define RESOURCE_SMS_UNREAD              \"$prefix/share/modem-manager-gui/pixmaps/sms-unread.png\"
-#define RESOURCE_MESSAGE_RECIEVED        \"$prefix/share/modem-manager-gui/pixmaps/message-received.png\"
+#define RESOURCE_MESSAGE_RECEIVED        \"$prefix/share/modem-manager-gui/pixmaps/message-received.png\"
 #define RESOURCE_MESSAGE_SENT            \"$prefix/share/modem-manager-gui/pixmaps/message-sent.png\"
 #define RESOURCE_MESSAGE_DRAFTS          \"$prefix/share/modem-manager-gui/pixmaps/message-drafts.png\"
 #define RESOURCE_INFO_EQUIPMENT          \"$prefix/share/modem-manager-gui/pixmaps/info-equipment.png\"
@@ -175,9 +175,9 @@ echo "/*
 
 #define RESOURCE_DESKTOP_FILE            \"$prefix/share/applications/modem-manager-gui.desktop\"
 
-#define RESOURCE_MODULES_DIR             \"$libpath/modem-manager-gui/modules/\"
+#define RESOURCE_MODULES_DIR             \"$libpath/modem-manager-gui/modules\"
 
-#define RESOURCE_LOCALE_DIR              \"$prefix/share/locale/\"
+#define RESOURCE_LOCALE_DIR              \"$prefix/share/locale\"
 #define RESOURCE_LOCALE_DOMAIN           \"modem-manager-gui\"
 
 #define RESOURCE_PROVIDERS_DB            \"$prefix/share/mobile-broadband-provider-info/serviceproviders.xml\"
@@ -186,38 +186,6 @@ echo "/*
 
 #define RESOURCE_INDICATOR_ENABLED       $indicator
 
-#endif // __RESOURCES_H__" > src/resources.h
+#endif // __RESOURCES_H__" > resources.h
 echo done
-
-echo -n "Generating launcher... "
-echo "[Desktop Entry]
-Name=Modem Manager GUI
-GenericName=Broadband modem management tool
-GenericName[ru]=Инструмент для управления модемом
-Comment=Graphical interface for Modem manager daemon control
-Comment[ru]=Программа для управления специфическими функциями EDGE/3G/4G модемов
-Comment[uz]=EDGE/3G/4G modemning o'ziga xos vazifalarini boshqarish vositasi
-Comment[uk]=Інструмент для керування специфічними функціями EDGE/3G/4G модемів
-Comment[pt_BR]=Ferramenta para controle de funções específicas de modem EDGE/3G/4G
-Comment[tr]=EDGE/3G/4G modemler için özel işlev kontrol aracı
-Comment[id]=Perangkat lunak untuk mengendalikan fungsi spesifik modem EDGE/3G/4G
-Comment[de]=Werkzeug zur Steuerung spezifischer Funktionen von EDGE/3G/4G-Modems
-Comment[ast]=Interfaz gráfica de control del daemon de xestión del módem
-Comment[zh_CN]=调制解调器管理工具的图形用户界面
-Comment[fr]=Interface graphique pour la commande du démon de gestion de modem
-Comment[gl]=Interface gráfica para controlar o daemon do xestor o módem
-Comment[ms]=Antaramuka bergrafik untuk kawalan daemon pengurus Modem
-Comment[ro]=Interfață grafică pentru administrarea serviciului pentru modemuri
-Comment[pt]=Interface gráfica para controlo daemon do gestor de Modem
-Comment[sl]=Grafični vmesnik za nadzorovanje ozadnjega programa upravljalnika modema
-Comment[es]=Interfaz gráfico para el control del Servicio de gestión del modem
-Comment[sv]=Grafiskt gränssnitt för kontroll av modemhanteraredemon
-Exec=modem-manager-gui
-Icon=modem-manager-gui
-Terminal=false
-Type=Application
-Categories=System;
-Keywords=modem;manager;sms;ussd;" > resources/modem-manager-gui.desktop
-echo done
-
 

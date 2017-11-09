@@ -26,7 +26,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-#include "resources.h"
+#include "../resources.h"
 #include "strformat.h"
 #include "main.h"
 

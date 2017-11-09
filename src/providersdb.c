@@ -24,7 +24,7 @@
 
 #include "providersdb.h"
 #include "mmguicore.h"
-#include "resources.h"
+#include "../resources.h"
 
 enum _mmgui_providers_db_params {
 	MMGUI_PROVIDERS_DB_PARAM_COUNTRY = 0,

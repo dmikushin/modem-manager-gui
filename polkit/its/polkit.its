@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!-- Copyright 2015-2017 Alex <alex@linuxonly.ru> -->
+<its:rules xmlns:its="http://www.w3.org/2005/11/its"
+           version="2.0">
+  <its:translateRule selector="/policyconfig" translate="no"/>
+  <its:translateRule selector="/policyconfig/action/description |
+                               /policyconfig/action/message"
+                     translate="yes"/>
+</its:rules>

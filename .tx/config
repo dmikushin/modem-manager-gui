@@ -8,7 +8,7 @@ source_file = po/modem-manager-gui.pot
 source_lang = en_US
 
 [modem-manager-gui.modem-manager-gui-man-page-template]
-file_filter = man/<lang>.po
+file_filter = man/<lang>/<lang>.po
 source_file = man/modem-manager-gui.pot
 source_lang = en_US
 lang_map = pl_PL: pl, bn_BD: bn, cs_CZ: cs
@@ -19,7 +19,7 @@ source_file = appdata/modem-manager-gui.appdata.pot
 source_lang = en_US
 
 [modem-manager-gui.modem-manager-gui-help-template]
-file_filter = help/<lang>.po
+file_filter = help/<lang>/<lang>.po
 source_file = help/modem-manager-gui-help.pot
 source_lang = en_US
 

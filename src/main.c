@@ -47,7 +47,7 @@
 #include "smsdb.h"
 #include "trafficdb.h"
 #include "netlink.h"
-#include "resources.h"
+#include "../resources.h"
 
 #include "contacts-page.h"
 #include "traffic-page.h"
@@ -931,9 +931,10 @@ gboolean mmgui_main_ui_test_device_state(mmgui_application_t mmguiapp, guint set
 	guint pagecaps;
 	
 	if (mmguiapp == NULL) return FALSE;
+	if (mmguiapp->core == NULL) return FALSE; 
 	
 	/*No devices*/
-	if (!g_slist_length(mmguicore_devices_get_list(mmguiapp->core))) {
+	if (mmguicore_devices_get_list(mmguiapp->core) == NULL) {
 		/*Show 'No devices' message*/
 		mmgui_ui_infobar_show(mmguiapp, _("No devices found in system"), MMGUI_MAIN_INFOBAR_TYPE_INFO, FALSE);
 		mmgui_main_ui_page_control_disable(mmguiapp, MMGUI_MAIN_PAGE_DEVICES, TRUE, FALSE);
@@ -973,6 +974,7 @@ gboolean mmgui_main_ui_test_device_state(mmgui_application_t mmguiapp, guint set
 			} else {
 				nonfunctional = TRUE;
 			}
+			limfunctional = FALSE;
 			break;
 		case MMGUI_MAIN_PAGE_SMS:
 			trytoenable = TRUE;
@@ -1678,7 +1680,7 @@ gboolean mmgui_main_ui_update_statusbar_from_thread(gpointer data)
 	
 	if (mmguiapp == NULL) return FALSE;
 	if (mmguiapp->core == NULL) return FALSE;
-	
+		
 	device = mmguicore_devices_get_current(mmguiapp->core);
 	
 	if (device != NULL) {
@@ -2525,6 +2527,9 @@ static void mmgui_main_continue_initialization(mmgui_application_t mmguiapp, mmg
 	if (mmguicore_devices_enum(mmguiapp->core)) {
 		mmgui_main_device_list_fill(mmguiapp);
 	}
+	/*Open home page*/
+	mmgui_main_ui_test_device_state(mmguiapp, MMGUI_MAIN_PAGE_DEVICES);
+	mmgui_main_ui_page_setup_shortcuts(mmguiapp, MMGUI_MAIN_PAGE_DEVICES);
 	/*Get available connections*/
 	if (mmguicore_connections_enum(mmguiapp->core)) {
 		//mmgui_main_device_connections_list_fill(mmguiapp);
@@ -2593,9 +2598,6 @@ static void mmgui_main_application_activate_signal(GtkApplication *application, 
 			} else {
 				mmguicore_start(mmguiapp->core);
 			}
-			/*Open home page*/
-			mmgui_main_ui_test_device_state(mmguiapp, MMGUI_MAIN_PAGE_DEVICES);
-			mmgui_main_ui_page_setup_shortcuts(mmguiapp, MMGUI_MAIN_PAGE_DEVICES);
 		} else {
 			/*If GtkBuilder is unable to load .ui file*/
 			mmgui_main_application_unresolved_error(mmguiapp, _("Error while initialization"), _("Interface building error"));

@@ -30,7 +30,7 @@
 #include "modem-settings.h"
 #include "ussdlist.h"
 #include "mmguicore.h"
-#include "resources.h"
+#include "../resources.h"
 
 #include "ussd-page.h"
 #include "main.h"

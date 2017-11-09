@@ -19,22 +19,22 @@ all: mm06 mm07 nm09 pppd245 ofono109 connman112
 
 #Modem Manager <= 0.6.2
 mm06: $(OBJMOD1)
-	$(GCCLMOD) $(INCMOD) $(LDFLAGS) $(OBJMOD1) $(LIBMOD1) -o modmm_mm06.so
+	$(GCCLMOD) $(INCMOD) $(LDFLAGS) $(OBJMOD1) $(LIBMOD1) -o libmodmm_mm06.so
 #Modem Manager >= 0.7.0
 mm07: $(OBJMOD2)
-	$(GCCLMOD) $(INCMOD) $(LDFLAGS) $(OBJMOD2) $(LIBMOD2) -o modmm_mm07.so
+	$(GCCLMOD) $(INCMOD) $(LDFLAGS) $(OBJMOD2) $(LIBMOD2) -o libmodmm_mm07.so
 #Network Manager >= 0.9.0
 nm09: $(OBJMOD3)
-	$(GCCLMOD) $(INCMOD) $(LDFLAGS) $(OBJMOD3) $(LIBMOD) -o modcm_nm09.so
+	$(GCCLMOD) $(INCMOD) $(LDFLAGS) $(OBJMOD3) $(LIBMOD) -o libmodcm_nm09.so
 #PPPD >= 2.4.5
 pppd245: $(OBJMOD4)
-	$(GCCLMOD) $(INCMOD) $(LDFLAGS) $(OBJMOD4) $(LIBMOD) -o modcm_pppd245.so
+	$(GCCLMOD) $(INCMOD) $(LDFLAGS) $(OBJMOD4) $(LIBMOD) -o libmodcm_pppd245.so
 #oFono >= 1.9
 ofono109: $(OBJMOD5)
-	$(GCCLMOD) $(INCMOD) $(LDFLAGS) $(OBJMOD5) $(LIBMOD5) -o modmm_ofono109.so
+	$(GCCLMOD) $(INCMOD) $(LDFLAGS) $(OBJMOD5) $(LIBMOD5) -o libmodmm_ofono109.so
 #Connman >= 1.12
 connman112: $(OBJMOD6)
-	$(GCCLMOD) $(INCMOD) $(LDFLAGS) $(OBJMOD6) $(LIBMOD) -o modcm_connman112.so
+	$(GCCLMOD) $(INCMOD) $(LDFLAGS) $(OBJMOD6) $(LIBMOD) -o libmodcm_connman112.so
 #Shared SMS database
 smsdb.o: ../smsdb.c
 	$(GCCMOD) $(INCMOD) -c $(CPPFLAGS) $(CFLAGS) $< -o $@

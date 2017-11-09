@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<!-- Copyright 2015-2017 Alex <alex@linuxonly.ru> -->
+<locatingRules>
+  <locatingRule name="policy file" pattern="*.policy">
+    <documentRule localName="policyconfig" target="polkit.its"/>
+  </locatingRule>
+</locatingRules>

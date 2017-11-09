@@ -28,7 +28,7 @@
 #include <glib/gprintf.h>
 
 #include "strformat.h"
-#include "resources.h"
+#include "../resources.h"
 
 #include "scan-page.h"
 #include "main.h"

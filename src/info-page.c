@@ -29,7 +29,7 @@
 
 #include "strformat.h"
 #include "mmguicore.h"
-#include "resources.h"
+#include "../resources.h"
 
 #include "info-page.h"
 #include "main.h"

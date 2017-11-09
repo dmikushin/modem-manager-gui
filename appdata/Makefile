@@ -1,28 +1,33 @@
 include ../Makefile_h
 
-FILES_PO:=$(wildcard *.po)
-FILES_MO:=$(patsubst %.po,%.mo,$(FILES_PO))
 APPDATADIR = $(PREFIX)/share/appdata
+APPSDIR    = $(PREFIX)/share/applications
 
-all: 
-	for f in $(FILES_PO); do \
-		msgfmt $$f -f -v -o `basename $$f .po`.mo; done
-	itstool -i appdata.its -j modem-manager-gui.appdata.xml.in -o modem-manager-gui.appdata.xml $(FILES_MO);
+all:
+	while read lang; do \
+		msgfmt $$lang.po -f -v -o $$lang.mo; \
+	done < LINGUAS
+	itstool -i its/appdata.its -j modem-manager-gui.appdata.xml.in -o modem-manager-gui.appdata.xml *.mo
+	msgfmt --desktop --template modem-manager-gui.desktop.in -d . -o modem-manager-gui.desktop
 
 install: 
-	install -d $(INSTALLPREFIX)$(DESTDIR)$(APPDATADIR);
-	cp modem-manager-gui.appdata.xml $(INSTALLPREFIX)$(DESTDIR)$(APPDATADIR)/modem-manager-gui.appdata.xml
+	install -d $(INSTALLPREFIX)$(DESTDIR)$(APPDATADIR)
+	cp modem-manager-gui.appdata.xml $(INSTALLPREFIX)$(DESTDIR)$(APPDATADIR)
+	install -d $(INSTALLPREFIX)$(DESTDIR)$(APPSDIR)
+	cp modem-manager-gui.desktop $(INSTALLPREFIX)$(DESTDIR)$(APPSDIR)
 
 uninstall:
 	rm -f $(INSTALLPREFIX)$(DESTDIR)$(APPDATADIR)/modem-manager-gui.appdata.xml
+	rm -f $(INSTALLPREFIX)$(DESTDIR)$(APPSDIR)/modem-manager-gui.desktop
 
 messages:
-	itstool -i appdata.its -o modem-manager-gui.appdata.pot modem-manager-gui.appdata.xml.in
-	for f in $(FILES_PO); do \
-		msgmerge -U $$f modem-manager-gui.appdata.pot; done
+	itstool -i its/appdata.its -o modem-manager-gui.appdata.pot modem-manager-gui.appdata.xml.in
+	xgettext -j -o modem-manager-gui.appdata.pot modem-manager-gui.desktop.in
+	while read lang; do \
+		msgmerge -U $$lang.po modem-manager-gui.appdata.pot; \
+	done < LINGUAS
 
 clean:
-	for f in $(FILES_MO); do \
-		rm -f $$f; done
+	rm -f *.mo
 	rm -f modem-manager-gui.appdata.xml
-
+	rm -f modem-manager-gui.desktop

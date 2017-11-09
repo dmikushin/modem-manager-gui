@@ -25,7 +25,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "resources.h"
+#include "../resources.h"
 #include "ayatana.h"
 
 static void mmgui_ayatana_indicator_server_clicked_signal(MessagingMenuApp *server, guint timestamp, gpointer user_data)
