@@ -5,7 +5,7 @@
 
   <info>
     <link type="guide" xref="index#contributing"/>
-     <revision pkgversion="0.0.18" version="0.1" date="2015-10-02" status="incomplete"/>
+     <revision pkgversion="0.0.19" version="0.1" date="2017-11-11" status="incomplete"/>
     <desc>
       How you can help make <app>Modem Manager GUI </app> better.
     </desc>
@@ -13,17 +13,28 @@
       <name>Mario Blättermann</name>
       <email>mario.blaettermann@gmail.com</email>
     </credit>
+    <credit type="author">
+      <name>Alex</name>
+      <email>alex@linuxonly.ru</email>
+    </credit>
     <license>
       <p>Creative Commons Share Alike 3.0</p>
     </license>
   </info>
 
   <title>Provide code</title>
-      <p><app>Modem Manager GUI</app> has a version control system at SourceForge.net.
+      <p><app>Modem Manager GUI</app> has a version control system at Bitbucket.com.
       You can clone the repository with the following command:</p>
     
-      <p><cmd>hg clone http://hg.code.sf.net/p/modem-manager-gui/code-0 modem-manager-gui-code-0</cmd></p>
+      <p><cmd>hg clone https://linuxonly@bitbucket.org/linuxonly/modem-manager-gui</cmd></p>
       
       <p>Note, this clone command doesn't give you write access to the repository.</p>
+      
+      <p>For general help on how Bitbucket works, see the
+      <link href="https://confluence.atlassian.com/display/BITBUCKET/Bitbucket+Cloud+documentation">Bitbucket documentation</link>.</p>
+      
+      <p><app>Modem Manager GUI</app> source code is stored inside Mercurial repository, so
+      you don't have to read Git tutorials; just make sure you know basic Mercurial commands
+      and able to make pull requests on Bitbucket platform.</p>
 
 </page>

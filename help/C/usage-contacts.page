@@ -5,7 +5,7 @@
 
   <info>
     <link type="guide" xref="index#usage"/>
-    <revision pkgversion="0.0.18" version="0.1" date="2015-10-02" status="incomplete"/>
+    <revision pkgversion="0.0.19" version="0.1" date="2017-11-11" status="incomplete"/>
     <desc>
       Use your contact lists.
     </desc>
@@ -36,12 +36,12 @@
       </p>
 
       <p>Use <gui style="button">New contact</gui> button to fill form and add new contact to SIM card or
-      modem storage, <gui style="button">Remove contact</gui> button to remove selected contact form SIM card
+      modem storage, <gui style="button">Remove contact</gui> button to remove selected contact from SIM card
       or modem storage and <gui style="button">Send SMS</gui> button to compose and send SMS message to selected
       contact (either from SIM card or modem, or exported from system contacts storage).</p>
       
       <note style="hint">
-       <p>Some backeds don't support modem contacts manipulation functions. For example, ModemManager doesn't
+       <p>Some backends don't support modem contacts manipulation functions. For example, ModemManager doesn't
        work with contacts from SIM card and modem memory at all (this functionality isn't implemented yet), and
        oFono can only export contacts from SIM card (this is developer's decision).</p>
       </note>

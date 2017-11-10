@@ -7,6 +7,7 @@ Modem Manager GUI is a simple `GTK+`_ based graphical interface compatible with 
 
 Current features:
 
+- Create and control mobile broadband connections
 - Send and receive SMS messages and store messages in database
 - Initiate USSD requests and read answers (also using interactive sessions)
 - View device information: operator name, device mode, IMEI, IMSI, signal level
@@ -15,7 +16,7 @@ Current features:
 
 Main window:
 
-.. image:: https://linuxonly.ru/e107_media/6cc65e61cd/images/2017-06/modem_manager_gui_devices.png
+.. image:: https://linuxonly.ru/e107_media/12ac94514f/images/2017-06/modem_manager_gui_devices.png
 
 Building from source
 --------------------
@@ -26,14 +27,23 @@ First of all, you'll need to install such development packages:
 - GDBM version 1.10 or later
 - po4a version 0.45 or later
 - itstool version 1.2.0 or later
+- libappindicator-gtk3 version 12.10 or later
+- Meson version 0.37 or later
 
 Next you have to go to directory with program's source code and issue these commands:
+
+| meson build
+| cd build
+| ninja
+| sudo ninja install
+
+If you prefer good old Autotools, you can use these commands instead:
 
 | sh configure
 | make
 | sudo make install
 
-Program will be installed into your system. It's better to build package and install it though. Packages specification files are available in 'packages' directory of source code tree.
+Program files will be copied into your system directories. It's better to build package and install it though. Packages specification files are available in 'packages' directory of source code tree.
 
 More info
 ---------

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-04 23:14+0300\n"
+"POT-Creation-Date: 2017-11-11 00:26+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -158,8 +158,8 @@ msgstr ""
 msgid "Not supported"
 msgstr ""
 
-#: ../src/main.c:367 ../src/main.c:370 ../src/main.c:373 ../src/main.c:2587
-#: ../src/main.c:2601
+#: ../src/main.c:367 ../src/main.c:370 ../src/main.c:373 ../src/main.c:2592
+#: ../src/main.c:2603
 msgid "Error while initialization"
 msgstr ""
 
@@ -179,273 +179,273 @@ msgstr ""
 msgid "Failed"
 msgstr ""
 
-#: ../src/main.c:480 ../src/svcmanager.c:636
+#: ../src/main.c:480 ../src/svcmanager.c:640
 msgid "Timeout"
 msgstr ""
 
-#: ../src/main.c:938
+#: ../src/main.c:939
 msgid "No devices found in system"
 msgstr ""
 
-#: ../src/main.c:950
+#: ../src/main.c:951
 msgid ""
 "Modem is not ready for operation. Please wait while modem being prepared..."
 msgstr ""
 
-#: ../src/main.c:966
+#: ../src/main.c:967
 msgid "Modem must be unlocked to connect to Internet. Please enter PIN code."
 msgstr ""
 
-#: ../src/main.c:967
+#: ../src/main.c:968
 msgid ""
 "Network manager does not support Internet connection management functions."
 msgstr ""
 
-#: ../src/main.c:981
+#: ../src/main.c:983
 msgid "Modem must be enabled to read SMS. Enable modem?"
 msgstr ""
 
-#: ../src/main.c:982
+#: ../src/main.c:984
 msgid "Modem must be enabled to read and write SMS. Please enable modem."
 msgstr ""
 
-#: ../src/main.c:983
+#: ../src/main.c:985
 msgid ""
 "Modem must be registered in mobile network to receive and send SMS. Please "
 "wait..."
 msgstr ""
 
-#: ../src/main.c:984
+#: ../src/main.c:986
 msgid "Modem must be unlocked to receive and send SMS. Please enter PIN code."
 msgstr ""
 
-#: ../src/main.c:985
+#: ../src/main.c:987
 msgid "Modem manager does not support SMS manipulation functions."
 msgstr ""
 
-#: ../src/main.c:986
+#: ../src/main.c:988
 msgid "Modem manager does not support sending of SMS messages."
 msgstr ""
 
-#: ../src/main.c:1003
+#: ../src/main.c:1005
 msgid "Modem must be enabled to send USSD. Enable modem?"
 msgstr ""
 
-#: ../src/main.c:1004
+#: ../src/main.c:1006
 msgid "Modem must be enabled to send USSD. Please enable modem."
 msgstr ""
 
-#: ../src/main.c:1005
+#: ../src/main.c:1007
 msgid "Modem must be registered in mobile network to send USSD. Please wait..."
 msgstr ""
 
-#: ../src/main.c:1006
+#: ../src/main.c:1008
 msgid "Modem must be unlocked to send USSD. Please enter PIN code."
 msgstr ""
 
-#: ../src/main.c:1007
+#: ../src/main.c:1009
 msgid "Modem manager does not support sending of USSD requests."
 msgstr ""
 
-#: ../src/main.c:1033
+#: ../src/main.c:1035
 msgid "Modem must be enabled to scan for available networks. Enable modem?"
-msgstr ""
-
-#: ../src/main.c:1034
-msgid ""
-"Modem must be enabled to scan for available networks. Please enable modem."
 msgstr ""
 
 #: ../src/main.c:1036
 msgid ""
-"Modem must be unlocked to scan for available networks. Please enter PIN code."
-msgstr ""
-
-#: ../src/main.c:1037
-msgid "Modem manager does not support scanning for available mobile networks."
+"Modem must be enabled to scan for available networks. Please enable modem."
 msgstr ""
 
 #: ../src/main.c:1038
+msgid ""
+"Modem must be unlocked to scan for available networks. Please enter PIN code."
+msgstr ""
+
+#: ../src/main.c:1039
+msgid "Modem manager does not support scanning for available mobile networks."
+msgstr ""
+
+#: ../src/main.c:1040
 msgid "Modem is connected now. Please disconnect to scan."
 msgstr ""
 
-#: ../src/main.c:1068
+#: ../src/main.c:1070
 msgid "Modem must be enabled to export contacts from it. Enable modem?"
 msgstr ""
 
-#: ../src/main.c:1069
+#: ../src/main.c:1071
 msgid "Modem must be enabled to export contacts from it. Please enable modem."
 msgstr ""
 
-#: ../src/main.c:1071
+#: ../src/main.c:1073
 msgid ""
 "Modem must be unlocked to export contacts from it. Please enter PIN code."
 msgstr ""
 
-#: ../src/main.c:1072
+#: ../src/main.c:1074
 msgid "Modem manager does not support modem contacts manipulation functions."
 msgstr ""
 
-#: ../src/main.c:1073
+#: ../src/main.c:1075
 msgid "Modem manager does not support modem contacts edition functions."
 msgstr ""
 
-#: ../src/main.c:1119
+#: ../src/main.c:1121
 msgid "<b>Enable modem</b>"
 msgstr ""
 
-#: ../src/main.c:1121
+#: ../src/main.c:1123
 msgid "Enabling device..."
 msgstr ""
 
-#: ../src/main.c:1379
+#: ../src/main.c:1381
 msgid "_Devices"
 msgstr ""
 
-#: ../src/main.c:1382
+#: ../src/main.c:1384
 msgid "_SMS"
 msgstr ""
 
-#: ../src/main.c:1386
+#: ../src/main.c:1388
 msgid "_USSD"
 msgstr ""
 
-#: ../src/main.c:1390
+#: ../src/main.c:1392
 msgid "_Info"
 msgstr ""
 
-#: ../src/main.c:1394
+#: ../src/main.c:1396
 msgid "S_can"
 msgstr ""
 
-#: ../src/main.c:1398
+#: ../src/main.c:1400
 msgid "_Traffic"
 msgstr ""
 
-#: ../src/main.c:1402
+#: ../src/main.c:1404
 msgid "C_ontacts"
 msgstr ""
 
-#: ../src/main.c:1489 ../src/main.c:1520
+#: ../src/main.c:1491 ../src/main.c:1522
 msgid "Modem Manager GUI window hidden"
 msgstr ""
 
-#: ../src/main.c:1489 ../src/main.c:1520
+#: ../src/main.c:1491 ../src/main.c:1522
 msgid "Use tray icon or messaging menu to show window again"
 msgstr ""
 
-#: ../src/main.c:1580
+#: ../src/main.c:1582
 msgid "Error while displaying the help contents"
 msgstr ""
 
-#: ../src/main.c:1704
+#: ../src/main.c:1706
 #, c-format
 msgid "%s disconnected"
 msgstr ""
 
-#: ../src/main.c:1841
+#: ../src/main.c:1843
 msgid "Show window"
 msgstr ""
 
-#: ../src/main.c:1847
+#: ../src/main.c:1849
 msgid "New SMS"
 msgstr ""
 
-#: ../src/main.c:1853 ../src/main.c:2500
+#: ../src/main.c:1855 ../src/main.c:2502
 msgid "Quit"
 msgstr ""
 
-#: ../src/main.c:2460
+#: ../src/main.c:2462
 msgid "_Quit"
 msgstr ""
 
-#: ../src/main.c:2466
+#: ../src/main.c:2468
 msgid "_Actions"
 msgstr ""
 
-#: ../src/main.c:2469
+#: ../src/main.c:2471
 msgid "_Preferences"
 msgstr ""
 
-#: ../src/main.c:2472
+#: ../src/main.c:2474
 msgid "_Edit"
 msgstr ""
 
-#: ../src/main.c:2475 ../src/main.c:2479
+#: ../src/main.c:2477 ../src/main.c:2481
 msgid "_Help"
 msgstr ""
 
-#: ../src/main.c:2477
+#: ../src/main.c:2479
 msgid "_About"
 msgstr ""
 
-#: ../src/main.c:2489 ../resources/ui/modem-manager-gui.ui:3009
+#: ../src/main.c:2491 ../resources/ui/modem-manager-gui.ui:3009
 msgid "Preferences"
 msgstr ""
 
-#: ../src/main.c:2494
+#: ../src/main.c:2496
 msgid "Help"
 msgstr ""
 
-#: ../src/main.c:2496 ../resources/ui/modem-manager-gui.ui:1712
+#: ../src/main.c:2498 ../resources/ui/modem-manager-gui.ui:1712
 msgid "About"
 msgstr ""
 
-#: ../src/main.c:2587 ../src/main.c:2645
+#: ../src/main.c:2592 ../src/main.c:2647
 msgid ""
 "Unable to find MMGUI modules. Please check if application installed correctly"
 msgstr ""
 
-#: ../src/main.c:2601
+#: ../src/main.c:2603
 msgid "Interface building error"
 msgstr ""
 
-#: ../src/main.c:2657
+#: ../src/main.c:2659
 msgid "Modem management modules:\n"
 msgstr ""
 
-#: ../src/main.c:2658 ../src/main.c:2662
+#: ../src/main.c:2660 ../src/main.c:2664
 msgid "Module"
 msgstr ""
 
-#: ../src/main.c:2658 ../src/main.c:2662 ../src/ussd-page.c:544
+#: ../src/main.c:2660 ../src/main.c:2664 ../src/ussd-page.c:544
 msgid "Description"
 msgstr ""
 
-#: ../src/main.c:2661
+#: ../src/main.c:2663
 msgid "Connection management modules:\n"
 msgstr ""
 
-#: ../src/main.c:2700
+#: ../src/main.c:2702
 #, c-format
 msgid "Segmentation fault at address: %p\n"
 msgstr ""
 
-#: ../src/main.c:2703
+#: ../src/main.c:2705
 msgid "Stack trace:\n"
 msgstr ""
 
-#: ../src/main.c:2769
+#: ../src/main.c:2771
 msgid "Do not show window on start"
 msgstr ""
 
-#: ../src/main.c:2770
+#: ../src/main.c:2772
 msgid "Use specified modem management module"
 msgstr ""
 
-#: ../src/main.c:2771
+#: ../src/main.c:2773
 msgid "Use specified connection management module"
 msgstr ""
 
-#: ../src/main.c:2772
+#: ../src/main.c:2774
 msgid "List all available modules and exit"
 msgstr ""
 
-#: ../src/main.c:2809
+#: ../src/main.c:2811
 msgid "- tool for EDGE/3G/4G modem specific functions control"
 msgstr ""
 
-#: ../src/main.c:2816
+#: ../src/main.c:2818
 #, c-format
 msgid "Command line option parsing failed: %s\n"
 msgstr ""
@@ -798,35 +798,35 @@ msgstr ""
 msgid "%u min, %u sec"
 msgstr ""
 
-#: ../src/svcmanager.c:689
+#: ../src/svcmanager.c:693
 msgid "Job canceled"
 msgstr ""
 
-#: ../src/svcmanager.c:691
+#: ../src/svcmanager.c:695
 msgid "Systemd timeout reached"
 msgstr ""
 
-#: ../src/svcmanager.c:693
+#: ../src/svcmanager.c:697
 msgid "Service activation failed"
 msgstr ""
 
-#: ../src/svcmanager.c:695
+#: ../src/svcmanager.c:699
 msgid "Service depends on already failed service"
 msgstr ""
 
-#: ../src/svcmanager.c:697
+#: ../src/svcmanager.c:701
 msgid "Service skipped"
 msgstr ""
 
-#: ../src/svcmanager.c:699
+#: ../src/svcmanager.c:703
 msgid "Unknown error"
 msgstr ""
 
-#: ../src/svcmanager.c:764
-msgid "Unknown actvation status"
+#: ../src/svcmanager.c:768
+msgid "Unknown activation status"
 msgstr ""
 
-#: ../src/svcmanager.c:835
+#: ../src/svcmanager.c:839
 msgid "Unknown entity type"
 msgstr ""
 
@@ -1294,7 +1294,7 @@ msgstr ""
 #: ../resources/ui/modem-manager-gui.ui:1252
 msgid ""
 "GPS location\n"
-"<small>Longitude/Latiude</small>"
+"<small>Longitude/Latitude</small>"
 msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1296
@@ -1610,7 +1610,7 @@ msgid "Scan networks"
 msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3774
-msgid "<b>Opertions timeouts</b>"
+msgid "<b>Operations timeouts</b>"
 msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3794
@@ -1634,7 +1634,7 @@ msgid "Traffic limits"
 msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:4064
-msgid "Eanble traffic limit"
+msgid "Enable traffic limit"
 msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:4079

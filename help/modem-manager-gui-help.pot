@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-10-11 20:38+0300\n"
+"POT-Creation-Date: 2017-11-11 00:57+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,12 +36,25 @@ msgstr ""
 msgid "Mario Blättermann"
 msgstr ""
 
-#. (itstool) path: license/p
+#. (itstool) path: credit/name
 #: C/about.page:17
 #: C/contrib-code.page:17
-#: C/contrib-translations.page:17
-#: C/index.page:16
+#: C/index.page:15
 #: C/report-bugs.page:17
+#: C/usage-contacts.page:17
+#: C/usage-netsearch.page:17
+#: C/usage-sms.page:18
+#: C/usage-traffic.page:17
+#: C/usage-ussd.page:17
+msgid "Alex"
+msgstr ""
+
+#. (itstool) path: license/p
+#: C/about.page:21
+#: C/contrib-code.page:21
+#: C/contrib-translations.page:17
+#: C/index.page:19
+#: C/report-bugs.page:21
 #: C/usage-config.page:17
 #: C/usage-contacts.page:21
 #: C/usage-getinfo.page:17
@@ -54,22 +67,22 @@ msgid "Creative Commons Share Alike 3.0"
 msgstr ""
 
 #. (itstool) path: page/title
-#: C/about.page:21
+#: C/about.page:25
 msgid "About <app>Modem Manager GUI</app>"
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/about.page:23
-msgid "<app>Modem Manager GUI</app> was written by <link href=\"mailto:alex@linuxonly.ru\">Alex</link>. To find more information about <app>Modem Manager GUI</app>, please visit the <link href=\"http://linuxonly.ru/cms/page.php?7\" type=\"http\"><app>Modem Manager GUI</app> Web page</link>."
+#: C/about.page:27
+msgid "<app>Modem Manager GUI</app> was written by <link href=\"mailto:alex@linuxonly.ru\">Alex</link>. To find more information about <app>Modem Manager GUI</app>, please visit the <link href=\"https://linuxonly.ru/page/modem-manager-gui\"><app>Modem Manager GUI</app> Web page</link>."
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/about.page:29
-msgid "To report a bug or make a suggestion regarding this application or this manual, follow the directions at the <link href=\"http://linuxonly.ru/cms/e107_plugins/bug_tracker/bugs.php\" type=\"http\"><app>Modem Manager GUI</app> bug tracker</link>."
+#: C/about.page:33
+msgid "To report a bug or make a suggestion regarding this application or this manual, use <link href=\"https://linuxonly.ru/forum/modem-manager-gui/\"> <app>Modem Manager GUI</app> support forum</link>."
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/about.page:35
+#: C/about.page:39
 msgid "This program is distributed under the terms of the GNU General Public license version 3, as published by the Free Software Foundation. A copy of this license can be found at this <link href=\"help:gpl\" type=\"help\">link</link>, or in the file COPYING included with the source code of this program."
 msgstr ""
 
@@ -79,23 +92,33 @@ msgid "How you can help make <app>Modem Manager GUI </app> better."
 msgstr ""
 
 #. (itstool) path: page/title
-#: C/contrib-code.page:21
+#: C/contrib-code.page:25
 msgid "Provide code"
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/contrib-code.page:22
-msgid "<app>Modem Manager GUI</app> has a version control system at SourceForge.net. You can clone the repository with the following command:"
+#: C/contrib-code.page:26
+msgid "<app>Modem Manager GUI</app> has a version control system at Bitbucket.com. You can clone the repository with the following command:"
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/contrib-code.page:25
-msgid "<cmd>hg clone http://hg.code.sf.net/p/modem-manager-gui/code-0 modem-manager-gui-code-0</cmd>"
+#: C/contrib-code.page:29
+msgid "<cmd>hg clone https://linuxonly@bitbucket.org/linuxonly/modem-manager-gui</cmd>"
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/contrib-code.page:27
+#: C/contrib-code.page:31
 msgid "Note, this clone command doesn't give you write access to the repository."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/contrib-code.page:33
+msgid "For general help on how Bitbucket works, see the <link href=\"https://confluence.atlassian.com/display/BITBUCKET/Bitbucket+Cloud+documentation\">Bitbucket documentation</link>."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/contrib-code.page:36
+msgid "<app>Modem Manager GUI</app> source code is stored inside Mercurial repository, so you don't have to read Git tutorials; just make sure you know basic Mercurial commands and able to make pull requests on Bitbucket platform."
 msgstr ""
 
 #. (itstool) path: info/desc
@@ -154,58 +177,63 @@ msgstr ""
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/index.page:21
+#: C/index.page:24
 msgctxt "_"
 msgid "external ref='figures/modem-manager-gui-logo.png' md5='a5ab22246356ef7c194bb09f1ec8e432'"
 msgstr ""
 
 #. (itstool) path: page/title
-#: C/index.page:21
+#: C/index.page:24
 msgid "<media type=\"image\" src=\"figures/modem-manager-gui-logo.png\">GNOME Hello logo</media>Modem Manager GUI manual"
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/index.page:23
+#: C/index.page:26
 msgid "<app>Modem Manager GUI</app> is a graphical frontend for the ModemManager daemon which is able to control specific modem functions."
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/index.page:27
+#: C/index.page:30
 msgid "You can use <app>Modem Manager GUI</app> for the following tasks:"
 msgstr ""
 
 #. (itstool) path: item/p
-#: C/index.page:32
-msgid "Send and receive SMS messages with messages concatenation"
-msgstr ""
-
-#. (itstool) path: item/p
 #: C/index.page:35
-msgid "Send USSD requests and receive answers in system encoding"
+msgid "Create and control mobile broadband connections"
 msgstr ""
 
 #. (itstool) path: item/p
 #: C/index.page:38
-msgid "Get modem and SIM information (device info, operator name, mode, IMEI, IMSI/ESN, Signal level)"
+msgid "Send and receive SMS messages and store messages in database"
 msgstr ""
 
 #. (itstool) path: item/p
-#: C/index.page:42
+#: C/index.page:41
+msgid "Initiate USSD requests and read answers (also using interactive sessions)"
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/index.page:44
+msgid "View device information: operator name, device mode, IMEI, IMSI, signal level"
+msgstr ""
+
+#. (itstool) path: item/p
+#: C/index.page:47
 msgid "Scan available mobile networks"
 msgstr ""
 
 #. (itstool) path: item/p
-#: C/index.page:45
-msgid "Control data transmission process and set session traffic and time limits"
+#: C/index.page:50
+msgid "View mobile traffic statistics and set limits"
 msgstr ""
 
 #. (itstool) path: section/title
-#: C/index.page:50
+#: C/index.page:55
 msgid "Usage"
 msgstr ""
 
 #. (itstool) path: section/title
-#: C/index.page:54
+#: C/index.page:59
 msgid "Contribute to the project"
 msgstr ""
 
@@ -285,23 +313,23 @@ msgid "Report bugs and request new features."
 msgstr ""
 
 #. (itstool) path: page/title
-#: C/report-bugs.page:21
+#: C/report-bugs.page:25
 msgid "Report bugs"
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/report-bugs.page:22
-msgid "If you found a bug in <app>Modem Manager GUI</app>, you can use the <link href=\"http://linuxonly.ru/cms/e107_plugins/bug_tracker/bugs.php\"> Bug Tracker</link>."
+#: C/report-bugs.page:26
+msgid "If you found a bug in <app>Modem Manager GUI</app>, you can use the <link href=\"https://linuxonly.ru/forum/modem-manager-gui/\">support forum</link>."
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/report-bugs.page:26
-msgid "Before filing a new bug, please have a look at <link href=\"http://linuxonly.ru/cms/e107_plugins/bug_tracker/bugs.php?0.view.3.0.0\"> the existing ones</link> first. Maybe someone else has already encountered the same problem? Then you might write your comments there."
+#: C/report-bugs.page:29
+msgid "Before filing a new topic, please have a look at <link href=\"https://linuxonly.ru/forum/modem-manager-gui/\"> the existing ones</link> first. Maybe someone else has already encountered the same problem? Then you might write your comments there."
 msgstr ""
 
 #. (itstool) path: note/p
-#: C/report-bugs.page:31
-msgid "You can also use the Bug Tracker for feature requests."
+#: C/report-bugs.page:34
+msgid "You can also use the support forum for feature requests."
 msgstr ""
 
 #. (itstool) path: info/desc
@@ -317,15 +345,6 @@ msgstr ""
 #. (itstool) path: info/desc
 #: C/usage-contacts.page:9
 msgid "Use your contact lists."
-msgstr ""
-
-#. (itstool) path: credit/name
-#: C/usage-contacts.page:17
-#: C/usage-netsearch.page:17
-#: C/usage-sms.page:18
-#: C/usage-traffic.page:17
-#: C/usage-ussd.page:17
-msgid "Alex"
 msgstr ""
 
 #. (itstool) path: page/title
@@ -355,12 +374,12 @@ msgstr ""
 
 #. (itstool) path: page/p
 #: C/usage-contacts.page:38
-msgid "Use <gui style=\"button\">New contact</gui> button to fill form and add new contact to SIM card or modem storage, <gui style=\"button\">Remove contact</gui> button to remove selected contact form SIM card or modem storage and <gui style=\"button\">Send SMS</gui> button to compose and send SMS message to selected contact (either from SIM card or modem, or exported from system contacts storage)."
+msgid "Use <gui style=\"button\">New contact</gui> button to fill form and add new contact to SIM card or modem storage, <gui style=\"button\">Remove contact</gui> button to remove selected contact from SIM card or modem storage and <gui style=\"button\">Send SMS</gui> button to compose and send SMS message to selected contact (either from SIM card or modem, or exported from system contacts storage)."
 msgstr ""
 
 #. (itstool) path: note/p
 #: C/usage-contacts.page:44
-msgid "Some backeds don't support modem contacts manipulation functions. For example, ModemManager doesn't work with contacts from SIM card and modem memory at all (this functionality isn't implemented yet), and oFono can only export contacts from SIM card (this is developer's decision)."
+msgid "Some backends don't support modem contacts manipulation functions. For example, ModemManager doesn't work with contacts from SIM card and modem memory at all (this functionality isn't implemented yet), and oFono can only export contacts from SIM card (this is developer's decision)."
 msgstr ""
 
 #. (itstool) path: info/desc

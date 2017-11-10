@@ -6,12 +6,15 @@
     <desc>Help for Modem Manager GUI.</desc>
     <title type='link' role="trail"><media type="image" src="figures/gnome-hello-logo.png"/></title>
     <title type='text'>Modem Manager GUI</title>
-    <revision version="0.1" date="2015-10-02" status="incomplete"/>
+    <revision version="0.1" date="2017-11-11" status="incomplete"/>
     <credit type="author">
       <name>Mario Blättermann</name>
       <email>mario.blaettermann@gmail.com</email>
     </credit>
-
+    <credit type="author">
+      <name>Alex</name>
+      <email>alex@linuxonly.ru</email>
+    </credit>
     <license>
       <p>Creative Commons Share Alike 3.0</p>
     </license>
@@ -29,20 +32,22 @@
       </p>
       <list>
        <item>
-        <p>Send and receive SMS messages with messages concatenation</p>
+        <p>Create and control mobile broadband connections</p>
        </item>
        <item>
-        <p>Send USSD requests and receive answers in system encoding</p>
+        <p>Send and receive SMS messages and store messages in database</p>
        </item>
        <item>
-        <p>Get modem and SIM information (device info, operator name, mode, IMEI,
-        IMSI/ESN, Signal level)</p>
+        <p>Initiate USSD requests and read answers (also using interactive sessions)</p>
+       </item>
+       <item>
+        <p>View device information: operator name, device mode, IMEI, IMSI, signal level</p>
        </item>
        <item>
         <p>Scan available mobile networks</p>
        </item>
        <item>
-        <p>Control data transmission process and set session traffic and time limits</p>
+        <p>View mobile traffic statistics and set limits</p>
        </item>
       </list>
 

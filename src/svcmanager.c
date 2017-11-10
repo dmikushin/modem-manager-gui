@@ -764,8 +764,8 @@ static void mmgui_svcmanager_services_activation_interface_handler(GDBusProxy *p
 			mmgui_svcmanager_services_activation_chain(svcmanager);
 		} else {
 			/*Status is unknown*/
-			g_debug("Interface \'%s\' for module \'%s\' not activated. Unknown actvation status: %u\n", transition->entity.interface->name, transition->modname, status);
-			mmgui_svcmanager_set_last_error(svcmanager, _("Unknown actvation status"));
+			g_debug("Interface \'%s\' for module \'%s\' not activated. Unknown activation status: %u\n", transition->entity.interface->name, transition->modname, status);
+			mmgui_svcmanager_set_last_error(svcmanager, _("Unknown activation status"));
 			if (svcmanager->callback != NULL) {
 				(svcmanager->callback)(svcmanager, MMGUI_SVCMANGER_EVENT_ENTITY_ERROR, transition, svcmanager->userdata);
 			}

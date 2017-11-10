@@ -5,7 +5,7 @@
 
   <info>
     <link type="guide" xref="index#usage"/>
-    <revision pkgversion="0.0.18" version="0.1" date="2015-10-02" status="incomplete"/>
+    <revision pkgversion="0.0.19" version="0.1" date="2017-11-11" status="incomplete"/>
     <desc>
       Search for available networks.
     </desc>
