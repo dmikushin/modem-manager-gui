@@ -1,7 +1,7 @@
 /*
  *      nm09.c
  *      
- *      Copyright 2013 Alex <alex@linuxonly.ru>
+ *      Copyright 2013-2017 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -223,7 +223,6 @@ static gchar *mmgui_module_get_variant_string(GVariant *variant, const gchar *na
 static gboolean mmgui_module_get_variant_boolean(GVariant *variant, const gchar *name, gboolean defvalue)
 {
 	GVariant *booleanvar;
-	const gchar *str;
 	gboolean res;
 	
 	if ((variant == NULL) || (name == NULL)) return defvalue;
@@ -399,8 +398,8 @@ static mmguiconn_t mmgui_module_connection_get_params(mmguicore_t mmguicore, con
 	GError *error;
 	GVariant *conninfo, *passinfo;
 	GVariant *connparams, *passparams;
-	GVariant *connconsec, *connserialsec, *connpppsec, *connipv4sec, *conndnssec, *conntechsec;
-	GVariant *conntypevar, *connparamvar, *connuuidvar, *connaconnvar, *conntimevar, *conndnsvar;
+	GVariant *connconsec, *connipv4sec, *conntechsec;
+	GVariant *conndnsvar;
 	gchar *conntypestr, *connparamstr;
 	gint i, addrint;
 	GVariant *addrvar;
@@ -565,15 +564,13 @@ G_MODULE_EXPORT guint mmgui_module_connection_enum(gpointer mmguicore, GSList **
 	GVariant *connvar;
 	GVariantIter conniter, conniter2;
 	GVariant *connnode, *connnode2;
-	GVariant *connvalue;
-	gsize strsize;
 	const gchar *connpath;
 	mmguiconn_t connection;
 	
 	if ((mmguicore == NULL) || (connlist == NULL)) return 0;
 	mmguicorelc = (mmguicore_t)mmguicore;
 	
-	if (!mmguicorelc->cmcaps & MMGUI_CONNECTION_MANAGER_CAPS_MANAGEMENT) return 0;
+	if (!(mmguicorelc->cmcaps & MMGUI_CONNECTION_MANAGER_CAPS_MANAGEMENT)) return 0;
 	
 	if (mmguicorelc->cmoduledata == NULL) return 0;
 	moduledata = (moduledata_t)mmguicorelc->cmoduledata;
@@ -658,7 +655,7 @@ static GVariant *mmgui_module_connection_serialize(const gchar *uuid, const gcha
 			g_variant_builder_add(techbuilder, "{sv}", "apn", g_variant_new_string(apn));
 		}
 		if (networkid > 9999) {
-			memset(strbuf, sizeof(strbuf), 0);
+			memset(strbuf, 0, sizeof(strbuf));
 			snprintf(strbuf, sizeof(strbuf), "%u", networkid);
 			g_variant_builder_add(techbuilder, "{sv}", "network-id", g_variant_new_string(strbuf));
 			g_variant_builder_add(techbuilder, "{sv}", "home-only", g_variant_new_boolean(homeonly));
@@ -673,7 +670,7 @@ static GVariant *mmgui_module_connection_serialize(const gchar *uuid, const gcha
 		if ((dns1 != NULL) && (strlen(dns1) > 0)) {
 			address = g_inet_address_new_from_string(dns1);
 			if (address != NULL) {
-				addrbytes = (gchar *)g_inet_address_to_bytes(address);
+				addrbytes = (guint8 *)g_inet_address_to_bytes(address);
 				g_variant_builder_add(dnsbuilder, "u", htonl((addrbytes[0] << 24) | (addrbytes[1] << 16) | (addrbytes[2] << 8) | (addrbytes[3])));
 				g_object_unref(address);
 			}
@@ -681,7 +678,7 @@ static GVariant *mmgui_module_connection_serialize(const gchar *uuid, const gcha
  		if ((dns2 != NULL) && (strlen(dns2) > 0)) {
 			address = g_inet_address_new_from_string(dns2);
 			if (address != NULL) {
-				addrbytes = (gchar *)g_inet_address_to_bytes(address);
+				addrbytes = (guint8 *)g_inet_address_to_bytes(address);
 				g_variant_builder_add(dnsbuilder, "u", htonl((addrbytes[0] << 24) | (addrbytes[1] << 16) | (addrbytes[2] << 8) | (addrbytes[3])));
 				g_object_unref(address);
 			}
@@ -720,7 +717,7 @@ G_MODULE_EXPORT mmguiconn_t mmgui_module_connection_add(gpointer mmguicore, cons
 	if ((mmguicore == NULL) || (name == NULL)) return NULL;
 	mmguicorelc = (mmguicore_t)mmguicore;
 	
-	if (!mmguicorelc->cmcaps & MMGUI_CONNECTION_MANAGER_CAPS_MANAGEMENT) return NULL;
+	if (!(mmguicorelc->cmcaps & MMGUI_CONNECTION_MANAGER_CAPS_MANAGEMENT)) return NULL;
 	
 	if (mmguicorelc->cmoduledata == NULL) return NULL;
 	moduledata = (moduledata_t)mmguicorelc->cmoduledata;
@@ -779,7 +776,7 @@ G_MODULE_EXPORT gboolean mmgui_module_connection_update(gpointer mmguicore, mmgu
 	if ((mmguicore == NULL) || (connection == NULL) || (name == NULL)) return FALSE;
 	mmguicorelc = (mmguicore_t)mmguicore;
 	
-	if (!mmguicorelc->cmcaps & MMGUI_CONNECTION_MANAGER_CAPS_MANAGEMENT) return FALSE;
+	if (!(mmguicorelc->cmcaps & MMGUI_CONNECTION_MANAGER_CAPS_MANAGEMENT)) return FALSE;
 	
 	if (mmguicorelc->cmoduledata == NULL) return FALSE;
 	moduledata = (moduledata_t)mmguicorelc->cmoduledata;
@@ -892,7 +889,7 @@ G_MODULE_EXPORT gboolean mmgui_module_connection_remove(gpointer mmguicore, mmgu
 	if ((mmguicore == NULL) || (connection == NULL)) return FALSE;
 	mmguicorelc = (mmguicore_t)mmguicore;
 	
-	if (!mmguicorelc->cmcaps & MMGUI_CONNECTION_MANAGER_CAPS_MANAGEMENT) return FALSE;
+	if (!(mmguicorelc->cmcaps & MMGUI_CONNECTION_MANAGER_CAPS_MANAGEMENT)) return FALSE;
 	
 	if (mmguicorelc->cmoduledata == NULL) return FALSE;
 	moduledata = (moduledata_t)mmguicorelc->cmoduledata;

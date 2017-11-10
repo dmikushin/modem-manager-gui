@@ -43,8 +43,6 @@ static void mmgui_main_device_list_select_signal(GtkCellRendererToggle *cell_ren
 static void mmgui_main_device_remove_from_list(mmgui_application_t mmguiapp, guint devid);
 static void mmgui_main_device_add_to_list(mmgui_application_t mmguiapp, mmguidevice_t device, GtkTreeModel *model);
 
-static void mmgui_main_device_connections_controls_set_sensitive(mmgui_application_t mmguiapp, gboolean sensitive);
-
 /*Devices*/
 gboolean mmgui_main_device_handle_added_from_thread(gpointer data)
 {
@@ -72,8 +70,7 @@ gboolean mmgui_main_device_handle_removed_from_thread(gpointer data)
 {
 	mmgui_application_data_t mmguiappdata;
 	guint id;
-	GtkTreeModel *model;
-	
+		
 	mmguiappdata = (mmgui_application_data_t)data;
 	
 	if (mmguiappdata == NULL) return FALSE;
@@ -471,27 +468,9 @@ void mmgui_main_device_list_init(mmgui_application_t mmguiapp)
 	g_signal_connect(G_OBJECT(tbrenderer), "toggled", G_CALLBACK(mmgui_main_device_list_select_signal), mmguiapp);
 }
 
-static void mmgui_main_device_connections_controls_set_sensitive(mmgui_application_t mmguiapp, gboolean sensitive)
-{
-	guint conncaps;
-	
-	if (mmguiapp == NULL) return;
-	
-	conncaps = mmguicore_connections_get_capabilities(mmguiapp->core);
-	if (conncaps & MMGUI_CONNECTION_MANAGER_CAPS_MANAGEMENT) {
-		
-		printf("update\n");
-				
-		gtk_widget_set_sensitive(mmguiapp->window->devconncb, sensitive);
-		gtk_widget_set_sensitive(mmguiapp->window->devconnctl, sensitive);
-	}
-}
-
 void mmgui_main_device_connections_list_init(mmgui_application_t mmguiapp)
 {
-	GtkCellRenderer *tbrenderer;
 	GtkCellRenderer *renderer;
-	GtkTreeViewColumn *column;
 	GtkListStore *store;
 	
 	if (mmguiapp == NULL) return;

@@ -1315,9 +1315,6 @@ static void mmguicore_connections_free(mmguicore_t mmguicore)
 
 gboolean mmguicore_connections_enum(mmguicore_t mmguicore)
 {
-	GSList *iterator;
-	mmguiconn_t connection;
-	
 	if ((mmguicore == NULL) || (mmguicore->connection_enum_func == NULL)) return FALSE;
 		
 	if (mmguicore->connections != NULL) {
@@ -1325,11 +1322,6 @@ gboolean mmguicore_connections_enum(mmguicore_t mmguicore)
 	}
 	
 	(mmguicore->connection_enum_func)(mmguicore, &(mmguicore->connections));
-	
-	/*for (iterator=mmguicore->connections; iterator; iterator=iterator->next) {
-		connection = iterator->data;
-		g_debug("Connection: %s\n", connection->name);
-	}*/
 	
 	if (mmguicore->connections != NULL) {
 		mmguicore->connections = g_slist_sort(mmguicore->connections, mmguicore_connections_name_compare);
@@ -2856,7 +2848,7 @@ static gpointer mmguicore_work_thread(gpointer data)
 		currenttime = time(NULL);
 		
 		/*Connections monitoring*/
-		if ((mmguicore->device != NULL) && (!mmguicore->cmcaps & MMGUI_CONNECTION_MANAGER_CAPS_MONITORING)) {
+		if ((mmguicore->device != NULL) && (!(mmguicore->cmcaps & MMGUI_CONNECTION_MANAGER_CAPS_MONITORING))) {
 			if (abs((gint)difftime(ifstatetime, currenttime)) <= 15) {
 				/*Save old values*/
 				g_debug("Requesting network interface state information\n");
@@ -2941,7 +2933,7 @@ static gpointer mmguicore_work_thread(gpointer data)
 						/*Interface created*/
 						if (event.type & MMGUI_NETLINK_INTERFACE_EVENT_TYPE_ADD) {
 							g_debug("Created network interface event\n");
-							if ((mmguicore->device != NULL) && (!mmguicore->cmcaps & MMGUI_CONNECTION_MANAGER_CAPS_MONITORING)) {
+							if ((mmguicore->device != NULL) && (!(mmguicore->cmcaps & MMGUI_CONNECTION_MANAGER_CAPS_MONITORING))) {
 								if ((!mmguicore->device->connected) && (event.up) && (event.running)) {
 									/*PPP or Ethernet interface*/
 									g_debug("Created network interface event signal\n");
@@ -2958,7 +2950,7 @@ static gpointer mmguicore_work_thread(gpointer data)
 						/*Interface removed*/
 						if (event.type & MMGUI_NETLINK_INTERFACE_EVENT_TYPE_REMOVE) {
 							g_debug("Removed network interface event\n");
-							if ((mmguicore->device != NULL) && (!mmguicore->cmcaps & MMGUI_CONNECTION_MANAGER_CAPS_MONITORING)) {
+							if ((mmguicore->device != NULL) && (!(mmguicore->cmcaps & MMGUI_CONNECTION_MANAGER_CAPS_MONITORING))) {
 								if ((mmguicore->device->connected) && (g_str_equal(mmguicore->device->interface, event.ifname))) {
 									g_debug("Removed network interface event signal\n");
 									ifstatetime = time(NULL);

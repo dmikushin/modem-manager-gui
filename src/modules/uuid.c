@@ -47,7 +47,7 @@ gchar *mmgui_uuid_generate(GRand *rng)
 				uuidbuf[symseq] = uuidvalues[symval];
 				break;
 			case 'y':
-				uuidbuf[symseq] = uuidvalues[symval & 0x03 | 0x08];
+				uuidbuf[symseq] = uuidvalues[(symval & 0x03) | 0x08];
 				break;
 			default:
 				uuidbuf[symseq] = uuidtemplate[symseq];

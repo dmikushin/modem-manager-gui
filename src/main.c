@@ -136,14 +136,11 @@ static void mmgui_main_ui_exit_menu_item_activate_signal(GSimpleAction *action, 
 static void mmgui_main_ui_help_menu_item_activate_signal(GSimpleAction *action, GVariant *parameter, gpointer data);
 static void mmgui_main_ui_about_menu_item_activate_signal(GSimpleAction *action, GVariant *parameter, gpointer data);
 static void mmgui_main_ui_section_menu_item_activate_signal(GSimpleAction *action, GVariant *parameter, gpointer data);
-static void mmgui_main_tray_icon_activation_signal(GtkStatusIcon *status_icon, gpointer data);
 /*Tray*/
 static gboolean mmgui_main_tray_handle_state_change_from_thread(gpointer data);
 static void mmgui_main_tray_icon_window_show_signal(GtkCheckMenuItem *checkmenuitem, gpointer data);
 static void mmgui_main_tray_icon_new_sms_signal(GtkMenuItem *menuitem, gpointer data);
 static void mmgui_main_tray_icon_exit_signal(GtkMenuItem *menuitem, gpointer data);
-static void mmgui_main_tray_popup_menu_show_signal(GtkStatusIcon *status_icon, guint button, guint activate_time, gpointer data);
-static gboolean mmgui_main_tray_tooltip_show_signal(GtkStatusIcon *status_icon, gint x, gint y, gboolean keyboard_mode, GtkTooltip *tooltip, gpointer data);
 static void mmgui_main_tray_icon_build(mmgui_application_t mmguiapp);
 static void mmgui_main_tray_icon_init(mmgui_application_t mmguiapp);
 /*Ayatana*/

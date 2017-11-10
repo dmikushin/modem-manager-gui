@@ -374,7 +374,7 @@ void mmgui_main_connection_editor_name_changed_signal(GtkEditable *editable, gpo
 	GtkTreeSelection *selection;
 	gboolean new, changed, removed;
 	gint len;
-	gchar *text, *name, *caption, *message;
+	gchar *text, *name, *caption;
 	
 	mmguiapp = (mmgui_application_t)data;
 	
@@ -773,10 +773,8 @@ static void mmgui_main_connection_editor_window_forget_changes(mmgui_application
 	GtkTreePath *rmpath;
 	GtkTreeRowReference *rmref;
 	gboolean new, changed, removed;
-	gchar *name, *uuid, *number, *username, *password, *apn, *dns1, *dns2;
-	guint networkid;
-	gboolean homeonly;
-	
+	gchar *uuid;
+		
 	if (mmguiapp == NULL) return;
 	
 	model = gtk_tree_view_get_model(GTK_TREE_VIEW(mmguiapp->window->contreeview));
@@ -1157,12 +1155,9 @@ static void mmgui_main_connection_editor_window_list_cursor_changed_signal(GtkTr
 	GtkTreeSelection *selection;
 	GtkTreeModel *model;
 	GtkTreeIter iter;
-	GSList *connections;
-	GSList *iterator;
 	gchar *name, *uuid, *activeuuid, *number, *username, *password, *apn, *dns1, *dns2;
 	guint networkid, type;
 	gboolean homeonly, new, changed, removed, protected;
-	mmguiconn_t connection;
 	
 	mmguiapp = (mmgui_application_t)data;
 	
