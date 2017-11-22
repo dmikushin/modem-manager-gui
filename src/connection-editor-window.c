@@ -20,6 +20,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <langinfo.h>
 
 #include <gtk/gtk.h>
 #include <locale.h>
@@ -590,6 +591,10 @@ void mmgui_main_connection_editor_dns2_changed_signal(GtkEditable *editable, gpo
 void mmgui_main_connection_editor_add_button_clicked_signal(GtkToolButton *toolbutton, gpointer data)
 {
 	mmgui_application_t mmguiapp;
+	mmgui_providers_db_entry_t curentry, recentry;
+	GSList *providers, *piterator;
+	gchar *caption;
+	gint networkid, mcc, mnc, mul;
 	GtkTreeIter iter;
 	GtkTreeModel *model;
 	GtkTreeSelection *selection;
@@ -608,25 +613,71 @@ void mmgui_main_connection_editor_add_button_clicked_signal(GtkToolButton *toolb
 	}
 	
 	if (model != NULL) {
-		/*Add connection*/
 		gtk_list_store_append(GTK_LIST_STORE(model), &iter);
 		if (type == MMGUI_DEVICE_TYPE_GSM) {
-			gtk_list_store_set(GTK_LIST_STORE(model), &iter, MMGUI_CONNECTION_EDITOR_WINDOW_LIST_CAPTION, "<b>New connection</b>",
-															MMGUI_CONNECTION_EDITOR_WINDOW_LIST_NAME, "New connection", 
-															MMGUI_CONNECTION_EDITOR_WINDOW_LIST_UUID, NULL,
-															MMGUI_CONNECTION_EDITOR_WINDOW_LIST_NUMBER, "*99#",
-															MMGUI_CONNECTION_EDITOR_WINDOW_LIST_USERNAME, "internet",
-															MMGUI_CONNECTION_EDITOR_WINDOW_LIST_PASSWORD, "internet",
-															MMGUI_CONNECTION_EDITOR_WINDOW_LIST_APN, "internet",
-															MMGUI_CONNECTION_EDITOR_WINDOW_LIST_NETWORK_ID, 10000,
-															MMGUI_CONNECTION_EDITOR_WINDOW_LIST_TYPE, type,
-															MMGUI_CONNECTION_EDITOR_WINDOW_LIST_HOME_ONLY, FALSE,
-															MMGUI_CONNECTION_EDITOR_WINDOW_LIST_DNS1, NULL,
-															MMGUI_CONNECTION_EDITOR_WINDOW_LIST_DNS2, NULL,
-															MMGUI_CONNECTION_EDITOR_WINDOW_LIST_NEW, TRUE,
-															MMGUI_CONNECTION_EDITOR_WINDOW_LIST_CHANGED, FALSE,
-															MMGUI_CONNECTION_EDITOR_WINDOW_LIST_REMOVED, FALSE,
-															-1);
+			/*Find recommended provider database entry*/
+			recentry = NULL;
+			if (mmguicore_devices_get_registered(mmguiapp->core)) {
+				providers = mmgui_providers_get_list(mmguiapp->providersdb);
+				if (providers != NULL) {
+					/*Convert operator code to compatible network ID*/
+					mcc = (mmguiapp->core->device->operatorcode & 0xffff0000) >> 16;
+					mnc = mmguiapp->core->device->operatorcode & 0x0000ffff;
+					mul = 1;
+					while (mul <= mnc) {
+						mul *= 10;
+					}
+					networkid = mcc * mul + mnc;
+					/*Find provider with same network ID*/
+					for (piterator = providers; piterator != NULL; piterator = piterator->next) {
+						curentry = (mmgui_providers_db_entry_t)piterator->data;
+						if ((curentry->tech == MMGUI_DEVICE_TYPE_GSM) && (curentry->usage == MMGUI_PROVIDERS_DB_ENTRY_USAGE_INTERNET)) {
+							if (mmgui_providers_provider_get_network_id(curentry) == networkid) {
+								recentry = curentry;
+								break;
+							}
+						}
+					}
+				}
+			}
+			/*Add connection*/
+			if (recentry != NULL) {
+				caption = g_strdup_printf("<b>%s</b>", recentry->name);
+				gtk_list_store_set(GTK_LIST_STORE(model), &iter, MMGUI_CONNECTION_EDITOR_WINDOW_LIST_CAPTION, caption,
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_NAME, recentry->name, 
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_UUID, NULL,
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_NUMBER, "*99#",
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_USERNAME, recentry->username,
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_PASSWORD, recentry->password,
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_APN, recentry->apn,
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_NETWORK_ID, mmgui_providers_provider_get_network_id(recentry),
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_TYPE, recentry->tech,
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_HOME_ONLY, FALSE,
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_DNS1, recentry->dns1,
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_DNS2, recentry->dns2,
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_NEW, TRUE,
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_CHANGED, FALSE,
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_REMOVED, FALSE,
+																-1);
+				g_free(caption);
+			} else {
+				gtk_list_store_set(GTK_LIST_STORE(model), &iter, MMGUI_CONNECTION_EDITOR_WINDOW_LIST_CAPTION, "<b>New connection</b>",
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_NAME, "New connection", 
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_UUID, NULL,
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_NUMBER, "*99#",
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_USERNAME, "internet",
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_PASSWORD, "internet",
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_APN, "internet",
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_NETWORK_ID, 10000,
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_TYPE, type,
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_HOME_ONLY, FALSE,
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_DNS1, NULL,
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_DNS2, NULL,
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_NEW, TRUE,
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_CHANGED, FALSE,
+																MMGUI_CONNECTION_EDITOR_WINDOW_LIST_REMOVED, FALSE,
+																-1);
+			}
 		} else if (type == MMGUI_DEVICE_TYPE_CDMA) {
 			gtk_list_store_set(GTK_LIST_STORE(model), &iter, MMGUI_CONNECTION_EDITOR_WINDOW_LIST_CAPTION, "<b>New connection</b>",
 															MMGUI_CONNECTION_EDITOR_WINDOW_LIST_NAME, "New connection", 
@@ -1020,14 +1071,38 @@ static void mmgui_main_connection_editor_window_save_changes(mmgui_application_t
 	} 
 }
 
+static gint mmgui_main_connection_editor_provider_menu_compare_entries(gconstpointer a, gconstpointer b)
+{
+	mmgui_providers_db_entry_t aentry, bentry;
+	gchar *acasefold, *bcasefold;
+	gint res;
+	
+	if ((a == NULL) || (b == NULL)) return 0;
+	
+	aentry = (mmgui_providers_db_entry_t)a;
+	bentry = (mmgui_providers_db_entry_t)b;
+	
+	acasefold = g_utf8_casefold(mmgui_providers_provider_get_country_name(aentry), -1);
+	bcasefold = g_utf8_casefold(mmgui_providers_provider_get_country_name(bentry), -1);
+	
+	res = g_utf8_collate(acasefold, bcasefold);
+	
+	g_free(acasefold);
+	g_free(bcasefold);
+	
+	return res;
+}
+
 void mmgui_main_connection_editor_window_open(mmgui_application_t mmguiapp)
 {
 	gint response;
-	GSList *providers, *iterator;
+	gchar *countryid, *langenv;
+	GSList *providers, *piterator, *providerlist;
+	GList *countries, *citerator;
 	mmgui_providers_db_entry_t dbentry;
-	GHashTable *menuhash;
+	GHashTable *countryhash;
 	GtkWidget *submenu;
-	GtkWidget *menuitem;
+	GtkWidget *cmenuitem, *pmenuitem;
 	GtkTreeSelection *selection;
 	GtkTreeIter iter;
 	GtkTreeModel *model;
@@ -1037,38 +1112,64 @@ void mmgui_main_connection_editor_window_open(mmgui_application_t mmguiapp)
 	if (mmguiapp->core->device == NULL) return;
 	
 	if (mmguiapp->window->providersmenu == NULL) {
+		/*Fill menu with providers names*/
 		providers = mmgui_providers_get_list(mmguiapp->providersdb);
 		if (providers != NULL) {
+			/*Get current country ID if possible*/
+			countryid = NULL;
+			langenv = getenv("LANG");
+			if (langenv != NULL) {
+				countryid = nl_langinfo(_NL_ADDRESS_COUNTRY_AB2);
+			}
 			/*Create menu*/
 			mmguiapp->window->providersmenu = gtk_menu_new();
-			/*Create menu items*/
-			menuhash = g_hash_table_new(g_str_hash, g_str_equal);
-			for (iterator = providers; iterator != NULL; iterator = iterator->next) {
-				dbentry = (mmgui_providers_db_entry_t)iterator->data;
-				if (/*(dbentry->tech == mmguiapp->core->device->type) &&*/ (dbentry->usage == MMGUI_PROVIDERS_DB_ENTRY_USAGE_INTERNET)) {
-					submenu = (GtkWidget *)g_hash_table_lookup(menuhash, dbentry->country);
-					if (submenu != NULL) {
-						/*Add menu entry to existing menu*/
-						menuitem = gtk_menu_item_new_with_label(dbentry->name);
-						gtk_menu_shell_append(GTK_MENU_SHELL(submenu), menuitem);
-						g_object_set_data(G_OBJECT(menuitem), "dbentry", dbentry);
-						g_signal_connect(G_OBJECT(menuitem), "activate", G_CALLBACK(mmgui_main_connection_editor_add_db_entry), mmguiapp);
-					} else {
-						/*Create new menu entry*/
-						submenu = gtk_menu_new();
-						menuitem = gtk_menu_item_new_with_label(dbentry->name);
-						gtk_menu_shell_append(GTK_MENU_SHELL(submenu), menuitem);
-						g_hash_table_insert(menuhash, dbentry->country, submenu);
-						g_object_set_data(G_OBJECT(menuitem), "dbentry", dbentry);
-						g_signal_connect(G_OBJECT(menuitem), "activate", G_CALLBACK(mmgui_main_connection_editor_add_db_entry), mmguiapp);
-						/*Add it to main menu*/
-						menuitem = gtk_menu_item_new_with_label(mmgui_providers_provider_get_country_name(dbentry));
-						gtk_menu_shell_append(GTK_MENU_SHELL(mmguiapp->window->providersmenu), menuitem);
-						gtk_menu_item_set_submenu(GTK_MENU_ITEM(menuitem), submenu);
-					}
+			/*Sort operators by countries*/
+			countryhash = g_hash_table_new(g_str_hash, g_str_equal);
+			for (piterator = providers; piterator != NULL; piterator = piterator->next) {
+				dbentry = (mmgui_providers_db_entry_t)piterator->data;
+				if (dbentry->usage == MMGUI_PROVIDERS_DB_ENTRY_USAGE_INTERNET) {
+					providerlist = (GSList *)g_hash_table_lookup(countryhash, dbentry->country);
+					providerlist = g_slist_prepend(providerlist, dbentry);
+					g_hash_table_insert(countryhash, dbentry->country, providerlist);
 				}
 			}
-			g_hash_table_destroy(menuhash);
+			/*Sort country names alphabetically*/
+			countries = g_list_sort(g_hash_table_get_keys(countryhash), mmgui_main_connection_editor_provider_menu_compare_entries);
+			/*Build providers menu*/
+			for (citerator = countries; citerator != NULL; citerator = citerator->next) {
+				if (g_ascii_strcasecmp((gchar *)citerator->data, countryid) == 0) {
+					providerlist = (GSList *)g_hash_table_lookup(countryhash, (gchar *)citerator->data);
+					/*Separator between suggested provider entries and countries submenus*/
+					pmenuitem = gtk_separator_menu_item_new();
+					gtk_menu_shell_prepend(GTK_MENU_SHELL(mmguiapp->window->providersmenu), pmenuitem);
+					/*Providers*/
+					for (piterator = providerlist; piterator != NULL; piterator = piterator->next) {
+						dbentry = (mmgui_providers_db_entry_t)piterator->data;
+						pmenuitem = gtk_menu_item_new_with_label(dbentry->name);
+						gtk_menu_shell_prepend(GTK_MENU_SHELL(mmguiapp->window->providersmenu), pmenuitem);
+						g_object_set_data(G_OBJECT(pmenuitem), "dbentry", dbentry);
+						g_signal_connect(G_OBJECT(pmenuitem), "activate", G_CALLBACK(mmgui_main_connection_editor_add_db_entry), mmguiapp);
+					}
+				} else {
+					providerlist = g_slist_reverse((GSList *)g_hash_table_lookup(countryhash, (gchar *)citerator->data));
+					cmenuitem = gtk_menu_item_new_with_label(mmgui_providers_provider_get_country_name((mmgui_providers_db_entry_t)providerlist->data));
+					gtk_menu_shell_append(GTK_MENU_SHELL(mmguiapp->window->providersmenu), cmenuitem);
+					submenu = gtk_menu_new();
+					gtk_menu_item_set_submenu(GTK_MENU_ITEM(cmenuitem), submenu);
+					for (piterator = providerlist; piterator != NULL; piterator = piterator->next) {
+						dbentry = (mmgui_providers_db_entry_t)piterator->data;
+						pmenuitem = gtk_menu_item_new_with_label(dbentry->name);
+						gtk_menu_shell_append(GTK_MENU_SHELL(submenu), pmenuitem);
+						g_object_set_data(G_OBJECT(pmenuitem), "dbentry", dbentry);
+						g_signal_connect(G_OBJECT(pmenuitem), "activate", G_CALLBACK(mmgui_main_connection_editor_add_db_entry), mmguiapp);
+					}
+				}
+				/*Free providers list*/
+				g_slist_free(providerlist);
+			}
+			/*Free resources*/
+			g_list_free(countries);
+			g_hash_table_destroy(countryhash);		
 			/*Add menu to toolbar*/
 			gtk_widget_show_all(mmguiapp->window->providersmenu);
 			gtk_menu_tool_button_set_menu(GTK_MENU_TOOL_BUTTON(mmguiapp->window->connaddtoolbutton), GTK_WIDGET(mmguiapp->window->providersmenu));
