@@ -448,6 +448,28 @@ guint mmgui_providers_provider_get_network_id(mmgui_providers_db_entry_t entry)
 	}
 }
 
+static gint mmgui_providers_db_compare_entries(gconstpointer a, gconstpointer b)
+{
+	mmgui_providers_db_entry_t aentry, bentry;
+	gchar *acasefold, *bcasefold;
+	gint res;
+	
+	if ((a == NULL) || (b == NULL)) return 0;
+	
+	aentry = (mmgui_providers_db_entry_t)a;
+	bentry = (mmgui_providers_db_entry_t)b;
+	
+	acasefold = g_utf8_casefold(aentry->name, -1);
+	bcasefold = g_utf8_casefold(bentry->name, -1);
+	
+	res = g_utf8_collate(acasefold, bcasefold);
+	
+	g_free(acasefold);
+	g_free(bcasefold);
+	
+	return res;
+}
+
 static gboolean mmgui_providers_db_xml_parse(mmgui_providers_db_t db)
 {
 	GMarkupParser mp;
@@ -475,7 +497,7 @@ static gboolean mmgui_providers_db_xml_parse(mmgui_providers_db_t db)
 	g_markup_parse_context_free(mpc);
 	
 	/*Sort providers list*/
-	db->providers = g_slist_sort(db->providers, (GCompareFunc)g_strcmp0);
+	db->providers = g_slist_sort(db->providers, mmgui_providers_db_compare_entries);
 	
 	return TRUE;
 }
