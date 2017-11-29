@@ -1,7 +1,7 @@
 /*
  *      mm06.c
  *      
- *      Copyright 2013-2014 Alex <alex@linuxonly.ru>
+ *      Copyright 2013-2017 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -51,33 +51,40 @@ typedef enum {
 
 /*Registration types internal flags*/
 typedef enum {
-	MODULE_INT_GSM_NETWORK_REG_STATUS_IDLE = 0,
-	MODULE_INT_GSM_NETWORK_REG_STATUS_HOME = 1,
-	MODULE_INT_GSM_NETWORK_REG_STATUS_SEARCHING = 2,
-	MODULE_INT_GSM_NETWORK_REG_STATUS_DENIED = 3,
-	MODULE_INT_GSM_NETWORK_REG_STATUS_UNKNOWN = 4,
-	MODULE_INT_GSM_NETWORK_REG_STATUS_ROAMING = 5
+	MODULE_INT_GSM_NETWORK_REG_STATUS_IDLE          = 0,
+	MODULE_INT_GSM_NETWORK_REG_STATUS_HOME          = 1,
+	MODULE_INT_GSM_NETWORK_REG_STATUS_SEARCHING     = 2,
+	MODULE_INT_GSM_NETWORK_REG_STATUS_DENIED        = 3,
+	MODULE_INT_GSM_NETWORK_REG_STATUS_UNKNOWN       = 4,
+	MODULE_INT_GSM_NETWORK_REG_STATUS_ROAMING       = 5
 } ModuleIntGsmNetworkRegStatus;
+
+typedef enum {
+	MODULE_INT_CDMA_REGISTRATION_STATE_UNKNOWN      = 0,
+	MODULE_INT_CDMA_REGISTRATION_STATE_REGISTERED   = 1,
+	MODULE_INT_CDMA_REGISTRATION_STATE_HOME         = 2,
+	MODULE_INT_CDMA_REGISTRATION_STATE_ROAMING      = 3
+} ModuleIntCdmaRegistrationState;
 
 /*State internal flags*/
 typedef enum {
-	MODULE_INT_MODEM_STATE_UNKNOWN = 0,
-	MODULE_INT_MODEM_STATE_DISABLED = 10,
-	MODULE_INT_MODEM_STATE_DISABLING = 20,
-	MODULE_INT_MODEM_STATE_ENABLING = 30,
-	MODULE_INT_MODEM_STATE_ENABLED = 40,
-	MODULE_INT_MODEM_STATE_SEARCHING = 50,
-	MODULE_INT_MODEM_STATE_REGISTERED = 60,
-	MODULE_INT_MODEM_STATE_DISCONNECTING = 70, 
-	MODULE_INT_MODEM_STATE_CONNECTING = 80,
-	MODULE_INT_MODEM_STATE_CONNECTED = 90
+	MODULE_INT_MODEM_STATE_UNKNOWN                  = 0,
+	MODULE_INT_MODEM_STATE_DISABLED                 = 10,
+	MODULE_INT_MODEM_STATE_DISABLING                = 20,
+	MODULE_INT_MODEM_STATE_ENABLING                 = 30,
+	MODULE_INT_MODEM_STATE_ENABLED                  = 40,
+	MODULE_INT_MODEM_STATE_SEARCHING                = 50,
+	MODULE_INT_MODEM_STATE_REGISTERED               = 60,
+	MODULE_INT_MODEM_STATE_DISCONNECTING            = 70,
+	MODULE_INT_MODEM_STATE_CONNECTING               = 80,
+	MODULE_INT_MODEM_STATE_CONNECTED                = 90
 }ModuleIntModemState;
 
 /*Service type*/
 typedef enum {
-	MODULE_INT_SERVICE_UNDEFINED     = 0x0,
-	MODULE_INT_SERVICE_MODEM_MANAGER = 0x1,
-	MODULE_INT_SERVICE_WADER         = 0x2
+	MODULE_INT_SERVICE_UNDEFINED                    = 0x0,
+	MODULE_INT_SERVICE_MODEM_MANAGER                = 0x1,
+	MODULE_INT_SERVICE_WADER                        = 0x2
 } ModuleIntService;
 
 //Private module variables
@@ -98,6 +105,7 @@ struct _mmguimoduledata {
 	gulong statesignal;
 	gulong smssignal;
 	//Property change signal
+	gulong netsignal;
 	gulong netpropsignal;
 	gulong locationpropsignal;
 	//Service type
@@ -117,16 +125,36 @@ struct _mmguimoduledata {
 
 typedef struct _mmguimoduledata *moduledata_t;
 
+
+
 static void mmgui_module_handle_error_message(mmguicore_t mmguicore, GError *error);
 static guint mmgui_module_device_id(const gchar *devpath);
 static gint mmgui_module_gsm_operator_code(const gchar *opcodestr);
-
+static void mmgui_signal_handler(GDBusProxy *proxy, const gchar *sender_name, const gchar *signal_name, GVariant *parameters, gpointer data);
+static void mmgui_property_change_handler(GDBusProxy *proxy, GVariant *changed_properties, GStrv invalidated_properties, gpointer data);
+static gboolean mmgui_module_device_enabled_from_state(guint state);
+static gboolean mmgui_module_device_locked_from_unlock_string(gchar *ustring);
+static gboolean mmgui_module_device_connected_from_state(gint state);
+static gboolean mmgui_module_device_registered_from_state(gint state);
 static gboolean mmgui_module_device_registered_from_status(guint status);
+static gboolean mmgui_module_cdma_device_registered_from_status(guint status);
+static enum _mmgui_reg_status mmgui_module_registration_status_translate(guint status);
+static enum _mmgui_reg_status mmgui_module_cdma_registration_status_translate(guint status);
 static mmguidevice_t mmgui_module_device_new(mmguicore_t mmguicore, const gchar *devpath);
-static gboolean mmgui_module_devices_update_registration(gpointer mmguicore, guint regstatus, gchar *operatorcode, gchar *operatorname);
 static gboolean mmgui_module_devices_update_device_mode(gpointer mmguicore, gint oldstate, gint newstate, guint changereason);
 static gboolean mmgui_module_devices_update_location(gpointer mmguicore, mmguidevice_t device);
 static gboolean mmgui_module_devices_enable_location(gpointer mmguicore, mmguidevice_t device, gboolean enable);
+static gboolean mmgui_module_devices_restart_ussd(gpointer mmguicore);
+static void mmgui_module_devices_enable_handler(GDBusProxy *proxy, GAsyncResult *res, gpointer user_data);
+static time_t mmgui_module_str_to_time(const gchar *str);
+static mmgui_sms_message_t mmgui_module_sms_retrieve(mmguicore_t mmguicore, GVariant *messagev);
+static void mmgui_module_sms_send_handler(GDBusProxy *proxy, GAsyncResult *res, gpointer user_data);
+static void mmgui_module_ussd_send_handler(GDBusProxy *proxy, GAsyncResult *res, gpointer user_data);
+static mmgui_scanned_network_t mmgui_module_network_retrieve(GVariant *networkv);
+static void mmgui_module_networks_scan_handler(GDBusProxy *proxy, GAsyncResult *res, gpointer user_data);
+static mmgui_contact_t mmgui_module_contact_retrieve(GVariant *contactv);
+
+
 
 static void mmgui_module_handle_error_message(mmguicore_t mmguicore, GError *error)
 {
@@ -199,7 +227,7 @@ static void mmgui_signal_handler(GDBusProxy *proxy, const gchar *sender_name, co
 	moduledata_t moduledata;
 	gchar *devpath, *operatorcode, *operatorname;
 	mmguidevice_t device;
-	guint id, oldstate, newstate, changereason, regstatus;
+	guint id, oldstate, newstate, changereason, regstatus, regstatus2;
 	gboolean status;
 		
 	mmguicore = (mmguicore_t)data;
@@ -235,8 +263,23 @@ static void mmgui_signal_handler(GDBusProxy *proxy, const gchar *sender_name, co
 		} else if (g_str_equal(signal_name, "RegistrationInfo")) {
 			if (mmguicore->device != NULL) {
 				g_variant_get(parameters, "(uss)", &regstatus, &operatorcode, &operatorname);
-				if (mmgui_module_devices_update_registration(mmguicore, regstatus, operatorcode, operatorname)) {
-					(mmguicore->eventcb)(MMGUI_EVENT_NETWORK_REGISTRATION_CHANGE, mmguicore, mmguicore->device);
+				if (device->operatorname != NULL) {
+					g_free(device->operatorname);
+				}
+				device->registered = mmgui_module_device_registered_from_status(regstatus);
+				device->regstatus = mmgui_module_registration_status_translate(regstatus);
+				device->operatorcode = mmgui_module_gsm_operator_code(operatorcode);
+				device->operatorname = g_strdup(operatorname);
+				(mmguicore->eventcb)(MMGUI_EVENT_NETWORK_REGISTRATION_CHANGE, mmguicore, mmguicore->device);
+			}
+		} else if (g_str_equal(signal_name, "RegistrationStateChanged")) {
+			if (mmguicore->device != NULL) {
+				g_variant_get(parameters, "(uu)", &regstatus, &regstatus2);
+				device->registered = mmgui_module_cdma_device_registered_from_status(regstatus);
+				device->regstatus = mmgui_module_cdma_registration_status_translate(regstatus);
+				if (device->regstatus == MMGUI_REG_STATUS_UNKNOWN) {
+					device->registered = mmgui_module_cdma_device_registered_from_status(regstatus2);
+					device->regstatus = mmgui_module_cdma_registration_status_translate(regstatus2);
 				}
 			}
 		} else if (g_str_equal(signal_name, "StateChanged")) {
@@ -365,6 +408,33 @@ static gboolean mmgui_module_device_connected_from_state(gint state)
 	return connected;
 }
 
+static gboolean mmgui_module_device_registered_from_state(gint state)
+{
+	gboolean registered;
+	
+	switch (state) {
+		case MODULE_INT_MODEM_STATE_UNKNOWN:
+		case MODULE_INT_MODEM_STATE_DISABLED:
+		case MODULE_INT_MODEM_STATE_DISABLING:
+		case MODULE_INT_MODEM_STATE_ENABLING:
+		case MODULE_INT_MODEM_STATE_ENABLED:
+		case MODULE_INT_MODEM_STATE_SEARCHING:
+			registered = FALSE;
+			break;
+		case MODULE_INT_MODEM_STATE_REGISTERED:
+		case MODULE_INT_MODEM_STATE_DISCONNECTING: 
+		case MODULE_INT_MODEM_STATE_CONNECTING:
+		case MODULE_INT_MODEM_STATE_CONNECTED:
+			registered = TRUE;
+			break;
+		default:
+			registered = FALSE;
+			break;
+	}
+	
+	return registered;
+}
+
 static gboolean mmgui_module_device_registered_from_status(guint status)
 {
 	gboolean registered;
@@ -390,6 +460,83 @@ static gboolean mmgui_module_device_registered_from_status(guint status)
 	}
 	
 	return registered;
+}
+
+static gboolean mmgui_module_cdma_device_registered_from_status(guint status)
+{
+	gboolean registered;
+	
+	switch (status) {
+		case MODULE_INT_CDMA_REGISTRATION_STATE_UNKNOWN:
+			registered = FALSE;
+			break;
+		case MODULE_INT_CDMA_REGISTRATION_STATE_REGISTERED:
+		case MODULE_INT_CDMA_REGISTRATION_STATE_HOME:
+		case MODULE_INT_CDMA_REGISTRATION_STATE_ROAMING:
+			registered = TRUE;
+			break;
+		default:
+			registered = FALSE;
+			break;
+	}
+	
+	return registered;
+}
+
+static enum _mmgui_reg_status mmgui_module_registration_status_translate(guint status)
+{
+	enum _mmgui_reg_status tstatus;
+	
+	switch (status) {
+		case MODULE_INT_GSM_NETWORK_REG_STATUS_IDLE:
+			tstatus = MMGUI_REG_STATUS_IDLE;
+			break;
+		case MODULE_INT_GSM_NETWORK_REG_STATUS_HOME:
+			tstatus = MMGUI_REG_STATUS_HOME;
+			break;
+		case MODULE_INT_GSM_NETWORK_REG_STATUS_SEARCHING:
+			tstatus = MMGUI_REG_STATUS_SEARCHING;
+			break;
+		case MODULE_INT_GSM_NETWORK_REG_STATUS_DENIED:
+			tstatus = MMGUI_REG_STATUS_DENIED;
+			break;
+		case MODULE_INT_GSM_NETWORK_REG_STATUS_UNKNOWN:
+			tstatus = MMGUI_REG_STATUS_UNKNOWN;
+			break;
+		case MODULE_INT_GSM_NETWORK_REG_STATUS_ROAMING:
+			tstatus = MMGUI_REG_STATUS_ROAMING;
+			break;
+		default:
+			tstatus = MMGUI_REG_STATUS_UNKNOWN;
+			break;
+	}
+	
+	return tstatus;
+}
+
+static enum _mmgui_reg_status mmgui_module_cdma_registration_status_translate(guint status)
+{
+	enum _mmgui_reg_status tstatus;
+	
+	switch (status) {
+		case MODULE_INT_CDMA_REGISTRATION_STATE_UNKNOWN:
+			tstatus = MMGUI_REG_STATUS_UNKNOWN;
+			break;
+		case MODULE_INT_CDMA_REGISTRATION_STATE_REGISTERED:
+			tstatus = MMGUI_REG_STATUS_IDLE;
+			break;	
+		case MODULE_INT_CDMA_REGISTRATION_STATE_HOME:
+			tstatus = MMGUI_REG_STATUS_HOME;
+			break;
+		case MODULE_INT_CDMA_REGISTRATION_STATE_ROAMING:
+			tstatus = MMGUI_REG_STATUS_ROAMING;
+			break;
+		default:
+			tstatus = MMGUI_REG_STATUS_UNKNOWN;
+			break;
+	}
+	
+	return tstatus;
 }
 
 static mmguidevice_t mmgui_module_device_new(mmguicore_t mmguicore, const gchar *devpath)
@@ -874,7 +1021,7 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_state(gpointer mmguicore, enum _mm
 	GError *error;
 	gsize strsize = 256;
 	gchar *lockstr, *operatorcode, *operatorname;
-	guint regstatus;
+	guint regstatus, intval1, intval2;
 	gboolean res;
 	
 	if (mmguicore == NULL) return FALSE;
@@ -923,27 +1070,47 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_state(gpointer mmguicore, enum _mm
 		case MMGUI_DEVICE_STATE_REQUEST_REGISTERED:
 			/*Is device registered in network*/
 			if (moduledata->netproxy != NULL) {
-				error = NULL;
-				data = g_dbus_proxy_call_sync(moduledata->netproxy,
-												"GetRegistrationInfo",
-												NULL,
-												0,
-												-1,
-												NULL,
-												&error);
-				
-				if ((data == NULL) && (error != NULL)) {
-					mmgui_module_handle_error_message(mmguicorelc, error);
-					g_error_free(error);
-					res = FALSE;
-				} else {
-					g_variant_get(data, "((uss))", &regstatus, &operatorcode, &operatorname);
-					if (mmgui_module_devices_update_registration(mmguicore, regstatus, operatorcode, operatorname)) {
-						res = mmgui_module_device_registered_from_status(device->regstatus);
+				if (device->type == MMGUI_DEVICE_TYPE_GSM) {
+					error = NULL;
+					data = g_dbus_proxy_call_sync(moduledata->netproxy,
+													"GetRegistrationInfo",
+													NULL,
+													0,
+													-1,
+													NULL,
+													&error);
+					if ((data == NULL) && (error != NULL)) {
+						mmgui_module_handle_error_message(mmguicorelc, error);
+						g_error_free(error);
+						res = FALSE;
 					} else {
+						g_variant_get(data, "((uss))", &regstatus, &operatorcode, &operatorname);
 						res = mmgui_module_device_registered_from_status(regstatus);
+						device->registered = res;
+						g_variant_unref(data);
 					}
-					g_variant_unref(data);
+				} else if (device->type == MMGUI_DEVICE_TYPE_CDMA) {
+					error = NULL;
+					data = g_dbus_proxy_call_sync(moduledata->netproxy,
+													"GetRegistrationState",
+													NULL,
+													0,
+													-1,
+													NULL,
+													&error);
+					if ((data == NULL) && (error != NULL)) {
+						mmgui_module_handle_error_message(mmguicorelc, error);
+						g_error_free(error);
+					} else {
+						g_variant_get(data, "((uu))", &intval1, &intval2);
+						res = mmgui_module_cdma_device_registered_from_status(intval1);
+						device->registered = res;
+						if (device->regstatus == MMGUI_REG_STATUS_UNKNOWN) {
+							res = mmgui_module_cdma_device_registered_from_status(intval2);
+							device->registered = res;
+						}
+						g_variant_unref(data);
+					}
 				}
 			} else {
 				res = FALSE;
@@ -1043,40 +1210,18 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_update_state(gpointer mmguicore)
 	return TRUE;
 }
 
-static gboolean mmgui_module_devices_update_registration(gpointer mmguicore, guint regstatus, gchar *operatorcode, gchar *operatorname)
-{
-	mmguicore_t mmguicorelc;
-	mmguidevice_t device;
-	
-	if ((mmguicore == NULL) || (operatorcode == NULL) || (operatorname == NULL)) return FALSE;
-	
-	if (mmguicore == NULL) return FALSE;
-	mmguicorelc = (mmguicore_t)mmguicore;
-	
-	if (mmguicorelc->device == NULL) return FALSE;
-	device = mmguicorelc->device;
-	
-	if (device->operatorname != NULL) {
-		g_free(device->operatorname);
-	}
-	
-	device->registered = mmgui_module_device_registered_from_status(regstatus);
-	device->operatorcode = mmgui_module_gsm_operator_code(operatorcode);
-	device->operatorname = g_strdup(operatorname);
-	
-	return TRUE;
-}
-
 static gboolean mmgui_module_devices_update_device_mode(gpointer mmguicore, gint oldstate, gint newstate, guint changereason)
 {
 	mmguicore_t mmguicorelc;
 	moduledata_t moduledata;
 	mmguidevice_t device;
-	gboolean enabledsignal, blockedsignal, oldenabled, oldblocked;
+	gboolean enabledsignal, blockedsignal, regsignal, oldenabled, oldblocked, oldregistered;
 	gsize strsize;
 	GVariant *data;
 	GError *error;
 	gchar *blockstr;
+	guint intval1, intval2;
+	gchar *strval1, *strval2;
 			
 	if (mmguicore == NULL) return FALSE;
 	mmguicorelc = (mmguicore_t)mmguicore;
@@ -1092,9 +1237,9 @@ static gboolean mmgui_module_devices_update_device_mode(gpointer mmguicore, gint
 		oldenabled = device->enabled;
 		device->enabled = mmgui_module_device_enabled_from_state(newstate);
 	}
-	oldblocked = device->blocked;
 	if (moduledata->modemproxy != NULL) {
 		/*Device blocked status*/
+		oldblocked = device->blocked;
 		data = g_dbus_proxy_get_cached_property(moduledata->modemproxy, "UnlockRequired");
 		if (data != NULL) {
 			blockstr = (gchar *)g_variant_get_string(data, &strsize);
@@ -1104,27 +1249,103 @@ static gboolean mmgui_module_devices_update_device_mode(gpointer mmguicore, gint
 			device->blocked = FALSE;
 		}
 	}
+	/*Device registered status*/
+	oldregistered = device->registered;
+	device->registered = mmgui_module_device_registered_from_state(newstate);
 		
 	/*Is enabled signal needed */
-	if ((device->operation != MMGUI_DEVICE_OPERATION_ENABLE) && (oldenabled = device->enabled)) {
-		enabledsignal = TRUE;
-	} else {
-		enabledsignal = FALSE;
-	}
+	enabledsignal = ((device->operation != MMGUI_DEVICE_OPERATION_ENABLE) && (oldenabled = device->enabled));
 	/*Is blocked signal needed */
-	if (oldblocked != device->blocked) {
-		blockedsignal = TRUE;
-	} else {
-		blockedsignal = FALSE;
-	}
+	blockedsignal = (oldblocked != device->blocked);
+	/*Is registered signal needed*/
+	regsignal = (oldregistered != device->registered);
 	
 	/*Return if no signals will be sent*/
-	if ((!enabledsignal) && (!blockedsignal)) return TRUE;
+	if ((!enabledsignal) && (!blockedsignal) && (!regsignal)) return TRUE;
 	
-	if (moduledata->cardproxy != NULL) {
+	/*Handle device registration*/
+	if ((regsignal) && (device->registered)) {
+		if (moduledata->netproxy != NULL) {
+			if (device->type == MMGUI_DEVICE_TYPE_GSM) {
+				/*Operator information*/
+				device->regstatus = MMGUI_REG_STATUS_UNKNOWN;
+				device->operatorcode = 0;
+				if (device->operatorname != NULL) {
+					g_free(device->operatorname);
+					device->operatorname = NULL;
+				}
+				error = NULL;
+				data = g_dbus_proxy_call_sync(moduledata->netproxy,
+												"GetRegistrationInfo",
+												NULL,
+												0,
+												-1,
+												NULL,
+												&error);
+				if ((data == NULL) && (error != NULL)) {
+					mmgui_module_handle_error_message(mmguicorelc, error);
+					g_error_free(error);
+				} else {
+					g_variant_get(data, "((uss))", &intval1, &strval1, &strval2);
+					device->regstatus = mmgui_module_registration_status_translate(intval1);
+					device->operatorcode = mmgui_module_gsm_operator_code(strval1);
+					device->operatorname = g_strdup(strval2);
+					g_variant_unref(data);
+				}
+			} else if (device->type == MMGUI_DEVICE_TYPE_CDMA) {
+				/*Operator information*/
+				device->regstatus = MMGUI_REG_STATUS_UNKNOWN;
+				device->operatorcode = 0;
+				if (device->operatorname != NULL) {
+					g_free(device->operatorname);
+					device->operatorname = NULL;
+				}
+				/*Registration state*/
+				error = NULL;
+				data = g_dbus_proxy_call_sync(moduledata->netproxy,
+												"GetRegistrationState",
+												NULL,
+												0,
+												-1,
+												NULL,
+												&error);
+				if ((data == NULL) && (error != NULL)) {
+					mmgui_module_handle_error_message(mmguicorelc, error);
+					g_error_free(error);
+				} else {
+					g_variant_get(data, "((uu))", &intval1, &intval2);
+					device->regstatus = mmgui_module_cdma_registration_status_translate(intval1);
+					if (device->regstatus == MMGUI_REG_STATUS_UNKNOWN) {
+						device->regstatus = mmgui_module_cdma_registration_status_translate(intval2);
+					}
+					g_variant_unref(data);
+				}
+				/*SID*/
+				error = NULL;
+				data = g_dbus_proxy_call_sync(moduledata->netproxy,
+												"GetServingSystem",
+												NULL,
+												0,
+												-1,
+												NULL,
+												&error);
+				if ((data == NULL) && (error != NULL)) {
+					mmgui_module_handle_error_message(mmguicorelc, error);
+					g_error_free(error);
+				} else {
+					g_variant_get(data, "((usu))", &intval1, &strval1, &intval2);
+					device->operatorcode = intval2;
+					g_variant_unref(data);
+				}
+			}
+		}
+	}
+	
+	/*Handle device enablement*/
+	if ((enabledsignal) && (device->enabled)) {
 		if (device->type == MMGUI_DEVICE_TYPE_GSM) {
-			if (device->enabled) {
-				//IMEI
+			if (moduledata->cardproxy != NULL) {
+				/*IMEI*/
 				if (device->imei != NULL) {
 					g_free(device->imei);
 					device->imei = NULL;
@@ -1148,10 +1369,7 @@ static gboolean mmgui_module_devices_update_device_mode(gpointer mmguicore, gint
 					device->imei = g_strdup(device->imei);
 					g_variant_unref(data);
 				}
-			}
-			
-			if (device->enabled) {
-				//IMSI
+				/*IMSI*/
 				if (device->imsi != NULL) {
 					g_free(device->imsi);
 					device->imsi = NULL;
@@ -1177,8 +1395,8 @@ static gboolean mmgui_module_devices_update_device_mode(gpointer mmguicore, gint
 				}
 			}
 		} else if (device->type == MMGUI_DEVICE_TYPE_CDMA) {
-			if (device->enabled) {
-				//ESN
+			if (moduledata->netproxy != NULL) {
+				/*ESN*/
 				if (device->imei != NULL) {
 					g_free(device->imei);
 					device->imei = NULL;
@@ -1186,7 +1404,7 @@ static gboolean mmgui_module_devices_update_device_mode(gpointer mmguicore, gint
 				
 				error = NULL;
 				
-				data = g_dbus_proxy_call_sync(moduledata->cardproxy,
+				data = g_dbus_proxy_call_sync(moduledata->netproxy,
 												"GetEsn",
 												NULL,
 												0,
@@ -1202,26 +1420,31 @@ static gboolean mmgui_module_devices_update_device_mode(gpointer mmguicore, gint
 					device->imsi = g_strdup(device->imsi);
 					g_variant_unref(data);
 				}
-			}
-			
-			//No IMSI in CDMA
-			if (device->imsi != NULL) {
-				g_free(device->imsi);
-				device->imsi = NULL;
+				/*No IMSI in CDMA*/
+				if (device->imsi != NULL) {
+					g_free(device->imsi);
+					device->imsi = NULL;
+				}
 			}
 		}
 	}
 	
-	/*Enabled signal */
+	/*Enabled status signal*/
 	if (enabledsignal) {
 		if (mmguicorelc->eventcb != NULL) {
 			(mmguicorelc->eventcb)(MMGUI_EVENT_DEVICE_ENABLED_STATUS, mmguicorelc, GUINT_TO_POINTER(device->enabled));
 		}
 	}
-	/*Is blocked signal needed */
+	/*Blocked status signal*/
 	if (blockedsignal) {
 		if (mmguicorelc->eventcb != NULL) {
 			(mmguicorelc->eventcb)(MMGUI_EVENT_DEVICE_BLOCKED_STATUS, mmguicorelc, GUINT_TO_POINTER(device->blocked));
+		}
+	}
+	/*Registered status signal*/
+	if (regsignal) {
+		if (mmguicorelc->eventcb != NULL) {
+			(mmguicorelc->eventcb)(MMGUI_EVENT_NETWORK_REGISTRATION_CHANGE, mmguicorelc, device);
 		}
 	}
 		
@@ -1359,6 +1582,8 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_information(gpointer mmguicore)
 	GError *error;
 	gchar *blockstr, *operatorcode;
 	gsize strsize = 256;
+	guint intval1, intval2;
+	gchar *strval1, *strval2;
 	
 	if (mmguicore == NULL) return FALSE;
 	mmguicorelc = (mmguicore_t)mmguicore;
@@ -1390,80 +1615,151 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_information(gpointer mmguicore)
 			g_debug("Failed to get device blocked state\n");
 		}
 	}
-	
+		
 	if (moduledata->netproxy != NULL) {
-		if (device->enabled) {
-			//Signal level
-			device->siglevel = 0;
-			
+		if (device->type == MMGUI_DEVICE_TYPE_GSM) {
+			if (device->enabled) {
+				/*Signal level*/
+				device->siglevel = 0;
+				error = NULL;
+				data = g_dbus_proxy_call_sync(moduledata->netproxy,
+												"GetSignalQuality",
+												NULL,
+												0,
+												-1,
+												NULL,
+												&error);
+				if ((data == NULL) && (error != NULL)) {
+					mmgui_module_handle_error_message(mmguicorelc, error);
+					g_error_free(error);
+				} else {
+					g_variant_get(data, "(u)", &device->siglevel);
+					g_variant_unref(data);
+				}
+			}
+			/*Operator information*/
+			device->registered = FALSE;
+			device->regstatus = MMGUI_REG_STATUS_UNKNOWN;
+			device->operatorcode = 0;
+			if (device->operatorname != NULL) {
+				g_free(device->operatorname);
+				device->operatorname = NULL;
+			}
 			error = NULL;
-			
 			data = g_dbus_proxy_call_sync(moduledata->netproxy,
-											"GetSignalQuality",
+											"GetRegistrationInfo",
 											NULL,
 											0,
 											-1,
 											NULL,
 											&error);
-			
 			if ((data == NULL) && (error != NULL)) {
 				mmgui_module_handle_error_message(mmguicorelc, error);
 				g_error_free(error);
 			} else {
-				g_variant_get(data, "(u)", &device->siglevel);
+				g_variant_get(data, "((uss))", &intval1, &strval1, &strval2);
+				device->registered = mmgui_module_device_registered_from_status(intval1);
+				device->regstatus = mmgui_module_registration_status_translate(intval1);
+				device->operatorcode = mmgui_module_gsm_operator_code(strval1);
+				device->operatorname = g_strdup(strval2);
 				g_variant_unref(data);
 			}
-		}
-		
-		//Operator
-		device->operatorcode = 0;
-		
-		if (device->operatorname != NULL) {
-			g_free(device->operatorname);
-			device->operatorname = NULL;
-		}
-		
-		device->regstatus = 0;
-		
-		error = NULL;
-		
-		data = g_dbus_proxy_call_sync(moduledata->netproxy,
-										"GetRegistrationInfo",
-										NULL,
-										0,
-										-1,
-										NULL,
-										&error);
-		
-		if ((data == NULL) && (error != NULL)) {
-			mmgui_module_handle_error_message(mmguicorelc, error);
-			g_error_free(error);
-		} else {
-			g_variant_get(data, "((uss))", &device->regstatus, &operatorcode, &device->operatorname);
-			device->registered = mmgui_module_device_registered_from_status(device->regstatus);
-			device->operatorcode = mmgui_module_gsm_operator_code(operatorcode);
-			device->operatorname = g_strdup(device->operatorname);
-			g_variant_unref(data);
-		}
-		
-		//Allowed mode
-		data = g_dbus_proxy_get_cached_property(moduledata->netproxy, "AllowedMode");
-		if (data != NULL) {
-			device->allmode = g_variant_get_uint32(data);
-			g_variant_unref(data);
-		} else {
-			device->allmode = 0;
-			g_debug("Failed to get device allowed mode\n");
-		}
-		
-		//Access technology
-		data = g_dbus_proxy_get_cached_property(moduledata->netproxy, "AccessTechnology");
-		if (data != NULL) {
-			device->mode = g_variant_get_uint32(data);
-			g_variant_unref(data);
-		} else {
-			device->mode = 0;
-			g_debug("Failed to get device access mode\n");
+			/*Allowed mode*/
+			data = g_dbus_proxy_get_cached_property(moduledata->netproxy, "AllowedMode");
+			if (data != NULL) {
+				device->allmode = g_variant_get_uint32(data);
+				g_variant_unref(data);
+			} else {
+				device->allmode = 0;
+				g_debug("Failed to get device allowed mode\n");
+			}
+			/*Access technology*/
+			data = g_dbus_proxy_get_cached_property(moduledata->netproxy, "AccessTechnology");
+			if (data != NULL) {
+				device->mode = g_variant_get_uint32(data);
+				g_variant_unref(data);
+			} else {
+				device->mode = 0;
+				g_debug("Failed to get device access mode\n");
+			}
+		} else if (device->type == MMGUI_DEVICE_TYPE_CDMA) {
+			/*Operator information*/
+			device->registered = FALSE;
+			device->regstatus = MMGUI_REG_STATUS_UNKNOWN;
+			device->operatorcode = 0;
+			if (device->operatorname != NULL) {
+				g_free(device->operatorname);
+				device->operatorname = NULL;
+			}
+			/*Registration state*/
+			error = NULL;
+			data = g_dbus_proxy_call_sync(moduledata->netproxy,
+											"GetRegistrationState",
+											NULL,
+											0,
+											-1,
+											NULL,
+											&error);
+			if ((data == NULL) && (error != NULL)) {
+				mmgui_module_handle_error_message(mmguicorelc, error);
+				g_error_free(error);
+			} else {
+				g_variant_get(data, "((uu))", &intval1, &intval2);
+				device->registered = mmgui_module_cdma_device_registered_from_status(intval1);
+				device->regstatus = mmgui_module_cdma_registration_status_translate(intval1);
+				if (device->regstatus == MMGUI_REG_STATUS_UNKNOWN) {
+					device->registered = mmgui_module_cdma_device_registered_from_status(intval2);
+					device->regstatus = mmgui_module_cdma_registration_status_translate(intval2);
+				}
+				g_variant_unref(data);
+			}
+			/*SID*/
+			error = NULL;
+			data = g_dbus_proxy_call_sync(moduledata->netproxy,
+											"GetServingSystem",
+											NULL,
+											0,
+											-1,
+											NULL,
+											&error);
+			if ((data == NULL) && (error != NULL)) {
+				mmgui_module_handle_error_message(mmguicorelc, error);
+				g_error_free(error);
+			} else {
+				g_variant_get(data, "((usu))", &intval1, &strval1, &intval2);
+				device->operatorcode = intval2;
+				g_variant_unref(data);
+			}
+			/*Identification*/
+			if (device->enabled) {
+				/*ESN*/
+				if (device->imei != NULL) {
+					g_free(device->imei);
+					device->imei = NULL;
+				}
+				error = NULL;
+				data = g_dbus_proxy_call_sync(moduledata->netproxy,
+												"GetEsn",
+												NULL,
+												0,
+												-1,
+												NULL,
+												&error);
+				
+				if ((data == NULL) && (error != NULL)) {
+					mmgui_module_handle_error_message(mmguicorelc, error);
+					g_error_free(error);
+				} else {
+					g_variant_get(data, "(s)", &device->imsi);
+					device->imsi = g_strdup(device->imsi);
+					g_variant_unref(data);
+				}
+			}
+			/*No IMSI in CDMA*/
+			if (device->imsi != NULL) {
+				g_free(device->imsi);
+				device->imsi = NULL;
+			}
 		}
 	}
 	
@@ -1522,41 +1818,9 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_information(gpointer mmguicore)
 					g_variant_unref(data);
 				}
 			}
-		} else if (device->type == MMGUI_DEVICE_TYPE_CDMA) {
-			if (device->enabled) {
-				//ESN
-				if (device->imei != NULL) {
-					g_free(device->imei);
-					device->imei = NULL;
-				}
-				
-				error = NULL;
-				
-				data = g_dbus_proxy_call_sync(moduledata->cardproxy,
-												"GetEsn",
-												NULL,
-												0,
-												-1,
-												NULL,
-												&error);
-				
-				if ((data == NULL) && (error != NULL)) {
-					mmgui_module_handle_error_message(mmguicorelc, error);
-					g_error_free(error);
-				} else {
-					g_variant_get(data, "(s)", &device->imsi);
-					device->imsi = g_strdup(device->imsi);
-					g_variant_unref(data);
-				}
-			}
-			
-			//No IMSI in CDMA
-			if (device->imsi != NULL) {
-				g_free(device->imsi);
-				device->imsi = NULL;
-			}
 		}
 	}
+	
 	
 	//Update location
 	if (moduledata->service == MODULE_INT_SERVICE_MODEM_MANAGER) {
@@ -1606,24 +1870,42 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_open(gpointer mmguicore, mmguidevi
 	//ModemManager uses 'Modems' prefix and Wader uses 'Devices' prefix
 	
 	//SIM card interface
+	error = NULL;
+	moduledata->cardproxy = g_dbus_proxy_new_sync(moduledata->connection,
+													G_DBUS_PROXY_FLAGS_NONE,
+													NULL,
+													"org.freedesktop.ModemManager",
+													device->objectpath,
+													"org.freedesktop.ModemManager.Modem.Gsm.Card",
+													NULL,
+													&error);
+	if ((moduledata->cardproxy == NULL) && (error != NULL)) {
+		mmgui_module_handle_error_message(mmguicorelc, error);
+		g_error_free(error);
+	}
+	//Mobile network interface
 	if (device->type == MMGUI_DEVICE_TYPE_GSM) {
 		error = NULL;
-		moduledata->cardproxy = g_dbus_proxy_new_sync(moduledata->connection,
-														G_DBUS_PROXY_FLAGS_NONE,
-														NULL,
-														"org.freedesktop.ModemManager",
-														device->objectpath,
-														"org.freedesktop.ModemManager.Modem.Gsm.Card",
-														NULL,
-														&error);
-		
-		if ((moduledata->cardproxy == NULL) && (error != NULL)) {
+		moduledata->netproxy = g_dbus_proxy_new_sync(moduledata->connection,
+													G_DBUS_PROXY_FLAGS_NONE,
+													NULL,
+													"org.freedesktop.ModemManager",
+													device->objectpath,
+													"org.freedesktop.ModemManager.Modem.Gsm.Network",
+													NULL,
+													&error);
+		if ((moduledata->netproxy == NULL) && (error != NULL)) {
+			device->scancaps = MMGUI_SCAN_CAPS_NONE;
 			mmgui_module_handle_error_message(mmguicorelc, error);
 			g_error_free(error);
+		} else {
+			device->scancaps = MMGUI_SCAN_CAPS_OBSERVE;
+			moduledata->netsignal = g_signal_connect(moduledata->netproxy, "g-signal", G_CALLBACK(mmgui_signal_handler), mmguicore);
+			moduledata->netpropsignal = g_signal_connect(moduledata->netproxy, "g-properties-changed", G_CALLBACK(mmgui_property_change_handler), mmguicore);
 		}
 	} else if (device->type == MMGUI_DEVICE_TYPE_CDMA) {
 		error = NULL;
-		moduledata->cardproxy = g_dbus_proxy_new_sync(moduledata->connection,
+		moduledata->netproxy = g_dbus_proxy_new_sync(moduledata->connection,
 														G_DBUS_PROXY_FLAGS_NONE,
 														NULL,
 														"org.freedesktop.ModemManager",
@@ -1631,30 +1913,14 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_open(gpointer mmguicore, mmguidevi
 														"org.freedesktop.ModemManager.Modem.Cdma",
 														NULL,
 														&error);
-		
-		if ((moduledata->cardproxy == NULL) && (error != NULL)) {
+		if ((moduledata->netproxy == NULL) && (error != NULL)) {
+			device->scancaps = MMGUI_SCAN_CAPS_NONE;
 			mmgui_module_handle_error_message(mmguicorelc, error);
 			g_error_free(error);
+		} else {
+			device->scancaps = MMGUI_SCAN_CAPS_NONE;
+			moduledata->netsignal = g_signal_connect(moduledata->netproxy, "g-signal", G_CALLBACK(mmgui_signal_handler), mmguicore);
 		}
-	}
-	//Mobile network interface
-	error = NULL;
-	moduledata->netproxy = g_dbus_proxy_new_sync(moduledata->connection,
-												G_DBUS_PROXY_FLAGS_NONE,
-												NULL,
-												"org.freedesktop.ModemManager",
-												device->objectpath,
-												"org.freedesktop.ModemManager.Modem.Gsm.Network",
-												NULL,
-												&error);
-	
-	if ((moduledata->netproxy == NULL) && (error != NULL)) {
-		device->scancaps = MMGUI_SCAN_CAPS_NONE;
-		mmgui_module_handle_error_message(mmguicorelc, error);
-		g_error_free(error);
-	} else {
-		device->scancaps = MMGUI_SCAN_CAPS_OBSERVE;
-		moduledata->netpropsignal = g_signal_connect(moduledata->netproxy, "g-properties-changed", G_CALLBACK(mmgui_property_change_handler), mmguicore);
 	}
 	//Modem interface
 	error = NULL;
@@ -1817,6 +2083,9 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_close(gpointer mmguicore)
 		moduledata->cardproxy = NULL;
 	}
 	if (moduledata->netproxy != NULL) {
+		if (g_signal_handler_is_connected(moduledata->netproxy, moduledata->netsignal)) {
+			g_signal_handler_disconnect(moduledata->netproxy, moduledata->netsignal);
+		}
 		if (g_signal_handler_is_connected(moduledata->netproxy, moduledata->netpropsignal)) {
 			g_signal_handler_disconnect(moduledata->netproxy, moduledata->netpropsignal);
 		}
