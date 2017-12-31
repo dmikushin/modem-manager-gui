@@ -1,7 +1,7 @@
 /*
  *      modem-settings.c
  *      
- *      Copyright 2014 Alex <alex@linuxonly.ru>
+ *      Copyright 2014-2017 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -29,13 +29,10 @@ modem_settings_t mmgui_modem_settings_open(const gchar *persistentid)
 {
 	modem_settings_t settings;
 	gchar *filepath;
-	gchar *filedata;
-	gsize datasize;
-	GError *error;
-	
+		
 	if (persistentid == NULL) return NULL;
 	
-	//Form path using XDG standard
+	/*Form path using XDG standard*/
 	filepath = g_build_path(G_DIR_SEPARATOR_S, g_get_user_data_dir(), "modem-manager-gui", "devices", persistentid, NULL);
 	
 	if (filepath == NULL) return NULL;
@@ -54,21 +51,9 @@ modem_settings_t mmgui_modem_settings_open(const gchar *persistentid)
 	
 	g_free(filepath);
 	
-	error = NULL;
-	
-	if (g_file_get_contents(settings->filename, &filedata, &datasize, &error)) {
-		if (!g_key_file_load_from_data(settings->keyfile, filedata, datasize, G_KEY_FILE_NONE, &error)) {
-			g_warning("No data loaded from file");
-			g_error_free(error);
-			error = NULL;
-		}
-		g_free(filedata);
-	} else {
-		g_warning("No data loaded from file");
-		g_error_free(error);
-		error = NULL;
-	}
-	
+	/*Do not show any error messages here*/
+	g_key_file_load_from_file(settings->keyfile, settings->filename, G_KEY_FILE_NONE, NULL);
+		
 	return settings;
 }
 

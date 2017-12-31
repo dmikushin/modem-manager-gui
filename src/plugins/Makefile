@@ -1,18 +1,18 @@
 include ../../Makefile_h
 
-GCCMOD      = gcc -fPIC
-GCCLMOD     = gcc -shared
-INCMOD      = `pkg-config --cflags glib-2.0 ofono`
-LIBMOD      = `pkg-config --libs glib-2.0` -lgdbm -lrt
-OFONOOBJMOD = ofonohistory.o
-OFONOLIBDIR = $(LIBPATH)/ofono/plugins/
+GCCMOD        = gcc -fPIC
+GCCLMOD       = gcc -shared
+INCMOD        = `pkg-config --cflags glib-2.0 ofono`
+OFONOLIBMOD   = `pkg-config --libs glib-2.0` -lgdbm -lrt
+OFONOOBJMOD   = ofonohistory.o
+OFONOLIBDIR   = $(LIBPATH)/ofono/plugins/
 FILES_OFONO:= $(wildcard libmmgui-ofono*.so)
 
 all: ofonohistory
 
 ifeq ($(OFONOPLUGIN),true)
 ofonohistory: $(OFONOOBJMOD)
-	$(GCCLMOD) $(INCMOD) $(LDFLAGS) $(OFONOOBJMOD) $(LIBMOD) -o libmmgui-ofono-history.so
+	$(GCCLMOD) $(INCMOD) $(LDFLAGS) $(OFONOOBJMOD) $(OFONOLIBMOD) -o libmmgui-ofono-history.so
 else
 ofonohistory:
 	

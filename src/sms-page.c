@@ -1,7 +1,7 @@
 /*
  *      sms-page.c
  *      
- *      Copyright 2012-2015 Alex <alex@linuxonly.ru>
+ *      Copyright 2012-2017 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -265,7 +265,11 @@ static void mmgui_main_sms_execute_custom_command(mmgui_application_t mmguiapp, 
 			}
 			/*Finally exucute custom command*/
 			error = NULL;
+			#if GLIB_CHECK_VERSION(2,34,0)
 			if (!g_spawn_async(NULL, argvp, NULL, G_SPAWN_SEARCH_PATH_FROM_ENVP, NULL, NULL, NULL, &error)) {
+			#else
+			if (!g_spawn_async(NULL, argvp, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &error)) {
+			#endif
 				g_debug("Error spawning external command: %s\n", error->message);
 				g_error_free(error);
 			}
@@ -669,7 +673,7 @@ gboolean mmgui_main_sms_send(mmgui_application_t mmguiapp, const gchar *number, 
 		if (result == MMGUI_MAIN_NEW_SMS_DIALOG_SEND) {
 			/*Start progress menubar*/
 			statusmsg = g_strdup_printf(_("Sending SMS to number \"%s\"..."), resnumber);
-			mmgui_ui_infobar_show(mmguiapp, statusmsg, MMGUI_MAIN_INFOBAR_TYPE_PROGRESS, TRUE);
+			mmgui_ui_infobar_show(mmguiapp, statusmsg, MMGUI_MAIN_INFOBAR_TYPE_PROGRESS, NULL, NULL);
 			g_free(statusmsg);
 			/*Send message*/
 			if (mmguicore_sms_send(mmguiapp->core, resnumber, restext, mmguiapp->options->smsvalidityperiod, mmguiapp->options->smsdeliveryreport)) {
@@ -696,7 +700,7 @@ gboolean mmgui_main_sms_send(mmgui_application_t mmguiapp, const gchar *number, 
 		/*Save message*/
 		} else if (result == MMGUI_MAIN_NEW_SMS_DIALOG_SAVE) {
 			/*Start progress menubar*/
-			mmgui_ui_infobar_show(mmguiapp, _("Saving SMS..."), MMGUI_MAIN_INFOBAR_TYPE_PROGRESS, TRUE);
+			mmgui_ui_infobar_show(mmguiapp, _("Saving SMS..."), MMGUI_MAIN_INFOBAR_TYPE_PROGRESS, NULL, NULL);
 			/*Form message*/
 			message = mmgui_smsdb_message_create();
 			mmgui_smsdb_message_set_number(message, resnumber);
@@ -1877,6 +1881,11 @@ gboolean mmgui_main_sms_spellcheck_init(mmgui_application_t mmguiapp)
 	}
 	
 	return TRUE;
+}
+#else
+void mmgui_main_sms_new_disable_spellchecker_signal(GtkToolButton *toolbutton, gpointer data)
+{
+	
 }
 #endif
 

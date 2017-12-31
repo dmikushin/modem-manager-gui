@@ -1,7 +1,7 @@
 /*
  *      ofono109.c
  *      
- *      Copyright 2013-2014 Alex <alex@linuxonly.ru>
+ *      Copyright 2013-2017 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -37,10 +37,11 @@
 #define MMGUI_MODULE_IDENTIFIER    109
 #define MMGUI_MODULE_DESCRIPTION   "oFono >= 1.9"
 
-#define MMGUI_MODULE_ENABLE_OPERATION_TIMEOUT         20000
-#define MMGUI_MODULE_SEND_SMS_OPERATION_TIMEOUT       35000
-#define MMGUI_MODULE_SEND_USSD_OPERATION_TIMEOUT      25000
-#define MMGUI_MODULE_NETWORKS_SCAN_OPERATION_TIMEOUT  60000
+#define MMGUI_MODULE_ENABLE_OPERATION_TIMEOUT           20000
+#define MMGUI_MODULE_SEND_SMS_OPERATION_TIMEOUT         35000
+#define MMGUI_MODULE_SEND_USSD_OPERATION_TIMEOUT        25000
+#define MMGUI_MODULE_NETWORKS_SCAN_OPERATION_TIMEOUT    60000
+#define MMGUI_MODULE_NETWORKS_UNLOCK_OPERATION_TIMEOUT  20000
 
 //Location data bitmask
 typedef enum {
@@ -64,12 +65,15 @@ struct _mmguimoduledata {
 	GDBusProxy *smsproxy;
 	GDBusProxy *ussdproxy;
 	GDBusProxy *contactsproxy;
+	GDBusProxy *connectionproxy;
 	//Attached signal handlers
 	gulong netsignal;
 	gulong netopsignal;
 	gulong modemsignal;
 	gulong cardsignal;
 	gulong smssignal;
+	gulong connectionsignal;
+	gulong broadcastsignal;
 	//Error message
 	gchar *errormessage;
 	//Pending power devices queue, sms messages queue
@@ -89,6 +93,8 @@ typedef struct _mmguimoduledata *moduledata_t;
 
 static enum _mmgui_device_modes mmgui_module_access_mode_translate(const gchar *mode);
 static enum _mmgui_reg_status mmgui_module_registration_status_translate(const gchar *status);
+static gboolean mmgui_module_device_get_locked_from_unlock_string(const gchar *ustring);
+static gint mmgui_module_device_get_lock_type_from_unlock_string(const gchar *ustring);
 static GVariant *mmgui_module_proxy_get_property(GDBusProxy *proxy, const gchar *name, const GVariantType *type);
 static gboolean mmgui_module_device_get_enabled(mmguicore_t mmguicore);
 static mmguidevice_t mmgui_module_device_new(mmguicore_t mmguicore, const gchar *devpath, GVariant *devprops);
@@ -97,11 +103,14 @@ static mmgui_sms_message_t mmgui_module_sms_retrieve(mmguicore_t mmguicore, GVar
 gboolean mmgui_module_devices_information(gpointer mmguicore);
 /*Dynamic interfaces*/
 static gboolean mmgui_module_open_network_registration_interface(gpointer mmguicore, mmguidevice_t device);
+static gboolean mmgui_module_open_cdma_network_registration_interface(gpointer mmguicore, mmguidevice_t device);
 static gboolean mmgui_module_open_sim_manager_interface(gpointer mmguicore, mmguidevice_t device);
 static gboolean mmgui_module_open_message_manager_interface(gpointer mmguicore, mmguidevice_t device);
+static gboolean mmgui_module_open_cdma_message_manager_interface(gpointer mmguicore, mmguidevice_t device);
 static gboolean mmgui_module_open_supplementary_services_interface(gpointer mmguicore, mmguidevice_t device);
 static gboolean mmgui_module_open_phonebook_interface(gpointer mmguicore, mmguidevice_t device);
-
+static gboolean mmgui_module_open_connection_manager_interface(gpointer mmguicore, mmguidevice_t device);
+static gboolean mmgui_module_open_cdma_connection_manager_interface(gpointer mmguicore, mmguidevice_t device);
 
 static void mmgui_module_handle_error_message(mmguicore_t mmguicore, GError *error)
 {
@@ -241,7 +250,7 @@ static void mmgui_module_network_signal_handler(GDBusProxy *proxy, const gchar *
 			if ((parameter != NULL) && (parameter[0] != '\0') && (value != NULL)) {
 				g_debug("SIGNAL: %s: %s\n", parameter, g_variant_print(value, TRUE));
 				if (g_str_equal(parameter, "Strength")) {
-					//Signal level
+					/*Signal level*/
 					if (mmguicore->device != NULL) {
 						mmguicore->device->siglevel = g_variant_get_byte(value);
 						if (mmguicore->eventcb != NULL) {
@@ -249,7 +258,7 @@ static void mmgui_module_network_signal_handler(GDBusProxy *proxy, const gchar *
 						}
 					}
 				} else if (g_str_equal(parameter, "Status")) {
-					//Registration state
+					/*Registration state*/
 					if (mmguicore->device != NULL) {
 						strsize = 256;
 						parameter = g_variant_get_string(value, &strsize);
@@ -261,7 +270,7 @@ static void mmgui_module_network_signal_handler(GDBusProxy *proxy, const gchar *
 						}
 					}
 				} else if (g_str_equal(parameter, "MobileCountryCode")) {
-					//Registration state
+					/*Registration state*/
 					if (mmguicore->device != NULL) {
 						strsize = 256;
 						parameter = g_variant_get_string(value, &strsize);
@@ -403,8 +412,7 @@ static void mmgui_module_modem_signal_handler(GDBusProxy *proxy, const gchar *se
 	GVariantIter iterl1;
 	GVariant *nodel1;
 	const gchar *interface;
-	
-	
+		
 	mmguicore = (mmguicore_t)data;
 	if (mmguicore == NULL) return;
 	
@@ -436,12 +444,23 @@ static void mmgui_module_modem_signal_handler(GDBusProxy *proxy, const gchar *se
 										}
 										mmgui_module_devices_information(mmguicore);
 									}
+								} else if ((moduledata->netproxy == NULL) && (g_str_equal(interface, "org.ofono.cdma.NetworkRegistration"))) {
+									if (mmgui_module_open_cdma_network_registration_interface(mmguicore, mmguicore->device)) {
+										mmgui_module_devices_information(mmguicore);
+									}	
 								} else if ((moduledata->cardproxy == NULL) && (g_str_equal(interface, "org.ofono.SimManager"))) {
 									if (mmgui_module_open_sim_manager_interface(mmguicore, mmguicore->device)) {
 										mmgui_module_devices_information(mmguicore);
 									}
 								} else if ((moduledata->smsproxy == NULL) && (g_str_equal(interface, "org.ofono.MessageManager"))) {
 									if (mmgui_module_open_message_manager_interface(mmguicore, mmguicore->device)) {
+										/*SMS messaging capabilities updated*/
+										if (mmguicore->eventcb != NULL) {
+											(mmguicore->eventcb)(MMGUI_EVENT_EXTEND_CAPABILITIES, mmguicore, GINT_TO_POINTER(MMGUI_CAPS_SMS));
+										}
+									}
+								} else  if ((moduledata->smsproxy == NULL) && (g_str_equal(interface, "org.ofono.cdma.MessageManager"))) {
+									if (mmgui_module_open_cdma_message_manager_interface(mmguicore, mmguicore->device)) {
 										/*SMS messaging capabilities updated*/
 										if (mmguicore->eventcb != NULL) {
 											(mmguicore->eventcb)(MMGUI_EVENT_EXTEND_CAPABILITIES, mmguicore, GINT_TO_POINTER(MMGUI_CAPS_SMS));
@@ -461,12 +480,35 @@ static void mmgui_module_modem_signal_handler(GDBusProxy *proxy, const gchar *se
 											(mmguicore->eventcb)(MMGUI_EVENT_EXTEND_CAPABILITIES, mmguicore, GINT_TO_POINTER(MMGUI_CAPS_CONTACTS));
 										}
 									}
+								} else if ((moduledata->connectionproxy == NULL) && (g_str_equal(interface, "org.ofono.ConnectionManager"))) {
+									if (mmgui_module_open_connection_manager_interface(mmguicore, mmguicore->device)) {
+										mmgui_module_devices_information(mmguicore);
+									}
+								} else if ((moduledata->connectionproxy == NULL) && (g_str_equal(interface, "org.ofono.cdma.ConnectionManager"))) {
+									if (mmgui_module_open_cdma_connection_manager_interface(mmguicore, mmguicore->device)) {
+										mmgui_module_devices_information(mmguicore);
+									}
 								}
 							}
 							g_variant_unref(nodel1);
 						}
 					}
-					
+				} else if (g_str_equal(parameter, "Online")) {
+					if (mmguicore->device != NULL) {
+						mmguicore->device->enabled = g_variant_get_boolean(value);
+						if (mmguicore->eventcb != NULL) {
+							if (mmguicore->device->operation != MMGUI_DEVICE_OPERATION_ENABLE) {
+								(mmguicore->eventcb)(MMGUI_EVENT_DEVICE_ENABLED_STATUS, mmguicore, GUINT_TO_POINTER(mmguicore->device->enabled));
+							} else {
+								if (mmguicore->device != NULL) {
+									mmguicore->device->operation = MMGUI_DEVICE_OPERATION_IDLE;
+								}
+								if (mmguicore->eventcb != NULL) {
+									(mmguicore->eventcb)(MMGUI_EVENT_MODEM_ENABLE_RESULT, mmguicore, GUINT_TO_POINTER(TRUE));
+								}				
+							}
+						}
+					}
 				}
 				g_variant_unref(value);
 			}
@@ -476,7 +518,46 @@ static void mmgui_module_modem_signal_handler(GDBusProxy *proxy, const gchar *se
 
 static void mmgui_module_card_signal_handler(GDBusProxy *proxy, const gchar *sender_name, const gchar *signal_name, GVariant *parameters, gpointer data)
 {
-	/*Nothing to do there at moment*/		
+	mmguicore_t mmguicore;
+	moduledata_t moduledata;
+	GVariant *propname, *propvalue, *value;
+	const gchar *parameter;
+	gsize strsize;
+		
+	mmguicore = (mmguicore_t)data;
+	if (mmguicore == NULL) return;
+	
+	moduledata = (moduledata_t)mmguicore->moduledata;
+	if (moduledata == NULL) return;
+	
+	if (g_str_equal(signal_name, "PropertyChanged")) {
+		/*Property name and value*/
+		propname = g_variant_get_child_value(parameters, 0);
+		propvalue = g_variant_get_child_value(parameters, 1);
+		if ((propname != NULL) && (propvalue != NULL)) {
+			/*Unboxed parameter and value*/
+			strsize = 256;
+			parameter = g_variant_get_string(propname, &strsize);
+			value = g_variant_get_variant(propvalue);
+			if ((parameter != NULL) && (parameter[0] != '\0') && (value != NULL)) {
+				if (g_str_equal(parameter, "PinRequired")) {
+					/*Locked state*/
+					if (mmguicore->device != NULL) {
+						strsize = 256;
+						parameter = g_variant_get_string(value, &strsize);
+						if ((parameter != NULL) && (parameter[0] != '\0')) {
+							mmguicore->device->blocked = mmgui_module_device_get_locked_from_unlock_string(parameter);
+							mmguicore->device->locktype = mmgui_module_device_get_lock_type_from_unlock_string(parameter);
+							if (mmguicore->eventcb != NULL) {
+								(mmguicore->eventcb)(MMGUI_EVENT_DEVICE_BLOCKED_STATUS, mmguicore, GUINT_TO_POINTER(mmguicore->device->blocked));
+							}
+						}
+					}
+				}
+				g_variant_unref(value);
+			}
+		}
+	}
 }
 
 static void mmgui_module_sms_signal_handler(GDBusProxy *proxy, const gchar *sender_name, const gchar *signal_name, GVariant *parameters, gpointer data)
@@ -509,6 +590,49 @@ static void mmgui_module_sms_signal_handler(GDBusProxy *proxy, const gchar *send
 	}
 }
 
+static void mmgui_module_connection_signal_handler(GDBusProxy *proxy, const gchar *sender_name, const gchar *signal_name, GVariant *parameters, gpointer data)
+{
+	mmguicore_t mmguicore;
+	moduledata_t moduledata;
+	GVariant *propname, *propvalue, *value;
+	const gchar *parameter;
+	gsize strsize;
+					
+	mmguicore = (mmguicore_t)data;
+	if (mmguicore == NULL) return;
+	
+	moduledata = (moduledata_t)mmguicore->moduledata;
+	if (moduledata == NULL) return;
+	
+	if (g_str_equal(signal_name, "PropertyChanged")) {
+		/*Property name and value*/
+		propname = g_variant_get_child_value(parameters, 0);
+		propvalue = g_variant_get_child_value(parameters, 1);
+		if ((propname != NULL) && (propvalue != NULL)) {
+			/*Unboxed parameter and value*/
+			strsize = 256;
+			parameter = g_variant_get_string(propname, &strsize);
+			value = g_variant_get_variant(propvalue);
+			if ((parameter != NULL) && (parameter[0] != '\0') && (value != NULL)) {
+				if (g_str_equal(parameter, "Bearer")) {
+					/*Network mode*/
+					if (mmguicore->device != NULL) {
+						strsize = 256;
+						parameter = g_variant_get_string(value, &strsize);
+						if ((parameter != NULL) && (parameter[0] != '\0')) {
+							mmguicore->device->mode = mmgui_module_access_mode_translate(parameter);
+							if (mmguicore->eventcb != NULL) {
+								(mmguicore->eventcb)(MMGUI_EVENT_NETWORK_MODE_CHANGE, mmguicore, mmguicore->device);
+							}
+						}
+					}
+				}
+				g_variant_unref(value);
+			}
+		}
+	}
+}
+
 static enum _mmgui_device_modes mmgui_module_access_mode_translate(const gchar *mode)
 {
 	enum _mmgui_device_modes tmode;
@@ -517,10 +641,16 @@ static enum _mmgui_device_modes mmgui_module_access_mode_translate(const gchar *
 	
 	if (g_str_equal(mode, "gsm")) {
 		tmode = MMGUI_DEVICE_MODE_GSM;
+	} else if (g_str_equal(mode, "gprs")) {
+		tmode = MMGUI_DEVICE_MODE_GSM;
 	} else if (g_str_equal(mode, "edge")) {
 		tmode = MMGUI_DEVICE_MODE_EDGE;
 	} else if (g_str_equal(mode, "umts")) {
 		tmode = MMGUI_DEVICE_MODE_UMTS;
+	} else if (g_str_equal(mode, "hsdpa")) {
+		tmode = MMGUI_DEVICE_MODE_HSDPA;
+	} else if (g_str_equal(mode, "hsupa")) {
+		tmode = MMGUI_DEVICE_MODE_HSUPA;
 	} else if (g_str_equal(mode, "hspa")) {
 		tmode = MMGUI_DEVICE_MODE_HSPA;
 	} else if (g_str_equal(mode, "lte")) {
@@ -692,24 +822,24 @@ static gboolean mmgui_module_device_get_enabled(mmguicore_t mmguicore)
 	return enabled;
 }
 
-static gboolean mmgui_module_device_get_locked(mmguicore_t mmguicore)
+static gchar *mmgui_module_device_get_unlock_string(mmguicore_t mmguicore)
 {
 	mmguicore_t mmguicorelc;
 	moduledata_t moduledata;
 	GError *error;
 	GVariant *deviceinfo, *propdict, *proplocked;
-	const gchar *pinstring;
-	gsize pinstringsize;
-	gboolean locked;
+	const gchar *propstring;
+	gsize propstrsize;
+	gchar *res;
 	
-	if (mmguicore == NULL) return FALSE;
+	if (mmguicore == NULL) return NULL;
 	mmguicorelc = (mmguicore_t)mmguicore;
 	
-	if (mmguicorelc->moduledata == NULL) return FALSE;
+	if (mmguicorelc->moduledata == NULL) return NULL;
 	moduledata = (moduledata_t)mmguicorelc->moduledata;
 	
-	if (mmguicorelc->device == NULL) return FALSE;
-	if (moduledata->cardproxy == NULL) return FALSE;
+	if (mmguicorelc->device == NULL) return NULL;
+	if (moduledata->cardproxy == NULL) return NULL;
 	
 	error = NULL;
 	
@@ -724,24 +854,20 @@ static gboolean mmgui_module_device_get_locked(mmguicore_t mmguicore)
 	if ((deviceinfo == NULL) && (error != NULL)) {
 		mmgui_module_handle_error_message(mmguicore, error);
 		g_error_free(error);
-		return FALSE;
+		return NULL;
 	}
 	
-	locked = FALSE;
+	res = NULL;
 	
 	/*Properties dictionary (not dbus properties)*/
 	propdict = g_variant_get_child_value(deviceinfo, 0);
 	if (propdict != NULL) {
 		proplocked = g_variant_lookup_value(propdict, "PinRequired", G_VARIANT_TYPE_STRING);
 		if (proplocked != NULL) {
-			pinstringsize = 256;
-			pinstring = g_variant_get_string(proplocked, &pinstringsize);
-			if ((pinstring != NULL) && (pinstring[0] != '\0')) {
-				if (g_str_equal(pinstring, "none")) {
-					locked = FALSE;
-				} else {
-					locked = TRUE;
-				}
+			propstrsize = 256;
+			propstring = g_variant_get_string(proplocked, &propstrsize);
+			if ((propstring != NULL) && (propstring[0] != '\0')) {
+				res = g_strdup(propstring);
 			}
 			g_variant_unref(proplocked);
 		}
@@ -749,7 +875,43 @@ static gboolean mmgui_module_device_get_locked(mmguicore_t mmguicore)
 	}
 	g_variant_unref(deviceinfo);
 	
+	return res;
+}
+
+static gboolean mmgui_module_device_get_locked_from_unlock_string(const gchar *ustring)
+{
+	gboolean locked;
+	
+	if (ustring == NULL) return FALSE;
+	
+	if (g_strcmp0(ustring, "none") == 0) {
+		locked = FALSE;
+	} else {
+		locked = TRUE;
+	}
+	
 	return locked;
+}
+
+static gint mmgui_module_device_get_lock_type_from_unlock_string(const gchar *ustring)
+{
+	gint locktype;
+	
+	locktype = MMGUI_LOCK_TYPE_NONE;
+	
+	if (ustring == NULL) return locktype;
+	
+	if (g_strcmp0(ustring, "none") == 0) {
+		locktype = MMGUI_LOCK_TYPE_NONE;
+	} else if (g_strcmp0(ustring, "pin") == 0) {
+		locktype = MMGUI_LOCK_TYPE_PIN;
+	} else if (g_strcmp0(ustring, "puk") == 0) {
+		locktype = MMGUI_LOCK_TYPE_PUK;
+	} else {
+		locktype = MMGUI_LOCK_TYPE_OTHER;
+	}
+	
+	return locktype;
 }
 
 static gboolean mmgui_module_device_get_registered(mmguicore_t mmguicore)
@@ -810,6 +972,111 @@ static gboolean mmgui_module_device_get_registered(mmguicore_t mmguicore)
 	g_variant_unref(deviceinfo);
 	
 	return registered;
+}
+
+static gboolean mmgui_module_device_get_connected(mmguicore_t mmguicore)
+{
+	mmguicore_t mmguicorelc;
+	moduledata_t moduledata;
+	GError *error;
+	GVariant *contexts, *properties, *propdict;
+	GVariantIter coniterl1, coniterl2;
+	GVariant *connodel1, *connodel2;
+	GVariant *conparams, *parameter;
+	gsize strlength;
+	const gchar *valuestr;
+	gboolean internet, connected;
+	
+	if (mmguicore == NULL) return FALSE;
+	mmguicorelc = (mmguicore_t)mmguicore;
+	
+	if (mmguicorelc->moduledata == NULL) return FALSE;
+	moduledata = (moduledata_t)mmguicorelc->moduledata;
+	
+	if (mmguicorelc->device == NULL) return FALSE;
+	if (!mmguicorelc->device->enabled) return FALSE;
+	
+	if (moduledata->connectionproxy == NULL) return FALSE;
+	
+	connected = FALSE;
+	
+	error = NULL;
+	
+	if (mmguicorelc->device->type == MMGUI_DEVICE_TYPE_GSM) {
+		contexts = g_dbus_proxy_call_sync(moduledata->connectionproxy,
+											"GetContexts",
+											NULL,
+											0,
+											-1,
+											NULL,
+											&error);
+		
+		if ((contexts == NULL) && (error != NULL)) {
+			mmgui_module_handle_error_message(mmguicore, error);
+			g_error_free(error);
+			return FALSE;
+		}
+		
+		g_variant_iter_init(&coniterl1, contexts);
+		while (((connodel1 = g_variant_iter_next_value(&coniterl1)) != NULL) && (!connected)) {
+			g_variant_iter_init(&coniterl2, connodel1);
+			while (((connodel2 = g_variant_iter_next_value(&coniterl2)) != NULL) && (!connected)) {
+				/*Parameters*/
+				conparams = g_variant_get_child_value(connodel2, 1);
+				if (conparams != NULL) {
+					/*Type*/
+					parameter = g_variant_lookup_value(conparams, "Type", G_VARIANT_TYPE_STRING);
+					if (parameter != NULL) {
+						strlength = 256;
+						valuestr = g_variant_get_string(parameter, &strlength);
+						internet = g_str_equal(valuestr, "internet");
+						g_variant_unref(parameter);
+					}
+					if (internet) {
+						/*State*/
+						parameter = g_variant_lookup_value(conparams, "Active", G_VARIANT_TYPE_BOOLEAN);
+						if (parameter != NULL) {
+							connected = g_variant_get_boolean(parameter);
+							g_variant_unref(parameter);
+						}
+					}
+					g_variant_unref(conparams);
+				}
+				g_variant_unref(connodel2);
+			}
+			g_variant_unref(connodel1);
+		}
+		g_variant_unref(contexts);
+	} else if (mmguicorelc->device->type == MMGUI_DEVICE_TYPE_CDMA) {
+		properties = g_dbus_proxy_call_sync(moduledata->connectionproxy,
+											"GetProperties",
+											NULL,
+											0,
+											-1,
+											NULL,
+											&error);
+		
+		if ((properties == NULL) && (error != NULL)) {
+			mmgui_module_handle_error_message(mmguicore, error);
+			g_error_free(error);
+			return FALSE;
+		}
+		
+		propdict = g_variant_get_child_value(properties, 0);
+		
+		if (propdict == NULL) {
+			g_variant_unref(properties);
+			return FALSE;
+		}
+		
+		parameter = g_variant_lookup_value(propdict, "Powered", G_VARIANT_TYPE_BOOLEAN);
+		if (parameter != NULL) {
+			connected = g_variant_get_boolean(parameter);
+			g_variant_unref(parameter);
+		}
+	}
+	
+	return connected;
 }
 
 static GVariant *mmgui_module_device_queue_get_properties(mmguicore_t mmguicore, const gchar *devpath)
@@ -1042,16 +1309,16 @@ static mmguidevice_t mmgui_module_device_new(mmguicore_t mmguicore, const gchar 
 		device->version = g_strdup(_("Unknown"));
 	}
 	
-	//No port information can be obtained from oFono
+	/*No port information can be obtained from oFono*/
 	device->port = g_strdup(_("Unknown"));
 	
-	//No sysfs path can be obtained from oFono
+	/*No sysfs path can be obtained from oFono*/
 	device->sysfspath = NULL;
 	
-	//Internal identifier is MM-only thing
+	/*Internal identifier is MM-only thing*/
 	device->internalid = NULL;
 	
-	//Device type
+	/*Device type*/
 	device->type = MMGUI_DEVICE_TYPE_GSM;
 	
 	interfaces = g_variant_lookup_value(devprops, "Interfaces", G_VARIANT_TYPE_STRING);
@@ -1061,7 +1328,7 @@ static mmguidevice_t mmgui_module_device_new(mmguicore_t mmguicore, const gchar 
 			strsize = 256;
 			parameter = g_variant_get_string(nodel1, &strsize);
 			if ((parameter != NULL) && (parameter[0] != '\0')) {
-				if ((g_str_equal(parameter, "org.ofono.cdma.ConnectionManager")) || (g_str_equal(parameter, "org.ofono.cdma.VoiceCallManager"))) {
+				if (strstr(parameter, "org.ofono.cdma") != NULL) {
 					device->type = MMGUI_DEVICE_TYPE_CDMA;
 					break;
 				}
@@ -1156,6 +1423,7 @@ G_MODULE_EXPORT gboolean mmgui_module_open(gpointer mmguicore)
 	(*moduledata)->timeouts[MMGUI_DEVICE_OPERATION_SEND_SMS] = MMGUI_MODULE_SEND_SMS_OPERATION_TIMEOUT;
 	(*moduledata)->timeouts[MMGUI_DEVICE_OPERATION_SEND_USSD] = MMGUI_MODULE_SEND_USSD_OPERATION_TIMEOUT;
 	(*moduledata)->timeouts[MMGUI_DEVICE_OPERATION_SCAN] = MMGUI_MODULE_NETWORKS_SCAN_OPERATION_TIMEOUT;
+	(*moduledata)->timeouts[MMGUI_DEVICE_OPERATION_UNLOCK] = MMGUI_MODULE_NETWORKS_UNLOCK_OPERATION_TIMEOUT;
 	
 	return TRUE;
 }
@@ -1366,6 +1634,7 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_state(gpointer mmguicore, enum _mm
 	mmguicore_t mmguicorelc;
 	/*moduledata_t moduledata;*/
 	mmguidevice_t device;
+	gchar *ustring;
 	gboolean res;
 	
 	if (mmguicore == NULL) return FALSE;
@@ -1387,7 +1656,10 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_state(gpointer mmguicore, enum _mm
 			break;
 		case MMGUI_DEVICE_STATE_REQUEST_LOCKED:
 			/*Is device blocked*/
-			res = mmgui_module_device_get_locked(mmguicorelc);
+			ustring = mmgui_module_device_get_unlock_string(mmguicorelc);
+			res = mmgui_module_device_get_locked_from_unlock_string(ustring);
+			device->locktype = mmgui_module_device_get_lock_type_from_unlock_string(ustring);
+			g_free(ustring);
 			device->blocked = res;
 			break;
 		case MMGUI_DEVICE_STATE_REQUEST_REGISTERED:
@@ -1396,13 +1668,14 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_state(gpointer mmguicore, enum _mm
 			device->registered = res;
 			break;
 		case MMGUI_DEVICE_STATE_REQUEST_CONNECTED:
-			/*Is device connected (modem manager state) - only available from connman*/
-			res = FALSE;
+			/*Is device connected*/
+			res = mmgui_module_device_get_connected(mmguicorelc);
+			device->connected = res;
 			break;
 		case MMGUI_DEVICE_STATE_REQUEST_PREPARED:
 			/*Is device ready for opearation - maybe add additional code in future*/
 			res = TRUE;
-			device->registered = TRUE;
+			device->prepared = TRUE;
 			break;
 		default:
 			res = FALSE;
@@ -1465,23 +1738,23 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_update_state(gpointer mmguicore)
 	if (mmguicorelc->moduledata == NULL) return FALSE;
 	moduledata = (moduledata_t)mmguicorelc->moduledata;
 	
-	//Search for ready devices
+	/*Search for ready devices*/
 	if ((moduledata->devqueue != NULL) && (mmguicorelc->eventcb != NULL)) {
 		dqlnode = moduledata->devqueue;
 		while (dqlnode != NULL) {
 			dqlpath = (gchar *)dqlnode->data;
 			dqlnext = g_list_next(dqlnode);
-			//If device is not ready, NULL returned
+			/*If device is not ready, NULL is returned*/
 			devprops = mmgui_module_device_queue_get_properties(mmguicore, dqlpath);
 			if (devprops != NULL) {
 				device = mmgui_module_device_new(mmguicore, dqlpath, devprops);
 				if (device != NULL) {
-					//Free resources
+					/*Free resources*/
 					g_free(dqlpath);
 					g_variant_unref(devprops);
-					//Remove list node
+					/*Remove list node*/
 					moduledata->devqueue = g_list_delete_link(moduledata->devqueue, dqlnode);
-					//Send notification
+					/*Send notification*/
 					(mmguicorelc->eventcb)(MMGUI_EVENT_DEVICE_ADDED, mmguicore, device);
 				}
 			}
@@ -1503,6 +1776,7 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_information(gpointer mmguicore)
 	//guchar locvalues;
 	gsize strsize = 256;
 	const gchar *parameter;
+	gchar *ustring;
 	
 	if (mmguicore == NULL) return FALSE;
 	mmguicorelc = (mmguicore_t)mmguicore;
@@ -1514,13 +1788,16 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_information(gpointer mmguicore)
 	device = mmguicorelc->device;
 	
 	if (moduledata->modemproxy != NULL) {
-		//Is device enabled and blocked
+		/*Is device enabled and blocked*/
 		device->enabled = mmgui_module_device_get_enabled(mmguicorelc);
-		device->blocked = mmgui_module_device_get_locked(mmguicorelc);
+		ustring = mmgui_module_device_get_unlock_string(mmguicorelc);
+		device->blocked = mmgui_module_device_get_locked_from_unlock_string(ustring);
+		device->locktype = mmgui_module_device_get_lock_type_from_unlock_string(ustring);
+		g_free(ustring);
 		device->registered = mmgui_module_device_get_registered(mmguicorelc);
 				
 		if (device->enabled) {
-			//Device identifier (IMEI)
+			/*Device identifier (IMEI)*/
 			if (device->imei != NULL) {
 				g_free(device->imei);
 				device->imei = NULL;
@@ -1543,14 +1820,14 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_information(gpointer mmguicore)
 	}
 	
 	if (moduledata->netproxy != NULL) {
-		//Operator information
+		/*Operator information*/
 		device->operatorcode = 0;
 		
 		if (device->operatorname != NULL) {
 			g_free(device->operatorname);
 			device->operatorname = NULL;
 		}
-		//Signal level
+		/*Signal level*/
 		data = mmgui_module_proxy_get_property(moduledata->netproxy, "Strength", G_VARIANT_TYPE_BYTE);
 		if (data != NULL) {
 			device->siglevel = g_variant_get_byte(data);
@@ -1558,7 +1835,7 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_information(gpointer mmguicore)
 		} else {
 			device->siglevel = 0;
 		}
-		//Used access technology
+		/*Used access technology*/
 		data = mmgui_module_proxy_get_property(moduledata->netproxy, "Technology", G_VARIANT_TYPE_STRING);
 		if (data != NULL) {
 			strsize = 256;
@@ -1572,7 +1849,7 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_information(gpointer mmguicore)
 		} else {
 			device->mode = MMGUI_DEVICE_MODE_UNKNOWN;
 		}
-		//Registration state
+		/*Registration state*/
 		data = mmgui_module_proxy_get_property(moduledata->netproxy, "Status", G_VARIANT_TYPE_STRING);
 		if (data != NULL) {
 			strsize = 256;
@@ -1586,7 +1863,7 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_information(gpointer mmguicore)
 		} else {
 			device->regstatus = MMGUI_REG_STATUS_UNKNOWN;
 		}
-		//Operator name
+		/*Operator name*/
 		data = mmgui_module_proxy_get_property(moduledata->netproxy, "Name", G_VARIANT_TYPE_STRING);
 		if (data != NULL) {
 			strsize = 256;
@@ -1600,7 +1877,7 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_information(gpointer mmguicore)
 		} else {
 			device->operatorname = NULL;
 		}
-		//3gpp location, Operator code
+		/*3gpp location, Operator code*/
 		data = mmgui_module_proxy_get_property(moduledata->netproxy, "MobileCountryCode", G_VARIANT_TYPE_STRING);
 		if (data != NULL) {
 			strsize = 256;
@@ -1652,12 +1929,11 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_information(gpointer mmguicore)
 	if (moduledata->cardproxy != NULL) {
 		if (device->type == MMGUI_DEVICE_TYPE_GSM) {
 			if (device->enabled) {
-				//IMSI
+				/*IMSI*/
 				if (device->imsi != NULL) {
 					g_free(device->imsi);
 					device->imsi = NULL;
 				}
-				//IMSI
 				data = mmgui_module_proxy_get_property(moduledata->cardproxy, "SubscriberIdentity", G_VARIANT_TYPE_STRING);
 				if (data != NULL) {
 					strsize = 256;
@@ -1673,10 +1949,29 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_information(gpointer mmguicore)
 				}
 			}
 		} else if (device->type == MMGUI_DEVICE_TYPE_CDMA) {
-			//No IMSI in CDMA
+			/*No IMSI in CDMA*/
 			if (device->imsi != NULL) {
 				g_free(device->imsi);
 				device->imsi = NULL;
+			}
+		}
+	}
+	
+	if (moduledata->connectionproxy != NULL) {
+		if (device->type == MMGUI_DEVICE_TYPE_GSM) {
+			/*Used access technology*/
+			data = mmgui_module_proxy_get_property(moduledata->connectionproxy, "Bearer", G_VARIANT_TYPE_STRING);
+			if (data != NULL) {
+				strsize = 256;
+				parameter = g_variant_get_string(data, &strsize);
+				if ((parameter != NULL) && (parameter[0] != '\0')) {
+					device->mode = mmgui_module_access_mode_translate(parameter);
+				} else {
+					device->mode = MMGUI_DEVICE_MODE_UNKNOWN;
+				}
+				g_variant_unref(data);
+			} else {
+				device->mode = MMGUI_DEVICE_MODE_UNKNOWN;
 			}
 		}
 	}
@@ -1718,6 +2013,47 @@ static gboolean mmgui_module_open_network_registration_interface(gpointer mmguic
 		return FALSE;
 	} else {
 		device->scancaps = MMGUI_SCAN_CAPS_OBSERVE;
+		moduledata->netsignal = g_signal_connect(G_OBJECT(moduledata->netproxy), "g-signal", G_CALLBACK(mmgui_module_network_signal_handler), mmguicore);
+		return TRUE;
+	}
+}
+
+static gboolean mmgui_module_open_cdma_network_registration_interface(gpointer mmguicore, mmguidevice_t device)
+{
+	mmguicore_t mmguicorelc;
+	moduledata_t moduledata;
+	GError *error;
+	
+	if ((mmguicore == NULL) || (device == NULL)) return FALSE;
+	mmguicorelc = (mmguicore_t)mmguicore;
+	
+	if (mmguicorelc->moduledata == NULL) return FALSE;
+	moduledata = (moduledata_t)mmguicorelc->moduledata;
+	
+	if (device->objectpath == NULL) return FALSE;
+	
+	error = NULL;
+	
+	moduledata->location = MODULE_INT_MODEM_LOCATION_NULL;
+	
+	/*Update device type*/
+	device->type = MMGUI_DEVICE_TYPE_CDMA;
+	device->scancaps = MMGUI_SCAN_CAPS_NONE;
+		
+	moduledata->netproxy = g_dbus_proxy_new_sync(moduledata->connection,
+												G_DBUS_PROXY_FLAGS_NONE,
+												NULL,
+												"org.ofono",
+												device->objectpath,
+												"org.ofono.cdma.NetworkRegistration",
+												NULL,
+												&error);
+	
+	if ((moduledata->netproxy == NULL) && (error != NULL)) {
+		mmgui_module_handle_error_message(mmguicorelc, error);
+		g_error_free(error);
+		return FALSE;
+	} else {
 		moduledata->netsignal = g_signal_connect(G_OBJECT(moduledata->netproxy), "g-signal", G_CALLBACK(mmgui_module_network_signal_handler), mmguicore);
 		return TRUE;
 	}
@@ -1780,6 +2116,46 @@ static gboolean mmgui_module_open_message_manager_interface(gpointer mmguicore, 
 												"org.ofono",
 												device->objectpath,
 												"org.ofono.MessageManager",
+												NULL,
+												&error);
+	
+	if ((moduledata->smsproxy == NULL) && (error != NULL)) {
+		device->smscaps = MMGUI_SMS_CAPS_NONE;
+		mmgui_module_handle_error_message(mmguicorelc, error);
+		g_error_free(error);
+		return FALSE;
+	} else {
+		device->smscaps = MMGUI_SMS_CAPS_RECEIVE | MMGUI_SMS_CAPS_SEND;
+		moduledata->smssignal = g_signal_connect(moduledata->smsproxy, "g-signal", G_CALLBACK(mmgui_module_sms_signal_handler), mmguicore);
+		return TRUE;
+	}
+}
+
+static gboolean mmgui_module_open_cdma_message_manager_interface(gpointer mmguicore, mmguidevice_t device)
+{
+	mmguicore_t mmguicorelc;
+	moduledata_t moduledata;
+	GError *error;
+	
+	if ((mmguicore == NULL) || (device == NULL)) return FALSE;
+	mmguicorelc = (mmguicore_t)mmguicore;
+	
+	if (mmguicorelc->moduledata == NULL) return FALSE;
+	moduledata = (moduledata_t)mmguicorelc->moduledata;
+	
+	if (device->objectpath == NULL) return FALSE;
+	
+	/*Update device type*/
+	device->type = MMGUI_DEVICE_TYPE_CDMA;
+	
+	error = NULL;
+	
+	moduledata->smsproxy = g_dbus_proxy_new_sync(moduledata->connection,
+												G_DBUS_PROXY_FLAGS_NONE,
+												NULL,
+												"org.ofono",
+												device->objectpath,
+												"org.ofono.cdma.MessageManager",
 												NULL,
 												&error);
 	
@@ -1867,6 +2243,79 @@ static gboolean mmgui_module_open_phonebook_interface(gpointer mmguicore, mmguid
 	}
 }
 
+static gboolean mmgui_module_open_connection_manager_interface(gpointer mmguicore, mmguidevice_t device)
+{
+	mmguicore_t mmguicorelc;
+	moduledata_t moduledata;
+	GError *error;
+	
+	if ((mmguicore == NULL) || (device == NULL)) return FALSE;
+	mmguicorelc = (mmguicore_t)mmguicore;
+	
+	if (mmguicorelc->moduledata == NULL) return FALSE;
+	moduledata = (moduledata_t)mmguicorelc->moduledata;
+	
+	if (device->objectpath == NULL) return FALSE;
+	
+	error = NULL;
+	
+	moduledata->connectionproxy = g_dbus_proxy_new_sync(moduledata->connection,
+														G_DBUS_PROXY_FLAGS_NONE,
+														NULL,
+														"org.ofono",
+														device->objectpath,
+														"org.ofono.ConnectionManager",
+														NULL,
+														&error);
+	
+	if ((moduledata->connectionproxy == NULL) && (error != NULL)) {
+		mmgui_module_handle_error_message(mmguicorelc, error);
+		g_error_free(error);
+		return FALSE;
+	} else {
+		moduledata->connectionsignal = g_signal_connect(moduledata->connectionproxy, "g-signal", G_CALLBACK(mmgui_module_connection_signal_handler), mmguicore);
+		return TRUE;
+	}
+}
+
+static gboolean mmgui_module_open_cdma_connection_manager_interface(gpointer mmguicore, mmguidevice_t device)
+{
+	mmguicore_t mmguicorelc;
+	moduledata_t moduledata;
+	GError *error;
+	
+	if ((mmguicore == NULL) || (device == NULL)) return FALSE;
+	mmguicorelc = (mmguicore_t)mmguicore;
+	
+	if (mmguicorelc->moduledata == NULL) return FALSE;
+	moduledata = (moduledata_t)mmguicorelc->moduledata;
+	
+	if (device->objectpath == NULL) return FALSE;
+	
+	/*Update device type*/
+	device->type = MMGUI_DEVICE_TYPE_CDMA;
+	
+	error = NULL;
+	
+	moduledata->connectionproxy = g_dbus_proxy_new_sync(moduledata->connection,
+														G_DBUS_PROXY_FLAGS_NONE,
+														NULL,
+														"org.ofono",
+														device->objectpath,
+														"org.ofono.cdma.ConnectionManager",
+														NULL,
+														&error);
+	
+	if ((moduledata->connectionproxy == NULL) && (error != NULL)) {
+		mmgui_module_handle_error_message(mmguicorelc, error);
+		g_error_free(error);
+		return FALSE;
+	} else {
+		moduledata->connectionsignal = g_signal_connect(moduledata->connectionproxy, "g-signal", G_CALLBACK(mmgui_module_connection_signal_handler), mmguicore);
+		return TRUE;
+	}
+}
+
 G_MODULE_EXPORT gboolean mmgui_module_devices_open(gpointer mmguicore, mmguidevice_t device)
 {
 	mmguicore_t mmguicorelc;
@@ -1893,6 +2342,7 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_open(gpointer mmguicore, mmguidevi
 	moduledata->smsproxy = NULL;
 	moduledata->ussdproxy = NULL;
 	moduledata->contactsproxy = NULL;
+	moduledata->connectionproxy = NULL;
 	
 	error = NULL;
 	
@@ -1919,14 +2369,22 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_open(gpointer mmguicore, mmguidevi
 				if ((interface != NULL) && (interface[0] != '\0')) {
 					if (g_str_equal(interface, "org.ofono.NetworkRegistration")) {
 						mmgui_module_open_network_registration_interface(mmguicore, device);
+					} else if (g_str_equal(interface, "org.ofono.cdma.NetworkRegistration")) {
+						mmgui_module_open_cdma_network_registration_interface(mmguicore, device);
 					} else if (g_str_equal(interface, "org.ofono.SimManager")) {
 						mmgui_module_open_sim_manager_interface(mmguicore, device);
 					} else if (g_str_equal(interface, "org.ofono.MessageManager")) {
 						mmgui_module_open_message_manager_interface(mmguicore, device);
+					} else if (g_str_equal(interface, "org.ofono.cdma.MessageManager")) {
+						mmgui_module_open_cdma_message_manager_interface(mmguicore, device);
 					} else if (g_str_equal(interface, "org.ofono.SupplementaryServices")) {
 						mmgui_module_open_supplementary_services_interface(mmguicore, device);
 					} else if (g_str_equal(interface, "org.ofono.Phonebook")) {
 						mmgui_module_open_phonebook_interface(mmguicore, device);
+					} else if (g_str_equal(interface, "org.ofono.ConnectionManager")) {
+						mmgui_module_open_connection_manager_interface(mmguicore, device);
+					} else if (g_str_equal(interface, "org.ofono.cdma.ConnectionManager")) {
+						mmgui_module_open_cdma_connection_manager_interface(mmguicore, device);
 					}
 				}
 				g_variant_unref(nodel1);
@@ -1994,6 +2452,13 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_close(gpointer mmguicore)
 		g_object_unref(moduledata->contactsproxy);
 		moduledata->contactsproxy = NULL;
 	}
+	if (moduledata->connectionproxy != NULL) {
+		if (g_signal_handler_is_connected(moduledata->connectionproxy, moduledata->connectionsignal)) {
+			g_signal_handler_disconnect(moduledata->connectionproxy, moduledata->connectionsignal);
+		}
+		g_object_unref(moduledata->connectionproxy);
+		moduledata->connectionproxy = NULL;
+	}
 	/*Close device history storage*/
 	if (moduledata->historyshm != NULL) {
 		mmgui_history_client_close_device(moduledata->historyshm);
@@ -2050,9 +2515,8 @@ static void mmgui_module_devices_enable_handler(GDBusProxy *proxy, GAsyncResult 
 	mmguicore_t mmguicorelc;
 	moduledata_t moduledata;
 	GError *error;
-	GVariant *data, *deviceinfo, *propdict, *devonline;
-	gboolean newstate;
-			
+	GVariant *data;
+				
 	mmguicorelc = (mmguicore_t)user_data;
 	if (mmguicorelc == NULL) return;
 	
@@ -2067,50 +2531,19 @@ static void mmgui_module_devices_enable_handler(GDBusProxy *proxy, GAsyncResult 
 		if ((moduledata->cancellable == NULL) || ((moduledata->cancellable != NULL) && (!g_cancellable_is_cancelled(moduledata->cancellable)))) {
 			mmgui_module_handle_error_message(mmguicorelc, error);
 		}
+		
 		g_error_free(error);
-		newstate = FALSE;
-	} else {
-		g_variant_unref(data);
-		newstate = mmguicorelc->device->enabled;
-		//Update device state
-		error = NULL;
-		deviceinfo = g_dbus_proxy_call_sync(proxy,
-											"GetProperties",
-											NULL,
-											0,
-											-1,
-											NULL,
-											&error);
-		if ((deviceinfo == NULL) && (error != NULL)) {
-			mmgui_module_handle_error_message(mmguicorelc, error);
-			g_error_free(error);
-			newstate = FALSE;
-		} else {
-			propdict = g_variant_get_child_value(deviceinfo, 0);
-			if (propdict != NULL) {
-				devonline = g_variant_lookup_value(propdict, "Online", G_VARIANT_TYPE_BOOLEAN);
-				if (devonline != NULL) {
-					mmguicorelc->device->enabled = g_variant_get_boolean(devonline);
-					g_variant_unref(devonline);
-				}
-				g_variant_unref(propdict);
-			}
-			g_variant_unref(deviceinfo);
-			//If device state changed - return TRUE
-			if (newstate != mmguicorelc->device->enabled) {
-				newstate = TRUE;
-			} else {
-				newstate = FALSE;
-			}
+		
+		if (mmguicorelc->device != NULL) {
+			mmguicorelc->device->operation = MMGUI_DEVICE_OPERATION_IDLE;
 		}
-	}
-	
-	if (mmguicorelc->device != NULL) {
-		mmguicorelc->device->operation = MMGUI_DEVICE_OPERATION_IDLE;
-	}
-	
-	if ((mmguicorelc->eventcb != NULL) && ((moduledata->cancellable == NULL) || ((moduledata->cancellable != NULL) && (!g_cancellable_is_cancelled(moduledata->cancellable))))) {
-		(mmguicorelc->eventcb)(MMGUI_EVENT_MODEM_ENABLE_RESULT, user_data, GUINT_TO_POINTER(newstate));
+		
+		if (mmguicorelc->eventcb != NULL) {
+			(mmguicorelc->eventcb)(MMGUI_EVENT_MODEM_ENABLE_RESULT, user_data, GUINT_TO_POINTER(FALSE));
+		}
+	} else {
+		/*Handle event if state transition was successful*/
+		g_variant_unref(data);
 	}
 }
 
@@ -2147,6 +2580,76 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_enable(gpointer mmguicore, gboolea
 						moduledata->timeouts[MMGUI_DEVICE_OPERATION_ENABLE],
 						moduledata->cancellable,
 						(GAsyncReadyCallback)mmgui_module_devices_enable_handler,
+						mmguicore);
+	
+	return TRUE;
+}
+
+static void mmgui_module_devices_unlock_with_pin_handler(GDBusProxy *proxy, GAsyncResult *res, gpointer user_data)
+{
+	mmguicore_t mmguicorelc;
+	moduledata_t moduledata;
+	GError *error;
+	GVariant *data;
+				
+	mmguicorelc = (mmguicore_t)user_data;
+	if (mmguicorelc == NULL) return;
+	
+	if (mmguicorelc->moduledata == NULL) return;
+	moduledata = (moduledata_t)mmguicorelc->moduledata;
+	
+	error = NULL;
+		
+	data = g_dbus_proxy_call_finish(proxy, res, &error);
+	
+	if ((data == NULL) && (error != NULL)) {
+		if ((moduledata->cancellable == NULL) || ((moduledata->cancellable != NULL) && (!g_cancellable_is_cancelled(moduledata->cancellable)))) {
+			mmgui_module_handle_error_message(mmguicorelc, error);
+		}
+		
+		g_error_free(error);
+		
+		if (mmguicorelc->device != NULL) {
+			mmguicorelc->device->operation = MMGUI_DEVICE_OPERATION_IDLE;
+		}
+		
+		if (mmguicorelc->eventcb != NULL) {
+			(mmguicorelc->eventcb)(MMGUI_EVENT_MODEM_UNLOCK_WITH_PIN_RESULT, user_data, GUINT_TO_POINTER(FALSE));
+		}
+	} else {
+		/*Handle event if state transition was successful*/
+		g_variant_unref(data);
+	}
+}
+
+G_MODULE_EXPORT gboolean mmgui_module_devices_unlock_with_pin(gpointer mmguicore, gchar *pin)
+{
+	mmguicore_t mmguicorelc;
+	moduledata_t moduledata;
+	
+	if (mmguicore == NULL) return FALSE;
+	mmguicorelc = (mmguicore_t)mmguicore;
+	
+	if (mmguicorelc->moduledata == NULL) return FALSE;
+	moduledata = (moduledata_t)mmguicorelc->moduledata;
+	
+	if (mmguicorelc->device == NULL) return FALSE;
+	if (moduledata->cardproxy == NULL) return FALSE;
+	if (mmguicorelc->device->locktype != MMGUI_LOCK_TYPE_PIN) return FALSE;
+	
+	mmguicorelc->device->operation = MMGUI_DEVICE_OPERATION_UNLOCK;
+	
+	if (moduledata->cancellable != NULL) {
+		g_cancellable_reset(moduledata->cancellable);
+	}
+	
+	g_dbus_proxy_call(moduledata->cardproxy,
+						"EnterPin",
+						g_variant_new("(ss)", "pin", pin),
+						G_DBUS_CALL_FLAGS_NONE,
+						moduledata->timeouts[MMGUI_DEVICE_OPERATION_UNLOCK],
+						moduledata->cancellable,
+						(GAsyncReadyCallback)mmgui_module_devices_unlock_with_pin_handler,
 						mmguicore);
 	
 	return TRUE;
@@ -2456,6 +2959,7 @@ G_MODULE_EXPORT gboolean mmgui_module_sms_send(gpointer mmguicore, gchar* number
 	moduledata_t moduledata;
 	GError *error;
 	GVariant *message;
+	GVariantBuilder *messagebuilder;
 	
 	if ((number == NULL) || (text == NULL)) return FALSE;
 			
@@ -2476,15 +2980,26 @@ G_MODULE_EXPORT gboolean mmgui_module_sms_send(gpointer mmguicore, gchar* number
 		g_cancellable_reset(moduledata->cancellable);
 	}
 	
-	/*Set delivery reports state*/
 	error = NULL;
-	g_dbus_proxy_call_sync(moduledata->smsproxy,
-							"SetProperty",
-							g_variant_new("(sv)", "UseDeliveryReports", g_variant_new_boolean(report)),
-							0,
-							-1,
-							NULL,
-							&error);
+	
+	/*Set delivery reports state*/
+	if (mmguicorelc->device->type == MMGUI_DEVICE_TYPE_GSM) {
+		g_dbus_proxy_call_sync(moduledata->smsproxy,
+								"SetProperty",
+								g_variant_new("(sv)", "UseDeliveryReports", g_variant_new_boolean(report)),
+								0,
+								-1,
+								NULL,
+								&error);
+	} else if (mmguicorelc->device->type == MMGUI_DEVICE_TYPE_CDMA) {
+		g_dbus_proxy_call_sync(moduledata->smsproxy,
+								"SetProperty",
+								g_variant_new("(sv)", "UseDeliveryAcknowledgement", g_variant_new_boolean(report)),
+								0,
+								-1,
+								NULL,
+								&error);
+	}
 	/*Save error message if something going wrong*/
 	if (error != NULL) {
 		mmgui_module_handle_error_message(mmguicore, error);
@@ -2492,16 +3007,32 @@ G_MODULE_EXPORT gboolean mmgui_module_sms_send(gpointer mmguicore, gchar* number
 	}
 	
 	/*Form message and send it*/
-	message = g_variant_new("(ss)", number, text);
-	
-	g_dbus_proxy_call(moduledata->smsproxy,
-					"SendMessage",
-					message,
-					G_DBUS_CALL_FLAGS_NONE,
-					moduledata->timeouts[MMGUI_DEVICE_OPERATION_SEND_SMS],
-					moduledata->cancellable,
-					(GAsyncReadyCallback)mmgui_module_sms_send_handler,
-					mmguicore);
+	if (mmguicorelc->device->type == MMGUI_DEVICE_TYPE_GSM) {
+		/*In GSM message is simple two string tuple*/
+		message = g_variant_new("(ss)", number, text);
+		g_dbus_proxy_call(moduledata->smsproxy,
+						"SendMessage",
+						message,
+						G_DBUS_CALL_FLAGS_NONE,
+						moduledata->timeouts[MMGUI_DEVICE_OPERATION_SEND_SMS],
+						moduledata->cancellable,
+						(GAsyncReadyCallback)mmgui_module_sms_send_handler,
+						mmguicore);
+	} else if (mmguicorelc->device->type == MMGUI_DEVICE_TYPE_CDMA) {
+		/*In CDMA it is dictionary with some string flags not used here*/
+		messagebuilder = g_variant_builder_new(G_VARIANT_TYPE_DICTIONARY);
+		g_variant_builder_add(messagebuilder, "{ss}", "To", number);
+		g_variant_builder_add(messagebuilder, "{ss}", "Text", text);
+		message = g_variant_builder_end(messagebuilder);
+		g_dbus_proxy_call(moduledata->smsproxy,
+						"SendMessage",
+						message,
+						G_DBUS_CALL_FLAGS_NONE,
+						moduledata->timeouts[MMGUI_DEVICE_OPERATION_SEND_SMS],
+						moduledata->cancellable,
+						(GAsyncReadyCallback)mmgui_module_sms_send_handler,
+						mmguicore);
+	}
 	
 	return TRUE;
 }
@@ -2715,7 +3246,7 @@ static guint mmgui_module_network_retrieve(GVariant *networkv, GSList **networks
 	gsize technologies;
 	GVariant *dict, *techs, *value;
 	gsize strlength;
-	guint i;
+	guint i, mcc, mnc, mul, num;
 	const gchar *parameter;
 		
 	if ((networkv == NULL) || (networks == NULL)) return 0;
@@ -2728,29 +3259,44 @@ static guint mmgui_module_network_retrieve(GVariant *networkv, GSList **networks
 	} else {
 		technologies = 0;
 	}
-		
+	
+	num = 0;
+	
 	if (technologies > 0) {
 		for (i=0; i<technologies; i++) {
 			network = g_new0(struct _mmgui_scanned_network, 1);
 			/*Mobile operator code (MCCMNC)*/
 			network->operator_num = 0;
+			/*MCC*/
+			mcc = 0;
 			value = g_variant_lookup_value(dict, "MobileCountryCode", G_VARIANT_TYPE_STRING);
 			if (value != NULL) {
 				strlength = 256;
 				parameter = g_variant_get_string(value, &strlength);
 				if ((parameter != NULL) && (parameter[0] != '\0')) {
-					network->operator_num |= (atoi(parameter) & 0x0000ffff) << 16;
+					mcc = atoi(parameter);
 				}
 				g_variant_unref(value);
 			}
+			/*MNC*/
+			mnc = 0;
 			value = g_variant_lookup_value(dict, "MobileNetworkCode", G_VARIANT_TYPE_STRING);
 			if (value != NULL) {
 				strlength = 256;
 				parameter = g_variant_get_string(value, &strlength);
 				if ((parameter != NULL) && (parameter[0] != '\0')) {
-					network->operator_num |= atoi(parameter) & 0x0000ffff;
+					mnc = atoi(parameter);
 				}
 				g_variant_unref(value);
+			}
+			mul = 1;
+			while (mul <= mnc) {
+				mul *= 10;
+			}
+			if (mnc < 10) {
+				network->operator_num = mcc * mul * 10 + mnc;
+			} else {
+				network->operator_num = mcc * mul + mnc;
 			}
 			/*Network access technology*/
 			value = g_variant_get_child_value(techs, i);
@@ -2796,7 +3342,7 @@ static guint mmgui_module_network_retrieve(GVariant *networkv, GSList **networks
 				g_variant_unref(value);
 				/*Add network to list*/
 				*networks = g_slist_prepend(*networks, network);
-				return 1;
+				num++;
 			} else {
 				if (network->operator_long != NULL) g_free(network->operator_long);
 				if (network->operator_short != NULL) g_free(network->operator_short);
@@ -2806,7 +3352,7 @@ static guint mmgui_module_network_retrieve(GVariant *networkv, GSList **networks
 		g_variant_unref(techs);
 	}
 	
-	return 0;
+	return num;
 }
 
 static void mmgui_module_networks_scan_handler(GDBusProxy *proxy, GAsyncResult *res, gpointer user_data)

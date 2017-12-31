@@ -7,8 +7,8 @@ LIBMOD     = `pkg-config --libs glib-2.0` `pkg-config --libs gmodule-2.0` `pkg-c
 LIBMOD1    = `pkg-config --libs glib-2.0` `pkg-config --libs gmodule-2.0` `pkg-config --libs gio-2.0` -lgdbm
 LIBMOD2    = `pkg-config --libs glib-2.0` `pkg-config --libs gmodule-2.0` `pkg-config --libs gio-2.0` -lgdbm
 LIBMOD5    = `pkg-config --libs glib-2.0` `pkg-config --libs gmodule-2.0` `pkg-config --libs gio-2.0` -lgdbm -lrt
-OBJMOD1    = smsdb.o encoding.o mm06.o
-OBJMOD2    = smsdb.o encoding.o mm07.o
+OBJMOD1    = smsdb.o encoding.o dbus-utils.o mm06.o
+OBJMOD2    = smsdb.o encoding.o dbus-utils.o mm07.o
 OBJMOD3    = uuid.o nm09.o
 OBJMOD4    = pppd245.o
 OBJMOD5    = smsdb.o encoding.o historyshm.o vcard.o ofono109.o
@@ -43,6 +43,9 @@ encoding.o: ../encoding.c
 	$(GCCMOD) $(INCMOD) -c $(CPPFLAGS) $(CFLAGS) $< -o $@
 #Shared VCard format parser
 vcard.o: ../vcard.c
+	$(GCCMOD) $(INCMOD) -c $(CPPFLAGS) $(CFLAGS) $< -o $@
+#Shared DBus functions
+dbus-utils.o: ../dbus-utils.c
 	$(GCCMOD) $(INCMOD) -c $(CPPFLAGS) $(CFLAGS) $< -o $@
 
 .c.o:

@@ -1,7 +1,7 @@
 /*
  *      mm07.c
  *      
- *      Copyright 2013-2015 Alex <alex@linuxonly.ru>
+ *      Copyright 2013-2017 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -29,19 +29,21 @@
 #include "../mmguicore.h"
 #include "../smsdb.h"
 #include "../encoding.h"
+#include "../dbus-utils.h"
 
 #define MMGUI_MODULE_SERVICE_NAME  "org.freedesktop.ModemManager1"
 #define MMGUI_MODULE_SYSTEMD_NAME  "ModemManager.service"
 #define MMGUI_MODULE_IDENTIFIER    70
 #define MMGUI_MODULE_DESCRIPTION   "Modem Manager >= 0.7.0"
 
-#define MMGUI_MODULE_ENABLE_OPERATION_TIMEOUT         20000
-#define MMGUI_MODULE_SEND_SMS_OPERATION_TIMEOUT       35000
-#define MMGUI_MODULE_SEND_USSD_OPERATION_TIMEOUT      25000
-#define MMGUI_MODULE_NETWORKS_SCAN_OPERATION_TIMEOUT  60000
+#define MMGUI_MODULE_ENABLE_OPERATION_TIMEOUT           20000
+#define MMGUI_MODULE_SEND_SMS_OPERATION_TIMEOUT         35000
+#define MMGUI_MODULE_SEND_USSD_OPERATION_TIMEOUT        25000
+#define MMGUI_MODULE_NETWORKS_SCAN_OPERATION_TIMEOUT    60000
+#define MMGUI_MODULE_NETWORKS_UNLOCK_OPERATION_TIMEOUT  20000
 
-//Internal enumerations
-//Modem state internal flags
+/*Internal enumerations*/
+/*Modem state internal flags*/
 typedef enum {
 	MODULE_INT_MODEM_STATE_FAILED        = -1,
 	MODULE_INT_MODEM_STATE_UNKNOWN       = 0,
@@ -58,7 +60,28 @@ typedef enum {
 	MODULE_INT_MODEM_STATE_CONNECTED     = 11
 } ModuleIntModemState;
 
-//Modem capability internal flags
+/*Modem lock flags*/
+typedef enum {
+	MODULE_INT_MODEM_LOCK_UNKNOWN        = 0,
+	MODULE_INT_MODEM_LOCK_NONE           = 1,
+	MODULE_INT_MODEM_LOCK_SIM_PIN        = 2,
+	MODULE_INT_MODEM_LOCK_SIM_PIN2       = 3,
+	MODULE_INT_MODEM_LOCK_SIM_PUK        = 4,
+	MODULE_INT_MODEM_LOCK_SIM_PUK2       = 5,
+	MODULE_INT_MODEM_LOCK_PH_SP_PIN      = 6,
+	MODULE_INT_MODEM_LOCK_PH_SP_PUK      = 7,
+	MODULE_INT_MODEM_LOCK_PH_NET_PIN     = 8,
+	MODULE_INT_MODEM_LOCK_PH_NET_PUK     = 9,
+	MODULE_INT_MODEM_LOCK_PH_SIM_PIN     = 10,
+	MODULE_INT_MODEM_LOCK_PH_CORP_PIN    = 11,
+	MODULE_INT_MODEM_LOCK_PH_CORP_PUK    = 12,
+	MODULE_INT_MODEM_LOCK_PH_FSIM_PIN    = 13,
+	MODULE_INT_MODEM_LOCK_PH_FSIM_PUK    = 14,
+	MODULE_INT_MODEM_LOCK_PH_NETSUB_PIN  = 15,
+	MODULE_INT_MODEM_LOCK_PH_NETSUB_PUK  = 16
+} ModuleIntModemLock;
+
+/*Modem capability internal flags*/
 typedef enum {
 	MODULE_INT_MODEM_CAPABILITY_NONE         = 0,
 	MODULE_INT_MODEM_CAPABILITY_POTS         = 1 << 0,
@@ -69,7 +92,7 @@ typedef enum {
 	MODULE_INT_MODEM_CAPABILITY_IRIDIUM      = 1 << 5,
 } ModuleIntModemCapability;
 
-//Modem registration internal flags
+/*Modem registration internal flags*/
 typedef enum {
     MODULE_INT_MODEM_3GPP_REGISTRATION_STATE_IDLE      = 0,
     MODULE_INT_MODEM_3GPP_REGISTRATION_STATE_HOME      = 1,
@@ -79,7 +102,7 @@ typedef enum {
     MODULE_INT_MODEM_3GPP_REGISTRATION_STATE_ROAMING   = 5,
 } ModuleIntModem3gppRegistrationState;
 
-//CDMA modem registration internal flags
+/*CDMA modem registration internal flags*/
 typedef enum {
     MODULE_INT_MODEM_CDMA_REGISTRATION_STATE_UNKNOWN    = 0,
     MODULE_INT_MODEM_CDMA_REGISTRATION_STATE_REGISTERED = 1,
@@ -87,7 +110,7 @@ typedef enum {
     MODULE_INT_MODEM_CDMA_REGISTRATION_STATE_ROAMING    = 3,
 } ModuleIntModemCdmaRegistrationState;
 
-//Modem USSD state internal flags
+/*Modem USSD state internal flags*/
 typedef enum {
 	MODULE_INT_MODEM_3GPP_USSD_SESSION_STATE_UNKNOWN       = 0,
 	MODULE_INT_MODEM_3GPP_USSD_SESSION_STATE_IDLE          = 1,
@@ -95,7 +118,7 @@ typedef enum {
 	MODULE_INT_MODEM_3GPP_USSD_SESSION_STATE_USER_RESPONSE = 3,
 } ModuleIntModem3gppUssdSessionState;
 
-//Modem network availability internal flags
+/*Modem network availability internal flags*/
 typedef enum {
     MODULE_INT_MODEM_3GPP_NETWORK_AVAILABILITY_UNKNOWN   = 0,
     MODULE_INT_MODEM_3GPP_NETWORK_AVAILABILITY_AVAILABLE = 1,
@@ -103,7 +126,7 @@ typedef enum {
     MODULE_INT_MODEM_3GPP_NETWORK_AVAILABILITY_FORBIDDEN = 3,
 } ModuleIntModem3gppNetworkAvailability;
 
-//Modem acess technology internal flags
+/*Modem acess technology internal flags*/
 typedef enum {
     MODULE_INT_MODEM_ACCESS_TECHNOLOGY_UNKNOWN     = 0,
     MODULE_INT_MODEM_ACCESS_TECHNOLOGY_POTS        = 1 << 0,
@@ -124,7 +147,7 @@ typedef enum {
     MODULE_INT_MODEM_ACCESS_TECHNOLOGY_ANY         = 0xFFFFFFFF,
 } ModuleIntModemAccessTechnology;
 
-//Location types internal flags
+/*Location types internal flags*/
 typedef enum {
     MODULE_INT_MODEM_LOCATION_SOURCE_NONE        = 0,
     MODULE_INT_MODEM_LOCATION_SOURCE_3GPP_LAC_CI = 1 << 0,
@@ -132,7 +155,7 @@ typedef enum {
     MODULE_INT_MODEM_LOCATION_SOURCE_GPS_NMEA    = 1 << 2,
 } ModuleIntModemLocationSource;
 
-//SMS message state internal flags
+/*SMS message state internal flags*/
 typedef enum {
 	MODULE_INT_SMS_STATE_UNKNOWN   = 0,
 	MODULE_INT_SMS_STATE_STORED    = 1,
@@ -142,7 +165,7 @@ typedef enum {
 	MODULE_INT_SMS_STATE_SENT      = 5,
 } ModuleIntSmsState;
 
-//SMS message internal type
+/*SMS message internal type*/
 typedef enum {
 	MODULE_INT_PDU_TYPE_UNKNOWN       = 0,
 	MODULE_INT_PDU_TYPE_DELIVER       = 1,
@@ -150,7 +173,7 @@ typedef enum {
 	MODULE_INT_PDU_TYPE_STATUS_REPORT = 3
 } ModuleIntSmsPduType;
 
-//SMS validity internal types
+/*SMS validity internal types*/
 typedef enum {
 	MODULE_INT_SMS_VALIDITY_TYPE_UNKNOWN  = 0,
     MODULE_INT_SMS_VALIDITY_TYPE_RELATIVE = 1,
@@ -159,7 +182,7 @@ typedef enum {
 } ModuleIntSmsValidityType;
 
 
-//Private module variables
+/*Private module variables*/
 struct _mmguimoduledata {
 	//DBus connection
 	GDBusConnection *connection;
@@ -198,6 +221,7 @@ struct _mmguimoduledata {
 typedef struct _mmguimoduledata *moduledata_t;
 
 static void mmgui_module_handle_error_message(mmguicore_t mmguicore, GError *error);
+static void mmgui_module_custom_error_message(mmguicore_t mmguicore, gchar *message);
 static guint mmgui_module_get_object_path_index(const gchar *objectpath);
 static gint mmgui_module_gsm_operator_code(const gchar *opcodestr);
 static void mmgui_signal_handler(GDBusProxy *proxy, const gchar *sender_name, const gchar *signal_name, GVariant *parameters, gpointer data);
@@ -218,9 +242,7 @@ static enum _mmgui_device_modes mmgui_module_access_mode_translate(guint mode);
 static gboolean mmgui_module_devices_update_device_mode(gpointer mmguicore, gint oldstate, gint newstate, guint changereason);
 static gboolean mmgui_module_devices_update_location(gpointer mmguicore, mmguidevice_t device);
 static gboolean mmgui_module_devices_enable_location(gpointer mmguicore, mmguidevice_t device, gboolean enable);
-
 static mmguidevice_t mmgui_module_device_new(mmguicore_t mmguicore, const gchar *devpath);
-
 static mmgui_sms_message_t mmgui_module_sms_retrieve(mmguicore_t mmguicore, const gchar *smspath);
 static gint mmgui_module_sms_get_id(mmguicore_t mmguicore, const gchar *smspath);
 
@@ -248,6 +270,29 @@ static void mmgui_module_handle_error_message(mmguicore_t mmguicore, GError *err
 	g_warning("%s: %s", MMGUI_MODULE_DESCRIPTION, moduledata->errormessage);
 }
 
+static void mmgui_module_custom_error_message(mmguicore_t mmguicore, gchar *message)
+{
+	moduledata_t moduledata;
+	
+	if (mmguicore == NULL) return;
+	
+	moduledata = (moduledata_t)mmguicore->moduledata;
+	
+	if (moduledata == NULL) return;
+	
+	if (moduledata->errormessage != NULL) {
+		g_free(moduledata->errormessage);
+	}
+	
+	if (message != NULL) {
+		moduledata->errormessage = g_strdup(message);
+	} else {
+		moduledata->errormessage = g_strdup("Unknown error");
+	}
+	
+	g_warning("%s: %s", MMGUI_MODULE_DESCRIPTION, moduledata->errormessage);
+}
+
 static guint mmgui_module_get_object_path_index(const gchar *objectpath)
 {
 	guint id;
@@ -268,24 +313,47 @@ static gint mmgui_module_gsm_operator_code(const gchar *opcodestr)
 	gsize length;
 	gchar codepartbuf[4];
 	gint operatorcode;
+	gchar *decopcodestr;
+	gsize decopcodelen;
 	
 	if (opcodestr == NULL) return 0;
 	
 	length = strlen(opcodestr);
 	
-	if (length < 5) return 0;
-	
 	operatorcode = 0;
+	
+	decopcodestr = NULL;
+	decopcodelen = 0;
+	
+	if ((length == 5) || (length == 6)) {
+		/*UTF-8 operator code*/
+		decopcodestr = g_strdup(opcodestr);
+		decopcodelen = length;
+	} else if ((length == 20) || (length == 24)) {
+		/*UCS-2 operator code*/
+		decopcodestr = (gchar *)ucs2_to_utf8((const guchar *)opcodestr, length, &decopcodelen);
+		if ((decopcodelen != 5) && (decopcodelen != 6)) {
+			if (decopcodestr != NULL) {
+				g_free(decopcodestr);
+			}
+			return operatorcode;
+		}
+	} else {
+		/*Unknown format*/
+		return operatorcode;
+	}
 	
 	/*MCC*/
 	memset(codepartbuf, 0, sizeof(codepartbuf));
-	memcpy(codepartbuf, opcodestr, 3);
+	memcpy(codepartbuf, decopcodestr, 3);
 	operatorcode |= (atoi(codepartbuf) & 0x0000ffff) << 16;
 	
 	/*MNC*/
 	memset(codepartbuf, 0, sizeof(codepartbuf));
-	memcpy(codepartbuf, opcodestr + 3, length - 3);
+	memcpy(codepartbuf, decopcodestr + 3, decopcodelen - 3);
 	operatorcode |= atoi(codepartbuf) & 0x0000ffff;
+	
+	g_free(decopcodestr);
 	
 	return operatorcode;
 }
@@ -972,6 +1040,28 @@ static mmguidevice_t mmgui_module_device_new(mmguicore_t mmguicore, const gchar 
 		device->prepared = TRUE;
 	}
 	
+	/*What type of lock it is*/
+	deviceinfo = g_dbus_proxy_get_cached_property(deviceproxy, "UnlockRequired");
+	if (deviceinfo != NULL) {
+		switch (g_variant_get_uint32(deviceinfo)) {
+			case MODULE_INT_MODEM_LOCK_NONE:
+				device->locktype = MMGUI_LOCK_TYPE_NONE;
+				break;
+			case MODULE_INT_MODEM_LOCK_SIM_PIN:
+				device->locktype = MMGUI_LOCK_TYPE_PIN;
+				break;
+			case MODULE_INT_MODEM_LOCK_SIM_PUK:
+				device->locktype = MMGUI_LOCK_TYPE_PUK;
+				break;
+			default:
+				device->locktype = MMGUI_LOCK_TYPE_OTHER;
+				break;
+		}
+		g_variant_unref(deviceinfo);
+	} else {
+		device->locktype = MMGUI_LOCK_TYPE_OTHER;
+	}
+	
 	/*Internal Modem Manager identifier*/
 	deviceinfo = g_dbus_proxy_get_cached_property(deviceproxy, "DeviceIdentifier");
 	if (deviceinfo != NULL) {
@@ -1064,6 +1154,7 @@ G_MODULE_EXPORT gboolean mmgui_module_open(gpointer mmguicore)
 	(*moduledata)->timeouts[MMGUI_DEVICE_OPERATION_SEND_SMS] = MMGUI_MODULE_SEND_SMS_OPERATION_TIMEOUT;
 	(*moduledata)->timeouts[MMGUI_DEVICE_OPERATION_SEND_USSD] = MMGUI_MODULE_SEND_USSD_OPERATION_TIMEOUT;
 	(*moduledata)->timeouts[MMGUI_DEVICE_OPERATION_SCAN] = MMGUI_MODULE_NETWORKS_SCAN_OPERATION_TIMEOUT;
+	(*moduledata)->timeouts[MMGUI_DEVICE_OPERATION_UNLOCK] = MMGUI_MODULE_NETWORKS_UNLOCK_OPERATION_TIMEOUT;
 	
 	return TRUE;
 }
@@ -1234,6 +1325,27 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_state(gpointer mmguicore, enum _mm
 		case MMGUI_DEVICE_STATE_REQUEST_LOCKED:
 			/*Is device blocked*/
 			res = mmgui_module_device_locked_from_state(statevalue);
+			/*Update lock type*/
+			data = g_dbus_proxy_get_cached_property(moduledata->modemproxy, "UnlockRequired");
+			if (data != NULL) {
+				switch (g_variant_get_uint32(data)) {
+					case MODULE_INT_MODEM_LOCK_NONE:
+						device->locktype = MMGUI_LOCK_TYPE_NONE;
+						break;
+					case MODULE_INT_MODEM_LOCK_SIM_PIN:
+						device->locktype = MMGUI_LOCK_TYPE_PIN;
+						break;
+					case MODULE_INT_MODEM_LOCK_SIM_PUK:
+						device->locktype = MMGUI_LOCK_TYPE_PUK;
+						break;
+					default:
+						device->locktype = MMGUI_LOCK_TYPE_OTHER;
+						break;
+				}
+				g_variant_unref(data);
+			} else {
+				device->locktype = MMGUI_LOCK_TYPE_OTHER;
+			}
 			device->blocked = res;
 			break;
 		case MMGUI_DEVICE_STATE_REQUEST_REGISTERED:
@@ -1328,7 +1440,7 @@ static gboolean mmgui_module_devices_update_device_mode(gpointer mmguicore, gint
 	device->registered = mmgui_module_device_registered_from_state(newstate);
 	device->prepared = mmgui_module_device_prepared_from_state(newstate);
 	/*Is enabled signal needed */
-	enabledsignal = ((device->operation != MMGUI_DEVICE_OPERATION_ENABLE) && (mmgui_module_device_enabled_from_state(oldstate) != device->enabled));
+	enabledsignal = (mmgui_module_device_enabled_from_state(oldstate) != device->enabled);
 	/*Is blocked signal needed */
 	blockedsignal = (mmgui_module_device_locked_from_state(oldstate) != device->blocked);
 	/*Is registered signal needed */
@@ -1498,7 +1610,16 @@ static gboolean mmgui_module_devices_update_device_mode(gpointer mmguicore, gint
 	/*Enabled signal */
 	if (enabledsignal) {
 		if (mmguicorelc->eventcb != NULL) {
-			(mmguicorelc->eventcb)(MMGUI_EVENT_DEVICE_ENABLED_STATUS, mmguicorelc, GUINT_TO_POINTER(device->enabled));
+			if (device->operation != MMGUI_DEVICE_OPERATION_ENABLE) {
+				(mmguicorelc->eventcb)(MMGUI_EVENT_DEVICE_ENABLED_STATUS, mmguicorelc, GUINT_TO_POINTER(device->enabled));
+			} else {
+				if (mmguicorelc->device != NULL) {
+					mmguicorelc->device->operation = MMGUI_DEVICE_OPERATION_IDLE;
+				}
+				if (mmguicorelc->eventcb != NULL) {
+					(mmguicorelc->eventcb)(MMGUI_EVENT_MODEM_ENABLE_RESULT, mmguicorelc, GUINT_TO_POINTER(TRUE));
+				}				
+			}
 		}
 	}
 	/*Is blocked signal needed */
@@ -1715,7 +1836,29 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_information(gpointer mmguicore)
 			device->enabled = FALSE;
 			device->blocked = TRUE;
 		}
-				
+		
+		/*Lock type*/
+		data = g_dbus_proxy_get_cached_property(moduledata->modemproxy, "UnlockRequired");
+		if (data != NULL) {
+			switch (g_variant_get_uint32(data)) {
+				case MODULE_INT_MODEM_LOCK_NONE:
+					device->locktype = MMGUI_LOCK_TYPE_NONE;
+					break;
+				case MODULE_INT_MODEM_LOCK_SIM_PIN:
+					device->locktype = MMGUI_LOCK_TYPE_PIN;
+					break;
+				case MODULE_INT_MODEM_LOCK_SIM_PUK:
+					device->locktype = MMGUI_LOCK_TYPE_PUK;
+					break;
+				default:
+					device->locktype = MMGUI_LOCK_TYPE_OTHER;
+					break;
+			}
+			g_variant_unref(data);
+		} else {
+			device->locktype = MMGUI_LOCK_TYPE_OTHER;
+		}
+		
 		if (device->enabled) {
 			/*Device identifier (IMEI)*/
 			if (device->imei != NULL) {
@@ -1894,6 +2037,7 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_open(gpointer mmguicore, mmguidevi
 	GVariant *simdata;
 	GError *error;
 	gsize strlength;
+	GHashTable *interfaces;
 			
 	if ((mmguicore == NULL) || (device == NULL)) return FALSE;
 	mmguicorelc = (mmguicore_t)mmguicore;
@@ -2053,60 +2197,61 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_open(gpointer mmguicore, mmguidevi
 		}
 	}
 	
-	error = NULL;
+	/*Supplimentary interfaces*/
+	interfaces = mmgui_dbus_utils_list_service_interfaces(moduledata->connection, "org.freedesktop.ModemManager1", device->objectpath);
 	
-	moduledata->timeproxy = g_dbus_proxy_new_sync(moduledata->connection,
-												G_DBUS_PROXY_FLAGS_NONE,
-												NULL,
-												"org.freedesktop.ModemManager1",
-												device->objectpath,
-												"org.freedesktop.ModemManager1.Modem.Time",
-												NULL,
-												&error);
-	
-	if ((moduledata->timeproxy == NULL) && (error != NULL)) {
-		mmgui_module_handle_error_message(mmguicorelc, error);
-		g_error_free(error);
+	if ((interfaces != NULL) && (g_hash_table_contains(interfaces, "org.freedesktop.ModemManager1.Modem.Time"))) {
+		error = NULL;
+		moduledata->timeproxy = g_dbus_proxy_new_sync(moduledata->connection,
+													G_DBUS_PROXY_FLAGS_NONE,
+													NULL,
+													"org.freedesktop.ModemManager1",
+													device->objectpath,
+													"org.freedesktop.ModemManager1.Modem.Time",
+													NULL,
+													&error);
+		
+		if ((moduledata->timeproxy == NULL) && (error != NULL)) {
+			moduledata->timesignal = 0;
+			mmgui_module_handle_error_message(mmguicorelc, error);
+			g_error_free(error);
+		} else {
+			moduledata->timesignal = g_signal_connect(moduledata->timeproxy, "g-signal", G_CALLBACK(mmgui_signal_handler), mmguicore);
+		}
 	} else {
-		moduledata->timesignal = g_signal_connect(moduledata->timeproxy, "g-signal", G_CALLBACK(mmgui_signal_handler), mmguicore);
+		/*No Time interface*/
+		moduledata->timeproxy = NULL;
+		moduledata->timesignal = 0;
 	}
 	
-	error = NULL;
-	
-	moduledata->contactsproxy = g_dbus_proxy_new_sync(moduledata->connection,
-												G_DBUS_PROXY_FLAGS_NONE,
-												NULL,
-												"org.freedesktop.ModemManager1",
-												device->objectpath,
-												"org.freedesktop.ModemManager1.Modem.Contacts",
-												NULL,
-												&error);
-	
-	if ((moduledata->contactsproxy == NULL) && (error != NULL)) {
-		device->contactscaps = MMGUI_CONTACTS_CAPS_NONE;
-		mmgui_module_handle_error_message(mmguicorelc, error);
-		g_error_free(error);
-	} else {
-		//Test if we really have working conatacts API
+	if ((interfaces != NULL) && (g_hash_table_contains(interfaces, "org.freedesktop.ModemManager1.Modem.Contacts"))) {
 		error = NULL;
-		simdata = g_dbus_proxy_call_sync(moduledata->contactsproxy,
-										"GetCount",
-										NULL,
-										0,
-										-1,
-										NULL,
-										&error);
+		moduledata->contactsproxy = g_dbus_proxy_new_sync(moduledata->connection,
+													G_DBUS_PROXY_FLAGS_NONE,
+													NULL,
+													"org.freedesktop.ModemManager1",
+													device->objectpath,
+													"org.freedesktop.ModemManager1.Modem.Contacts",
+													NULL,
+													&error);
 		
-		if ((error != NULL) && (simdata == NULL)) {
+		if ((moduledata->contactsproxy == NULL) && (error != NULL)) {
 			device->contactscaps = MMGUI_CONTACTS_CAPS_NONE;
 			mmgui_module_handle_error_message(mmguicorelc, error);
 			g_error_free(error);
 		} else {
-			device->contactscaps = MMGUI_CONTACTS_CAPS_EXPORT | MMGUI_CONTACTS_CAPS_EDIT | MMGUI_CONTACTS_CAPS_EXTENDED;
-			g_variant_unref(simdata);
+			device->contactscaps = MMGUI_CONTACTS_CAPS_EXPORT | MMGUI_CONTACTS_CAPS_EDIT | MMGUI_CONTACTS_CAPS_EXTENDED;			
 		}
+	} else {
+		/*No Time interface*/
+		moduledata->contactsproxy = NULL;
+		device->contactscaps = MMGUI_CONTACTS_CAPS_NONE;
 	}
 	
+	if (interfaces != NULL) {
+		g_hash_table_destroy(interfaces);
+	}
+		
 	//Update device information using created proxy objects
 	mmgui_module_devices_information(mmguicore);
 	
@@ -2254,9 +2399,7 @@ static void mmgui_module_devices_enable_handler(GDBusProxy *proxy, GAsyncResult 
 	moduledata_t moduledata;
 	GError *error;
 	GVariant *data;
-	gboolean newstate;
-	guint32 statevalue;
-		
+			
 	mmguicorelc = (mmguicore_t)user_data;
 	if (mmguicorelc == NULL) return;
 	
@@ -2271,30 +2414,19 @@ static void mmgui_module_devices_enable_handler(GDBusProxy *proxy, GAsyncResult 
 		if ((moduledata->cancellable == NULL) || ((moduledata->cancellable != NULL) && (!g_cancellable_is_cancelled(moduledata->cancellable)))) {
 			mmgui_module_handle_error_message(mmguicorelc, error);
 		}
+		
 		g_error_free(error);
-		newstate = FALSE;
-	} else {
-		g_variant_unref(data);
-		newstate = mmguicorelc->device->enabled;
-		//Update device state
-		data = g_dbus_proxy_get_cached_property(proxy, "State");
-		statevalue = g_variant_get_int32(data);
-		mmguicorelc->device->enabled = mmgui_module_device_enabled_from_state(statevalue);
-		g_variant_unref(data);
-		//If device state changed - return TRUE
-		if (newstate != mmguicorelc->device->enabled) {
-			newstate = TRUE;
-		} else {
-			newstate = FALSE;
+		
+		if (mmguicorelc->device != NULL) {
+			mmguicorelc->device->operation = MMGUI_DEVICE_OPERATION_IDLE;
 		}
-	}
-	
-	if (mmguicorelc->device != NULL) {
-		mmguicorelc->device->operation = MMGUI_DEVICE_OPERATION_IDLE;
-	}
-	
-	if ((mmguicorelc->eventcb != NULL) && ((moduledata->cancellable == NULL) || ((moduledata->cancellable != NULL) && (!g_cancellable_is_cancelled(moduledata->cancellable))))) {
-		(mmguicorelc->eventcb)(MMGUI_EVENT_MODEM_ENABLE_RESULT, user_data, GUINT_TO_POINTER(newstate));
+		
+		if (mmguicorelc->eventcb != NULL) {
+			(mmguicorelc->eventcb)(MMGUI_EVENT_MODEM_ENABLE_RESULT, user_data, GUINT_TO_POINTER(FALSE));
+		}
+	} else {
+		/*Handle event if state transition was successful*/
+		g_variant_unref(data);
 	}
 }
 
@@ -2312,8 +2444,11 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_enable(gpointer mmguicore, gboolea
 	if (moduledata->modemproxy == NULL) return FALSE;
 	if (mmguicorelc->device == NULL) return FALSE;
 	
-	//Device already in requested state
-	if (mmguicorelc->device->enabled == enabled) return TRUE;
+	/*Device already in requested state*/
+	if (mmguicorelc->device->enabled == enabled) {
+		mmgui_module_custom_error_message(mmguicorelc, _("Device already in requested state"));
+		return FALSE;
+	}
 	
 	mmguicorelc->device->operation = MMGUI_DEVICE_OPERATION_ENABLE;
 	
@@ -2332,6 +2467,77 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_enable(gpointer mmguicore, gboolea
 	
 	return TRUE;
 }
+
+static void mmgui_module_devices_unlock_with_pin_handler(GDBusProxy *proxy, GAsyncResult *res, gpointer user_data)
+{
+	mmguicore_t mmguicorelc;
+	moduledata_t moduledata;
+	GError *error;
+	GVariant *data;
+		
+	mmguicorelc = (mmguicore_t)user_data;
+	if (mmguicorelc == NULL) return;
+	
+	if (mmguicorelc->moduledata == NULL) return;
+	moduledata = (moduledata_t)mmguicorelc->moduledata;
+	
+	error = NULL;
+	
+	data = g_dbus_proxy_call_finish(proxy, res, &error);
+	
+	if ((data == NULL) && (error != NULL)) {
+		if ((moduledata->cancellable == NULL) || ((moduledata->cancellable != NULL) && (!g_cancellable_is_cancelled(moduledata->cancellable)))) {
+			mmgui_module_handle_error_message(mmguicorelc, error);
+		}
+		
+		g_error_free(error);
+		
+		if (mmguicorelc->device != NULL) {
+			mmguicorelc->device->operation = MMGUI_DEVICE_OPERATION_IDLE;
+		}
+		
+		if (mmguicorelc->eventcb != NULL) {
+			(mmguicorelc->eventcb)(MMGUI_EVENT_MODEM_UNLOCK_WITH_PIN_RESULT, user_data, GUINT_TO_POINTER(FALSE));
+		}
+	} else {
+		/*Handle event if state transition was successful*/
+		g_variant_unref(data);
+	}
+}
+
+G_MODULE_EXPORT gboolean mmgui_module_devices_unlock_with_pin(gpointer mmguicore, gchar *pin)
+{
+	mmguicore_t mmguicorelc;
+	moduledata_t moduledata;
+	
+	if (mmguicore == NULL) return FALSE;
+	mmguicorelc = (mmguicore_t)mmguicore;
+	
+	if (mmguicorelc->moduledata == NULL) return FALSE;
+	moduledata = (moduledata_t)mmguicorelc->moduledata;
+	
+	if (mmguicorelc->device == NULL) return FALSE;
+	if (moduledata->cardproxy == NULL) return FALSE;
+	if (mmguicorelc->device->locktype != MMGUI_LOCK_TYPE_PIN) return FALSE;
+	
+	mmguicorelc->device->operation = MMGUI_DEVICE_OPERATION_UNLOCK;
+	
+	if (moduledata->cancellable != NULL) {
+		g_cancellable_reset(moduledata->cancellable);
+	}
+	
+	g_dbus_proxy_call(moduledata->cardproxy,
+						"SendPin",
+						g_variant_new("(s)", pin),
+						G_DBUS_CALL_FLAGS_NONE,
+						moduledata->timeouts[MMGUI_DEVICE_OPERATION_UNLOCK],
+						moduledata->cancellable,
+						(GAsyncReadyCallback)mmgui_module_devices_unlock_with_pin_handler,
+						mmguicore);
+	
+	return TRUE;
+}
+
 
 static time_t mmgui_module_str_to_time(const gchar *str)
 {
@@ -2635,7 +2841,7 @@ G_MODULE_EXPORT guint mmgui_module_sms_enum(gpointer mmguicore, GSList **smslist
 			strlength = 256;
 			smspath = g_variant_get_string(mnodel2, &strlength);
 			g_debug("SMS message object path: %s\n", smspath);
-			if (smspath != NULL) {
+			if ((smspath != NULL) && (smspath[0] != '\0')) {
 				message = mmgui_module_sms_retrieve(mmguicorelc, smspath);
 				if (message != NULL) {
 					*smslist = g_slist_prepend(*smslist, message);

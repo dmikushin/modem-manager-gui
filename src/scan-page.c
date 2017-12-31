@@ -1,7 +1,7 @@
 /*
  *      scan-page.c
  *      
- *      Copyright 2012-2014 Alex <alex@linuxonly.ru>
+ *      Copyright 2012-2017 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -41,7 +41,7 @@ void mmgui_main_scan_start(mmgui_application_t mmguiapp)
 	if (mmguiapp == NULL) return;
 	
 	if (mmguicore_networks_scan(mmguiapp->core)) {
-		mmgui_ui_infobar_show(mmguiapp, _("Scanning networks..."), MMGUI_MAIN_INFOBAR_TYPE_PROGRESS, TRUE);
+		mmgui_ui_infobar_show(mmguiapp, _("Scanning networks..."), MMGUI_MAIN_INFOBAR_TYPE_PROGRESS, NULL, NULL);
 	} else {
 		mmgui_ui_infobar_show_result(mmguiapp, MMGUI_MAIN_INFOBAR_RESULT_FAIL, _("Device error"));
 	}

@@ -60,7 +60,8 @@ enum _mmgui_main_infobar_type {
 	MMGUI_MAIN_INFOBAR_TYPE_INFO = 0,
 	MMGUI_MAIN_INFOBAR_TYPE_WARNING,
 	MMGUI_MAIN_INFOBAR_TYPE_ERROR,
-	MMGUI_MAIN_INFOBAR_TYPE_PROGRESS
+	MMGUI_MAIN_INFOBAR_TYPE_PROGRESS,
+	MMGUI_MAIN_INFOBAR_TYPE_PROGRESS_UNSTOPPABLE
 };
 
 /*Infobar results*/
@@ -70,6 +71,8 @@ enum _mmgui_main_infobar_result {
 	MMGUI_MAIN_INFOBAR_RESULT_FAIL,
 	MMGUI_MAIN_INFOBAR_RESULT_TIMEOUT
 };
+
+typedef gboolean (*mmgui_infobar_close_func)(gpointer data);
 
 struct _mmgui_main_window {
 	//Window
@@ -82,8 +85,11 @@ struct _mmgui_main_window {
 	GtkWidget *infobarimage;
 	GtkWidget *infobarlabel;
 	GtkWidget *infobarstopbutton;
+	mmgui_infobar_close_func infobarcallback;
 	guint infobartimeout;
 	guint sbcontext;
+	guint menuitemcount;
+	gboolean infobarlock;
 	GtkWidget *signalimage;
 	GdkPixbuf *signal0icon;
 	GdkPixbuf *signal25icon;
@@ -97,6 +103,7 @@ struct _mmgui_main_window {
 	GtkWidget *questiondialog;
 	GtkWidget *errordialog;
 	GtkWidget *exitdialog;
+	GtkWidget *pinentrydialog;
 	/*Welcome window*/
 	GtkWidget *welcomewindow;
 	GtkWidget *welcomeimage;
@@ -157,6 +164,9 @@ struct _mmgui_main_window {
 	GtkWidget *conndns1entry;
 	GtkWidget *conndns2entry;
 	GtkWidget *providersmenu;
+	/*PIN entry dialog*/
+	GtkWidget *pinentry;
+	GtkWidget *pinentryapplybutton;
 	//SMS page
 	GtkWidget *smsinfobar;
 	GtkWidget *smsinfobarlabel;
@@ -399,7 +409,7 @@ gboolean mmgui_main_ui_question_dialog_open(mmgui_application_t mmguiapp, gchar 
 gboolean mmgui_main_ui_error_dialog_open(mmgui_application_t mmguiapp, gchar *caption, gchar *text);
 
 void mmgui_ui_infobar_show_result(mmgui_application_t mmguiapp, gint result, gchar *message);
-void mmgui_ui_infobar_show(mmgui_application_t mmguiapp, gchar *message, gint type, gboolean canbestopped);
+void mmgui_ui_infobar_show(mmgui_application_t mmguiapp, gchar *message, gint type, mmgui_infobar_close_func callback, gchar *buttoncaption);
 
 gboolean mmgui_main_ui_test_device_state(mmgui_application_t mmguiapp, guint setpage);
 void mmgui_main_ui_devices_button_toggled_signal(GObject *object, gpointer data);

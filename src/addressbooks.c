@@ -35,6 +35,7 @@
 #include <stdarg.h>
 
 #include "mmguicore.h"
+#include "dbus-utils.h"
 #include "vcard.h"
 #include "addressbooks.h"
 
@@ -83,7 +84,6 @@ struct _mmgui_addressbooks_akonadi_collection {
 typedef struct _mmgui_addressbooks_akonadi_collection *mmgui_addressbooks_akonadi_collection_t;
 
 //KDE (Akonadi)
-static gboolean mmgui_addressbooks_session_service_activate(gchar *interface, guint *status);
 static gint mmgui_addressbooks_open_kde_socket(void);
 static void mmgui_addressbooks_fill_akonadi_command_struct(mmgui_addressbooks_akonadi_command_t command, const gchar *format, ...);
 static void mmgui_addressbooks_free_akonadi_command_struct(mmgui_addressbooks_akonadi_command_t command);
@@ -105,72 +105,6 @@ static void mmgui_addressbooks_free_contacts_list_foreach(gpointer data, gpointe
 
 
 //KDE (Akonadi)
-static gboolean mmgui_addressbooks_session_service_activate(gchar *interface, guint *status)
-{
-	GDBusConnection *connection;
-	GDBusProxy *proxy;
-	gboolean res;
-	GVariant *statusv;
-	GError *error;
-
-	if (interface == NULL) return FALSE;
-
-	error = NULL;
-
-	connection = g_bus_get_sync(G_BUS_TYPE_SESSION, NULL, &error);
-
-	if ((connection == NULL) && (error != NULL)) {
-		g_debug("Core error: %s\n", error->message);
-		g_error_free(error);
-		return FALSE;
-	}
-
-	error = NULL;
-
-	proxy = g_dbus_proxy_new_sync(connection,
-									G_DBUS_PROXY_FLAGS_NONE,
-									NULL,
-									"org.freedesktop.DBus",
-									"/org/freedesktop/DBus",
-									"org.freedesktop.DBus",
-									NULL,
-									&error);
-
-	if ((proxy == NULL) && (error != NULL)) {
-		g_debug("Core error: %s\n", error->message);
-		g_error_free(error);
-		g_object_unref(connection);
-		return FALSE;
-	}
-
-	error = NULL;
-
-	statusv = g_dbus_proxy_call_sync(proxy,
-									"StartServiceByName",
-									g_variant_new("(su)", interface, 0),
-									0,
-									-1,
-									NULL,
-									&error);
-
-	if ((statusv == NULL) && (error != NULL)) {
-		g_debug("Core error: %s\n", error->message);
-		g_error_free(error);
-		res = FALSE;
-	} else {
-		if (status != NULL) {
-			g_variant_get(statusv, "(u)", status);
-			g_debug("Service start status: %u\n", *status);
-		}
-		res = TRUE;
-	}
-
-	g_object_unref(proxy);
-	g_object_unref(connection);
-
-	return res;
-}
-
 static gint mmgui_addressbooks_open_kde_socket(void)
 {
 	const gchar *homedir;
@@ -1153,7 +1087,7 @@ mmgui_addressbooks_t mmgui_addressbooks_new(mmgui_event_ext_callback callback, m
 		version = getenv("KDE_SESSION_VERSION");
 		/*For now only KDE 4 version supported*/
 		if (g_strcmp0(version, "4") == 0) {
-			if (mmgui_addressbooks_session_service_activate(MMGUI_ADDRESSBOOKS_AKONADI_DBUS_INTERFACE, &akonadistatus)) {
+			if (mmgui_dbus_utils_session_service_activate(MMGUI_ADDRESSBOOKS_AKONADI_DBUS_INTERFACE, &akonadistatus)) {
 				/*Open socket*/
 				addressbooks->aksocket = mmgui_addressbooks_open_kde_socket();
 				if (addressbooks->aksocket != -1) {

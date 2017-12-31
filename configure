@@ -99,8 +99,8 @@ else
 	fi	
 fi
 
-if ! pkg-config --exists 'appindicator3-0.1 >= 12.10.0'; then
-	echo "WARNING: Indicator won't be supported. Please install appindicator library version 12.10.0 or later with development headers if you want to use it."
+if ! pkg-config --exists 'appindicator3-0.1 >= 0.4.92'; then
+	echo "WARNING: Indicator won't be supported. Please install appindicator library version 0.4.92 or later with development headers if you want to use it."
 	indicator=0
 else
 	if [ -z "$addlibsnames" ]; then
@@ -126,7 +126,7 @@ echo -n "Generating resources.h... "
 echo "/*
  *      resources.h
  *      
- *      Copyright 2012-2015 Alex <alex@linuxonly.ru>
+ *      Copyright 2012-2017 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by

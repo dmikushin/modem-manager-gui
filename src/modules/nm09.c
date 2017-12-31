@@ -41,7 +41,7 @@
 #define MMGUI_MODULE_DESCRIPTION   "Network Manager >= 0.9.0"
 
 //Internal definitions
-#define MODULE_INT_NM_TIMESTAMPS_FILE_PATH     "/var/lib/NetworkManager/timestamps"
+#define MODULE_INT_NM_TIMESTAMPS_FILE_PATH     "/var/run/modem-manager-gui/timestamps"
 #define MODULE_INT_NM_TIMESTAMPS_FILE_SECTION  "timestamps"
 #define MODULE_INT_NM_ERROR_CODE_NO_SECRETS    36
 
@@ -109,20 +109,95 @@ struct _mmguimoduledata {
 	gchar *errormessage;
 	/*UUID RNG*/
 	GRand *uuidrng;
+	/*Version information*/
+	gint vermajor;
+	gint verminor;
+	gint verrevision;
 };
 
 typedef struct _mmguimoduledata *moduledata_t;
 
+
+static void mmgui_module_get_updated_interface_state(mmguicore_t mmguicore, gboolean checkstate);
+static void mmgui_module_signal_handler(GDBusProxy *proxy, const gchar *sender_name, const gchar *signal_name, GVariant *parameters, gpointer data);
+static gchar *mmgui_module_get_variant_string(GVariant *variant, const gchar *name, const gchar *defvalue);
+static gboolean mmgui_module_get_variant_boolean(GVariant *variant, const gchar *name, gboolean defvalue);
+static void mmgui_module_handle_error_message(mmguicore_t mmguicore, GError *error);
+static gboolean mmgui_module_check_service_version(mmguicore_t mmguicore, gint major, gint minor, gint revision);
+static mmguiconn_t mmgui_module_connection_get_params(mmguicore_t mmguicore, const gchar *connpath);
+static GVariant *mmgui_module_connection_serialize(const gchar *uuid, const gchar *name, const gchar *number, const gchar *username, const gchar *password, const gchar *apn, guint networkid, guint type, gboolean homeonly, const gchar *dns1, const gchar *dns2);
+
+
+static void mmgui_module_get_updated_interface_state(mmguicore_t mmguicore, gboolean checkstate)
+{
+	moduledata_t moduledata;
+	GDBusProxy *devproxy;
+	GError *error;
+	GVariant *devproperty;
+	guint devstate;
+	const gchar *devinterface;
+	gsize strlength;
+	
+	if (mmguicore == NULL) return;
+	
+	moduledata = (moduledata_t)(mmguicore->cmoduledata);
+	
+	error = NULL;
+	
+	if (!mmgui_module_check_service_version(mmguicore, 1, 0, 0)) {
+		/*Old NetworkManager does not update properties on opened proxy objects*/
+		devproxy = g_dbus_proxy_new_sync(moduledata->connection,
+										G_DBUS_PROXY_FLAGS_GET_INVALIDATED_PROPERTIES,
+										NULL,
+										"org.freedesktop.NetworkManager",
+										g_dbus_proxy_get_object_path(moduledata->devproxy),
+										"org.freedesktop.NetworkManager.Device",
+										NULL,
+										&error);
+	} else {
+		devproxy = moduledata->devproxy;
+	}
+	
+	if ((devproxy == NULL) && (error != NULL)) {
+		mmgui_module_handle_error_message(mmguicore, error);
+		g_error_free(error);
+		return;
+	} else {
+		if (checkstate) {
+			devproperty = g_dbus_proxy_get_cached_property(devproxy, "State");
+			devstate = g_variant_get_uint32(devproperty);
+			g_variant_unref(devproperty);
+		}
+		
+		if ((!checkstate) || (checkstate && (devstate == MODULE_INT_DEVICE_STATE_ACTIVATED))) {
+			devproperty = g_dbus_proxy_get_cached_property(devproxy, "IpInterface");
+			if (devproperty != NULL) {
+				strlength = IFNAMSIZ;
+				devinterface = g_variant_get_string(devproperty, &strlength);
+				if ((devinterface != NULL) && (devinterface[0] != '\0')) {
+					memset(mmguicore->device->interface, 0, IFNAMSIZ);
+					strncpy(mmguicore->device->interface, devinterface, IFNAMSIZ);
+					mmguicore->device->connected = TRUE;
+				}
+				g_variant_unref(devproperty);
+			}
+		} else if (checkstate && (devstate != MODULE_INT_DEVICE_STATE_ACTIVATED)) {
+			memset(mmguicore->device->interface, 0, IFNAMSIZ);
+			mmguicore->device->connected = FALSE;
+		}
+		
+		if (!mmgui_module_check_service_version(mmguicore, 1, 0, 0)) {
+			g_object_unref(devproxy);
+		}
+	}
+}
 
 static void mmgui_module_signal_handler(GDBusProxy *proxy, const gchar *sender_name, const gchar *signal_name, GVariant *parameters, gpointer data)
 {
 	mmguicore_t mmguicorelc;
 	moduledata_t moduledata;
 	guint oldstate, newstate, reason;
-	GVariant *devproperty;
-	const gchar *devinterface;
-	gsize strlength;
-	
+		
 	if (data == NULL) return;
 	
 	mmguicorelc = (mmguicore_t)data;
@@ -154,13 +229,7 @@ static void mmgui_module_signal_handler(GDBusProxy *proxy, const gchar *sender_n
 				break;
 			case MODULE_INT_DEVICE_STATE_ACTIVATED:
 				/*Update internal info*/
-				devproperty = g_dbus_proxy_get_cached_property(moduledata->devproxy, "IpInterface");
-				strlength = IFNAMSIZ;
-				devinterface = g_variant_get_string(devproperty, &strlength);
-				memset(mmguicorelc->device->interface, 0, IFNAMSIZ);
-				strncpy(mmguicorelc->device->interface, devinterface, IFNAMSIZ);
-				mmguicorelc->device->connected = TRUE;
-				g_variant_unref(devproperty);
+				mmgui_module_get_updated_interface_state(mmguicorelc, FALSE);
 				/*Update connection transition flag*/
 				mmguicorelc->device->conntransition = FALSE;
 				/*Generate signals*/
@@ -189,8 +258,7 @@ static void mmgui_module_signal_handler(GDBusProxy *proxy, const gchar *sender_n
 				mmguicorelc->device->conntransition = TRUE;
 				break;
 		}
-		//printf("State change: %u - %u - %u\n", oldstate, newstate, reason);
-		//mmgui_module_devices_update_device_mode(mmguicore, oldstate, newstate, changereason);
+		g_debug("State change: %u - %u - %u\n", oldstate, newstate, reason);
 	}
 }
 
@@ -207,7 +275,7 @@ static gchar *mmgui_module_get_variant_string(GVariant *variant, const gchar *na
 	strvar = g_variant_lookup_value(variant, name, G_VARIANT_TYPE_STRING);
 	if (strvar != NULL) {
 		str = g_variant_get_string(strvar, NULL);
-		if (str != NULL) {
+		if ((str != NULL) && (str[0] != '\0')) {
 			res = g_strdup(str);
 		} else {
 			if (defvalue != NULL) {
@@ -261,6 +329,27 @@ static void mmgui_module_handle_error_message(mmguicore_t mmguicore, GError *err
 	g_warning("%s: %s", MMGUI_MODULE_DESCRIPTION, moduledata->errormessage);
 }
 
+static gboolean mmgui_module_check_service_version(mmguicore_t mmguicore, gint major, gint minor, gint revision)
+{
+	moduledata_t moduledata;
+	gboolean compatiblever;
+	
+	if (mmguicore == NULL) return FALSE;
+	
+	moduledata = (moduledata_t)mmguicore->cmoduledata;
+	
+	compatiblever = (moduledata->vermajor >= major);
+	
+	if ((moduledata->vermajor == major) && (minor != -1)) {
+		compatiblever = compatiblever && (moduledata->verminor >= minor);
+		if ((moduledata->verminor == minor) && (revision != -1)) {
+			compatiblever = compatiblever && (moduledata->verrevision >= revision); 
+		}
+	}
+		
+	return compatiblever;
+}
+
 G_MODULE_EXPORT gboolean mmgui_module_init(mmguimodule_t module)
 {
 	if (module == NULL) return FALSE;
@@ -282,6 +371,10 @@ G_MODULE_EXPORT gboolean mmgui_module_connection_open(gpointer mmguicore)
 	mmguicore_t mmguicorelc;
 	moduledata_t *moduledata;
 	GError *error;
+	GVariant *version;
+	const gchar *verstr;
+	gchar **verstrarr;
+	gint i;
 	
 	if (mmguicore == NULL) return FALSE;
 	
@@ -323,6 +416,39 @@ G_MODULE_EXPORT gboolean mmgui_module_connection_open(gpointer mmguicore)
 		g_object_unref((*moduledata)->connection);
 		g_free(mmguicorelc->cmoduledata);
 		return FALSE;
+	}
+	
+	/*Get version of the system service*/
+	(*moduledata)->vermajor = 0;
+	(*moduledata)->verminor = 0;
+	(*moduledata)->verrevision = 0;
+	version = g_dbus_proxy_get_cached_property((*moduledata)->nmproxy, "Version");
+	if (version != NULL) {
+		verstr = g_variant_get_string(version, NULL);
+		if ((verstr != NULL) && (verstr[0] != '\0')) {
+			verstrarr = g_strsplit(verstr, ".", -1);
+			if (verstrarr != NULL) {
+				i = 0;
+				while (verstrarr[i] != NULL) {
+					switch (i) {
+						case 0:
+							(*moduledata)->vermajor = atoi(verstrarr[i]);
+							break;
+						case 1:
+							(*moduledata)->verminor = atoi(verstrarr[i]);
+							break;
+						case 2:
+							(*moduledata)->verrevision = atoi(verstrarr[i]);
+							break;
+						default:
+							break;
+					}
+					i++;
+				}
+				g_strfreev(verstrarr);
+			}
+		}
+		g_variant_unref(version);
 	}
 	
 	(*moduledata)->setproxy = g_dbus_proxy_new_sync((*moduledata)->connection,
@@ -413,6 +539,7 @@ static mmguiconn_t mmgui_module_connection_get_params(mmguicore_t mmguicore, con
 	moduledata = (moduledata_t)mmguicore->cmoduledata;
 	
 	connection = NULL;
+	techstr = "gsm";
 	
 	error = NULL;
 	
@@ -599,10 +726,12 @@ G_MODULE_EXPORT guint mmgui_module_connection_enum(gpointer mmguicore, GSList **
 		g_variant_iter_init(&conniter2, connnode);
 		while ((connnode2 = g_variant_iter_next_value(&conniter2)) != NULL) {
 			connpath = g_variant_get_string(connnode2, NULL);
-			connection = mmgui_module_connection_get_params(mmguicorelc, connpath);
-			if (connection != NULL) {
-				*connlist = g_slist_prepend(*connlist, connection);
-				connnum++;
+			if ((connpath != NULL) && (connpath[0] != '\0')) {
+				connection = mmgui_module_connection_get_params(mmguicorelc, connpath);
+				if (connection != NULL) {
+					*connlist = g_slist_prepend(*connlist, connection);
+					connnum++;
+				}
 			}
 			g_variant_unref(connnode2);
 		}
@@ -1011,66 +1140,76 @@ G_MODULE_EXPORT gboolean mmgui_module_device_connection_open(gpointer mmguicore,
 					/*Device path*/
 					strlength = 256;
 					valuestr = g_variant_get_string(nmdevnodel2, &strlength);
-					/*Device proxy*/
-					error = NULL;
-					nmdevproxy = g_dbus_proxy_new_sync(moduledata->connection,
-														G_DBUS_PROXY_FLAGS_NONE,
-														NULL,
-														"org.freedesktop.NetworkManager",
-														valuestr,
-														"org.freedesktop.NetworkManager.Device",
-														NULL,
-														&error);
-					if ((nmdevproxy != NULL) && (error == NULL)) {
-						/*Device path*/
-						devproperties = g_dbus_proxy_get_cached_property(nmdevproxy, "Udi");
-						if (devproperties != NULL) {
-							strlength = 256;
-							nmdevpath = g_variant_get_string(devproperties, &strlength);
-							g_variant_unref(devproperties);
-						}
-						/*Device type*/
-						devproperties = g_dbus_proxy_get_cached_property(nmdevproxy, "DeviceType");
-						if (devproperties != NULL) {
-							nmdevtype = g_variant_get_uint32(devproperties);
-							g_variant_unref(devproperties);
-						}
-						/*Is it device we looking for*/
-						if ((nmdevtype == MODULE_INT_DEVICE_TYPE_MODEM) && (g_str_equal(device->objectpath, nmdevpath))) {
-							/*Get device state*/
-							devproperties = g_dbus_proxy_get_cached_property(nmdevproxy, "State");
-							nmdevstate = g_variant_get_uint32(devproperties);
-							g_variant_unref(devproperties);
-							if ((nmdevstate != MODULE_INT_DEVICE_STATE_UNKNOWN) && (nmdevstate != MODULE_INT_DEVICE_STATE_UNMANAGED)) {
-								/*If device connected, get interface name*/
-								if (nmdevstate == MODULE_INT_DEVICE_STATE_ACTIVATED) {
-									devproperties = g_dbus_proxy_get_cached_property(nmdevproxy, "IpInterface");
-									strlength = IFNAMSIZ;
-									nmdevinterface = g_variant_get_string(devproperties, &strlength);
-									memset(mmguicorelc->device->interface, 0, IFNAMSIZ);
-									strncpy(mmguicorelc->device->interface, nmdevinterface, IFNAMSIZ);
-									mmguicorelc->device->connected = TRUE;
+					if ((valuestr != NULL) && (valuestr[0] != '\0')) {
+						/*Device proxy*/
+						error = NULL;
+						nmdevproxy = g_dbus_proxy_new_sync(moduledata->connection,
+															G_DBUS_PROXY_FLAGS_GET_INVALIDATED_PROPERTIES,
+															NULL,
+															"org.freedesktop.NetworkManager",
+															valuestr,
+															"org.freedesktop.NetworkManager.Device",
+															NULL,
+															&error);
+					
+						if ((nmdevproxy != NULL) && (error == NULL)) {
+							/*Device path*/
+							devproperties = g_dbus_proxy_get_cached_property(nmdevproxy, "Udi");
+							if (devproperties != NULL) {
+								strlength = 256;
+								nmdevpath = g_variant_get_string(devproperties, &strlength);
+								g_variant_unref(devproperties);
+							}
+							/*Device type*/
+							devproperties = g_dbus_proxy_get_cached_property(nmdevproxy, "DeviceType");
+							if (devproperties != NULL) {
+								nmdevtype = g_variant_get_uint32(devproperties);
+								g_variant_unref(devproperties);
+							}
+							if ((nmdevpath != NULL) && (nmdevpath[0] != '\0')) {
+								/*Is it device we looking for*/
+								if ((nmdevtype == MODULE_INT_DEVICE_TYPE_MODEM) && (g_str_equal(device->objectpath, nmdevpath))) {
+									/*Get device state*/
+									devproperties = g_dbus_proxy_get_cached_property(nmdevproxy, "State");
+									nmdevstate = g_variant_get_uint32(devproperties);
 									g_variant_unref(devproperties);
+									if ((nmdevstate != MODULE_INT_DEVICE_STATE_UNKNOWN) && (nmdevstate != MODULE_INT_DEVICE_STATE_UNMANAGED)) {
+										/*If device connected, get interface name*/
+										if (nmdevstate == MODULE_INT_DEVICE_STATE_ACTIVATED) {
+											devproperties = g_dbus_proxy_get_cached_property(nmdevproxy, "IpInterface");
+											strlength = IFNAMSIZ;
+											nmdevinterface = g_variant_get_string(devproperties, &strlength);
+											if ((nmdevinterface != NULL) && (nmdevinterface[0] != '\0')) {
+												memset(mmguicorelc->device->interface, 0, IFNAMSIZ);
+												strncpy(mmguicorelc->device->interface, nmdevinterface, IFNAMSIZ);
+												mmguicorelc->device->connected = TRUE;
+											} else {
+												memset(mmguicorelc->device->interface, 0, IFNAMSIZ);
+												mmguicorelc->device->connected = FALSE;
+											}
+											g_variant_unref(devproperties);
+										} else {
+											memset(mmguicorelc->device->interface, 0, IFNAMSIZ);
+											mmguicorelc->device->connected = FALSE;
+										}
+										/*Update connection transition flag*/
+										mmguicorelc->device->conntransition = !((nmdevstate == MODULE_INT_DEVICE_STATE_DISCONNECTED) || (nmdevstate == MODULE_INT_DEVICE_STATE_ACTIVATED));
+										/*Save device proxy*/
+										moduledata->devproxy = nmdevproxy;
+										moduledata->statesignal = g_signal_connect(moduledata->devproxy, "g-signal", G_CALLBACK(mmgui_module_signal_handler), mmguicore);
+										break;
+									} else {
+										g_object_unref(nmdevproxy);
+									}
 								} else {
-									memset(mmguicorelc->device->interface, 0, IFNAMSIZ);
-									mmguicorelc->device->connected = FALSE;
+									g_object_unref(nmdevproxy);
 								}
-								/*Update connection transition flag*/
-								mmguicorelc->device->conntransition = !((nmdevstate == MODULE_INT_DEVICE_STATE_DISCONNECTED) || (nmdevstate == MODULE_INT_DEVICE_STATE_ACTIVATED));
-								/*Save device proxy*/
-								moduledata->devproxy = nmdevproxy;
-								moduledata->statesignal = g_signal_connect(moduledata->devproxy, "g-signal", G_CALLBACK(mmgui_module_signal_handler), mmguicore);
-								break;
-							} else {
-								g_object_unref(nmdevproxy);
 							}
 						} else {
-							g_object_unref(nmdevproxy);
+							//Failed to create Network Manager device proxy
+							/*mmgui_module_device_connection_get_timestamp(mmguicorelc);*/
+							g_error_free(error);
 						}
-					} else {
-						//Failed to create Network Manager device proxy
-						/*mmgui_module_device_connection_get_timestamp(mmguicorelc);*/
-						g_error_free(error);
 					}
 					g_variant_unref(nmdevnodel2);
 				}
@@ -1126,10 +1265,6 @@ G_MODULE_EXPORT gboolean mmgui_module_device_connection_status(gpointer mmguicor
 {
 	mmguicore_t mmguicorelc;
 	moduledata_t moduledata;
-	GVariant *devproperty;
-	const gchar *devinterface;
-	guint devstate;
-	gsize strlength;
 	
 	if (mmguicore == NULL) return FALSE;
 	mmguicorelc = (mmguicore_t)mmguicore;
@@ -1140,23 +1275,7 @@ G_MODULE_EXPORT gboolean mmgui_module_device_connection_status(gpointer mmguicor
 	if (mmguicorelc->device == NULL) return FALSE;
 	if (moduledata->devproxy == NULL) return FALSE;
 	
-	/*Get device state*/
-	devproperty = g_dbus_proxy_get_cached_property(moduledata->devproxy, "State");
-	devstate = g_variant_get_uint32(devproperty);
-	g_variant_unref(devproperty);
-	/*If device connected, get interface name*/
-	if (devstate == MODULE_INT_DEVICE_STATE_ACTIVATED) {
-		devproperty = g_dbus_proxy_get_cached_property(moduledata->devproxy, "IpInterface");
-		strlength = IFNAMSIZ;
-		devinterface = g_variant_get_string(devproperty, &strlength);
-		memset(mmguicorelc->device->interface, 0, IFNAMSIZ);
-		strncpy(mmguicorelc->device->interface, devinterface, IFNAMSIZ);
-		mmguicorelc->device->connected = TRUE;
-		g_variant_unref(devproperty);
-	} else {
-		memset(mmguicorelc->device->interface, 0, IFNAMSIZ);
-		mmguicorelc->device->connected = FALSE;
-	}
+	mmgui_module_get_updated_interface_state(mmguicorelc, TRUE);
 	
 	return TRUE;
 }
@@ -1164,13 +1283,8 @@ G_MODULE_EXPORT gboolean mmgui_module_device_connection_status(gpointer mmguicor
 G_MODULE_EXPORT guint64 mmgui_module_device_connection_timestamp(gpointer mmguicore)
 {
 	mmguicore_t mmguicorelc;
-	moduledata_t moduledata;
 	GError *error;
-	GDBusProxy *connproxy;
-	GVariant *property;
 	guint64 curts, realts;
-	const gchar *connpath;
-	const gchar *connuuid;
 	GKeyFile *tsfile;
 	
 	/*Get current timestamp*/
@@ -1179,69 +1293,33 @@ G_MODULE_EXPORT guint64 mmgui_module_device_connection_timestamp(gpointer mmguic
 	if (mmguicore == NULL) return curts;
 	mmguicorelc = (mmguicore_t)mmguicore;
 	
-	if (mmguicorelc->moduledata == NULL) return curts;
-	moduledata = (moduledata_t)mmguicorelc->cmoduledata;
-	
 	if (mmguicorelc->device == NULL) return curts;
-	if (moduledata->devproxy == NULL) return curts;
+	if (!mmguicorelc->device->connected) return curts;
 	
-	/*Get path to Active Connection interface*/
-	property = g_dbus_proxy_get_cached_property(moduledata->devproxy, "ActiveConnection");
-	connpath = g_variant_get_string(property, NULL);
-	
-	/*Active connection proxy*/
 	error = NULL;
-	connproxy = g_dbus_proxy_new_sync(moduledata->connection,
-										G_DBUS_PROXY_FLAGS_NONE,
-										NULL,
-										"org.freedesktop.NetworkManager",
-										connpath,
-										"org.freedesktop.NetworkManager.Connection.Active",
-										NULL,
-										&error);
-	
-	if ((connproxy == NULL) && (error != NULL)) {
-		mmgui_module_handle_error_message(mmguicorelc, error);
-		g_error_free(error);
-		g_variant_unref(property);
-		return curts;
-	}
-	
-	/*Free first proxy resources*/
-	g_variant_unref(property);
-	
-	/*Get active connection UUID*/
-	property = g_dbus_proxy_get_cached_property(connproxy, "Uuid");
-	connuuid = g_variant_get_string(property, NULL);
 	
 	/*Retrieve timestamp from Network Manager timestamps ini file*/
 	tsfile = g_key_file_new();
 	
 	if (!g_key_file_load_from_file(tsfile, MODULE_INT_NM_TIMESTAMPS_FILE_PATH, G_KEY_FILE_NONE, &error)) {
-		//mmgui_module_handle_error_message(mmguicorelc, error);
-		g_error_free(error);
-		g_key_file_free(tsfile);
-		g_variant_unref(property);
-		g_object_unref(connproxy);
-		return curts;
-	}
-	
-	/*File has only one section 'timestamps' with elements 'uuid=timestamp'*/
-	realts = g_key_file_get_uint64(tsfile, MODULE_INT_NM_TIMESTAMPS_FILE_SECTION, connuuid, &error);
-	
-	if ((realts == 0) && (error != NULL)) {
 		mmgui_module_handle_error_message(mmguicorelc, error);
 		g_error_free(error);
 		g_key_file_free(tsfile);
-		g_variant_unref(property);
-		g_object_unref(connproxy);
 		return curts;
 	}
 	
-	/*Free second proxy and ini file resources*/
+	/*File has only one section 'timestamps' with elements 'interface=timestamp'*/
+	realts = g_key_file_get_uint64(tsfile, MODULE_INT_NM_TIMESTAMPS_FILE_SECTION, mmguicorelc->device->interface, &error);
+	
+	if (error != NULL) {
+		mmgui_module_handle_error_message(mmguicorelc, error);
+		g_error_free(error);
+		g_key_file_free(tsfile);
+		return curts;
+	}
+	
+	/*Free resources*/
 	g_key_file_free(tsfile);
-	g_variant_unref(property);
-	g_object_unref(connproxy);
 	
 	return realts;
 }

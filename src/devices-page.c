@@ -714,7 +714,7 @@ void mmgui_main_device_connections_update_state(mmgui_application_t mmguiapp)
 	if (mmguiapp->core == NULL) return;
 	
 	conncaps = mmguicore_connections_get_capabilities(mmguiapp->core);
-	if ((conncaps & MMGUI_CONNECTION_MANAGER_CAPS_MANAGEMENT) && (mmguicore_devices_get_current(mmguiapp->core) != NULL)) {
+	if ((conncaps & MMGUI_CONNECTION_MANAGER_CAPS_MANAGEMENT) && (mmguicore_devices_get_current(mmguiapp->core) != NULL) && (mmguicore_devices_get_enabled(mmguiapp->core))) {
 		if (!mmguicore_devices_get_connected(mmguiapp->core)) {
 			model = gtk_combo_box_get_model(GTK_COMBO_BOX(mmguiapp->window->devconncb));
 			if (model != NULL) {
@@ -798,7 +798,7 @@ void mmgui_main_device_switch_connection_state(mmgui_application_t mmguiapp)
 					mmgui_modem_settings_set_string(mmguiapp->modemsettings, "connection_used", uuid);
 					/*Show progress infobar*/
 					statusmsg = g_strdup_printf(_("Connecting to %s..."), name);
-					mmgui_ui_infobar_show(mmguiapp, statusmsg, MMGUI_MAIN_INFOBAR_TYPE_PROGRESS, FALSE);
+					mmgui_ui_infobar_show(mmguiapp, statusmsg, MMGUI_MAIN_INFOBAR_TYPE_PROGRESS_UNSTOPPABLE, NULL, NULL);
 					/*Deactivate controls*/
 					gtk_widget_set_sensitive(mmguiapp->window->devconncb, FALSE);
 					gtk_widget_set_sensitive(mmguiapp->window->devconnctl, FALSE);
@@ -809,7 +809,7 @@ void mmgui_main_device_switch_connection_state(mmgui_application_t mmguiapp)
 				} else {
 					/*Show progress infobar*/
 					statusmsg = g_strdup_printf(_("Disconnecting from %s..."), name);
-					mmgui_ui_infobar_show(mmguiapp, statusmsg, MMGUI_MAIN_INFOBAR_TYPE_PROGRESS, FALSE);
+					mmgui_ui_infobar_show(mmguiapp, statusmsg, MMGUI_MAIN_INFOBAR_TYPE_PROGRESS_UNSTOPPABLE, NULL, NULL);
 					/*Disconnect from network*/
 					mmguicore_connections_disconnect(mmguiapp->core);
 					/*Activate controls*/

@@ -221,7 +221,7 @@ static gboolean mmgui_main_connection_editor_validate_apn(const gchar *apn, gsiz
 
 static gboolean mmgui_main_connection_editor_validate_ip(const gchar *ip, gsize len)
 {
-	GSocketAddress *address;
+	GInetAddress *address;
 	gboolean result;
 	
 	if ((ip == NULL) || (len == 0)) return FALSE;
@@ -229,7 +229,7 @@ static gboolean mmgui_main_connection_editor_validate_ip(const gchar *ip, gsize 
 	result = FALSE;
 	
 	/*Address validated with Glib function*/
-	address = g_inet_socket_address_new_from_string(ip, 1);
+	address = g_inet_address_new_from_string(ip);
 	if (address != NULL) {
 		result = TRUE;
 		g_object_unref(address);
@@ -627,7 +627,11 @@ void mmgui_main_connection_editor_add_button_clicked_signal(GtkToolButton *toolb
 					while (mul <= mnc) {
 						mul *= 10;
 					}
-					networkid = mcc * mul + mnc;
+					if (mnc < 10) {
+						networkid = mcc * mul * 10 + mnc;
+					} else {
+						networkid = mcc * mul + mnc;
+					}
 					/*Find provider with same network ID*/
 					for (piterator = providers; piterator != NULL; piterator = piterator->next) {
 						curentry = (mmgui_providers_db_entry_t)piterator->data;

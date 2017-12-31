@@ -1,7 +1,7 @@
 /*
  *      settings.c
  *      
- *      Copyright 2012-2014 Alex <alex@linuxonly.ru>
+ *      Copyright 2012-2017 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -29,17 +29,14 @@ settings_t gmm_settings_open(gchar *appname, gchar *filename)
 {
 	settings_t settings;
 	gchar *confpath;
-	gchar *filedata;
-	gsize datasize;
-	GError *error;
-	
+		
 	if ((appname == NULL) || (filename == NULL)) return NULL;
 	
-	//Form path using XDG standard
+	/*Form path using XDG standard*/
 	confpath = g_build_path(G_DIR_SEPARATOR_S, g_get_user_config_dir(), appname, NULL);
 	
 	if (g_mkdir_with_parents(confpath, 0755) != 0) {
-		g_warning("Cant create program settings directory");
+		g_warning("Can't create program settings directory");
 		g_free(confpath);
 		return NULL;
 	}
@@ -52,19 +49,8 @@ settings_t gmm_settings_open(gchar *appname, gchar *filename)
 	
 	settings->keyfile = g_key_file_new();
 	
-	error = NULL;
-	
-	if (g_file_get_contents(settings->filename, &filedata, &datasize, &error)) {
-		if (!g_key_file_load_from_data(settings->keyfile, filedata, datasize, G_KEY_FILE_NONE, &error)) {
-			g_warning("No data loaded from file");
-			g_error_free(error);
-			error = NULL;
-		}
-	} else {
-		g_warning("No data loaded from file");
-		g_error_free(error);
-		error = NULL;
-	}
+	/*Do not show any error messages here*/
+	g_key_file_load_from_file(settings->keyfile, settings->filename, G_KEY_FILE_NONE, NULL);
 	
 	return settings;
 }

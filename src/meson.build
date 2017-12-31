@@ -2,6 +2,7 @@ c_sources = [
 	'settings.c',
 	'strformat.c',
 	'libpaths.c',
+	'dbus-utils.c',
 	'notifications.c',
 	'addressbooks.c',
 	'ayatana.c',

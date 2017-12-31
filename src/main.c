@@ -22,6 +22,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/stat.h>
+#include <ctype.h>
 #ifdef __GLIBC__
 	#include <execinfo.h>
 	#define __USE_GNU
@@ -171,7 +172,7 @@ static void mmgui_main_event_callback(enum _mmgui_event event, gpointer mmguicor
 	guint id;
 			
 	mmguiapp = (mmgui_application_t)userdata;
-		
+	
 	switch (event) {
 		case MMGUI_EVENT_DEVICE_ADDED:
 			appdata = g_new0(struct _mmgui_application_data, 1);
@@ -188,8 +189,14 @@ static void mmgui_main_event_callback(enum _mmgui_event event, gpointer mmguicor
 		case MMGUI_EVENT_DEVICE_OPENED:
 			mmguiapp->modemsettings = mmgui_modem_settings_open(mmguiapp->core->device->persistentid);
 			/*Devices*/
-			mmgui_main_device_connections_list_fill(mmguiapp);
-			mmgui_main_device_restore_settings_for_modem(mmguiapp);
+			if (mmguicore_devices_get_enabled(mmguiapp->core)) {
+				/*Update connections list if available*/
+				if (mmguicore_connections_enum(mmguiapp->core)) {
+					mmgui_main_connection_editor_window_list_fill(mmguiapp);
+				}
+				mmgui_main_device_connections_list_fill(mmguiapp);
+				mmgui_main_device_restore_settings_for_modem(mmguiapp);
+			}
 			/*SMS*/
 			mmgui_main_sms_list_clear(mmguiapp);
 			mmgui_main_sms_list_fill(mmguiapp);
@@ -216,6 +223,14 @@ static void mmgui_main_event_callback(enum _mmgui_event event, gpointer mmguicor
 			break;
 		case MMGUI_EVENT_DEVICE_ENABLED_STATUS:
 			appdata = g_new0(struct _mmgui_application_data, 1);
+			if (GPOINTER_TO_UINT(data)) {
+				/*Update connections list*/
+				if (mmguicore_connections_enum(mmguiapp->core)) {
+					mmgui_main_connection_editor_window_list_fill(mmguiapp);
+				}
+				mmgui_main_device_connections_list_fill(mmguiapp);
+				mmgui_main_device_restore_settings_for_modem(mmguiapp);
+			}
 			appdata->mmguiapp = mmguiapp;
 			appdata->data = data;
 			g_idle_add(mmgui_main_device_handle_enabled_status_from_thread, appdata);
@@ -264,8 +279,21 @@ static void mmgui_main_event_callback(enum _mmgui_event event, gpointer mmguicor
 			break;
 		case MMGUI_EVENT_MODEM_ENABLE_RESULT:
 			if (GPOINTER_TO_UINT(data)) {
+				/*Update connections list*/
+				if (mmguicore_connections_enum(mmguiapp->core)) {
+					mmgui_main_connection_editor_window_list_fill(mmguiapp);
+				}
+				mmgui_main_device_connections_list_fill(mmguiapp);
+				mmgui_main_device_restore_settings_for_modem(mmguiapp);
 				/*Update device partameters*/
 				mmgui_main_device_handle_enabled_local_status(mmguiapp);
+				mmgui_ui_infobar_show_result(mmguiapp, MMGUI_MAIN_INFOBAR_RESULT_SUCCESS, NULL);
+			} else {
+				mmgui_ui_infobar_show_result(mmguiapp, MMGUI_MAIN_INFOBAR_RESULT_FAIL, mmguicore_get_last_error(mmguiapp->core));
+			}
+			break;
+		case MMGUI_EVENT_MODEM_UNLOCK_WITH_PIN_RESULT:
+			if (GPOINTER_TO_UINT(data)) {
 				mmgui_ui_infobar_show_result(mmguiapp, MMGUI_MAIN_INFOBAR_RESULT_SUCCESS, NULL);
 			} else {
 				mmgui_ui_infobar_show_result(mmguiapp, MMGUI_MAIN_INFOBAR_RESULT_FAIL, mmguicore_get_last_error(mmguiapp->core));
@@ -393,8 +421,17 @@ static gboolean mmgui_main_handle_extend_capabilities(mmgui_application_t mmguia
 		case MMGUI_CAPS_SCAN:
 			break;
 		case MMGUI_CAPS_CONTACTS:
+			/*Update contacts list*/
 			mmgui_main_contacts_list_fill(mmguiapp);
 			mmgui_main_sms_restore_contacts_for_modem(mmguiapp);
+			break;
+		case MMGUI_CAPS_CONNECTIONS:
+			/*Update connections list*/
+			if (mmguicore_connections_enum(mmguiapp->core)) {
+				mmgui_main_connection_editor_window_list_fill(mmguiapp);
+			}
+			mmgui_main_device_connections_list_fill(mmguiapp);
+			mmgui_main_device_restore_settings_for_modem(mmguiapp);
 			break;
 		case MMGUI_CAPS_NONE:
 		default:
@@ -461,6 +498,8 @@ void mmgui_ui_infobar_show_result(mmgui_application_t mmguiapp, gint result, gch
 	
 	if (mmguiapp == NULL) return;
 	
+	printf("Result %u -> %s\n", result, message);
+	
 	switch (result) {
 		case MMGUI_MAIN_INFOBAR_RESULT_SUCCESS:
 			iconname = "emblem-default";
@@ -504,6 +543,7 @@ void mmgui_ui_infobar_show_result(mmgui_application_t mmguiapp, gint result, gch
 		g_object_ref(mmguiapp->window->infobar);
 		gtk_container_remove(GTK_CONTAINER(mmguiapp->window->windowbox), mmguiapp->window->infobar);
 		gtk_box_pack_start(GTK_BOX(mmguiapp->window->windowbox), mmguiapp->window->infobar, FALSE, TRUE, 0);
+		gtk_widget_set_vexpand(GTK_WIDGET(mmguiapp->window->infobar), FALSE);
 		gtk_box_reorder_child(GTK_BOX(mmguiapp->window->windowbox), mmguiapp->window->infobar, 1);
 		/*Show infobar*/
 		gtk_widget_set_visible(mmguiapp->window->infobar, TRUE);
@@ -522,6 +562,13 @@ void mmgui_ui_infobar_show_result(mmgui_application_t mmguiapp, gint result, gch
 	gtk_widget_set_sensitive(mmguiapp->window->contactsbutton, TRUE);
 	/*Application menu*/
 	mmgui_main_ui_application_menu_set_state(mmguiapp, TRUE);
+	
+	if (mmguiapp->window->infobarlock) {
+		/*Update state*/
+		page = gtk_notebook_get_current_page(GTK_NOTEBOOK(mmguiapp->window->notebook));
+		mmgui_main_ui_test_device_state(mmguiapp, page);
+		mmguiapp->window->infobarlock = FALSE;
+	}
 }
 
 static gboolean mmgui_ui_infobar_timeout_timer(gpointer data)
@@ -542,13 +589,17 @@ static gboolean mmgui_ui_infobar_timeout_timer(gpointer data)
 	return G_SOURCE_REMOVE;
 }
 
-void mmgui_ui_infobar_show(mmgui_application_t mmguiapp, gchar *message, gint type, gboolean canbestopped)
+void mmgui_ui_infobar_show(mmgui_application_t mmguiapp, gchar *message, gint type, mmgui_infobar_close_func callback, gchar *buttoncaption)
 {
 	gchar *iconname;
 	GtkMessageType msgtype;
 	guint page;
 	
 	if ((mmguiapp == NULL) || (message == NULL)) return;
+	
+	if (mmguiapp->window->infobarlock) return;
+	
+	printf("Infobar %u -> %s\n", type, message);
 	
 	/*First of all remove timeout timer (if any)*/
 	if (mmguiapp->window->infobartimeout > 0) {
@@ -577,7 +628,9 @@ void mmgui_ui_infobar_show(mmgui_application_t mmguiapp, gchar *message, gint ty
 	}
 	
 	/*Show needed widgets*/
-	if (type == MMGUI_MAIN_INFOBAR_TYPE_PROGRESS) {
+	if ((type == MMGUI_MAIN_INFOBAR_TYPE_PROGRESS) || (type == MMGUI_MAIN_INFOBAR_TYPE_PROGRESS_UNSTOPPABLE)) {
+		/*Lock infobar for progress operation*/
+		mmguiapp->window->infobarlock = TRUE;
 		/*Block controls*/
 		page = gtk_notebook_get_current_page(GTK_NOTEBOOK(mmguiapp->window->notebook));
 		mmgui_main_ui_page_control_disable(mmguiapp, page, TRUE, FALSE);
@@ -596,8 +649,11 @@ void mmgui_ui_infobar_show(mmgui_application_t mmguiapp, gchar *message, gint ty
 		gtk_widget_set_visible(mmguiapp->window->infobarimage, FALSE);
 		gtk_widget_set_visible(mmguiapp->window->infobarspinner, TRUE);
 		gtk_spinner_start(GTK_SPINNER(mmguiapp->window->infobarspinner));
-		if (canbestopped) {
+		if (type == MMGUI_MAIN_INFOBAR_TYPE_PROGRESS) {
+			gtk_button_set_label(GTK_BUTTON(mmguiapp->window->infobarstopbutton), _("_Stop"));
 			gtk_widget_set_visible(mmguiapp->window->infobarstopbutton, TRUE);
+		} else {
+			gtk_widget_set_visible(mmguiapp->window->infobarstopbutton, FALSE);
 		}
 		/*Set new timeout timer */
 		mmguiapp->window->infobartimeout = g_timeout_add_seconds(MMGUI_MAIN_OPERATION_TIMEOUT, mmgui_ui_infobar_timeout_timer, mmguiapp);
@@ -607,7 +663,16 @@ void mmgui_ui_infobar_show(mmgui_application_t mmguiapp, gchar *message, gint ty
 		gtk_widget_set_visible(mmguiapp->window->infobarimage, TRUE);
 		gtk_widget_set_visible(mmguiapp->window->infobarspinner, FALSE);
 		gtk_spinner_stop(GTK_SPINNER(mmguiapp->window->infobarspinner));
-		gtk_widget_set_visible(mmguiapp->window->infobarstopbutton, FALSE);
+		if (callback != NULL) {
+			mmguiapp->window->infobarcallback = callback;
+			if (buttoncaption != NULL) {
+				gtk_button_set_label(GTK_BUTTON(mmguiapp->window->infobarstopbutton), buttoncaption);
+			}
+			gtk_widget_set_visible(mmguiapp->window->infobarstopbutton, TRUE);
+		} else {
+			mmguiapp->window->infobarcallback = NULL;
+			gtk_widget_set_visible(mmguiapp->window->infobarstopbutton, FALSE);
+		}
 	}
 	
 	/*Set infobar label text*/
@@ -618,14 +683,126 @@ void mmgui_ui_infobar_show(mmgui_application_t mmguiapp, gchar *message, gint ty
 	g_object_ref(mmguiapp->window->infobar);
 	gtk_container_remove(GTK_CONTAINER(mmguiapp->window->windowbox), mmguiapp->window->infobar);
 	gtk_box_pack_start(GTK_BOX(mmguiapp->window->windowbox), mmguiapp->window->infobar, FALSE, TRUE, 0);
+	gtk_widget_set_vexpand(GTK_WIDGET(mmguiapp->window->infobar), FALSE);
 	gtk_box_reorder_child(GTK_BOX(mmguiapp->window->windowbox), mmguiapp->window->infobar, 1);
 	/*Show infobar*/
 	gtk_widget_set_visible(mmguiapp->window->infobar, TRUE);
 }
 
+void mmgui_main_pin_insert_text_handler(GtkEntry *entry, const gchar *text, gint length, gint *position, gpointer data)
+{
+	GtkEditable *editable;
+	gint exlen, i, count;
+	gchar *result;
+	
+	/*Text that already exists*/
+	exlen = gtk_entry_get_text_length(entry);
+	
+	/*Inserted text*/
+	result = g_new(gchar, length);
+	count = 0;
+	
+	for (i = 0; i < length; i++) {
+		/*Only digits from 4 to 8 in length*/
+		if ((!isdigit(text[i])) || ((exlen + count) >= 8)) {
+			continue;
+		}
+		result[count++] = text[i];
+	}
+	
+	editable = GTK_EDITABLE(entry);
+	
+	if (count > 0) {
+		g_signal_handlers_block_by_func(G_OBJECT(editable), G_CALLBACK(mmgui_main_pin_insert_text_handler), data);
+		gtk_editable_insert_text(editable, result, count, position);
+		g_signal_handlers_unblock_by_func(G_OBJECT(editable), G_CALLBACK(mmgui_main_pin_insert_text_handler), data);
+	}
+	
+	g_signal_stop_emission_by_name(G_OBJECT(editable), "insert_text");
+	
+	g_free(result);
+}
+
+void mmgui_main_pin_changed_signal(GtkEditable *editable, gpointer data)
+{
+	mmgui_application_t mmguiapp;
+	gint len;
+	
+	mmguiapp = (mmgui_application_t)data;
+	
+	if (mmguiapp == NULL) return;
+	
+	len = gtk_entry_get_text_length(GTK_ENTRY(mmguiapp->window->pinentry));
+	
+	if (len >= 4) {
+		gtk_widget_set_sensitive(GTK_WIDGET(mmguiapp->window->pinentryapplybutton), TRUE);
+	} else {
+		gtk_widget_set_sensitive(GTK_WIDGET(mmguiapp->window->pinentryapplybutton), FALSE);
+	}
+}
+
+void mmgui_main_pin_entry_activate_signal(GtkEntry *entry, gpointer data)
+{
+	mmgui_application_t mmguiapp;
+	gint len;
+	
+	mmguiapp = (mmgui_application_t)data;
+	
+	if (mmguiapp == NULL) return;
+	
+	len = gtk_entry_get_text_length(entry);
+	
+	if (len >= 4) {
+		gtk_dialog_response(GTK_DIALOG(mmguiapp->window->pinentrydialog), GTK_RESPONSE_APPLY);
+	}
+}
+
+static gboolean mmgui_ui_infobar_pin_callback(gpointer data)
+{
+	mmgui_application_t mmguiapp;
+	gint response;
+	gchar *pin;
+	
+	mmguiapp = (mmgui_application_t)data;
+	
+	if (mmguiapp == NULL) return FALSE;
+	
+	gtk_entry_set_text(GTK_ENTRY(mmguiapp->window->pinentry), "");
+	gtk_widget_set_sensitive(GTK_WIDGET(mmguiapp->window->pinentryapplybutton), FALSE);
+	
+	response = gtk_dialog_run(GTK_DIALOG(mmguiapp->window->pinentrydialog));
+	
+	gtk_widget_hide(mmguiapp->window->pinentrydialog);
+	
+	if (response == GTK_RESPONSE_APPLY) {
+		pin = (gchar *)gtk_entry_get_text(GTK_ENTRY(mmguiapp->window->pinentry));
+		if (mmguicore_devices_unlock_with_pin(mmguiapp->core, pin)) {
+			mmgui_ui_infobar_show(mmguiapp, _("Unlocking device..."), MMGUI_MAIN_INFOBAR_TYPE_PROGRESS, NULL, NULL);
+		}
+	}
+	
+	return TRUE;
+}
+
+static gboolean mmgui_ui_infobar_enable_callback(gpointer data)
+{
+	mmgui_application_t mmguiapp;
+	
+	mmguiapp = (mmgui_application_t)data;
+	
+	if (mmguiapp == NULL) return FALSE;
+	
+	if (mmguicore_devices_enable(mmguiapp->core, TRUE)) {
+		mmgui_ui_infobar_show(mmguiapp, _("Enabling device..."), MMGUI_MAIN_INFOBAR_TYPE_PROGRESS, NULL, NULL);
+	}
+	
+	return TRUE;
+}
+
 void mmgui_ui_infobar_process_stop_signal(GtkInfoBar *info_bar, gint response_id, gpointer data)
 {
 	mmgui_application_t mmguiapp;
+	gboolean res;	
 	guint page;
 			
 	mmguiapp = (mmgui_application_t)data;
@@ -638,8 +815,15 @@ void mmgui_ui_infobar_process_stop_signal(GtkInfoBar *info_bar, gint response_id
 		mmguiapp->window->infobartimeout = 0;
 	}
 	
+	/*Call custom function or interrupt operation*/
+	if (mmguiapp->window->infobarcallback != NULL) {
+		res = (mmguiapp->window->infobarcallback)(mmguiapp);
+	} else {
+		res = mmguicore_interrupt_operation(mmguiapp->core);
+	}
+	
 	/*Interrupt operation and hide infobar*/
-	if (mmguicore_interrupt_operation(mmguiapp->core)) {
+	if (res) {
 		mmgui_ui_infobar_show_result(mmguiapp, MMGUI_MAIN_INFOBAR_RESULT_INTERRUPT, NULL);
 		/*Unblock controls*/
 		page = gtk_notebook_get_current_page(GTK_NOTEBOOK(mmguiapp->window->notebook));
@@ -654,6 +838,13 @@ void mmgui_ui_infobar_process_stop_signal(GtkInfoBar *info_bar, gint response_id
 		gtk_widget_set_sensitive(mmguiapp->window->contactsbutton, TRUE);
 		/*Application menu*/
 		mmgui_main_ui_application_menu_set_state(mmguiapp, TRUE);
+		
+		if (mmguiapp->window->infobarlock) {
+			/*Update state*/
+			page = gtk_notebook_get_current_page(GTK_NOTEBOOK(mmguiapp->window->notebook));
+			mmgui_main_ui_test_device_state(mmguiapp, page);
+			mmguiapp->window->infobarlock = FALSE;
+		}
 	}
 }
 
@@ -924,8 +1115,9 @@ static void mmgui_main_ui_page_use_shortcuts_signal(gpointer data)
 gboolean mmgui_main_ui_test_device_state(mmgui_application_t mmguiapp, guint setpage)
 {
 	gboolean trytoenable, trytounlock, nonfunctional, limfunctional, needreg, enabled, locked, registered, prepared;
-	gchar *enablemessage, *nonfuncmessage, *limfuncmessage, *prepmessage, *regmessage, *lockedmessage, *notenabledmessage;
-	guint pagecaps;
+	gchar /**enablemessage,*/ *nonfuncmessage, *limfuncmessage, *prepmessage, *regmessage, *lockedmessage, *notenabledmessage;
+	guint pagecaps/*, operation*/;
+	gint locktype;
 	
 	if (mmguiapp == NULL) return FALSE;
 	if (mmguiapp->core == NULL) return FALSE; 
@@ -933,7 +1125,7 @@ gboolean mmgui_main_ui_test_device_state(mmgui_application_t mmguiapp, guint set
 	/*No devices*/
 	if (mmguicore_devices_get_list(mmguiapp->core) == NULL) {
 		/*Show 'No devices' message*/
-		mmgui_ui_infobar_show(mmguiapp, _("No devices found in system"), MMGUI_MAIN_INFOBAR_TYPE_INFO, FALSE);
+		mmgui_ui_infobar_show(mmguiapp, _("No devices found in system"), MMGUI_MAIN_INFOBAR_TYPE_INFO, NULL, NULL);
 		mmgui_main_ui_page_control_disable(mmguiapp, MMGUI_MAIN_PAGE_DEVICES, TRUE, FALSE);
 		return TRUE;
 	}
@@ -944,23 +1136,25 @@ gboolean mmgui_main_ui_test_device_state(mmgui_application_t mmguiapp, guint set
 	registered = mmguicore_devices_get_registered(mmguiapp->core);
 	prepared = mmguicore_devices_get_prepared(mmguiapp->core);
 	
+	g_debug("STATE: locked: %u, enabled: %u, registered: %u, prepared: %u\n", locked, enabled, registered, prepared);
+	
 	/*Common messages*/
 	prepmessage = _("Modem is not ready for operation. Please wait while modem being prepared...");
-	enablemessage = NULL;
+	/*enablemessage = NULL;*/
 	nonfuncmessage = NULL;
 	limfuncmessage = NULL;
 	regmessage = NULL;
 	lockedmessage = NULL;
 	notenabledmessage = NULL;
-	
+		
 	switch (setpage) {
 		case MMGUI_MAIN_PAGE_DEVICES:
-			trytoenable = FALSE;
+			trytoenable = TRUE;
 			trytounlock = TRUE;
-			needreg = FALSE;
-			enablemessage = NULL;
-			notenabledmessage = NULL;
-			regmessage = NULL;
+			needreg = TRUE;
+			/*enablemessage = _("Modem must be enabled to connect to Internet. Enable modem?");*/
+			notenabledmessage = _("Modem must be enabled to connect to Internet. Please enable modem.");
+			regmessage = _("Modem must be registered in mobile network to connect to Internet. Please wait...");
 			lockedmessage = _("Modem must be unlocked to connect to Internet. Please enter PIN code.");
 			nonfuncmessage = _("Network manager does not support Internet connection management functions.");
 			limfuncmessage = NULL;
@@ -977,7 +1171,7 @@ gboolean mmgui_main_ui_test_device_state(mmgui_application_t mmguiapp, guint set
 			trytoenable = TRUE;
 			trytounlock = TRUE;
 			needreg = TRUE;
-			enablemessage = _("Modem must be enabled to read SMS. Enable modem?");
+			/*enablemessage = _("Modem must be enabled to read SMS. Enable modem?");*/
 			notenabledmessage = _("Modem must be enabled to read and write SMS. Please enable modem.");
 			regmessage = _("Modem must be registered in mobile network to receive and send SMS. Please wait...");
 			lockedmessage = _("Modem must be unlocked to receive and send SMS. Please enter PIN code.");
@@ -999,7 +1193,7 @@ gboolean mmgui_main_ui_test_device_state(mmgui_application_t mmguiapp, guint set
 			trytoenable = TRUE;
 			trytounlock = TRUE;
 			needreg = TRUE;
-			enablemessage = _("Modem must be enabled to send USSD. Enable modem?");
+			/*enablemessage = _("Modem must be enabled to send USSD. Enable modem?");*/
 			notenabledmessage =  _("Modem must be enabled to send USSD. Please enable modem.");
 			regmessage = _("Modem must be registered in mobile network to send USSD. Please wait...");
 			lockedmessage = _("Modem must be unlocked to send USSD. Please enter PIN code.");
@@ -1017,7 +1211,7 @@ gboolean mmgui_main_ui_test_device_state(mmgui_application_t mmguiapp, guint set
 			trytoenable = FALSE;
 			trytounlock = FALSE;
 			needreg = FALSE;
-			enablemessage = NULL;
+			/*enablemessage = NULL;*/
 			regmessage = NULL;
 			lockedmessage = NULL;
 			nonfuncmessage = NULL;
@@ -1029,7 +1223,7 @@ gboolean mmgui_main_ui_test_device_state(mmgui_application_t mmguiapp, guint set
 			trytoenable = TRUE;
 			trytounlock = TRUE;
 			needreg = FALSE;
-			enablemessage = _("Modem must be enabled to scan for available networks. Enable modem?");
+			/*enablemessage = _("Modem must be enabled to scan for available networks. Enable modem?");*/
 			notenabledmessage = _("Modem must be enabled to scan for available networks. Please enable modem.");
 			regmessage = NULL;
 			lockedmessage = _("Modem must be unlocked to scan for available networks. Please enter PIN code.");
@@ -1051,7 +1245,7 @@ gboolean mmgui_main_ui_test_device_state(mmgui_application_t mmguiapp, guint set
 			trytoenable = FALSE;
 			trytounlock = FALSE;
 			needreg = FALSE;
-			enablemessage = NULL;
+			/*enablemessage = NULL;*/
 			notenabledmessage = NULL;
 			regmessage = NULL;
 			lockedmessage = NULL;
@@ -1064,7 +1258,7 @@ gboolean mmgui_main_ui_test_device_state(mmgui_application_t mmguiapp, guint set
 			trytoenable = TRUE;
 			trytounlock = TRUE;
 			needreg = FALSE;
-			enablemessage = _("Modem must be enabled to export contacts from it. Enable modem?");
+			/*enablemessage = _("Modem must be enabled to export contacts from it. Enable modem?");*/
 			notenabledmessage = _("Modem must be enabled to export contacts from it. Please enable modem.");
 			regmessage = NULL;
 			lockedmessage = _("Modem must be unlocked to export contacts from it. Please enter PIN code.");
@@ -1086,7 +1280,7 @@ gboolean mmgui_main_ui_test_device_state(mmgui_application_t mmguiapp, guint set
 			trytoenable = FALSE;
 			trytounlock = FALSE;
 			needreg = FALSE;
-			enablemessage = NULL;
+			/*enablemessage = NULL;*/
 			notenabledmessage = NULL;
 			regmessage = NULL;
 			lockedmessage = NULL;
@@ -1100,12 +1294,21 @@ gboolean mmgui_main_ui_test_device_state(mmgui_application_t mmguiapp, guint set
 	
 	if (!prepared) {
 		g_debug("Not prepared\n");
-		mmgui_ui_infobar_show(mmguiapp, prepmessage, MMGUI_MAIN_INFOBAR_TYPE_INFO, TRUE);
+		mmgui_ui_infobar_show(mmguiapp, prepmessage, MMGUI_MAIN_INFOBAR_TYPE_INFO, NULL, NULL);
 		mmgui_main_ui_page_control_disable(mmguiapp, setpage, TRUE, FALSE);
 	} else if (locked) {
 		g_debug("SIM locked\n");
 		if (trytounlock) {
-			mmgui_ui_infobar_show(mmguiapp, lockedmessage, MMGUI_MAIN_INFOBAR_TYPE_INFO, TRUE);
+			locktype = mmguicore_devices_get_lock_type(mmguiapp->core);
+			if (locktype ==  MMGUI_LOCK_TYPE_PIN) {
+				mmgui_ui_infobar_show(mmguiapp, lockedmessage, MMGUI_MAIN_INFOBAR_TYPE_INFO, &mmgui_ui_infobar_pin_callback, _("Enter PIN"));
+			} else if (locktype ==  MMGUI_LOCK_TYPE_PUK) {
+				lockedmessage = _("SIM card is locked with PUK code. Please contact your mobile operator for further instructions.");
+				mmgui_ui_infobar_show(mmguiapp, lockedmessage, MMGUI_MAIN_INFOBAR_TYPE_INFO, NULL, NULL);
+			} else {
+				lockedmessage = _("SIM card seems non-functional. Please contact your mobile operator for further instructions.");
+				mmgui_ui_infobar_show(mmguiapp, lockedmessage, MMGUI_MAIN_INFOBAR_TYPE_INFO, NULL, NULL);
+			}
 		} else {
 			if (mmguiapp->window->infobartimeout == 0) {
 				mmgui_ui_infobar_show_result(mmguiapp, MMGUI_MAIN_INFOBAR_RESULT_INTERRUPT, NULL);
@@ -1113,31 +1316,23 @@ gboolean mmgui_main_ui_test_device_state(mmgui_application_t mmguiapp, guint set
 		}
 		mmgui_main_ui_page_control_disable(mmguiapp, setpage, TRUE, FALSE);
 	} else {
+		/*operation = mmguicore_devices_get_current_operation(mmguiapp->core);*/
 		if ((trytoenable) && (!enabled)) {
 			g_debug("Must be enabled\n");
-			if (mmgui_main_ui_question_dialog_open(mmguiapp, _("<b>Enable modem</b>"), enablemessage)) {
-				if (mmguicore_devices_enable(mmguiapp->core, TRUE)) {
-					mmgui_ui_infobar_show(mmguiapp, _("Enabling device..."), MMGUI_MAIN_INFOBAR_TYPE_PROGRESS, TRUE);
-				} else {
-					mmgui_ui_infobar_show_result(mmguiapp, MMGUI_MAIN_INFOBAR_RESULT_FAIL, mmguicore_get_last_error(mmguiapp->core));
-				}
-			} else {
-				g_debug("Not enabled\n");
-				mmgui_ui_infobar_show(mmguiapp, notenabledmessage, MMGUI_MAIN_INFOBAR_TYPE_INFO, TRUE);
-				mmgui_main_ui_page_control_disable(mmguiapp, setpage, TRUE, TRUE);
-			}
+			mmgui_ui_infobar_show(mmguiapp, notenabledmessage, MMGUI_MAIN_INFOBAR_TYPE_INFO, &mmgui_ui_infobar_enable_callback, _("Enable"));
+			mmgui_main_ui_page_control_disable(mmguiapp, setpage, TRUE, TRUE);
 		} else {
 			if ((needreg) && (!registered)) {
 				g_debug("Must be registered\n");
-				mmgui_ui_infobar_show(mmguiapp, regmessage, MMGUI_MAIN_INFOBAR_TYPE_INFO, TRUE);
+				mmgui_ui_infobar_show(mmguiapp, regmessage, MMGUI_MAIN_INFOBAR_TYPE_INFO, NULL, NULL);
 				mmgui_main_ui_page_control_disable(mmguiapp, setpage, TRUE, TRUE);
 			} else if (nonfunctional) {
 				g_debug("Nonfunctional\n");
-				mmgui_ui_infobar_show(mmguiapp, nonfuncmessage, MMGUI_MAIN_INFOBAR_TYPE_INFO, TRUE);
+				mmgui_ui_infobar_show(mmguiapp, nonfuncmessage, MMGUI_MAIN_INFOBAR_TYPE_INFO, NULL, NULL);
 				mmgui_main_ui_page_control_disable(mmguiapp, setpage, TRUE, FALSE);
 			} else if (limfunctional) {
 				g_debug("Limited functional\n");
-				mmgui_ui_infobar_show(mmguiapp, limfuncmessage, MMGUI_MAIN_INFOBAR_TYPE_INFO, TRUE);
+				mmgui_ui_infobar_show(mmguiapp, limfuncmessage, MMGUI_MAIN_INFOBAR_TYPE_INFO, NULL, NULL);
 				mmgui_main_ui_page_control_disable(mmguiapp, setpage, TRUE, TRUE);
 			} else {
 				g_debug("Fully functional\n");
@@ -1323,7 +1518,7 @@ void mmgui_main_ui_contacts_button_toggled_signal(GObject *object, gpointer data
 void mmgui_main_window_update_active_pages(mmgui_application_t mmguiapp)
 {
 	guint setpage;
-	
+		
 	if (mmguiapp == NULL) return;
 	
 	setpage = gtk_notebook_get_current_page(GTK_NOTEBOOK(mmguiapp->window->notebook));
@@ -1373,33 +1568,48 @@ void mmgui_main_window_update_active_pages(mmgui_application_t mmguiapp)
 	gtk_widget_set_visible(GTK_WIDGET(mmguiapp->window->trafficbutton), mmguiapp->options->trafficpageenabled);
 	gtk_widget_set_visible(GTK_WIDGET(mmguiapp->window->contactsbutton), mmguiapp->options->contactspageenabled);
 	
-	/*Rebilding menu section*/
+	/*Rebuilding menu section*/
+	#if GLIB_CHECK_VERSION(2,38,0)
 	g_menu_remove_all(mmguiapp->window->appsection);
+	mmguiapp->window->menuitemcount = 0;
+	#else
+	for (i = mmguiapp->window->menuitemcount-1; i >= 0; i--) {
+		g_menu_remove(mmguiapp->window->appsection, i);
+	}
+	mmguiapp->window->menuitemcount = 0;
+	#endif
 	g_menu_append(mmguiapp->window->appsection, _("_Devices"), "app.section::devices");
 	mmgui_add_accelerator_with_parameter(mmguiapp->gtkapplication, "<Primary>F1", "app.section", "devices");
+	mmguiapp->window->menuitemcount++;
 	if (mmguiapp->options->smspageenabled) {
 		g_menu_append(mmguiapp->window->appsection, _("_SMS"), "app.section::sms");
 		mmgui_add_accelerator_with_parameter(mmguiapp->gtkapplication, "<Primary>F2", "app.section", "sms");
+		mmguiapp->window->menuitemcount++;
 	}
 	if (mmguiapp->options->ussdpageenabled) {	
 		g_menu_append(mmguiapp->window->appsection, _("_USSD"), "app.section::ussd");
 		mmgui_add_accelerator_with_parameter(mmguiapp->gtkapplication, "<Primary>F3", "app.section", "ussd");
+		mmguiapp->window->menuitemcount++;
 	}
 	if (mmguiapp->options->infopageenabled) {
 		g_menu_append(mmguiapp->window->appsection, _("_Info"), "app.section::info");
 		mmgui_add_accelerator_with_parameter(mmguiapp->gtkapplication, "<Primary>F4", "app.section", "info");
+		mmguiapp->window->menuitemcount++;
 	}
 	if (mmguiapp->options->scanpageenabled) {
 		g_menu_append(mmguiapp->window->appsection, _("S_can"), "app.section::scan");
 		mmgui_add_accelerator_with_parameter(mmguiapp->gtkapplication, "<Primary>F5", "app.section", "scan");
+		mmguiapp->window->menuitemcount++;
 	}
 	if (mmguiapp->options->trafficpageenabled) {
 		g_menu_append(mmguiapp->window->appsection, _("_Traffic"), "app.section::traffic");
 		mmgui_add_accelerator_with_parameter(mmguiapp->gtkapplication, "<Primary>F6", "app.section", "traffic");
+		mmguiapp->window->menuitemcount++;
 	}
 	if (mmguiapp->options->contactspageenabled) {
 		g_menu_append(mmguiapp->window->appsection, _("C_ontacts"), "app.section::contacts");
 		mmgui_add_accelerator_with_parameter(mmguiapp->gtkapplication, "<Primary>F7", "app.section", "contacts");
+		mmguiapp->window->menuitemcount++;
 	}
 }
 
@@ -1571,7 +1781,11 @@ static void mmgui_main_ui_help_menu_item_activate_signal(GSimpleAction *action, 
 	
 	error = NULL;
 	
+	#if GTK_CHECK_VERSION(3,22,0)
 	if (!gtk_show_uri_on_window(GTK_WINDOW(mmguiapp->window->window), "help:modem-manager-gui", gtk_get_current_event_time(), &error)) {
+	#else
+	if (!gtk_show_uri(gtk_window_get_screen(GTK_WINDOW(mmguiapp->window->window)), "help:modem-manager-gui", gtk_get_current_event_time(), &error)) {
+	#endif
 		dialog = gtk_message_dialog_new(GTK_WINDOW(mmguiapp->window->window),
 										GTK_DIALOG_MODAL,
 										GTK_MESSAGE_ERROR,
@@ -1652,7 +1866,9 @@ void mmgui_main_ui_control_buttons_disable(mmgui_application_t mmguiapp, gboolea
 	mmgui_main_ui_application_menu_set_state(mmguiapp, !disable);
 	
 	/*Hide infobar*/
-	mmgui_ui_infobar_show_result(mmguiapp, MMGUI_MAIN_INFOBAR_RESULT_INTERRUPT, NULL);
+	if (!disable) {
+		mmgui_ui_infobar_show_result(mmguiapp, MMGUI_MAIN_INFOBAR_RESULT_INTERRUPT, NULL);
+	}
 	
 	if (disable) {
 		/*Toolbar*/
@@ -1941,6 +2157,7 @@ static gboolean mmgui_main_settings_ui_load(mmgui_application_t mmguiapp)
 	if ((mmguiapp->window == NULL) || (mmguiapp->settings == NULL)) return FALSE;
 	
 	/*Toolbar buttons*/
+	mmguiapp->window->menuitemcount = 0;
 	mmgui_main_window_update_active_pages(mmguiapp);
 	
 	/*Get last opened device and open it*/
@@ -2078,6 +2295,7 @@ static gboolean mmgui_main_application_build_user_interface(mmgui_application_t 
 		{"questiondialog", &(mmguiapp->window->questiondialog)},
 		{"errordialog", &(mmguiapp->window->errordialog)},
 		{"exitdialog", &(mmguiapp->window->exitdialog)},
+		{"pinentrydialog", &(mmguiapp->window->pinentrydialog)},
 		/*SMS send dialog*/
 		{"newsmsdialog", &(mmguiapp->window->newsmsdialog)},
 		{"smsnumberentry", &(mmguiapp->window->smsnumberentry)},
@@ -2106,6 +2324,9 @@ static gboolean mmgui_main_application_build_user_interface(mmgui_application_t 
 		{"connauthpassentry", &(mmguiapp->window->connauthpassentry)},
 		{"conndns1entry", &(mmguiapp->window->conndns1entry)},
 		{"conndns2entry", &(mmguiapp->window->conndns2entry)},
+		/*PIN entry dialog*/
+		{"pinentry", &(mmguiapp->window->pinentry)},
+		{"pinentryapplybutton", &(mmguiapp->window->pinentryapplybutton)},
 		/*SMS page*/
 		{"smsinfobar", &(mmguiapp->window->smsinfobar)},
 		{"smsinfobarlabel", &(mmguiapp->window->smsinfobarlabel)},
@@ -2528,10 +2749,9 @@ static void mmgui_main_continue_initialization(mmgui_application_t mmguiapp, mmg
 	mmgui_main_ui_test_device_state(mmguiapp, MMGUI_MAIN_PAGE_DEVICES);
 	mmgui_main_ui_page_setup_shortcuts(mmguiapp, MMGUI_MAIN_PAGE_DEVICES);
 	/*Get available connections*/
-	if (mmguicore_connections_enum(mmguiapp->core)) {
-		//mmgui_main_device_connections_list_fill(mmguiapp);
+	/*if (mmguicore_connections_enum(mmguiapp->core)) {
 		mmgui_main_connection_editor_window_list_fill(mmguiapp);
-	}
+	}*/
 	/*Load UI-specific settings and open device if any*/
 	mmgui_main_settings_ui_load(mmguiapp);
 	/*Finally show window*/

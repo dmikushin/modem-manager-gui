@@ -27,7 +27,7 @@ First of all, you'll need to install such development packages:
 - GDBM version 1.10 or later
 - po4a version 0.45 or later
 - itstool version 1.2.0 or later
-- libappindicator-gtk3 version 12.10 or later
+- libappindicator-gtk3 version 0.4.92 or later
 - Meson version 0.37 or later
 
 Next you have to go to directory with program's source code and issue these commands:

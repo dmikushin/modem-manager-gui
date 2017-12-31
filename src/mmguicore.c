@@ -194,6 +194,11 @@ static void mmguicore_event_callback(enum _mmgui_event event, gpointer mmguicore
 				(mmguicorelc->extcb)(event, mmguicorelc, data, mmguicorelc->userdata);
 			}
 			break;
+		case MMGUI_EVENT_MODEM_UNLOCK_WITH_PIN_RESULT:
+			if (mmguicorelc->extcb != NULL) {
+				(mmguicorelc->extcb)(event, mmguicorelc, data, mmguicorelc->userdata);
+			}
+			break;
 		case MMGUI_EVENT_EXTEND_CAPABILITIES:
 			if (GPOINTER_TO_INT(data) == MMGUI_CAPS_CONTACTS) {
 				/*Export contacts*/
@@ -935,6 +940,7 @@ static gboolean mmguicore_modules_mm_open(mmguicore_t mmguicore, mmguimodule_t m
 		openstatus = openstatus && g_module_symbol(mmguicore->module, "mmgui_module_devices_update_state", (gpointer *)&(mmguicore->devices_update_state_func));
 		openstatus = openstatus && g_module_symbol(mmguicore->module, "mmgui_module_devices_information", (gpointer *)&(mmguicore->devices_information_func));
 		openstatus = openstatus && g_module_symbol(mmguicore->module, "mmgui_module_devices_enable", (gpointer *)&(mmguicore->devices_enable_func));
+		openstatus = openstatus && g_module_symbol(mmguicore->module, "mmgui_module_devices_unlock_with_pin", (gpointer *)&(mmguicore->devices_unlock_with_pin_func));
 		openstatus = openstatus && g_module_symbol(mmguicore->module, "mmgui_module_sms_enum", (gpointer *)&(mmguicore->sms_enum_func));
 		openstatus = openstatus && g_module_symbol(mmguicore->module, "mmgui_module_sms_get", (gpointer *)&(mmguicore->sms_get_func));
 		openstatus = openstatus && g_module_symbol(mmguicore->module, "mmgui_module_sms_delete", (gpointer *)&(mmguicore->sms_delete_func));
@@ -960,6 +966,7 @@ static gboolean mmguicore_modules_mm_open(mmguicore_t mmguicore, mmguimodule_t m
 			mmguicore->devices_update_state_func = NULL;
 			mmguicore->devices_information_func = NULL;
 			mmguicore->devices_enable_func = NULL;
+			mmguicore->devices_unlock_with_pin_func = NULL;
 			mmguicore->sms_enum_func = NULL;
 			mmguicore->sms_get_func = NULL;
 			mmguicore->sms_delete_func = NULL;
@@ -1810,6 +1817,14 @@ gboolean mmguicore_devices_enable(mmguicore_t mmguicore, gboolean enabled)
 	return (mmguicore->devices_enable_func)(mmguicore, enabled);
 }
 
+gboolean mmguicore_devices_unlock_with_pin(mmguicore_t mmguicore, gchar *pin)
+{
+	if ((mmguicore == NULL) || (pin == NULL)) return FALSE;
+	if ((mmguicore->device == NULL) || (mmguicore->devices_unlock_with_pin_func == NULL)) return FALSE;
+	
+	return (mmguicore->devices_unlock_with_pin_func)(mmguicore, pin);
+}
+
 GSList *mmguicore_devices_get_list(mmguicore_t mmguicore)
 {
 	if (mmguicore == NULL) return NULL;
@@ -1864,12 +1879,20 @@ gboolean mmguicore_devices_get_connected(mmguicore_t mmguicore)
 	return mmguicore->device->connected;
 }
 
-gboolean mmguicore_devices_update_device_state(mmguicore_t mmguicore)
+gint mmguicore_devices_get_lock_type(mmguicore_t mmguicore)
+{
+	if (mmguicore == NULL) return MMGUI_LOCK_TYPE_NONE;
+	if (mmguicore->device == NULL) return MMGUI_LOCK_TYPE_NONE;
+	
+	return mmguicore->device->locktype;
+}
+
+gboolean mmguicore_devices_update_state(mmguicore_t mmguicore)
 {
 	gboolean updated;
 	
 	if (mmguicore == NULL) return FALSE;
-	if (/*(mmguicore->device == NULL) ||*/ (mmguicore->devices_update_state_func == NULL)) return FALSE;
+	if (mmguicore->devices_update_state_func == NULL) return FALSE;
 		
 	updated = FALSE;
 	
@@ -2564,6 +2587,7 @@ mmguicore_t mmguicore_init(mmgui_event_ext_callback callback, mmgui_core_options
 	mmguicore->devices_update_state_func = NULL;
 	mmguicore->devices_information_func = NULL;
 	mmguicore->devices_enable_func = NULL;
+	mmguicore->devices_unlock_with_pin_func = NULL;
 	mmguicore->sms_enum_func = NULL;
 	mmguicore->sms_get_func = NULL;
 	mmguicore->sms_delete_func = NULL;
@@ -3001,9 +3025,10 @@ static gpointer mmguicore_work_thread(gpointer data)
 			}
 		}
 		
+		/*Update internal module state*/
+		mmguicore_devices_update_state(mmguicore);
+		
 		if (mmguicore->device != NULL) {
-			/*Update internal device state*/
-			mmguicore_devices_update_device_state(mmguicore);
 			/*Handle traffic limits*/
 			mmguicore_traffic_limits(mmguicore);
 		}

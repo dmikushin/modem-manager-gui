@@ -300,68 +300,12 @@ const gchar *mmgui_providersdb_countries[250][2] = {
 	{NULL, NULL}
 };
 
+
 static gboolean mmgui_providers_db_xml_parse(mmgui_providers_db_t db);
 static void mmgui_providers_db_xml_get_element(GMarkupParseContext *context, const gchar *element, const gchar **attr_names, const gchar **attr_values, gpointer data, GError **error);
 static void mmgui_providers_db_xml_get_value(GMarkupParseContext *context, const gchar *text, gsize size, gpointer data, GError **error);
 static void mmgui_providers_db_xml_end_element(GMarkupParseContext *context, const gchar *element, gpointer data, GError **error);
 
-/*static void mmgui_providers_db_foreach(gpointer data, gpointer user_data)
-{
-	mmgui_providers_db_entry_t entry;
-	guint id, i;
-	
-	entry = (mmgui_providers_db_entry_t)data;
-	
-	if (entry->tech == MMGUI_PROVIDERS_DB_TECH_GSM) {
-		g_printf("GSM: %s, %s, %s\n", entry->country, entry->name, entry->apn);
-		if (entry->id != NULL) {
-			g_printf("MCC, MNC: ");
-			for (i=0; i<entry->id->len; i++) {
-				id = g_array_index(entry->id, guint, i);
-				g_printf("%u, %u; ", (id & 0xffff0000) >> 16, id & 0x0000ffff);
-			}
-			g_printf("\n");
-		}
-		if (entry->username != NULL) {
-			g_printf("USER NAME: %s\n", entry->username);
-		}
-		if (entry->password != NULL) {
-			g_printf("PASSWORD: %s\n", entry->password);
-		}
-		if (entry->dns1 != NULL) {
-			g_printf("DNS1: %s\n", entry->dns1);
-		}
-		if (entry->dns2 != NULL) {
-			g_printf("DNS2: %s\n", entry->dns2);
-		}
-		g_printf("\n");
-		
-	} else if (entry->tech == MMGUI_PROVIDERS_DB_TECH_CDMA) {
-		g_printf("CDMA: %s, %s\n", entry->country, entry->name);
-		if (entry->id != NULL) {
-			g_printf("SIDs: ");
-			for (i=0; i<entry->id->len; i++) {
-				id = g_array_index(entry->id, guint, i);
-				g_printf("%u; ", id);
-			}
-			g_printf("\n");
-		}
-		if (entry->username != NULL) {
-			g_printf("USER NAME: %s\n", entry->username);
-		}
-		if (entry->password != NULL) {
-			g_printf("PASSWORD: %s\n", entry->password);
-		}
-		if (entry->dns1 != NULL) {
-			g_printf("DNS1: %s\n", entry->dns1);
-		}
-		if (entry->dns2 != NULL) {
-			g_printf("DNS2: %s\n", entry->dns2);
-		}
-		g_printf("\n");
-		
-	}
-}*/
 
 mmgui_providers_db_t mmgui_providers_db_create(void)
 {
@@ -425,7 +369,7 @@ const gchar *mmgui_providers_provider_get_country_name(mmgui_providers_db_entry_
 
 guint mmgui_providers_provider_get_network_id(mmgui_providers_db_entry_t entry)
 {
-	guint value, mcc, mnc, mul;
+	guint value, mcc, mnc, mul, res;
 	
 	if (entry == NULL) return 0;
 	
@@ -441,7 +385,12 @@ guint mmgui_providers_provider_get_network_id(mmgui_providers_db_entry_t entry)
 		while (mul <= mnc) {
 			mul *= 10;
 		}
-		return mcc * mul + mnc;
+		if (mnc < 10) {
+			res = mcc * mul * 10 + mnc;
+		} else {
+			res = mcc * mul + mnc;
+		}
+		return res;
 	} else {
 		/*CDMA uses one value - SID*/
 		return value;

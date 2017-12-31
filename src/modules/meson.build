@@ -1,6 +1,7 @@
 mm06_c_sources = [
 	'../smsdb.c',
 	'../encoding.c',
+	'../dbus-utils.c',
 	'mm06.c'
 ]
 
@@ -18,6 +19,7 @@ mm06 = shared_library('modmm_mm06',
 mm07_c_sources = [
 	'../smsdb.c',
 	'../encoding.c',
+	'../dbus-utils.c',
 	'mm07.c'
 ]
 

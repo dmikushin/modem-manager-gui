@@ -56,6 +56,7 @@ enum _mmgui_event {
 	MMGUI_EVENT_LOCATION_CHANGE,
 	/*Modem events*/
 	MMGUI_EVENT_MODEM_ENABLE_RESULT,
+	MMGUI_EVENT_MODEM_UNLOCK_WITH_PIN_RESULT,
 	MMGUI_EVENT_MODEM_CONNECTION_RESULT,
 	MMGUI_EVENT_SCAN_RESULT,
 	MMGUI_EVENT_USSD_RESULT,
@@ -201,6 +202,13 @@ enum _mmgui_device_state {
     MMGUI_DEVICE_STATE_CONNECTED     = 90
 };
 
+enum _mmgui_lock_type {
+	MMGUI_LOCK_TYPE_NONE = 0,
+	MMGUI_LOCK_TYPE_PIN,
+	MMGUI_LOCK_TYPE_PUK,
+	MMGUI_LOCK_TYPE_OTHER
+};
+
 enum _mmgui_ussd_state {
 	MMGUI_USSD_STATE_UNKNOWN = 0,
 	MMGUI_USSD_STATE_IDLE,
@@ -229,12 +237,14 @@ enum _mmgui_capabilities {
 	MMGUI_CAPS_LOCATION              = 1 << 3,
 	MMGUI_CAPS_SCAN                  = 1 << 4,
 	MMGUI_CAPS_CONTACTS              = 1 << 5,
+	MMGUI_CAPS_CONNECTIONS           = 1 << 6
 };
 
 enum _mmgui_sms_capabilities {
 	MMGUI_SMS_CAPS_NONE              = 0,
     MMGUI_SMS_CAPS_RECEIVE           = 1 << 1,
-    MMGUI_SMS_CAPS_SEND              = 1 << 2
+    MMGUI_SMS_CAPS_SEND              = 1 << 2,
+    MMGUI_SMS_CAPS_RECEIVE_BROADCAST = 1 << 3
 };
 
 enum _mmgui_ussd_capabilities {
@@ -269,6 +279,7 @@ enum _mmgui_connection_manager_caps {
 enum _mmgui_device_operation {
 	MMGUI_DEVICE_OPERATION_IDLE = 0,
 	MMGUI_DEVICE_OPERATION_ENABLE,
+	MMGUI_DEVICE_OPERATION_UNLOCK,
 	MMGUI_DEVICE_OPERATION_SEND_SMS,
 	MMGUI_DEVICE_OPERATION_SEND_USSD,
 	MMGUI_DEVICE_OPERATION_SCAN,
@@ -370,6 +381,7 @@ struct _mmguidevice {
 	gboolean registered;
 	gboolean prepared;
 	enum _mmgui_device_operation operation;
+	enum _mmgui_lock_type locktype;
 	gboolean conntransition;
 	/*Info*/
 	gchar *manufacturer;
@@ -450,6 +462,7 @@ typedef gboolean (*mmgui_module_devices_state_func)(gpointer mmguicore, enum _mm
 typedef gboolean (*mmgui_module_devices_update_state_func)(gpointer mmguicore);
 typedef gboolean (*mmgui_module_devices_information_func)(gpointer mmguicore);
 typedef gboolean (*mmgui_module_devices_enable_func)(gpointer mmguicore, gboolean enabled);
+typedef gboolean (*mmgui_module_devices_unlock_with_pin_func)(gpointer mmguicore, gchar *pin);
 typedef guint (*mmgui_module_sms_enum_func)(gpointer mmguicore, GSList **smslist);
 typedef mmgui_sms_message_t (*mmgui_module_sms_get_func)(gpointer mmguicore, guint index);
 typedef gboolean (*mmgui_module_sms_delete_func)(gpointer mmguicore, guint index);
@@ -506,6 +519,7 @@ struct _mmguicore {
 	mmgui_module_devices_update_state_func devices_update_state_func;
 	mmgui_module_devices_information_func devices_information_func;
 	mmgui_module_devices_enable_func devices_enable_func;
+	mmgui_module_devices_unlock_with_pin_func devices_unlock_with_pin_func;
 	mmgui_module_sms_enum_func sms_enum_func;
 	mmgui_module_sms_get_func sms_get_func;
 	mmgui_module_sms_delete_func sms_delete_func;
@@ -586,6 +600,7 @@ gboolean mmguicore_connections_get_transition_flag(mmguicore_t mmguicore);
 gboolean mmguicore_devices_enum(mmguicore_t mmguicore);
 gboolean mmguicore_devices_open(mmguicore_t mmguicore, guint deviceid, gboolean openfirst);
 gboolean mmguicore_devices_enable(mmguicore_t mmguicore, gboolean enabled);
+gboolean mmguicore_devices_unlock_with_pin(mmguicore_t mmguicore, gchar *pin);
 GSList *mmguicore_devices_get_list(mmguicore_t mmguicore);
 mmguidevice_t mmguicore_devices_get_current(mmguicore_t mmguicore);
 gboolean mmguicore_devices_get_enabled(mmguicore_t mmguicore);
@@ -593,7 +608,8 @@ gboolean mmguicore_devices_get_locked(mmguicore_t mmguicore);
 gboolean mmguicore_devices_get_registered(mmguicore_t mmguicore);
 gboolean mmguicore_devices_get_prepared(mmguicore_t mmguicore);
 gboolean mmguicore_devices_get_connected(mmguicore_t mmguicore);
-gboolean mmguicore_devices_update_device_state(mmguicore_t mmguicore);
+gint mmguicore_devices_get_lock_type(mmguicore_t mmguicore);
+gboolean mmguicore_devices_update_state(mmguicore_t mmguicore);
 const gchar *mmguicore_devices_get_identifier(mmguicore_t mmguicore);
 const gchar *mmguicore_devices_get_internal_identifier(mmguicore_t mmguicore);
 gpointer mmguicore_devices_get_sms_db(mmguicore_t mmguicore);

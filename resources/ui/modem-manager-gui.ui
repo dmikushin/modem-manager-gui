@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.0 -->
+<!-- Generated with glade 3.20.1 -->
 <interface>
   <requires lib="gtk+" version="3.4"/>
   <object class="GtkSizeGroup" id="conneditsizegroup"/>
@@ -307,6 +307,9 @@
           </packing>
         </child>
       </object>
+    </child>
+    <child type="titlebar">
+      <placeholder/>
     </child>
   </object>
   <object class="GtkApplicationWindow" id="window">
@@ -1379,6 +1382,7 @@
                     </child>
                     <child>
                       <object class="GtkToolButton" id="scancreateconnectionbutton">
+                        <property name="sensitive">False</property>
                         <property name="can_focus">False</property>
                         <property name="is_important">True</property>
                         <property name="label" translatable="yes">Create connection</property>
@@ -1705,6 +1709,9 @@
         </child>
       </object>
     </child>
+    <child type="titlebar">
+      <placeholder/>
+    </child>
   </object>
   <object class="GtkAboutDialog" id="aboutdialog">
     <property name="can_focus">False</property>
@@ -1753,6 +1760,9 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
           <placeholder/>
         </child>
       </object>
+    </child>
+    <child>
+      <placeholder/>
     </child>
   </object>
   <object class="GtkDialog" id="conndialog">
@@ -1863,6 +1873,9 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
     <action-widgets>
       <action-widget response="0">connclosebutton</action-widget>
     </action-widgets>
+    <child>
+      <placeholder/>
+    </child>
   </object>
   <object class="GtkDialog" id="conneditdialog">
     <property name="can_focus">False</property>
@@ -2388,6 +2401,9 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
       <action-widget response="-6">conncancelbutton</action-widget>
       <action-widget response="-5">connokbutton</action-widget>
     </action-widgets>
+    <child>
+      <placeholder/>
+    </child>
   </object>
   <object class="GtkSizeGroup" id="conneditdialogsizegroup">
     <widgets>
@@ -2433,12 +2449,17 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
         </child>
       </object>
     </child>
+    <child>
+      <placeholder/>
+    </child>
   </object>
   <object class="GtkDialog" id="exitdialog">
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
     <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
+    <property name="default_width">320</property>
+    <property name="default_height">200</property>
     <property name="type_hint">normal</property>
     <property name="skip_taskbar_hint">True</property>
     <property name="skip_pager_hint">True</property>
@@ -2592,6 +2613,9 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
       <action-widget response="0">exitnobutton</action-widget>
       <action-widget response="1">exityesbutton</action-widget>
     </action-widgets>
+    <child>
+      <placeholder/>
+    </child>
   </object>
   <object class="GtkSizeGroup" id="infosizegroup">
     <widgets>
@@ -2818,6 +2842,9 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
       <action-widget response="0">newcontactclosebutton</action-widget>
       <action-widget response="1">newcontactaddbutton</action-widget>
     </action-widgets>
+    <child>
+      <placeholder/>
+    </child>
   </object>
   <object class="GtkDialog" id="newsmsdialog">
     <property name="can_focus">False</property>
@@ -3002,6 +3029,142 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
     <action-widgets>
       <action-widget response="0">closesmsbutton</action-widget>
     </action-widgets>
+    <child>
+      <placeholder/>
+    </child>
+  </object>
+  <object class="GtkDialog" id="pinentrydialog">
+    <property name="can_focus">False</property>
+    <property name="border_width">5</property>
+    <property name="resizable">False</property>
+    <property name="default_width">400</property>
+    <property name="default_height">50</property>
+    <property name="type_hint">dialog</property>
+    <property name="transient_for">window</property>
+    <child internal-child="vbox">
+      <object class="GtkBox" id="pinentrybox">
+        <property name="can_focus">False</property>
+        <property name="orientation">vertical</property>
+        <property name="spacing">2</property>
+        <child internal-child="action_area">
+          <object class="GtkButtonBox" id="pinentrybuttonbox">
+            <property name="can_focus">False</property>
+            <property name="layout_style">end</property>
+            <child>
+              <object class="GtkButton" id="pinentrycancelbutton">
+                <property name="label">gtk-cancel</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
+                <property name="image_position">right</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="pinentryapplybutton">
+                <property name="label">gtk-apply</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_stock">True</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">True</property>
+            <property name="pack_type">end</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkGrid" id="pinentrygrid">
+            <property name="visible">True</property>
+            <property name="can_focus">False</property>
+            <property name="row_spacing">5</property>
+            <property name="column_spacing">5</property>
+            <child>
+              <object class="GtkLabel" id="pinentrylabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="label" translatable="yes">Please enter PIN code to unlock modem</property>
+                <property name="use_markup">True</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">0</property>
+                <property name="width">2</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkEntry" id="pinentry">
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="hexpand">True</property>
+                <property name="max_length">8</property>
+                <property name="visibility">False</property>
+                <property name="invisible_char">*</property>
+                <signal name="activate" handler="mmgui_main_pin_entry_activate_signal" swapped="no"/>
+                <signal name="changed" handler="mmgui_main_pin_changed_signal" swapped="no"/>
+                <signal name="insert-text" handler="mmgui_main_pin_insert_text_handler" swapped="no"/>
+              </object>
+              <packing>
+                <property name="left_attach">2</property>
+                <property name="top_attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkLabel" id="pinentryfieldlabel">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="halign">start</property>
+                <property name="label" translatable="yes">PIN</property>
+              </object>
+              <packing>
+                <property name="left_attach">1</property>
+                <property name="top_attach">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkImage" id="pinentryimage">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <property name="icon_name">dialog-password</property>
+                <property name="icon_size">6</property>
+              </object>
+              <packing>
+                <property name="left_attach">0</property>
+                <property name="top_attach">0</property>
+                <property name="height">2</property>
+              </packing>
+            </child>
+          </object>
+          <packing>
+            <property name="expand">True</property>
+            <property name="fill">False</property>
+            <property name="padding">5</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+    <action-widgets>
+      <action-widget response="-6">pinentrycancelbutton</action-widget>
+      <action-widget response="-10">pinentryapplybutton</action-widget>
+    </action-widgets>
+    <child>
+      <placeholder/>
+    </child>
   </object>
   <object class="GtkDialog" id="prefdialog">
     <property name="can_focus">False</property>
@@ -3956,6 +4119,9 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
       <action-widget response="0">prefclosebutton</action-widget>
       <action-widget response="1">prefapplybutton</action-widget>
     </action-widgets>
+    <child>
+      <placeholder/>
+    </child>
   </object>
   <object class="GtkSizeGroup" id="prefsmssizegroup">
     <widgets>
@@ -3994,6 +4160,9 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
           </packing>
         </child>
       </object>
+    </child>
+    <child>
+      <placeholder/>
     </child>
   </object>
   <object class="GtkDialog" id="trafficlimitsdialog">
@@ -4285,6 +4454,9 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
       <action-widget response="0">trafficlimitsclosebutton</action-widget>
       <action-widget response="1">trafficlimitsapplybutton</action-widget>
     </action-widgets>
+    <child>
+      <placeholder/>
+    </child>
   </object>
   <object class="GtkDialog" id="trafficstatsdialog">
     <property name="can_focus">False</property>
@@ -4445,6 +4617,9 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
     <action-widgets>
       <action-widget response="0">trafficstatsclosebutton</action-widget>
     </action-widgets>
+    <child>
+      <placeholder/>
+    </child>
   </object>
   <object class="GtkDialog" id="ussdeditdialog">
     <property name="can_focus">False</property>
@@ -4595,5 +4770,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
     <action-widgets>
       <action-widget response="0">ussdeditclosebutton</action-widget>
     </action-widgets>
+    <child>
+      <placeholder/>
+    </child>
   </object>
 </interface>
