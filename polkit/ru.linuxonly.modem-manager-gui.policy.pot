@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2015-10-11 20:38+0300\n"
+"POT-Creation-Date: 2017-12-31 20:07+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10,22 +10,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #. (itstool) path: action/description
-#: ru.linuxonly.modem-manager-gui.policy.in:10
+#: ru.linuxonly.modem-manager-gui.policy.in:11
 msgid "Enable and start modem management services"
 msgstr ""
 
 #. (itstool) path: action/message
-#: ru.linuxonly.modem-manager-gui.policy.in:11
+#: ru.linuxonly.modem-manager-gui.policy.in:12
 msgid "Modem management services aren't running. You need to authenticate to enable and start these services."
 msgstr ""
 
 #. (itstool) path: action/description
-#: ru.linuxonly.modem-manager-gui.policy.in:21
+#: ru.linuxonly.modem-manager-gui.policy.in:22
 msgid "Use modem management service"
 msgstr ""
 
 #. (itstool) path: action/message
-#: ru.linuxonly.modem-manager-gui.policy.in:22
+#: ru.linuxonly.modem-manager-gui.policy.in:23
 msgid "Modem management service needs your credentials. You need to authenticate to use this service."
 msgstr ""
 

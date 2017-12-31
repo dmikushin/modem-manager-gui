@@ -1,0 +1,1799 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# L'Africain <lafricain79@gmail.com>, 2016
+# L'Africain <lafricain79@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Modem Manager GUI\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-12-31 20:07+0300\n"
+"PO-Revision-Date: 2017-12-31 17:08+0000\n"
+"Last-Translator: Alex <alex@linuxonly.ru>\n"
+"Language-Team: French (http://www.transifex.com/ethereal/modem-manager-gui/language/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: ../src/ayatana.c:129
+msgid "Unread SMS"
+msgstr "SMS non lu"
+
+#: ../src/ayatana.c:303
+msgid "Unread messages"
+msgstr "Messages non lus"
+
+#: ../src/connection-editor-window.c:336
+#, c-format
+msgid ""
+"<b>%s is not valid</b>\n"
+"<small>It won't be saved and used on connection initialization</small>"
+msgstr "<b>%s n'est pas valide</b>\n<small>Il ne sera pas enregistré et utilisé à l'initialisation de la connexion</small>"
+
+#: ../src/connection-editor-window.c:400 ../src/connection-editor-window.c:410
+#: ../src/connection-editor-window.c:734 ../src/connection-editor-window.c:956
+#: ../src/connection-editor-window.c:1007
+msgid "Unnamed connection"
+msgstr "Connexion sans nom"
+
+#: ../src/connection-editor-window.c:438
+msgid "APN name"
+msgstr "Nom de l'APN"
+
+#: ../src/connection-editor-window.c:577
+msgid "First DNS server IP address"
+msgstr "Adresse IP du premier serveur DNS"
+
+#: ../src/connection-editor-window.c:588
+msgid "Second DNS server IP address"
+msgstr "Adresse IP du second serveur DNS"
+
+#: ../src/connection-editor-window.c:1433
+#: ../resources/ui/modem-manager-gui.ui:559
+msgid "Connection"
+msgstr "Connexion"
+
+#: ../src/contacts-page.c:353
+msgid "<b>Error adding contact</b>"
+msgstr "<b>Une errreur est survenue durant l'ajout de contact<b>"
+
+#: ../src/contacts-page.c:389
+msgid "<b>Remove contact</b>"
+msgstr "<b>Suppprimer un contact<b>"
+
+#: ../src/contacts-page.c:389
+msgid "Really want to remove contact?"
+msgstr "Voulez-vous vraiment supprimer le contact ?"
+
+#: ../src/contacts-page.c:393 ../src/contacts-page.c:398
+msgid "<b>Error removing contact</b>"
+msgstr "<b>Une erreur est survenue durant la suppression du contact.<b>"
+
+#: ../src/contacts-page.c:393
+msgid "Contact not removed from device"
+msgstr "Le contact n'a pas été supprimé du périphérique"
+
+#: ../src/contacts-page.c:398
+msgid "Contact not selected"
+msgstr "Le contact n'a pas été sélectionné"
+
+#: ../src/contacts-page.c:432 ../src/sms-page.c:1650
+msgid "<b>Modem contacts</b>"
+msgstr "<b>Contacts du modem</b>"
+
+#: ../src/contacts-page.c:528 ../src/sms-page.c:1615
+msgid "<b>GNOME contacts</b>"
+msgstr "<b>Contacts GNOME</b>"
+
+#: ../src/contacts-page.c:535 ../src/sms-page.c:1632
+msgid "<b>KDE contacts</b>"
+msgstr "<b>Contacts KDE</b>"
+
+#: ../src/contacts-page.c:551 ../resources/ui/modem-manager-gui.ui:2764
+msgid "First name"
+msgstr "Premier nom"
+
+#: ../src/contacts-page.c:555 ../resources/ui/modem-manager-gui.ui:2776
+msgid "First number"
+msgstr "Premier numéro"
+
+#: ../src/contacts-page.c:559 ../resources/ui/modem-manager-gui.ui:2788
+msgid "EMail"
+msgstr "Courriel"
+
+#: ../src/contacts-page.c:563 ../resources/ui/modem-manager-gui.ui:2800
+msgid "Group"
+msgstr "Groupe"
+
+#: ../src/contacts-page.c:567 ../resources/ui/modem-manager-gui.ui:2812
+msgid "Second name"
+msgstr "Deuxième nom"
+
+#: ../src/contacts-page.c:571 ../resources/ui/modem-manager-gui.ui:2824
+msgid "Second number"
+msgstr "Deuxième numéro"
+
+#: ../src/devices-page.c:292 ../src/devices-page.c:345
+msgid "<b>Error opening device</b>"
+msgstr "<b>Erreur durant l'ouverture du périphérique</b>"
+
+#: ../src/devices-page.c:404
+#, c-format
+msgid ""
+"<b>%s %s</b>\n"
+"Version:%s Port:%s Type:%s"
+msgstr "<b>%s %s</b>\nVersion : %s Port : %s Type : %s"
+
+#: ../src/devices-page.c:454
+msgid "Selected"
+msgstr "Sélectionné"
+
+#: ../src/devices-page.c:460 ../resources/ui/modem-manager-gui.ui:943
+msgid "Device"
+msgstr "Périphérique"
+
+#: ../src/devices-page.c:736 ../src/devices-page.c:768
+#: ../resources/ui/modem-manager-gui.ui:595
+msgid "Activate"
+msgstr "Activer"
+
+#: ../src/devices-page.c:761
+msgid "Deactivate"
+msgstr "Désactivé"
+
+#: ../src/devices-page.c:800
+#, c-format
+msgid "Connecting to %s..."
+msgstr "Connexion dans %s…"
+
+#: ../src/devices-page.c:811
+#, c-format
+msgid "Disconnecting from %s..."
+msgstr "Déconnecté depuis %s…"
+
+#: ../src/info-page.c:75 ../src/info-page.c:82 ../src/info-page.c:135
+#: ../src/info-page.c:143
+msgid "Not supported"
+msgstr "Non supporté"
+
+#: ../src/main.c:392 ../src/main.c:395 ../src/main.c:398 ../src/main.c:2809
+#: ../src/main.c:2820
+msgid "Error while initialization"
+msgstr "Erreur durant l'initialisation"
+
+#: ../src/main.c:392
+msgid "Unable to start needed system services without correct credentials"
+msgstr "Impossible de démarrer les services système requis sans informations d'identification correctes"
+
+#: ../src/main.c:395
+msgid "Unable to communicate with available system services"
+msgstr "Impossible de communiquer avec les services système disponibles"
+
+#: ../src/main.c:506
+msgid "Success"
+msgstr "Réussi"
+
+#: ../src/main.c:511
+msgid "Failed"
+msgstr "Échec"
+
+#: ../src/main.c:516 ../src/svcmanager.c:640
+msgid "Timeout"
+msgstr "Délai d'attente"
+
+#: ../src/main.c:653 ../resources/ui/modem-manager-gui.ui:465
+msgid "_Stop"
+msgstr "_Arrêter"
+
+#: ../src/main.c:780
+msgid "Unlocking device..."
+msgstr ""
+
+#: ../src/main.c:796
+msgid "Enabling device..."
+msgstr "Activation du périphérique…"
+
+#: ../src/main.c:1128
+msgid "No devices found in system"
+msgstr "Pas de périphériques trouvés sur le système"
+
+#: ../src/main.c:1142
+msgid ""
+"Modem is not ready for operation. Please wait while modem being prepared..."
+msgstr "Le modem n'est pas prêt pour l'opération. Veuillez patienter pendant sa préparation…"
+
+#: ../src/main.c:1156
+msgid "Modem must be enabled to connect to Internet. Please enable modem."
+msgstr ""
+
+#: ../src/main.c:1157
+msgid ""
+"Modem must be registered in mobile network to connect to Internet. Please "
+"wait..."
+msgstr ""
+
+#: ../src/main.c:1158
+msgid "Modem must be unlocked to connect to Internet. Please enter PIN code."
+msgstr "Le modem doit être déverrouillé pour se connecter à internet. Veuillez entrer votre code PIN."
+
+#: ../src/main.c:1159
+msgid ""
+"Network manager does not support Internet connection management functions."
+msgstr "Network manager ne supporte pas les fonctions de gestion des connexions internet"
+
+#: ../src/main.c:1175
+msgid "Modem must be enabled to read and write SMS. Please enable modem."
+msgstr "Le modem a besoin d'être activé pour lire et écrire des SMS. Veuillez activer le modem."
+
+#: ../src/main.c:1176
+msgid ""
+"Modem must be registered in mobile network to receive and send SMS. Please "
+"wait..."
+msgstr "Le modem doit être enregistré sur un réseau mobile pour recevoir et envoyer des SMS. Veuillez patienter…"
+
+#: ../src/main.c:1177
+msgid "Modem must be unlocked to receive and send SMS. Please enter PIN code."
+msgstr "Le modem doit être déverrouillé pour recevoir et envoyer des SMS. Veuillez saisir le code PIN."
+
+#: ../src/main.c:1178
+msgid "Modem manager does not support SMS manipulation functions."
+msgstr "Le gestionnaire de modem ne prend pas en charge les fonctions de manipulation SMS."
+
+#: ../src/main.c:1179
+msgid "Modem manager does not support sending of SMS messages."
+msgstr "Le gestionnaire de modem ne prend pas en charge l'envoi de messages SMS."
+
+#: ../src/main.c:1197
+msgid "Modem must be enabled to send USSD. Please enable modem."
+msgstr "Le modem a besoin d'être activé pour envoyer des codes USSD. Veuillez activer le modem."
+
+#: ../src/main.c:1198
+msgid ""
+"Modem must be registered in mobile network to send USSD. Please wait..."
+msgstr "Le modem doit être enregistré sur un réseau mobile pour  envoyer des codes USSD. Veuillez patienter…"
+
+#: ../src/main.c:1199
+msgid "Modem must be unlocked to send USSD. Please enter PIN code."
+msgstr "Le modem doit être déverrouillé pour pouvoir entrer des codes USSD. Veuillez entrer le code PIN."
+
+#: ../src/main.c:1200
+msgid "Modem manager does not support sending of USSD requests."
+msgstr "Le gestionnaire de modem ne prend pas en charge l'envoi de requêtes USSD."
+
+#: ../src/main.c:1227
+msgid ""
+"Modem must be enabled to scan for available networks. Please enable modem."
+msgstr "Le modem a besoin d'être activé pour pouvoir scanner les réseaux disponibles. Veuillez activer le modem."
+
+#: ../src/main.c:1229
+msgid ""
+"Modem must be unlocked to scan for available networks. Please enter PIN "
+"code."
+msgstr "Le modem doit être déverrouillé pour pouvoir scanner les réseaux disponibles. Veuillez entrer le code PIN."
+
+#: ../src/main.c:1230
+msgid "Modem manager does not support scanning for available mobile networks."
+msgstr "Le gestionnaire de modem ne prend pas en charge la recherche des réseaux mobiles disponibles."
+
+#: ../src/main.c:1231
+msgid "Modem is connected now. Please disconnect to scan."
+msgstr "Le modem est actuellement connecté. Veuillez vous déconnecter pour scanner le réseau."
+
+#: ../src/main.c:1262
+msgid "Modem must be enabled to export contacts from it. Please enable modem."
+msgstr "Le modem a besoin d'être activé pour pouvoir exporter les contacts. Veuillez activer le modem."
+
+#: ../src/main.c:1264
+msgid ""
+"Modem must be unlocked to export contacts from it. Please enter PIN code."
+msgstr "Le modem doit être déverrouillé pour exporter des contacts. Veuillez saisir le code PIN."
+
+#: ../src/main.c:1265
+msgid "Modem manager does not support modem contacts manipulation functions."
+msgstr "Le gestionnaire de modem ne prend pas en charge les fonctions de manipulation des contacts."
+
+#: ../src/main.c:1266
+msgid "Modem manager does not support modem contacts edition functions."
+msgstr "Le gestionnaire de modem ne prend pas en charge les fonctions de manipulation d'édition des contacts."
+
+#: ../src/main.c:1304
+msgid "Enter PIN"
+msgstr ""
+
+#: ../src/main.c:1306
+msgid ""
+"SIM card is locked with PUK code. Please contact your mobile operator for "
+"further instructions."
+msgstr ""
+
+#: ../src/main.c:1309
+msgid ""
+"SIM card seems non-functional. Please contact your mobile operator for "
+"further instructions."
+msgstr ""
+
+#: ../src/main.c:1322
+msgid "Enable"
+msgstr ""
+
+#: ../src/main.c:1581
+msgid "_Devices"
+msgstr "_Périphériques"
+
+#: ../src/main.c:1585
+msgid "_SMS"
+msgstr "_SMS"
+
+#: ../src/main.c:1590
+msgid "_USSD"
+msgstr "_USSD"
+
+#: ../src/main.c:1595
+msgid "_Info"
+msgstr "_Information"
+
+#: ../src/main.c:1600
+msgid "S_can"
+msgstr "S_canner"
+
+#: ../src/main.c:1605
+msgid "_Traffic"
+msgstr "_Trafic"
+
+#: ../src/main.c:1610
+msgid "C_ontacts"
+msgstr "C_ontacts"
+
+#: ../src/main.c:1698 ../src/main.c:1729
+msgid "Modem Manager GUI window hidden"
+msgstr "La fenêtre de Modem Manager GUI est réduite"
+
+#: ../src/main.c:1698 ../src/main.c:1729
+msgid "Use tray icon or messaging menu to show window again"
+msgstr "Utiliser l'icône de notification ou le menu message pour montrer à nouveau la fenêtre"
+
+#: ../src/main.c:1793
+msgid "Error while displaying the help contents"
+msgstr "Erreur d'affichage du contenu de l'aide"
+
+#: ../src/main.c:1919
+#, c-format
+msgid "%s disconnected"
+msgstr "%s est déconnecté"
+
+#: ../src/main.c:2056
+msgid "Show window"
+msgstr "Montrer la fenêtre"
+
+#: ../src/main.c:2062
+msgid "New SMS"
+msgstr "Nouveau SMS"
+
+#: ../src/main.c:2068 ../src/main.c:2720
+msgid "Quit"
+msgstr "Quitter"
+
+#: ../src/main.c:2680
+msgid "_Quit"
+msgstr "_Quitter"
+
+#: ../src/main.c:2686
+msgid "_Actions"
+msgstr "_Actions"
+
+#: ../src/main.c:2689
+msgid "_Preferences"
+msgstr "_Préférences"
+
+#: ../src/main.c:2692
+msgid "_Edit"
+msgstr "_Édition"
+
+#: ../src/main.c:2695 ../src/main.c:2699
+msgid "_Help"
+msgstr "_Aide"
+
+#: ../src/main.c:2697
+msgid "_About"
+msgstr "À _propos"
+
+#: ../src/main.c:2709 ../resources/ui/modem-manager-gui.ui:3172
+msgid "Preferences"
+msgstr "Préférences"
+
+#: ../src/main.c:2714
+msgid "Help"
+msgstr "Aide"
+
+#: ../src/main.c:2716 ../resources/ui/modem-manager-gui.ui:1719
+msgid "About"
+msgstr "À propos"
+
+#: ../src/main.c:2809 ../src/main.c:2864
+msgid ""
+"Unable to find MMGUI modules. Please check if application installed "
+"correctly"
+msgstr "Impossible de trouver les modules MMGUI. Veuillez vérifier si l'application est installée correctement"
+
+#: ../src/main.c:2820
+msgid "Interface building error"
+msgstr "Erreur dans la construction de l'interface"
+
+#: ../src/main.c:2876
+msgid "Modem management modules:\n"
+msgstr "Modules de gestion du modem :\n"
+
+#: ../src/main.c:2877 ../src/main.c:2881
+msgid "Module"
+msgstr "Module"
+
+#: ../src/main.c:2877 ../src/main.c:2881 ../src/ussd-page.c:544
+msgid "Description"
+msgstr "Description"
+
+#: ../src/main.c:2880
+msgid "Connection management modules:\n"
+msgstr "Modules de gestion des connexions :\n"
+
+#: ../src/main.c:2919
+#, c-format
+msgid "Segmentation fault at address: %p\n"
+msgstr "Erreur de segmentation à l'adresse : %p\n"
+
+#: ../src/main.c:2922
+msgid "Stack trace:\n"
+msgstr "Trace de la pile :\n"
+
+#: ../src/main.c:2988
+msgid "Do not show window on start"
+msgstr "Ne pas montrer la fenêtre au démarrage"
+
+#: ../src/main.c:2989
+msgid "Use specified modem management module"
+msgstr "Utiliser le module de gestion de modem spécifié"
+
+#: ../src/main.c:2990
+msgid "Use specified connection management module"
+msgstr "Utiliser le module de gestion des connexions spécifié"
+
+#: ../src/main.c:2991
+msgid "List all available modules and exit"
+msgstr "Énumérer tous les modules disponibles et quitter"
+
+#: ../src/main.c:3028
+msgid "- tool for EDGE/3G/4G modem specific functions control"
+msgstr "- outil de contrôle des fonctions spécifiques aux modems EDGE/3G/4G"
+
+#: ../src/main.c:3035
+#, c-format
+msgid "Command line option parsing failed: %s\n"
+msgstr "Échec de l'analyse de l'option de ligne de commande : %s\n"
+
+#: ../src/preferences-window.c:111 ../src/strformat.c:352
+#: ../src/welcome-window.c:197
+msgid "Undefined"
+msgstr "Indéfinie"
+
+#: ../src/scan-page.c:44
+msgid "Scanning networks..."
+msgstr "Scanne des réseaux…"
+
+#: ../src/scan-page.c:46
+msgid "Device error"
+msgstr "Erreur de périphérique"
+
+#: ../src/scan-page.c:97
+#, c-format
+msgid ""
+"<b>%s</b>\n"
+"<small>%s ID: %u Availability: %s Access tech: %s</small>"
+msgstr "<b>%s</b>\n<small> ID %s : %u Accessibilité : %s Tech accès : %s</small>"
+
+#: ../src/scan-page.c:135
+msgid "<b>Error scanning networks</b>"
+msgstr "<b>Erreur durant la recherche  des réseaux</b>"
+
+#: ../src/scan-page.c:149 ../resources/ui/modem-manager-gui.ui:1066
+msgid "Operator"
+msgstr "Opérateur"
+
+#: ../src/sms-page.c:343
+#, c-format
+msgid "Received %u new SMS messages"
+msgstr "Réception de %u nouveaux messages SMS"
+
+#: ../src/sms-page.c:345 ../src/sms-page.c:423
+msgid "Received new SMS message"
+msgstr "Nouveau messages SMS reçus"
+
+#: ../src/sms-page.c:357
+msgid "Message senders: "
+msgstr "Expéditeur du message :"
+
+#: ../src/sms-page.c:494 ../src/sms-page.c:1163
+#, c-format
+msgid ""
+"<b>%s</b>\n"
+"<small>%s</small>"
+msgstr "<b>%s</b>\n<small>%s</small>"
+
+#: ../src/sms-page.c:548
+msgid ""
+"<b>SMS number is not valid</b>\n"
+"<small>Only numbers from 2 to 20 digits without\n"
+"letters and symbols can be used</small>"
+msgstr "<b>Le numéro du SMS n'est pas valide</b>\n<small>Seuls les nombres de 2 à 20 chiffres, sans\nlettres ni symboles peuvent être utilisés</small>"
+
+#: ../src/sms-page.c:550
+msgid ""
+"<b>SMS text is not valid</b>\n"
+"<small>Please write some text to send</small>"
+msgstr "<b>Le texte du SMS text n'est pas valide</b>\n<small>Veuillez écrire du texte pour envoyer</small>"
+
+#: ../src/sms-page.c:675
+#, c-format
+msgid "Sending SMS to number \"%s\"..."
+msgstr "Envoi du SMS au némuro \"%s\"…"
+
+#: ../src/sms-page.c:697
+msgid "Wrong number or device not ready"
+msgstr "Mauvais numéro ou le périphérique n'est pas prêt"
+
+#: ../src/sms-page.c:703
+msgid "Saving SMS..."
+msgstr "Enregistrement du SMS…"
+
+#: ../src/sms-page.c:774
+#, c-format
+msgid "Really want to remove messages (%u) ?"
+msgstr "Voulez-vous vraiment  supprimer les messages (%u) ?"
+
+#: ../src/sms-page.c:775
+msgid "<b>Remove messages</b>"
+msgstr "<b>Supprimer les messages</b>"
+
+#: ../src/sms-page.c:797
+#, c-format
+msgid "Some messages weren't removed (%u)"
+msgstr "Certains messages n'ont pas été supprimés  (%u)"
+
+#: ../src/sms-page.c:1087
+msgid "Incoming"
+msgstr "Messages reçus"
+
+#: ../src/sms-page.c:1092
+msgid ""
+"This is folder for your incoming SMS messages.\n"
+"You can answer selected message using 'Answer' button."
+msgstr "Ce dossier contient vos SMS entrants.\nVous pouvez répondre à un message sélectionné en utilisant le bouton 'Répondre'."
+
+#: ../src/sms-page.c:1097
+msgid "Sent"
+msgstr "Messages envoyés"
+
+#: ../src/sms-page.c:1102
+msgid "This is folder for your sent SMS messages."
+msgstr "Ce dossier contient vos SMS envoyés."
+
+#: ../src/sms-page.c:1107
+msgid "Drafts"
+msgstr "Brouillons"
+
+#: ../src/sms-page.c:1112
+msgid ""
+"This is folder for your SMS message drafts.\n"
+"Select message and click 'Answer' button to start editing."
+msgstr "Ce dossier contient vos SMS brouillons.\nSélectionnez un message et cliquez sur le bouton 'Répondre' pour l'éditer."
+
+#: ../src/sms-page.c:1219
+msgid ""
+"<b>Incoming</b>\n"
+"<small>Incoming messages</small>"
+msgstr "<b>Entrants</b>\n<small>Messages entrants</small>"
+
+#: ../src/sms-page.c:1220
+msgid ""
+"<b>Sent</b>\n"
+"<small>Sent messages</small>"
+msgstr "<b>Envoyés</b>\n<small>Messages envoyés</small>"
+
+#: ../src/sms-page.c:1221
+msgid ""
+"<b>Drafts</b>\n"
+"<small>Message drafts</small>"
+msgstr "<b>Brouillons</b>\n<small>Messages brouillons</small>"
+
+#: ../src/sms-page.c:1749 ../resources/ui/modem-manager-gui.ui:2932
+msgid "Disabled"
+msgstr "Désactivé"
+
+#: ../src/sms-page.c:1903 ../resources/ui/modem-manager-gui.ui:355
+#: ../resources/ui/modem-manager-gui.ui:778
+#: ../resources/ui/modem-manager-gui.ui:3580
+#: ../resources/ui/modem-manager-gui.ui:3999
+msgid "SMS"
+msgstr "SMS"
+
+#: ../src/strformat.c:39
+#, c-format
+msgid "<small><b>%.3f kbps</b></small>"
+msgstr "<small><b>%.3f kbps</b></small>"
+
+#: ../src/strformat.c:41
+#, c-format
+msgid "%.3f kbps"
+msgstr "%.3f kbps"
+
+#: ../src/strformat.c:46
+#, c-format
+msgid "<small><b>%.3g Mbps</b></small>"
+msgstr "<small><b>%.3g Mbps</b></small>"
+
+#: ../src/strformat.c:48
+#, c-format
+msgid "%.3g Mbps"
+msgstr "%.3g Mbps"
+
+#: ../src/strformat.c:53
+#, c-format
+msgid "<small><b>%.3g Gbps</b></small>"
+msgstr "<small><b>%.3g Gbps</b></small>"
+
+#: ../src/strformat.c:55
+#, c-format
+msgid "%.3g Gbps"
+msgstr "%.3g Gbps"
+
+#: ../src/strformat.c:87
+#, c-format
+msgid "<small><b>%u sec</b></small>"
+msgstr "<small><b>%u sec</b></small>"
+
+#: ../src/strformat.c:89
+#, c-format
+msgid "%u sec"
+msgstr "%u sec"
+
+#: ../src/strformat.c:93
+#, c-format
+msgid "<small><b>%s:%s</b></small>"
+msgstr "<small><b>%s:%s</b></small>"
+
+#: ../src/strformat.c:95
+#, c-format
+msgid "%s:%s"
+msgstr "%s:%s"
+
+#: ../src/strformat.c:99
+#, c-format
+msgid "<small><b>%s:%s:%s</b></small>"
+msgstr "<small><b>%s:%s:%s</b></small>"
+
+#: ../src/strformat.c:101
+#, c-format
+msgid "%s:%s:%s"
+msgstr "%s:%s:%s"
+
+#: ../src/strformat.c:105
+msgid "<small><b>%"
+msgstr "<small><b>%"
+
+#: ../src/strformat.c:107
+msgid "%"
+msgstr "%"
+
+#: ../src/strformat.c:124
+#, c-format
+msgid "<small><b>%u</b></small>"
+msgstr "<small><b>%u</b></small>"
+
+#: ../src/strformat.c:126
+#, c-format
+msgid "%u"
+msgstr "%u"
+
+#: ../src/strformat.c:131
+#, c-format
+msgid "<small><b>%.3g Kb</b></small>"
+msgstr "<small><b>%.3g Kb</b></small>"
+
+#: ../src/strformat.c:133
+#, c-format
+msgid "%.3g Kb"
+msgstr "%.3g Kb"
+
+#: ../src/strformat.c:138
+#, c-format
+msgid "<small><b>%.3g Mb</b></small>"
+msgstr "<small><b>%.3g Mb</b></small>"
+
+#: ../src/strformat.c:140
+#, c-format
+msgid "%.3g Mb"
+msgstr "%.3g Mb"
+
+#: ../src/strformat.c:145
+#, c-format
+msgid "<small><b>%.3g Gb</b></small>"
+msgstr "<small><b>%.3g Gb</b></small>"
+
+#: ../src/strformat.c:147
+#, c-format
+msgid "%.3g Gb"
+msgstr "%.3g Gb"
+
+#: ../src/strformat.c:152
+#, c-format
+msgid "<small><b>%.3g Tb</b></small>"
+msgstr "<small><b>%.3g Tb</b></small>"
+
+#: ../src/strformat.c:154
+#, c-format
+msgid "%.3g Tb"
+msgstr "%.3g Tb"
+
+#: ../src/strformat.c:186
+msgid "Today, %T"
+msgstr "Aujourd'hui, %T"
+
+#: ../src/strformat.c:187 ../src/strformat.c:191 ../src/strformat.c:195
+#: ../src/strformat.c:206 ../src/strformat.c:236 ../src/strformat.c:244
+#: ../src/strformat.c:252 ../src/strformat.c:323 ../src/traffic-page.c:134
+#, c-format
+msgid "Unknown"
+msgstr "Inconnu"
+
+#: ../src/strformat.c:190
+msgid "Yesterday, %T"
+msgstr "Hier, %T"
+
+#: ../src/strformat.c:194
+msgid "%d %B %Y, %T"
+msgstr "%d %B %Y, %T"
+
+#: ../src/strformat.c:246
+msgid "Available"
+msgstr "Disponible"
+
+#: ../src/strformat.c:248
+msgid "Current"
+msgstr "Courant"
+
+#: ../src/strformat.c:250
+msgid "Forbidden"
+msgstr "Interdit"
+
+#: ../src/strformat.c:286
+msgid "Not registered"
+msgstr "Non enregistré"
+
+#: ../src/strformat.c:288
+msgid "Home network"
+msgstr "Réseau familial"
+
+#: ../src/strformat.c:290
+msgid "Searching"
+msgstr "Recherche en cours"
+
+#: ../src/strformat.c:292
+msgid "Registration denied"
+msgstr "Enregistrement refusé"
+
+#: ../src/strformat.c:294 ../src/strformat.c:298
+msgid "Unknown status"
+msgstr "Statut inconnu"
+
+#: ../src/strformat.c:296
+msgid "Roaming network"
+msgstr "Réseau d'itinérance"
+
+#: ../src/strformat.c:337
+#, c-format
+msgid "%3.0f minutes"
+msgstr "%3.0f minutes"
+
+#: ../src/strformat.c:341
+#, c-format
+msgid "%3.1f hours"
+msgstr "%3.1f heures"
+
+#: ../src/strformat.c:345
+#, c-format
+msgid "%2.0f days"
+msgstr "%2.0f jours"
+
+#: ../src/strformat.c:349
+#, c-format
+msgid "%2.0f weeks"
+msgstr "%2.0f semaines"
+
+#: ../src/strformat.c:364
+#, c-format
+msgid "%2.0f sec"
+msgstr "%2.0f sec"
+
+#: ../src/strformat.c:367
+#, c-format
+msgid "%u min, %u sec"
+msgstr "%u min, %u sec"
+
+#: ../src/svcmanager.c:693
+msgid "Job canceled"
+msgstr "Tâche annulée"
+
+#: ../src/svcmanager.c:695
+msgid "Systemd timeout reached"
+msgstr "Le délai de systemd est atteint"
+
+#: ../src/svcmanager.c:697
+msgid "Service activation failed"
+msgstr "L'activation du service a échoué"
+
+#: ../src/svcmanager.c:699
+msgid "Service depends on already failed service"
+msgstr "Le service dépend de celui déjà en échec"
+
+#: ../src/svcmanager.c:701
+msgid "Service skipped"
+msgstr "Service ignoré"
+
+#: ../src/svcmanager.c:703
+msgid "Unknown error"
+msgstr "Erreur inconnue"
+
+#: ../src/svcmanager.c:768
+msgid "Unknown activation status"
+msgstr ""
+
+#: ../src/svcmanager.c:839
+msgid "Unknown entity type"
+msgstr "Type d'entité inconnue"
+
+#: ../src/traffic-page.c:246
+msgid "Day"
+msgstr "Jour"
+
+#: ../src/traffic-page.c:250
+msgid "Received data"
+msgstr "Données reçues"
+
+#: ../src/traffic-page.c:254
+msgid "Transmitted data"
+msgstr "Données transmises"
+
+#: ../src/traffic-page.c:258
+msgid "Session time"
+msgstr "Durée de la session"
+
+#: ../src/traffic-page.c:482
+msgid "Application"
+msgstr "Application"
+
+#: ../src/traffic-page.c:486
+msgid "PID"
+msgstr "PID"
+
+#: ../src/traffic-page.c:490
+msgid "Protocol"
+msgstr "Protocole"
+
+#: ../src/traffic-page.c:494 ../src/welcome-window.c:269
+msgid "State"
+msgstr "État"
+
+#: ../src/traffic-page.c:498
+msgid "Buffer"
+msgstr "Mémoire"
+
+#: ../src/traffic-page.c:502
+msgid "Port"
+msgstr "Port"
+
+#: ../src/traffic-page.c:506
+msgid "Destination"
+msgstr "Destination"
+
+#: ../src/traffic-page.c:532
+msgid "Traffic limit exceeded"
+msgstr "Limite de trafic dépassée"
+
+#: ../src/traffic-page.c:536
+msgid "Time limit exceeded"
+msgstr "Limite de temps dépassée"
+
+#: ../src/traffic-page.c:723
+#, c-format
+msgid ""
+"Traffic: %s, limit set to: %s\n"
+"Time: %s, limit set to: %s\n"
+"Please check entered values and try once more"
+msgstr "Trafic : %s, limite configurée à : %s\nDurée : %s, limite configurée à : %s\nVeuillez vérifier les valeurs saisies et essayer une nouvelle fois"
+
+#: ../src/traffic-page.c:728
+msgid "Wrong traffic and time limit values"
+msgstr "Mauvaise valeur de la limite du trafic et de la durée"
+
+#: ../src/traffic-page.c:731
+#, c-format
+msgid ""
+"Traffic: %s, limit set to: %s\n"
+"Please check entered values and try once more"
+msgstr "Trafic : %s, limite configurée à : %s\nVeuillez vérifier les valeurs saisies et essayer une nouvelle fois"
+
+#: ../src/traffic-page.c:734
+msgid "Wrong traffic limit value"
+msgstr "Mauvaise valeur de la limite du trafic"
+
+#: ../src/traffic-page.c:737
+#, c-format
+msgid ""
+"Time: %s, limit set to: %s\n"
+"Please check entered values and try once more"
+msgstr "Durée : %s, limite configurée à : %s\nVeuillez vérifier les valeurs saisies et essayer une nouvelle fois"
+
+#: ../src/traffic-page.c:740
+msgid "Wrong time limit value"
+msgstr "Mauvaise valeur de la limite de la durée"
+
+#: ../src/traffic-page.c:834 ../src/traffic-page.c:858
+#: ../src/traffic-page.c:882
+msgid "<small><b>Disconnected</b></small>"
+msgstr "<small><b>Déconnecté</b></small>"
+
+#: ../src/traffic-page.c:846 ../src/traffic-page.c:852
+#: ../src/traffic-page.c:870 ../src/traffic-page.c:876
+msgid "<small><b>Limit</b></small>"
+msgstr "<small><b>Limite</b></small>"
+
+#: ../src/traffic-page.c:849 ../src/traffic-page.c:855
+#: ../src/traffic-page.c:873 ../src/traffic-page.c:879
+msgid "<small><b>Disabled</b></small>"
+msgstr "<small><b>Désactivé</b></small>"
+
+#: ../src/traffic-page.c:1022
+msgid "kbps"
+msgstr "kbps"
+
+#: ../src/traffic-page.c:1036
+msgid "sec"
+msgstr "sec"
+
+#: ../src/traffic-page.c:1120
+msgid "RX speed"
+msgstr "Vitesse RX"
+
+#: ../src/traffic-page.c:1139
+msgid "TX speed"
+msgstr "Vitesse TX"
+
+#: ../src/traffic-page.c:1155
+msgid "Parameter"
+msgstr "Paramètres"
+
+#: ../src/traffic-page.c:1160
+msgid "Value"
+msgstr "Valeur"
+
+#: ../src/traffic-page.c:1166
+msgid "<small><b>Session</b></small>"
+msgstr "<small><b>Session</b></small>"
+
+#: ../src/traffic-page.c:1169 ../src/traffic-page.c:1193
+#: ../src/traffic-page.c:1205
+msgid "<small><b>Received data</b></small>"
+msgstr "<small><b>Données reçues</b></small>"
+
+#: ../src/traffic-page.c:1172 ../src/traffic-page.c:1196
+#: ../src/traffic-page.c:1208
+msgid "<small><b>Transmitted data</b></small>"
+msgstr "<small><b>Données transmises</b></small>"
+
+#: ../src/traffic-page.c:1175
+msgid "<small><b>Receive speed</b></small>"
+msgstr "<small><b>Vitesse de réception</b></small>"
+
+#: ../src/traffic-page.c:1178
+msgid "<small><b>Transmit speed</b></small>"
+msgstr "<small><b>Vitesse de transmission</b></small>"
+
+#: ../src/traffic-page.c:1181
+msgid "<small><b>Session time</b></small>"
+msgstr "<small><b>Durée de la session</b></small>"
+
+#: ../src/traffic-page.c:1184
+msgid "<small><b>Traffic left</b></small>"
+msgstr "<small><b>Trafic restant</b></small>"
+
+#: ../src/traffic-page.c:1187
+msgid "<small><b>Time left</b></small>"
+msgstr "<small><b>Temps restant</b></small>"
+
+#: ../src/traffic-page.c:1190
+msgid "<small><b>Month</b></small>"
+msgstr "<small><b>Mois</b></small>"
+
+#: ../src/traffic-page.c:1199 ../src/traffic-page.c:1211
+msgid "<small><b>Total time</b></small>"
+msgstr "<small><b>Durée totale</b></small>"
+
+#: ../src/traffic-page.c:1202
+msgid "<small><b>Year</b></small>"
+msgstr "<small><b>Année</b></small>"
+
+#: ../src/traffic-page.c:1236
+msgid "Traffic limit exceeded... It's time to take rest \\(^_^)/"
+msgstr "Limite de trafic dépassée ... Il est temps de prendre du repos \\(^_^)/"
+
+#: ../src/traffic-page.c:1261
+msgid "Time limit exceeded... Go sleep and have nice dreams -_-"
+msgstr "Temps dépassé… Allez dormir et faites de beaux rêves -_-"
+
+#: ../src/ussd-page.c:68
+msgid "Sample command"
+msgstr "Exemple de commande"
+
+#: ../src/ussd-page.c:290 ../src/ussd-page.c:311
+msgid ""
+"<b>USSD request is not valid</b>\n"
+"<small>Request must be 160 symbols long\n"
+"started with '*' and ended with '#'</small>"
+msgstr "<b>La requête USSD n'est pas valide</b>\n<small>La requête doit avoir 160 symboles de  long\ndébuter avec une '*' et terminer avec '#'</small>"
+
+#: ../src/ussd-page.c:395
+#, c-format
+msgid "Sending USSD request %s..."
+msgstr "Envoi de la requête USSD %s…"
+
+#: ../src/ussd-page.c:402
+#, c-format
+msgid "Sending USSD response %s..."
+msgstr "Envoi d'une réponse USSDe %s…"
+
+#: ../src/ussd-page.c:413 ../src/ussd-page.c:416 ../src/ussd-page.c:419
+msgid "<b>Error sending USSD</b>"
+msgstr "<b>Erreur durant l'envoi de la requête USSD</b>"
+
+#: ../src/ussd-page.c:413
+msgid "Wrong USSD request or device not ready"
+msgstr "Mauvaise requête USSD ou le périphérique n'est pas prêt"
+
+#: ../src/ussd-page.c:416
+msgid "USSD session terminated. You can send new request"
+msgstr "Session USSD terminée. Vous pouvez envoyer une nouvelle requête"
+
+#: ../src/ussd-page.c:419
+msgid "Wrong USSD request"
+msgstr "Mauvaise requête USSD"
+
+#: ../src/ussd-page.c:442
+msgid ""
+"\n"
+"USSD session is active. Waiting for your input...\n"
+msgstr "\nLa session USSD est active. En attente de votre saisie…\n"
+
+#: ../src/ussd-page.c:455
+msgid ""
+"\n"
+"No answer received..."
+msgstr "\nAucune réponse reçue…"
+
+#: ../src/ussd-page.c:538 ../resources/ui/modem-manager-gui.ui:3517
+msgid "Command"
+msgstr "Commande"
+
+#: ../src/welcome-window.c:246 ../resources/ui/modem-manager-gui.ui:289
+msgid "_Let's Start!"
+msgstr "_Commençons !"
+
+#: ../src/welcome-window.c:265
+msgid "Service"
+msgstr "Service"
+
+#: ../src/welcome-window.c:280
+msgid "_Close"
+msgstr "_Fermer"
+
+#: ../src/welcome-window.c:310
+msgid "Activation..."
+msgstr "Activation…"
+
+#: ../src/welcome-window.c:330
+msgid "<span foreground=\"green\">Success</span>"
+msgstr "<span foreground=\"green\">Réussi</span>"
+
+#: ../src/welcome-window.c:333
+#, c-format
+msgid "<span foreground=\"red\">%s</span>"
+msgstr "<span foreground=\"red\">%s</span>"
+
+#: ../resources/ui/modem-manager-gui.ui:62
+msgid "Welcome"
+msgstr "Bienvenue"
+
+#: ../resources/ui/modem-manager-gui.ui:111
+msgid ""
+"Despite of it's name, Modem Manager GUI supports different backends. Please "
+"select backends you plan to use. If not sure, just do not change anything."
+msgstr "Malgré son nom, Modem Manager GUI prend en charge différents programmes internes. Veuillez sélectionner les programmes internes que vous envisagez utiliser. Si vous n'êtes pas sûr, ne rien changer."
+
+#: ../resources/ui/modem-manager-gui.ui:125
+#: ../resources/ui/modem-manager-gui.ui:3735
+msgid "Modem manager"
+msgstr "Gestionnaire du modem"
+
+#: ../resources/ui/modem-manager-gui.ui:140
+#: ../resources/ui/modem-manager-gui.ui:3747
+msgid "Connection manager"
+msgstr "Gestionnaire de connexion"
+
+#: ../resources/ui/modem-manager-gui.ui:175
+msgid "Welcome to Modem Manager GUI"
+msgstr "Bienvenue dans Modem Manager GUI"
+
+#: ../resources/ui/modem-manager-gui.ui:189
+msgid "Enable services after activation"
+msgstr "Activer les services après l'activation"
+
+#: ../resources/ui/modem-manager-gui.ui:217
+msgid "Services activation"
+msgstr "Activation des services"
+
+#: ../resources/ui/modem-manager-gui.ui:233
+msgid ""
+"Modem Manager GUI uses special system services to communicate with modems "
+"and network stack. Please wait until all needed services being activated."
+msgstr "Modem Manager GUI utilise des services système spéciaux pour communiquer avec les modems et la pile du réseau. Veuillez attendre que tous les services nécessaires soient activés."
+
+#: ../resources/ui/modem-manager-gui.ui:317
+msgid "Modem Manager GUI"
+msgstr "Modem Manager GUI"
+
+#: ../resources/ui/modem-manager-gui.ui:337
+msgid "View and select available devices <b>CTRL+F1</b>"
+msgstr "Afficher et sélectionner les périphériques disponibles <b>CTRL+F1</ b>"
+
+#: ../resources/ui/modem-manager-gui.ui:339
+#: ../resources/ui/modem-manager-gui.ui:644
+#: ../resources/ui/modem-manager-gui.ui:3983
+msgid "Devices"
+msgstr "Périphériques"
+
+#: ../resources/ui/modem-manager-gui.ui:353
+msgid "Send and receive SMS messages <b>CTRL+F2</b>"
+msgstr "Envoyer et recevoir des messages SMS <b>CTRL+F2</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:369
+msgid "Send USSD requests <b>CTRL+F3</b>"
+msgstr "Envoyer des requêtes USSD <b>CTRL+F3</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:371
+#: ../resources/ui/modem-manager-gui.ui:895
+#: ../resources/ui/modem-manager-gui.ui:4013
+msgid "USSD"
+msgstr "USSD"
+
+#: ../resources/ui/modem-manager-gui.ui:385
+msgid "View active device information <b>CTRL+F4</b>"
+msgstr "Afficher les informations relatives à l'appareil actif <b>CTRL+F4</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:387
+#: ../resources/ui/modem-manager-gui.ui:1318
+#: ../resources/ui/modem-manager-gui.ui:4027
+msgid "Info"
+msgstr "Information"
+
+#: ../resources/ui/modem-manager-gui.ui:401
+msgid "Scan existing mobile networks <b>CTRL+F5</b>"
+msgstr "Rechercher des réseaux mobiles existants <b>CTRL+F5</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:403
+#: ../resources/ui/modem-manager-gui.ui:1414
+#: ../resources/ui/modem-manager-gui.ui:4041
+msgid "Scan"
+msgstr "Scanner"
+
+#: ../resources/ui/modem-manager-gui.ui:417
+msgid "Monitor network traffic <b>CTRL+F6</b>"
+msgstr "Surveiller le trafic réseau <b>CTRL+F6</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:419
+#: ../resources/ui/modem-manager-gui.ui:1560
+#: ../resources/ui/modem-manager-gui.ui:4055
+#: ../resources/ui/modem-manager-gui.ui:4265
+msgid "Traffic"
+msgstr "Trafic"
+
+#: ../resources/ui/modem-manager-gui.ui:433
+msgid "View system and modem addressbooks <b>CTRL+F7</b>"
+msgstr "Afficher les carnets d'adresse du système et du modem <b>CTRL+F7</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:435
+#: ../resources/ui/modem-manager-gui.ui:1671
+#: ../resources/ui/modem-manager-gui.ui:4069
+msgid "Contacts"
+msgstr "Contacts"
+
+#: ../resources/ui/modem-manager-gui.ui:580
+#: ../resources/ui/modem-manager-gui.ui:846
+msgid "Edit"
+msgstr "Éditer"
+
+#: ../resources/ui/modem-manager-gui.ui:584
+msgid "Open connection editor <b>CTRL+E</b>"
+msgstr "Ouvrir l'éditeur de connexion <b>CTRL+E</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:599
+msgid "Activate or deactivate connection <b>CTRL+A</b>"
+msgstr "Activer ou désactiver la connexion<b>CTRL+A1</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:664
+msgid "Send new SMS message <b>CTRL+N</b>"
+msgstr "Envoyer un nouveau message SMS <b>CTRL+N</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:666
+msgid "New"
+msgstr "Nouveau"
+
+#: ../resources/ui/modem-manager-gui.ui:680
+msgid "Remove selected message <b>CTRL+D</b>"
+msgstr "Supprimer le message séléctionné <b>CTRL+D</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:682
+msgid "Remove"
+msgstr " Supprimer"
+
+#: ../resources/ui/modem-manager-gui.ui:696
+msgid "Answer selected message <b>CTRL+A</b>"
+msgstr "Répondre au message sélectionné <b>CTRL+A</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:698
+msgid "Answer"
+msgstr "Répondre"
+
+#: ../resources/ui/modem-manager-gui.ui:797
+msgid "Request"
+msgstr "Requête"
+
+#: ../resources/ui/modem-manager-gui.ui:828
+#: ../resources/ui/modem-manager-gui.ui:2901
+msgid "Send"
+msgstr "Envoyer"
+
+#: ../resources/ui/modem-manager-gui.ui:832
+msgid "Send ussd request <b>CTRL+S</b>"
+msgstr "Envoyer une requête ussd <b>CTRL+S</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:850
+msgid "Edit USSD commands list <b>CTRL+E</b>"
+msgstr "Éditer la liste des commandes USSD <b>CTRL+E</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:968
+msgid "IMEI"
+msgstr "IMEI"
+
+#: ../resources/ui/modem-manager-gui.ui:993
+msgid "IMSI/ESN"
+msgstr "IMSI/ESN"
+
+#: ../resources/ui/modem-manager-gui.ui:1022
+msgid "<b>Equipment</b>"
+msgstr "<b>Équipement</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:1091
+msgid "Mode"
+msgstr "Mode"
+
+#: ../resources/ui/modem-manager-gui.ui:1116
+msgid "Signal level"
+msgstr "Puissance du signal"
+
+#: ../resources/ui/modem-manager-gui.ui:1128
+msgid "Operator code"
+msgstr "Code opérateur"
+
+#: ../resources/ui/modem-manager-gui.ui:1153
+msgid "Registration"
+msgstr "Enregistrement"
+
+#: ../resources/ui/modem-manager-gui.ui:1197
+#: ../resources/ui/modem-manager-gui.ui:2166
+msgid "<b>Network</b>"
+msgstr "<b>Réseau</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:1241
+msgid ""
+"3GPP Location\n"
+"<small>MCC/MNC/LAC/RNC/CID</small>"
+msgstr "Emplacement 3GPP \n<small>MCC/MNC/LAC/RNC/CID</small>"
+
+#: ../resources/ui/modem-manager-gui.ui:1255
+msgid ""
+"GPS location\n"
+"<small>Longitude/Latitude</small>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:1299
+msgid "<b>Location</b>"
+msgstr "<b>Emplacement</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:1362
+msgid "Scan available mobile networks <b>CTRL+S</b>"
+msgstr "Rechercher les réseaux mobiles disponibles <b>CTRL+F5</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:1364
+msgid "Start scan"
+msgstr "Démarrer la recherche du réseau"
+
+#: ../resources/ui/modem-manager-gui.ui:1388
+msgid "Create connection"
+msgstr "Créer une connexion"
+
+#: ../resources/ui/modem-manager-gui.ui:1434
+msgid "Set traffic amount or time limit for disconnect <b>CTRL+L</b>"
+msgstr "Définir la quantité de trafic ou la limite de temps pour la déconnexion <b>CTRL+L</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:1436
+msgid "Set limit"
+msgstr "Définir une limite"
+
+#: ../resources/ui/modem-manager-gui.ui:1450
+msgid "View list of active network connections <b>CTRL+C</b>"
+msgstr "Afficher la liste des connexions réseau actives <b>CTRL+C</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:1452
+#: ../resources/ui/modem-manager-gui.ui:1883
+msgid "Connections"
+msgstr "Connexions"
+
+#: ../resources/ui/modem-manager-gui.ui:1466
+msgid "View daily traffic statistics <b>CTRL+S</b>"
+msgstr "Afficher les statistiques du trafic quotidien <b>CTRL+S</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:1468
+msgid "Statistics"
+msgstr "Statistiques"
+
+#: ../resources/ui/modem-manager-gui.ui:1519
+msgid "Transmission speed"
+msgstr "Vitesse de transmission"
+
+#: ../resources/ui/modem-manager-gui.ui:1580
+msgid "Add new contact to modem addressbook <b>CTRL+N</b>"
+msgstr "Ajouter un nouveau contact au carnet d'adresses du modem <b>CTRL+N</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:1582
+#: ../resources/ui/modem-manager-gui.ui:2637
+msgid "New contact"
+msgstr "Nouveau contact"
+
+#: ../resources/ui/modem-manager-gui.ui:1596
+msgid "Remove contact from modem addressbook <b>CTRL+D</b>"
+msgstr "Supprimer le contact du carnet d'adresses du modem"
+
+#: ../resources/ui/modem-manager-gui.ui:1598
+msgid "Remove contact"
+msgstr "Supprimer le contact"
+
+#: ../resources/ui/modem-manager-gui.ui:1622
+msgid "Send SMS message to selected contact <b>CTRL+S</b>"
+msgstr "Envoyer un message SMS au contact sélectionné <b>CTRL+S</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:1624
+msgid "Send SMS"
+msgstr "Envoyer un SMS"
+
+#: ../resources/ui/modem-manager-gui.ui:1729
+msgid "Copyright 2012-2017 Alex"
+msgstr "Droits d'auteurs 2012-2017 Alex"
+
+#: ../resources/ui/modem-manager-gui.ui:1730
+msgid "Tool for EDGE/3G/4G modem specific functions control"
+msgstr "Outil de contrôle des fonctions spécifiques aux modems EDGE/3G/4G"
+
+#: ../resources/ui/modem-manager-gui.ui:1732
+msgid "Homepage"
+msgstr "Page d'accueil"
+
+#: ../resources/ui/modem-manager-gui.ui:1733
+msgid "GPL3"
+msgstr "GPL3"
+
+#: ../resources/ui/modem-manager-gui.ui:1735
+msgid "English: Alex <alex@linuxonly.ru>"
+msgstr "Anglais : Alex <alex@linuxonly.ru>"
+
+#: ../resources/ui/modem-manager-gui.ui:1771
+msgid "Active connections"
+msgstr "Activer les connexions"
+
+#: ../resources/ui/modem-manager-gui.ui:1824
+msgid "Terminate selected application using SIGTERM signal <b>CTRL+T</b>"
+msgstr "Terminer l'application sélectionnée en utilisant le signal SIGTERM <b>CTRL+T</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:1826
+msgid "Terminate application"
+msgstr "Terminer l'application"
+
+#: ../resources/ui/modem-manager-gui.ui:1947
+msgid "Add new broadband connection"
+msgstr "Ajouter une nouvelle connexion haut débit"
+
+#: ../resources/ui/modem-manager-gui.ui:1949
+msgid "Add connection"
+msgstr "Ajouter une connexion"
+
+#: ../resources/ui/modem-manager-gui.ui:1964
+msgid "Remove selected connection"
+msgstr "Supprimer la connexion sélectionnée"
+
+#: ../resources/ui/modem-manager-gui.ui:1966
+msgid "Remove connection"
+msgstr "Supprimer une connexion"
+
+#: ../resources/ui/modem-manager-gui.ui:2048
+msgid "Name"
+msgstr "Nom"
+
+#: ../resources/ui/modem-manager-gui.ui:2060
+msgid "APN"
+msgstr "APN"
+
+#: ../resources/ui/modem-manager-gui.ui:2087
+msgid "<b>Connection</b>"
+msgstr "<b>Connexion</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:2121
+msgid "Network ID"
+msgstr "ID du réseau"
+
+#: ../resources/ui/modem-manager-gui.ui:2131
+msgid "Enable roaming"
+msgstr "Activer le roaming"
+
+#: ../resources/ui/modem-manager-gui.ui:2199
+msgid "Access number"
+msgstr "Numéro d'accès"
+
+#: ../resources/ui/modem-manager-gui.ui:2211
+msgid "User name"
+msgstr "Nom d'utilisateur"
+
+#: ../resources/ui/modem-manager-gui.ui:2223
+msgid "Password"
+msgstr "Mot de passe"
+
+#: ../resources/ui/modem-manager-gui.ui:2278
+msgid "<b>Authentication</b>"
+msgstr "<b>Authentification</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:2311
+msgid "DNS 1"
+msgstr "DNS 1"
+
+#: ../resources/ui/modem-manager-gui.ui:2323
+msgid "DNS 2"
+msgstr "DNS 2"
+
+#: ../resources/ui/modem-manager-gui.ui:2367
+msgid "<b>DNS</b>"
+msgstr "<b>DNS</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:2423
+msgid "Error"
+msgstr "Erreur"
+
+#: ../resources/ui/modem-manager-gui.ui:2534
+msgid "Ask me again"
+msgstr "Toujours demander"
+
+#: ../resources/ui/modem-manager-gui.ui:2552
+msgid "<b>Quit or minimize?</b>"
+msgstr "<b>Quitter ou réduire ?</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:2564
+msgid "What do you want application to do on window close?"
+msgstr "Que doit faire l'application à la fermeture de la fenêtre ?"
+
+#: ../resources/ui/modem-manager-gui.ui:2573
+msgid "Just quit"
+msgstr "Uniquement quitter"
+
+#: ../resources/ui/modem-manager-gui.ui:2588
+msgid "Minimize to tray or messaging menu"
+msgstr "Réduire dans la zone de notification ou dans le menu de messagerie"
+
+#: ../resources/ui/modem-manager-gui.ui:2852
+msgid "New SMS message"
+msgstr "Nouveau message SMS"
+
+#: ../resources/ui/modem-manager-gui.ui:2916
+msgid "Save"
+msgstr "Enregistrer"
+
+#: ../resources/ui/modem-manager-gui.ui:2968
+msgid "Number"
+msgstr "Numéro"
+
+#: ../resources/ui/modem-manager-gui.ui:3100
+msgid "Please enter PIN code to unlock modem"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:3131
+msgid "PIN"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:3249
+msgid "Use sounds for events"
+msgstr "Utiliser les sons pour les notifications"
+
+#: ../resources/ui/modem-manager-gui.ui:3264
+msgid "Hide window to tray on close"
+msgstr "Réduire la fenêtre dans la zone de notification à la fermeture"
+
+#: ../resources/ui/modem-manager-gui.ui:3279
+msgid "Save window geometry and placement"
+msgstr "Sauvegarder la taille et l'emplacement de la fenêtre"
+
+#: ../resources/ui/modem-manager-gui.ui:3294
+msgid "Add program to autostart list"
+msgstr "Ajouter dans la liste des applications lancées au démarrage"
+
+#: ../resources/ui/modem-manager-gui.ui:3315
+msgid "<b>Behaviour</b>"
+msgstr "<b>Comportement</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:3325
+msgid "Behaviour"
+msgstr "Comportement"
+
+#: ../resources/ui/modem-manager-gui.ui:3356
+msgid "Concatenate messages"
+msgstr "Enchaîner les messages"
+
+#: ../resources/ui/modem-manager-gui.ui:3371
+msgid "Expand folders"
+msgstr "Ouvrir les dossiers"
+
+#: ../resources/ui/modem-manager-gui.ui:3386
+msgid "Place old messages on top"
+msgstr "Placer les anciens messages en haut"
+
+#: ../resources/ui/modem-manager-gui.ui:3407
+msgid "<b>Presentation</b>"
+msgstr "<b>Affichage</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:3437
+msgid "Validity period"
+msgstr "Période de validité"
+
+#: ../resources/ui/modem-manager-gui.ui:3446
+msgid "Send delivery report if possible"
+msgstr "Envoyer  si possible un accusé de réception"
+
+#: ../resources/ui/modem-manager-gui.ui:3484
+msgid "<b>Message parameters</b>"
+msgstr "<b>Paramètres des messages</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:3540
+msgid ""
+"<i><small>Use <b>%n</b> for message sender number and <b>%t</b> for it's "
+"text (eg. <b>zenity --info --title=%n --text=%t</b>).</small></i>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:3559
+msgid "<b>Custom command</b>"
+msgstr "<b>Commande personnalisée</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:3632
+msgid "RX Speed graph color"
+msgstr "Couleur du graphique de la vitesse de réception"
+
+#: ../resources/ui/modem-manager-gui.ui:3644
+msgid "TX Speed graph color"
+msgstr "Couleur du graphique de la vitesse de transmission"
+
+#: ../resources/ui/modem-manager-gui.ui:3656
+msgid "Movement direction"
+msgstr "Direction du mouvement"
+
+#: ../resources/ui/modem-manager-gui.ui:3670
+msgid "Left to right"
+msgstr "De gauche à droite"
+
+#: ../resources/ui/modem-manager-gui.ui:3671
+msgid "Right to left"
+msgstr "De droite à gauche"
+
+#: ../resources/ui/modem-manager-gui.ui:3687
+msgid "<b>Traffic</b>"
+msgstr "<b>Trafic</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:3700
+msgid "Graphs"
+msgstr "Graphiques"
+
+#: ../resources/ui/modem-manager-gui.ui:3789
+msgid "<b>Preferred backends</b>"
+msgstr "<b>Programmes internes préférés</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:3821
+msgid "Enable device"
+msgstr "Activer le périphérique"
+
+#: ../resources/ui/modem-manager-gui.ui:3833
+msgid "Send SMS message"
+msgstr "Envoyer un message SMS"
+
+#: ../resources/ui/modem-manager-gui.ui:3845
+msgid "Send USSD request"
+msgstr "Envoyer une requête USSD"
+
+#: ../resources/ui/modem-manager-gui.ui:3857
+msgid "Scan networks"
+msgstr "Rechercher les réseaux"
+
+#: ../resources/ui/modem-manager-gui.ui:3937
+msgid "<b>Operations timeouts</b>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:3957
+msgid "Modules"
+msgstr "Modules"
+
+#: ../resources/ui/modem-manager-gui.ui:4089
+msgid "<b>Active pages</b>"
+msgstr "<b>Pages actives</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:4102
+msgid "Pages"
+msgstr "Pages"
+
+#: ../resources/ui/modem-manager-gui.ui:4135
+msgid "Question"
+msgstr "Question"
+
+#: ../resources/ui/modem-manager-gui.ui:4171
+msgid "Traffic limits"
+msgstr "Limites du trafic"
+
+#: ../resources/ui/modem-manager-gui.ui:4233
+msgid "Enable traffic limit"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:4248
+msgid "Enable time limit"
+msgstr "Activer la limite de temps "
+
+#: ../resources/ui/modem-manager-gui.ui:4291
+msgid "Mb"
+msgstr "Mb"
+
+#: ../resources/ui/modem-manager-gui.ui:4292
+msgid "Gb"
+msgstr "Gb"
+
+#: ../resources/ui/modem-manager-gui.ui:4293
+msgid "Tb"
+msgstr "Tb"
+
+#: ../resources/ui/modem-manager-gui.ui:4305
+#: ../resources/ui/modem-manager-gui.ui:4396
+msgid "Message"
+msgstr "Message"
+
+#: ../resources/ui/modem-manager-gui.ui:4329
+#: ../resources/ui/modem-manager-gui.ui:4420
+msgid "Action"
+msgstr "Action"
+
+#: ../resources/ui/modem-manager-gui.ui:4343
+#: ../resources/ui/modem-manager-gui.ui:4434
+msgid "Show message"
+msgstr "Montrer le message"
+
+#: ../resources/ui/modem-manager-gui.ui:4344
+#: ../resources/ui/modem-manager-gui.ui:4435
+msgid "Disconnect"
+msgstr "Déconnecté"
+
+#: ../resources/ui/modem-manager-gui.ui:4357
+msgid "Time"
+msgstr "Heure"
+
+#: ../resources/ui/modem-manager-gui.ui:4383
+msgid "Minutes"
+msgstr "Minutes"
+
+#: ../resources/ui/modem-manager-gui.ui:4384
+msgid "Hours"
+msgstr "Heure"
+
+#: ../resources/ui/modem-manager-gui.ui:4464
+msgid "Traffic statistics"
+msgstr "Statistiques du trafic"
+
+#: ../resources/ui/modem-manager-gui.ui:4518
+msgid "Selected statistics period"
+msgstr "Période de statistiques sélectionnée"
+
+#: ../resources/ui/modem-manager-gui.ui:4559
+msgid "January"
+msgstr "Janvier"
+
+#: ../resources/ui/modem-manager-gui.ui:4560
+msgid "February"
+msgstr "Février"
+
+#: ../resources/ui/modem-manager-gui.ui:4561
+msgid "March"
+msgstr "Mars"
+
+#: ../resources/ui/modem-manager-gui.ui:4562
+msgid "April"
+msgstr "Avril"
+
+#: ../resources/ui/modem-manager-gui.ui:4563
+msgid "May"
+msgstr "Mai"
+
+#: ../resources/ui/modem-manager-gui.ui:4564
+msgid "June"
+msgstr "Juin"
+
+#: ../resources/ui/modem-manager-gui.ui:4565
+msgid "July"
+msgstr "Juillet"
+
+#: ../resources/ui/modem-manager-gui.ui:4566
+msgid "August"
+msgstr "Août"
+
+#: ../resources/ui/modem-manager-gui.ui:4567
+msgid "September"
+msgstr "Septembre"
+
+#: ../resources/ui/modem-manager-gui.ui:4568
+msgid "October"
+msgstr "Octobre"
+
+#: ../resources/ui/modem-manager-gui.ui:4569
+msgid "November"
+msgstr "Novembre"
+
+#: ../resources/ui/modem-manager-gui.ui:4570
+msgid "December"
+msgstr "Décembre"
+
+#: ../resources/ui/modem-manager-gui.ui:4627
+msgid "USSD commands"
+msgstr "Commandes USSD"
+
+#: ../resources/ui/modem-manager-gui.ui:4680
+msgid "Add new USSD command <b>CTRL+N</b>"
+msgstr "Ajouter une nouvelle commande USSD <b>CTRL+N</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:4682
+msgid "Add"
+msgstr "Ajouter"
+
+#: ../resources/ui/modem-manager-gui.ui:4696
+msgid "Remove selected USSD command <b>CTRL+D</b>"
+msgstr "Supprimer la commande USSD sélectionnée <b>CTRL+D</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:4698
+msgid "Delete"
+msgstr "Supprimer"
+
+#: ../resources/ui/modem-manager-gui.ui:4722
+msgid ""
+"Force USSD answer encoding change from GSM7 to UCS2 (useful for Huawei "
+"modems) <b>CTRL+E</b>"
+msgstr "Forcer le changement de codage de réponse USSD de GSM7 à UCS2 (utile pour les modems Huawei) <b>CTRL+E</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:4724
+msgid "Change message encoding"
+msgstr "Modifier l'encodage du message"

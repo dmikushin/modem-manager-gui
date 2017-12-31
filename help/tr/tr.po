@@ -1,17 +1,18 @@
-# 
+#
 # Translators:
 # Ozancan Karataş <ozancankaratas96@outlook.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Modem Manager GUI\n"
-"POT-Creation-Date: 2015-10-11 20:38+0300\n"
+"POT-Creation-Date: 2017-12-31 20:07+0300\n"
 "PO-Revision-Date: 2015-10-11 17:39+0000\n"
 "Last-Translator: Alex <alex@linuxonly.ru>\n"
-"Language-Team: Turkish (http://www.transifex.com/ethereal/modem-manager-gui/language/tr/)\n"
+"Language-Team: Turkish (http://www.transifex.com/ethereal/modem-manager-gui/"
+"language/tr/)\n"
+"Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: tr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
@@ -33,9 +34,16 @@ msgstr "<app>Modem Manager GUI</app> hakkında bilgi."
 msgid "Mario Blättermann"
 msgstr "Mario Blättermann"
 
+#. (itstool) path: credit/name
+#: C/about.page:17 C/contrib-code.page:17 C/index.page:15 C/report-bugs.page:17
+#: C/usage-contacts.page:17 C/usage-netsearch.page:17 C/usage-sms.page:18
+#: C/usage-traffic.page:17 C/usage-ussd.page:17
+msgid "Alex"
+msgstr "Alex"
+
 #. (itstool) path: license/p
-#: C/about.page:17 C/contrib-code.page:17 C/contrib-translations.page:17
-#: C/index.page:16 C/report-bugs.page:17 C/usage-config.page:17
+#: C/about.page:21 C/contrib-code.page:21 C/contrib-translations.page:17
+#: C/index.page:19 C/report-bugs.page:21 C/usage-config.page:17
 #: C/usage-contacts.page:21 C/usage-getinfo.page:17 C/usage-modem.page:17
 #: C/usage-netsearch.page:21 C/usage-sms.page:22 C/usage-traffic.page:21
 #: C/usage-ussd.page:21
@@ -43,68 +51,105 @@ msgid "Creative Commons Share Alike 3.0"
 msgstr "Creative Commons Share Alike 3.0"
 
 #. (itstool) path: page/title
-#: C/about.page:21
+#: C/about.page:25
 msgid "About <app>Modem Manager GUI</app>"
 msgstr "<app>Modem Manager GUI</app> hakkında"
 
 #. (itstool) path: page/p
-#: C/about.page:23
+#: C/about.page:27
+#, fuzzy
 msgid ""
-"<app>Modem Manager GUI</app> was written by <link "
-"href=\"mailto:alex@linuxonly.ru\">Alex</link>. To find more information "
-"about <app>Modem Manager GUI</app>, please visit the <link "
-"href=\"http://linuxonly.ru/cms/page.php?7\" type=\"http\"><app>Modem Manager"
-" GUI</app> Web page</link>."
-msgstr "<app>Modem Manager GUI</app> <link href=\"mailto:alex@linuxonly.ru\">Alex</link> tarafından yazılmıştır. <app>Modem Manager GUI</app> hakkında daha fazla bilgi almak için, <link href=\"http://linuxonly.ru/cms/page.php?7\" type=\"http\"><app>Modem Manager GUI</app> Web sitesine</link> bakın."
+"<app>Modem Manager GUI</app> was written by <link href=\"mailto:"
+"alex@linuxonly.ru\">Alex</link>. To find more information about <app>Modem "
+"Manager GUI</app>, please visit the <link href=\"https://linuxonly.ru/page/"
+"modem-manager-gui\"><app>Modem Manager GUI</app> Web page</link>."
+msgstr ""
+"<app>Modem Manager GUI</app> <link href=\"mailto:alex@linuxonly.ru\">Alex</"
+"link> tarafından yazılmıştır. <app>Modem Manager GUI</app> hakkında daha "
+"fazla bilgi almak için, <link href=\"http://linuxonly.ru/cms/page.php?7\" "
+"type=\"http\"><app>Modem Manager GUI</app> Web sitesine</link> bakın."
 
 #. (itstool) path: page/p
-#: C/about.page:29
+#: C/about.page:33
+#, fuzzy
 msgid ""
 "To report a bug or make a suggestion regarding this application or this "
-"manual, follow the directions at the <link "
-"href=\"http://linuxonly.ru/cms/e107_plugins/bug_tracker/bugs.php\" "
-"type=\"http\"><app>Modem Manager GUI</app> bug tracker</link>."
-msgstr "Bu uygulama ya da kılavuz ile ilgili bir sorunu raporlamak ya da önerilerinizi paylaşmak için <link href=\"http://linuxonly.ru/cms/e107_plugins/bug_tracker/bugs.php\" type=\"http\"><app>Modem Manager GUI</app> sorun izleyicisi</link> üzerindeki yönergeleri takip edin."
+"manual, use <link href=\"https://linuxonly.ru/forum/modem-manager-gui/\"> "
+"<app>Modem Manager GUI</app> support forum</link>."
+msgstr ""
+"Bu uygulama ya da kılavuz ile ilgili bir sorunu raporlamak ya da "
+"önerilerinizi paylaşmak için <link href=\"http://linuxonly.ru/cms/"
+"e107_plugins/bug_tracker/bugs.php\" type=\"http\"><app>Modem Manager GUI</"
+"app> sorun izleyicisi</link> üzerindeki yönergeleri takip edin."
 
 #. (itstool) path: page/p
-#: C/about.page:35
+#: C/about.page:39
 msgid ""
 "This program is distributed under the terms of the GNU General Public "
 "license version 3, as published by the Free Software Foundation. A copy of "
-"this license can be found at this <link href=\"help:gpl\" "
-"type=\"help\">link</link>, or in the file COPYING included with the source "
-"code of this program."
-msgstr "Bu program GNU Genel Kamu Lisansı sürüm 3 koşulları altında dağıtılmaktadır, Özgür Yazılım Vakfı tarafından yayınlanmıştır. Bu lisansın bir kopyası <link href=\"help:gpl\" type=\"help\">burada</link>, ya da bu programın kaynak koduna eklenen COPYING dosyasında da bulunabilir."
+"this license can be found at this <link href=\"help:gpl\" type=\"help"
+"\">link</link>, or in the file COPYING included with the source code of this "
+"program."
+msgstr ""
+"Bu program GNU Genel Kamu Lisansı sürüm 3 koşulları altında dağıtılmaktadır, "
+"Özgür Yazılım Vakfı tarafından yayınlanmıştır. Bu lisansın bir kopyası <link "
+"href=\"help:gpl\" type=\"help\">burada</link>, ya da bu programın kaynak "
+"koduna eklenen COPYING dosyasında da bulunabilir."
 
 #. (itstool) path: info/desc
 #: C/contrib-code.page:9
 msgid "How you can help make <app>Modem Manager GUI </app> better."
-msgstr "<app>Modem Manager GUI </app> programını nasıl daha iyi yapabilirsiniz."
+msgstr ""
+"<app>Modem Manager GUI </app> programını nasıl daha iyi yapabilirsiniz."
 
 #. (itstool) path: page/title
-#: C/contrib-code.page:21
+#: C/contrib-code.page:25
 msgid "Provide code"
 msgstr "Sağlama kodu"
 
 #. (itstool) path: page/p
-#: C/contrib-code.page:22
+#: C/contrib-code.page:26
+#, fuzzy
 msgid ""
-"<app>Modem Manager GUI</app> has a version control system at "
-"SourceForge.net. You can clone the repository with the following command:"
-msgstr "<app>Modem Manager GUI</app> SourceForge.net üzerinde bir sürüm denetim sistemine sahip. Şu komut ile depoyu kendinize kopyalayabilirsiniz:"
+"<app>Modem Manager GUI</app> has a version control system at Bitbucket.com. "
+"You can clone the repository with the following command:"
+msgstr ""
+"<app>Modem Manager GUI</app> SourceForge.net üzerinde bir sürüm denetim "
+"sistemine sahip. Şu komut ile depoyu kendinize kopyalayabilirsiniz:"
 
 #. (itstool) path: page/p
-#: C/contrib-code.page:25
+#: C/contrib-code.page:29
+#, fuzzy
 msgid ""
-"<cmd>hg clone http://hg.code.sf.net/p/modem-manager-gui/code-0 modem-"
-"manager-gui-code-0</cmd>"
-msgstr "<cmd>hg clone http://hg.code.sf.net/p/modem-manager-gui/code-0 modem-manager-gui-code-0</cmd>"
+"<cmd>hg clone https://linuxonly@bitbucket.org/linuxonly/modem-manager-gui</"
+"cmd>"
+msgstr ""
+"<cmd>hg clone http://hg.code.sf.net/p/modem-manager-gui/code-0 modem-manager-"
+"gui-code-0</cmd>"
 
 #. (itstool) path: page/p
-#: C/contrib-code.page:27
+#: C/contrib-code.page:31
 msgid ""
 "Note, this clone command doesn't give you write access to the repository."
-msgstr "Unutmayın, bu kopyalama komutunu vererek depoda yazma erişiminiz olmayacak."
+msgstr ""
+"Unutmayın, bu kopyalama komutunu vererek depoda yazma erişiminiz olmayacak."
+
+#. (itstool) path: page/p
+#: C/contrib-code.page:33
+msgid ""
+"For general help on how Bitbucket works, see the <link href=\"https://"
+"confluence.atlassian.com/display/BITBUCKET/Bitbucket+Cloud+documentation"
+"\">Bitbucket documentation</link>."
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/contrib-code.page:36
+msgid ""
+"<app>Modem Manager GUI</app> source code is stored inside Mercurial "
+"repository, so you don't have to read Git tutorials; just make sure you know "
+"basic Mercurial commands and able to make pull requests on Bitbucket "
+"platform."
+msgstr ""
 
 #. (itstool) path: info/desc
 #: C/contrib-translations.page:9
@@ -122,7 +167,10 @@ msgid ""
 "The graphical user interface, the traditional man page and the Gnome-style "
 "user manual of <app>Modem Manager GUI</app> can be translated into your "
 "language."
-msgstr "<app>Modem Manager GUI</app> görsel kullanıcı arabirimini, basitleştirilmiş ana sayfasını ve Gnome stilli kullanıcı kılavuzunu kendi dilinize çevirebilirsiniz."
+msgstr ""
+"<app>Modem Manager GUI</app> görsel kullanıcı arabirimini, basitleştirilmiş "
+"ana sayfasını ve Gnome stilli kullanıcı kılavuzunu kendi dilinize "
+"çevirebilirsiniz."
 
 #. (itstool) path: page/p
 #: C/contrib-translations.page:25
@@ -130,24 +178,34 @@ msgid ""
 "There is a <link href=\"https://www.transifex.com/projects/p/modem-manager-"
 "gui/\"> project page on Transifex</link> where existing translations are "
 "hosted and also new ones can be provided."
-msgstr "<link href=\"https://www.transifex.com/projects/p/modem-manager-gui/\"> Transifex üzerindeki proje sayfasından</link> varolan bir çeviriye katkıda bulunabilir ve ayrıca yeni diller sağlayabilirsiniz."
+msgstr ""
+"<link href=\"https://www.transifex.com/projects/p/modem-manager-gui/\"> "
+"Transifex üzerindeki proje sayfasından</link> varolan bir çeviriye katkıda "
+"bulunabilir ve ayrıca yeni diller sağlayabilirsiniz."
 
 #. (itstool) path: page/p
 #: C/contrib-translations.page:31
 msgid ""
-"For general help on how Transifex works, see the <link "
-"href=\"http://support.transifex.com/\">Transifex Help Desk</link>."
-msgstr "Transifex ile nasıl çalışacağınızı öğrenmek için <link href=\"http://support.transifex.com/\">Transifex Yardım Masası</link> sayfasına bakın."
+"For general help on how Transifex works, see the <link href=\"http://support."
+"transifex.com/\">Transifex Help Desk</link>."
+msgstr ""
+"Transifex ile nasıl çalışacağınızı öğrenmek için <link href=\"http://support."
+"transifex.com/\">Transifex Yardım Masası</link> sayfasına bakın."
 
 #. (itstool) path: note/p
 #: C/contrib-translations.page:35
 msgid ""
 "For your work you should have a look at the rules and dictionaries of the "
-"local <link href=\"https://l10n.gnome.org/teams/\">Gnome translation teams "
-"</link>. Although <app>Modem Manager GUI</app> shouldn't be considered as "
-"pure Gnome software, it will be often used in GTK based environments and "
-"should match the conceptual world of such applications."
-msgstr "Çalışmanız için <link href=\"https://l10n.gnome.org/teams/\">Gnome çeviri takımlarındaki </link> yerel çeviri kurallarınıza ve sözlüklere bir bakmanızda yarar var. Ancak <app>Modem Manager GUI</app> saf Gnome yazılımı olarak düşünülmemelidir, sık sık GTK tabanlı ortamlar kullanılır ve bu tür uygulamalarla kavramsal karşılaştırmalar yapılmalıdır."
+"local <link href=\"https://l10n.gnome.org/teams/\">Gnome translation teams </"
+"link>. Although <app>Modem Manager GUI</app> shouldn't be considered as pure "
+"Gnome software, it will be often used in GTK based environments and should "
+"match the conceptual world of such applications."
+msgstr ""
+"Çalışmanız için <link href=\"https://l10n.gnome.org/teams/\">Gnome çeviri "
+"takımlarındaki </link> yerel çeviri kurallarınıza ve sözlüklere bir "
+"bakmanızda yarar var. Ancak <app>Modem Manager GUI</app> saf Gnome yazılımı "
+"olarak düşünülmemelidir, sık sık GTK tabanlı ortamlar kullanılır ve bu tür "
+"uygulamalarla kavramsal karşılaştırmalar yapılmalıdır."
 
 #. (itstool) path: info/desc
 #: C/index.page:6
@@ -175,67 +233,83 @@ msgstr "Modem Manager GUI"
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/index.page:21
+#: C/index.page:24
 msgctxt "_"
 msgid ""
 "external ref='figures/modem-manager-gui-logo.png' "
 "md5='a5ab22246356ef7c194bb09f1ec8e432'"
-msgstr "external ref='figures/modem-manager-gui-logo.png' md5='a5ab22246356ef7c194bb09f1ec8e432'"
+msgstr ""
+"external ref='figures/modem-manager-gui-logo.png' "
+"md5='a5ab22246356ef7c194bb09f1ec8e432'"
 
 #. (itstool) path: page/title
-#: C/index.page:21
+#: C/index.page:24
 msgid ""
-"<media type=\"image\" src=\"figures/modem-manager-gui-logo.png\">GNOME Hello"
-" logo</media>Modem Manager GUI manual"
-msgstr "<media type=\"image\" src=\"figures/modem-manager-gui-logo.png\">GNOME Hello logosu</media>Modem Manager GUI kılavuzu"
+"<media type=\"image\" src=\"figures/modem-manager-gui-logo.png\">GNOME Hello "
+"logo</media>Modem Manager GUI manual"
+msgstr ""
+"<media type=\"image\" src=\"figures/modem-manager-gui-logo.png\">GNOME Hello "
+"logosu</media>Modem Manager GUI kılavuzu"
 
 #. (itstool) path: page/p
-#: C/index.page:23
+#: C/index.page:26
 msgid ""
 "<app>Modem Manager GUI</app> is a graphical frontend for the ModemManager "
 "daemon which is able to control specific modem functions."
-msgstr "<app>Modem Manager GUI</app> ModemManager planı için belirli modem işlevlerini denetleyebileceğiniz bir görsel önektir."
+msgstr ""
+"<app>Modem Manager GUI</app> ModemManager planı için belirli modem "
+"işlevlerini denetleyebileceğiniz bir görsel önektir."
 
 #. (itstool) path: page/p
-#: C/index.page:27
+#: C/index.page:30
 msgid "You can use <app>Modem Manager GUI</app> for the following tasks:"
-msgstr "Şu görevler için <app>Modem Manager GUI</app> programını kullanabilirsiniz:"
-
-#. (itstool) path: item/p
-#: C/index.page:32
-msgid "Send and receive SMS messages with messages concatenation"
-msgstr "SMS mesajları gönderip almak ve mesajları birleştirmek"
+msgstr ""
+"Şu görevler için <app>Modem Manager GUI</app> programını kullanabilirsiniz:"
 
 #. (itstool) path: item/p
 #: C/index.page:35
-msgid "Send USSD requests and receive answers in system encoding"
-msgstr "USSD istekleri göndermek ve sistem kodlaması ile yanıt almak"
+msgid "Create and control mobile broadband connections"
+msgstr ""
 
 #. (itstool) path: item/p
 #: C/index.page:38
-msgid ""
-"Get modem and SIM information (device info, operator name, mode, IMEI, "
-"IMSI/ESN, Signal level)"
-msgstr "Modem ve SIM bilgilerini almak (aygıt bilgisi, işletmeci adı, kip, IMEI, IMSI/ESN, sinyal düzeyi)"
+#, fuzzy
+msgid "Send and receive SMS messages and store messages in database"
+msgstr "SMS mesajları gönderip almak ve mesajları birleştirmek"
 
 #. (itstool) path: item/p
-#: C/index.page:42
+#: C/index.page:41
+#, fuzzy
+msgid ""
+"Initiate USSD requests and read answers (also using interactive sessions)"
+msgstr "USSD istekleri göndermek ve sistem kodlaması ile yanıt almak"
+
+#. (itstool) path: item/p
+#: C/index.page:44
+#, fuzzy
+msgid ""
+"View device information: operator name, device mode, IMEI, IMSI, signal level"
+msgstr ""
+"Modem ve SIM bilgilerini almak (aygıt bilgisi, işletmeci adı, kip, IMEI, "
+"IMSI/ESN, sinyal düzeyi)"
+
+#. (itstool) path: item/p
+#: C/index.page:47
 msgid "Scan available mobile networks"
 msgstr "Kullanılabilir mobil ağları taramak"
 
 #. (itstool) path: item/p
-#: C/index.page:45
-msgid ""
-"Control data transmission process and set session traffic and time limits"
-msgstr "Veri aktarım işlemlerini denetlemek ve oturuma trafik ve zaman sınırlaması ayarlamak"
+#: C/index.page:50
+msgid "View mobile traffic statistics and set limits"
+msgstr ""
 
 #. (itstool) path: section/title
-#: C/index.page:50
+#: C/index.page:55
 msgid "Usage"
 msgstr "Kullanım"
 
 #. (itstool) path: section/title
-#: C/index.page:54
+#: C/index.page:59
 msgid "Contribute to the project"
 msgstr "Projeye katkıda bulunun"
 
@@ -252,9 +326,11 @@ msgstr "Lisans"
 #. (itstool) path: page/p
 #: C/license.page:12
 msgid ""
-"This work is distributed under a CreativeCommons Attribution-Share Alike 3.0"
-" Unported license."
-msgstr "Bu çalışma CreativeCommons Attribution-Share Alike 3.0 Unported lisansı altında dağıtılmıştır."
+"This work is distributed under a CreativeCommons Attribution-Share Alike 3.0 "
+"Unported license."
+msgstr ""
+"Bu çalışma CreativeCommons Attribution-Share Alike 3.0 Unported lisansı "
+"altında dağıtılmıştır."
 
 #. (itstool) path: page/p
 #: C/license.page:20
@@ -295,8 +371,8 @@ msgstr "<em>Atıf</em>"
 #: C/license.page:39
 msgid ""
 "You must attribute the work in the manner specified by the author or "
-"licensor (but not in any way that suggests that they endorse you or your use"
-" of the work)."
+"licensor (but not in any way that suggests that they endorse you or your use "
+"of the work)."
 msgstr ""
 
 #. (itstool) path: item/title
@@ -309,16 +385,23 @@ msgstr "<em>Share Alike</em>"
 msgid ""
 "If you alter, transform, or build upon this work, you may distribute the "
 "resulting work only under the same, similar or a compatible license."
-msgstr "Değiştirmeniz, dönüştürmeniz ya da bu çalışmanın üzerine eklemeler yapmanız sonucunda, ortaya çıkan yeni çalışmayı da yalnızca aynı, benzer ya da uyumlu bir lisans ile dağıtın."
+msgstr ""
+"Değiştirmeniz, dönüştürmeniz ya da bu çalışmanın üzerine eklemeler yapmanız "
+"sonucunda, ortaya çıkan yeni çalışmayı da yalnızca aynı, benzer ya da uyumlu "
+"bir lisans ile dağıtın."
 
 #. (itstool) path: page/p
 #: C/license.page:53
 msgid ""
-"For the full text of the license, see the <link "
-"href=\"http://creativecommons.org/licenses/by-"
-"sa/3.0/legalcode\">CreativeCommons website</link>, or read the full <link "
-"href=\"http://creativecommons.org/licenses/by-sa/3.0/\">Commons Deed</link>."
-msgstr "Lisansın tam metni için <link href=\"http://creativecommons.org/licenses/by-sa/3.0/legalcode\">CreativeCommons web sitesine</link> bakın ya da <link href=\"http://creativecommons.org/licenses/by-sa/3.0/\">Ortak Belge</link>yi okuyun."
+"For the full text of the license, see the <link href=\"http://"
+"creativecommons.org/licenses/by-sa/3.0/legalcode\">CreativeCommons website</"
+"link>, or read the full <link href=\"http://creativecommons.org/licenses/by-"
+"sa/3.0/\">Commons Deed</link>."
+msgstr ""
+"Lisansın tam metni için <link href=\"http://creativecommons.org/licenses/by-"
+"sa/3.0/legalcode\">CreativeCommons web sitesine</link> bakın ya da <link "
+"href=\"http://creativecommons.org/licenses/by-sa/3.0/\">Ortak Belge</link>yi "
+"okuyun."
 
 #. (itstool) path: info/desc
 #: C/report-bugs.page:9
@@ -326,30 +409,39 @@ msgid "Report bugs and request new features."
 msgstr "Hataları raporlayın ve yeni özellikler isteyin."
 
 #. (itstool) path: page/title
-#: C/report-bugs.page:21
+#: C/report-bugs.page:25
 msgid "Report bugs"
 msgstr "Hata raporlama"
 
 #. (itstool) path: page/p
-#: C/report-bugs.page:22
+#: C/report-bugs.page:26
+#, fuzzy
 msgid ""
 "If you found a bug in <app>Modem Manager GUI</app>, you can use the <link "
-"href=\"http://linuxonly.ru/cms/e107_plugins/bug_tracker/bugs.php\"> Bug "
-"Tracker</link>."
-msgstr "<app>Modem Manager GUI</app> içerisinde bir hata bulduysanız, <link href=\"http://linuxonly.ru/cms/e107_plugins/bug_tracker/bugs.php\"> Hata İzleyicisini</link> kullanabilirsiniz."
+"href=\"https://linuxonly.ru/forum/modem-manager-gui/\">support forum</link>."
+msgstr ""
+"<app>Modem Manager GUI</app> içerisinde bir hata bulduysanız, <link href="
+"\"http://linuxonly.ru/cms/e107_plugins/bug_tracker/bugs.php\"> Hata "
+"İzleyicisini</link> kullanabilirsiniz."
 
 #. (itstool) path: page/p
-#: C/report-bugs.page:26
+#: C/report-bugs.page:29
+#, fuzzy
 msgid ""
-"Before filing a new bug, please have a look at <link "
-"href=\"http://linuxonly.ru/cms/e107_plugins/bug_tracker/bugs.php?0.view.3.0.0\">"
-" the existing ones</link> first. Maybe someone else has already encountered "
-"the same problem? Then you might write your comments there."
-msgstr "Yeni bir hatayı dosyalamadan önce, <link href=\"http://linuxonly.ru/cms/e107_plugins/bug_tracker/bugs.php?0.view.3.0.0\"> varolanlara</link> bir bakın. Belki başka biri de aynı sorunla karşılaştı? Sonra oraya yorumlarınızı yazmanız mantıklı olabilir."
+"Before filing a new topic, please have a look at <link href=\"https://"
+"linuxonly.ru/forum/modem-manager-gui/\"> the existing ones</link> first. "
+"Maybe someone else has already encountered the same problem? Then you might "
+"write your comments there."
+msgstr ""
+"Yeni bir hatayı dosyalamadan önce, <link href=\"http://linuxonly.ru/cms/"
+"e107_plugins/bug_tracker/bugs.php?0.view.3.0.0\"> varolanlara</link> bir "
+"bakın. Belki başka biri de aynı sorunla karşılaştı? Sonra oraya "
+"yorumlarınızı yazmanız mantıklı olabilir."
 
 #. (itstool) path: note/p
-#: C/report-bugs.page:31
-msgid "You can also use the Bug Tracker for feature requests."
+#: C/report-bugs.page:34
+#, fuzzy
+msgid "You can also use the support forum for feature requests."
 msgstr "Ayrıca Hata İzleyicisini özellik istemek için de kullanabilirsiniz."
 
 #. (itstool) path: info/desc
@@ -367,12 +459,6 @@ msgstr "Yapılandırma"
 msgid "Use your contact lists."
 msgstr "Kişi listenizi kullanın."
 
-#. (itstool) path: credit/name
-#: C/usage-contacts.page:17 C/usage-netsearch.page:17 C/usage-sms.page:18
-#: C/usage-traffic.page:17 C/usage-ussd.page:17
-msgid "Alex"
-msgstr "Alex"
-
 #. (itstool) path: page/title
 #: C/usage-contacts.page:25
 msgid "Contact lists"
@@ -387,7 +473,14 @@ msgid ""
 "system contacts storages. Supported system contact storages are: Evolution "
 "Data Server used by GNOME applications (GNOME contacts section) and Akonadi "
 "server used by KDE applications (KDE contacts section)."
-msgstr "Geniş bant modem SIM kartta depolanan kişilere erişir. Ayrıca bazı modemler iç bellekteki kişilere de erişebilir. <app>Modem Manager GUI</app> bu belleklerde depolanan kişilerle çalışabilir ve ayrıca sistem belleklerindeki kişileri dışa aktarabilir. Desteklenen sistem kişi bellekleri: GNOME uygulamaları tarafından kullanılan Evolution Data Sunucusu (GNOME kişileri oturumu) ve KDE uygulamaları tarafından kullanılan Akonadi sunucusu (KDE kişileri oturumu)."
+msgstr ""
+"Geniş bant modem SIM kartta depolanan kişilere erişir. Ayrıca bazı modemler "
+"iç bellekteki kişilere de erişebilir. <app>Modem Manager GUI</app> bu "
+"belleklerde depolanan kişilerle çalışabilir ve ayrıca sistem belleklerindeki "
+"kişileri dışa aktarabilir. Desteklenen sistem kişi bellekleri: GNOME "
+"uygulamaları tarafından kullanılan Evolution Data Sunucusu (GNOME kişileri "
+"oturumu) ve KDE uygulamaları tarafından kullanılan Akonadi sunucusu (KDE "
+"kişileri oturumu)."
 
 #. (itstool) path: p/media
 #. This is a reference to an external file such as an image or video. When
@@ -404,28 +497,35 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/usage-contacts.page:32
 msgid ""
-"<media type=\"image\" mime=\"image/png\" src=\"figures/contacts-"
-"window.png\"> Contacts window of <app>Modem Manager GUI</app>. </media>"
+"<media type=\"image\" mime=\"image/png\" src=\"figures/contacts-window.png"
+"\"> Contacts window of <app>Modem Manager GUI</app>. </media>"
 msgstr ""
 
 #. (itstool) path: page/p
 #: C/usage-contacts.page:38
+#, fuzzy
 msgid ""
 "Use <gui style=\"button\">New contact</gui> button to fill form and add new "
-"contact to SIM card or modem storage, <gui style=\"button\">Remove "
-"contact</gui> button to remove selected contact form SIM card or modem "
-"storage and <gui style=\"button\">Send SMS</gui> button to compose and send "
-"SMS message to selected contact (either from SIM card or modem, or exported "
-"from system contacts storage)."
-msgstr "<gui style=\"button\">Yeni kişi</gui> düğmesini kullanarak form açın ve SIM karta ya da modem belleğine yeni kişi ekleyin, <gui style=\"button\">Kişi sil</gui> düğmesi ile SIM karttan ya da modem belleğinden silinecek kişileri silmek için bir form açın ve <gui style=\"button\">SMS gönder</gui> düğmesini kullanarak da seçilen kişiye SMS oluşturup gönderin (SIM karttaki, modemdeki ya da dışa aktarılmış sistem belleğindeki kişiler)."
+"contact to SIM card or modem storage, <gui style=\"button\">Remove contact</"
+"gui> button to remove selected contact from SIM card or modem storage and "
+"<gui style=\"button\">Send SMS</gui> button to compose and send SMS message "
+"to selected contact (either from SIM card or modem, or exported from system "
+"contacts storage)."
+msgstr ""
+"<gui style=\"button\">Yeni kişi</gui> düğmesini kullanarak form açın ve SIM "
+"karta ya da modem belleğine yeni kişi ekleyin, <gui style=\"button\">Kişi "
+"sil</gui> düğmesi ile SIM karttan ya da modem belleğinden silinecek kişileri "
+"silmek için bir form açın ve <gui style=\"button\">SMS gönder</gui> "
+"düğmesini kullanarak da seçilen kişiye SMS oluşturup gönderin (SIM karttaki, "
+"modemdeki ya da dışa aktarılmış sistem belleğindeki kişiler)."
 
 #. (itstool) path: note/p
 #: C/usage-contacts.page:44
 msgid ""
-"Some backeds don't support modem contacts manipulation functions. For "
+"Some backends don't support modem contacts manipulation functions. For "
 "example, ModemManager doesn't work with contacts from SIM card and modem "
-"memory at all (this functionality isn't implemented yet), and oFono can only"
-" export contacts from SIM card (this is developer's decision)."
+"memory at all (this functionality isn't implemented yet), and oFono can only "
+"export contacts from SIM card (this is developer's decision)."
 msgstr ""
 
 #. (itstool) path: info/desc
@@ -476,9 +576,9 @@ msgstr ""
 #: C/usage-getinfo.page:35
 msgid ""
 "The most informations are self-explained and well known from traditional "
-"mobile phones or smartphones. Note, the GPS based location detection (in the"
-" lower part of the window) won't work in most cases because mobile broadband"
-" devices usually don't have a GPS sensor."
+"mobile phones or smartphones. Note, the GPS based location detection (in the "
+"lower part of the window) won't work in most cases because mobile broadband "
+"devices usually don't have a GPS sensor."
 msgstr ""
 
 #. (itstool) path: info/desc
@@ -496,7 +596,9 @@ msgstr "Modemler"
 msgid ""
 "After starting <app>Modem Manager GUI</app>, the following window will be "
 "displayed:"
-msgstr "<app>Modem Manager GUI</app> etkinleştirildiğinde, şu pencere görüntülenecektir:"
+msgstr ""
+"<app>Modem Manager GUI</app> etkinleştirildiğinde, şu pencere "
+"görüntülenecektir:"
 
 #. (itstool) path: figure/media
 #. This is a reference to an external file such as an image or video. When
@@ -508,7 +610,9 @@ msgctxt "_"
 msgid ""
 "external ref='figures/startup-window.png' "
 "md5='0732138275656f836e2c0f2905b715fd'"
-msgstr "external ref='figures/startup-window.png' md5='0732138275656f836e2c0f2905b715fd'"
+msgstr ""
+"external ref='figures/startup-window.png' "
+"md5='0732138275656f836e2c0f2905b715fd'"
 
 #. (itstool) path: media/app
 #: C/usage-modem.page:26 C/usage-netsearch.page:31 C/usage-sms.page:38
@@ -526,7 +630,9 @@ msgstr ""
 msgid ""
 "You can see the modem devices available on your system. Click on one of the "
 "entries to use that device."
-msgstr "Sisteminizdeki kullanılabilir modem aygıtlarını görebilirsiniz. İstediğiniz aygıtın kullandığı girişi tıklatın."
+msgstr ""
+"Sisteminizdeki kullanılabilir modem aygıtlarını görebilirsiniz. İstediğiniz "
+"aygıtın kullandığı girişi tıklatın."
 
 #. (itstool) path: page/p
 #: C/usage-modem.page:33
@@ -534,7 +640,10 @@ msgid ""
 "After clicking on a device, it might be needed to activate it first, if it "
 "was not otherwise activated on your system. <app>Modem Manager GUI</app> "
 "will ask you for confirmation in that case."
-msgstr "Aygıtınızı tıklattıktan sonra, ilk olarak söz konusu aygıtı etkinleştirmeniz gerekebilir, diğer durumda aygıtı sistem etkinleştirmez. <app>Modem Manager GUI</app> bu durumda doğrulama için size isteğinizi soracaktır."
+msgstr ""
+"Aygıtınızı tıklattıktan sonra, ilk olarak söz konusu aygıtı etkinleştirmeniz "
+"gerekebilir, diğer durumda aygıtı sistem etkinleştirmez. <app>Modem Manager "
+"GUI</app> bu durumda doğrulama için size isteğinizi soracaktır."
 
 #. (itstool) path: page/p
 #: C/usage-modem.page:37
@@ -576,8 +685,7 @@ msgstr ""
 #: C/usage-netsearch.page:30
 msgctxt "_"
 msgid ""
-"external ref='figures/scan-window.png' "
-"md5='8a9dd66ef917dcd42de0d8a69fb84ccd'"
+"external ref='figures/scan-window.png' md5='8a9dd66ef917dcd42de0d8a69fb84ccd'"
 msgstr ""
 
 #. (itstool) path: figure/media
@@ -650,8 +758,8 @@ msgid ""
 "Use <gui style=\"button\">New</gui> button to compose and send or save "
 "message, <gui style=\"button\">Remove</gui> button to remove selected "
 "message(s) and <gui style=\"button\">Answer</gui> button to answer selected "
-"message (if this message has valid number). Don't forget that you can select"
-" more than one message at once."
+"message (if this message has valid number). Don't forget that you can select "
+"more than one message at once."
 msgstr ""
 
 #. (itstool) path: info/desc
@@ -668,9 +776,9 @@ msgstr ""
 #: C/usage-traffic.page:26
 msgid ""
 "<app>Modem Manager GUI</app> collects mobile broadband traffic statistics "
-"and able to disconnect modem when traffic consumption or time of the session"
-" exceeds user-defined limit. To use such functions, click on the <gui "
-"style=\"button\">Traffic</gui> button in the toolbar."
+"and able to disconnect modem when traffic consumption or time of the session "
+"exceeds user-defined limit. To use such functions, click on the <gui style="
+"\"button\">Traffic</gui> button in the toolbar."
 msgstr ""
 
 #. (itstool) path: page/p
@@ -702,26 +810,24 @@ msgstr ""
 #: C/usage-traffic.page:39
 msgid ""
 "Use <gui style=\"button\">Set limit</gui> button to set traffic or time "
-"limit for current session, <gui style=\"button\">Connections</gui> button to"
-" view list of active network connections and terminate applications "
-"consuming network traffic and <gui style=\"button\">Statistics</gui> button "
-"to view daily traffic consumption statistics for selected months."
+"limit for current session, <gui style=\"button\">Connections</gui> button to "
+"view list of active network connections and terminate applications consuming "
+"network traffic and <gui style=\"button\">Statistics</gui> button to view "
+"daily traffic consumption statistics for selected months."
 msgstr ""
 
 #. (itstool) path: note/p
 #: C/usage-traffic.page:45
 msgid ""
 "Traffic statistics are collected only while <app>Modem Manager GUI</app> is "
-"running, so result values can be inaccurate and must be treated as reference"
-" only. The most accurate traffic statistics are collected by mobile "
-"operator."
+"running, so result values can be inaccurate and must be treated as reference "
+"only. The most accurate traffic statistics are collected by mobile operator."
 msgstr ""
 
 #. (itstool) path: info/desc
 #: C/usage-ussd.page:9
 msgid ""
-"Use <app>Modem Manager GUI</app> for send USSD codes and receive the "
-"answers."
+"Use <app>Modem Manager GUI</app> for send USSD codes and receive the answers."
 msgstr ""
 
 #. (itstool) path: page/title
@@ -733,8 +839,8 @@ msgstr ""
 #: C/usage-ussd.page:26
 msgid ""
 "<app>Modem Manager GUI</app> is able to send USSD codes. These codes are "
-"controlling some network functions, for example the visibility of your phone"
-" number when sending a SMS."
+"controlling some network functions, for example the visibility of your phone "
+"number when sending a SMS."
 msgstr ""
 
 #. (itstool) path: page/p
@@ -752,8 +858,7 @@ msgstr ""
 #: C/usage-ussd.page:33
 msgctxt "_"
 msgid ""
-"external ref='figures/ussd-window.png' "
-"md5='c1f2437ed53d67408c1fdfeb270f001a'"
+"external ref='figures/ussd-window.png' md5='c1f2437ed53d67408c1fdfeb270f001a'"
 msgstr ""
 
 #. (itstool) path: figure/media
@@ -764,18 +869,18 @@ msgstr ""
 #. (itstool) path: page/p
 #: C/usage-ussd.page:38
 msgid ""
-"In the text entry on top of the window, the code <cmd>*100#</cmd> is already"
-" displayed. This code is the usual one for requesting the balance for a "
-"prepaid card. If you like to send another code, click on the <gui "
-"style=\"button\">Edit</gui> button on the right"
+"In the text entry on top of the window, the code <cmd>*100#</cmd> is already "
+"displayed. This code is the usual one for requesting the balance for a "
+"prepaid card. If you like to send another code, click on the <gui style="
+"\"button\">Edit</gui> button on the right"
 msgstr ""
 
 #. (itstool) path: page/p
 #: C/usage-ussd.page:42
 msgid ""
 "<app>Modem Manager GUI</app> supports interactive USSD sessions, so pay "
-"attention to hints displayed under USSD answers. You can send USSD responses"
-" using text entry for USSD commands. If you'll send new USSD command while "
+"attention to hints displayed under USSD answers. You can send USSD responses "
+"using text entry for USSD commands. If you'll send new USSD command while "
 "USSD session is active, this session will be closed automatically."
 msgstr ""
 
@@ -791,9 +896,9 @@ msgstr ""
 #. (itstool) path: note/p
 #: C/usage-ussd.page:53
 msgid ""
-"USSD codes are only available in networks which use the <link "
-"href=\"http://en.wikipedia.org/wiki/3rd_Generation_Partnership_Project\">3GPP"
-" standards </link>."
+"USSD codes are only available in networks which use the <link href=\"http://"
+"en.wikipedia.org/wiki/3rd_Generation_Partnership_Project\">3GPP standards </"
+"link>."
 msgstr ""
 
 #. (itstool) path: page/p
@@ -809,3 +914,9 @@ msgid ""
 "<_:info-1/> <_:title-2/> <_:p-3/> <_:p-4/> <_:figure-5/> <_:p-6/>. <_:p-7/> "
 "<_:note-8/> <_:note-9/> <_:p-10/>"
 msgstr ""
+
+#~ msgid ""
+#~ "Control data transmission process and set session traffic and time limits"
+#~ msgstr ""
+#~ "Veri aktarım işlemlerini denetlemek ve oturuma trafik ve zaman "
+#~ "sınırlaması ayarlamak"

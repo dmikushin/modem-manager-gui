@@ -1,0 +1,107 @@
+# 
+# Translators:
+# 周磊 <mfk530@gmail.com>, 2017
+# 周磊 <mfk530@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Modem Manager GUI\n"
+"POT-Creation-Date: 2017-11-04 22:42+0300\n"
+"PO-Revision-Date: 2017-11-06 04:57+0000\n"
+"Last-Translator: 周磊 <mfk530@gmail.com>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/ethereal/modem-manager-gui/language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#. (itstool) path: component/name
+#: modem-manager-gui.appdata.xml.in:7
+msgid "Modem Manager GUI"
+msgstr "Modem Manager GUI"
+
+#. (itstool) path: component/developer_name
+#: modem-manager-gui.appdata.xml.in:8
+msgid "Alex"
+msgstr "Alex"
+
+#. (itstool) path: component/summary
+#: modem-manager-gui.appdata.xml.in:11
+msgid "Control EDGE/3G/4G broadband modem specific functions"
+msgstr "控制EDGE/3G/4G宽带调制解调器的特定功能"
+
+#. (itstool) path: description/p
+#: modem-manager-gui.appdata.xml.in:13
+msgid ""
+"Simple graphical interface compatible with Modem manager, Wader and oFono "
+"system services able to control EDGE/3G/4G broadband modem specific "
+"functions."
+msgstr "兼容Modem管理器，Wader和oFono系统服务的简单的图形界面，并能够控制EDGE/3G/4G宽带调制解调器的特定功能。"
+
+#. (itstool) path: description/p
+#: modem-manager-gui.appdata.xml.in:17
+msgid ""
+"You can check balance of your SIM card, send or receive SMS messages, "
+"control mobile traffic consuption and more using Modem Manager GUI."
+msgstr "您可以使用Modem Manager GUI检查您的SIM卡的余额，发送或接收短信，控制移动流量使用情况和更多功能。"
+
+#. (itstool) path: description/p
+#: modem-manager-gui.appdata.xml.in:21
+msgid "Current features:"
+msgstr "当前特性："
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:23
+msgid "Create and control mobile broadband connections"
+msgstr "创建并控制移动宽带连接"
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:24
+msgid "Send and receive SMS messages and store messages in database"
+msgstr "发送和接收短信，并存储消息到数据库中"
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:25
+msgid ""
+"Initiate USSD requests and read answers (also using interactive sessions)"
+msgstr "启动USSD请求并查看回复(使用交互式会话)"
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:26
+msgid ""
+"View device information: operator name, device mode, IMEI, IMSI, signal "
+"level"
+msgstr "查看设备信息：运营商名称，设备模式，IMEI，IMSI，信号强度"
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:27
+msgid "Scan available mobile networks"
+msgstr "扫描可用的移动网络"
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:28
+msgid "View mobile traffic statistics and set limits"
+msgstr "查看移动流量统计信息并设置限制"
+
+#. (itstool) path: description/p
+#: modem-manager-gui.appdata.xml.in:30
+msgid ""
+"Please note that some features may be not available due to limitations of "
+"different system services or even different versions of system service in "
+"use."
+msgstr "请注意，由于不同系统服务的限制或甚至使用的不同版本的系统服务，某些功能可能无法使用。"
+
+#. (itstool) path: screenshot/caption
+#: modem-manager-gui.appdata.xml.in:38
+msgid "Broadband devices overview"
+msgstr "宽带设备概述"
+
+#. (itstool) path: screenshot/caption
+#: modem-manager-gui.appdata.xml.in:42
+msgid "SMS messages list"
+msgstr "短信列表"
+
+#. (itstool) path: screenshot/caption
+#: modem-manager-gui.appdata.xml.in:46
+msgid "Traffic control"
+msgstr "传输控制"

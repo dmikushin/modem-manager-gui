@@ -1,0 +1,106 @@
+# 
+# Translators:
+# Eslam Maolaoy <maolaoy33@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Modem Manager GUI\n"
+"POT-Creation-Date: 2017-11-04 22:42+0300\n"
+"PO-Revision-Date: 2017-11-04 19:58+0000\n"
+"Last-Translator: Alex <alex@linuxonly.ru>\n"
+"Language-Team: Arabic (http://www.transifex.com/ethereal/modem-manager-gui/language/ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#. (itstool) path: component/name
+#: modem-manager-gui.appdata.xml.in:7
+msgid "Modem Manager GUI"
+msgstr "واجهة مستخدم البرنامج"
+
+#. (itstool) path: component/developer_name
+#: modem-manager-gui.appdata.xml.in:8
+msgid "Alex"
+msgstr ""
+
+#. (itstool) path: component/summary
+#: modem-manager-gui.appdata.xml.in:11
+msgid "Control EDGE/3G/4G broadband modem specific functions"
+msgstr "التحكم بوظيفة EDGE/3G/4G والبرودباند والمودم المحددة"
+
+#. (itstool) path: description/p
+#: modem-manager-gui.appdata.xml.in:13
+msgid ""
+"Simple graphical interface compatible with Modem manager, Wader and oFono "
+"system services able to control EDGE/3G/4G broadband modem specific "
+"functions."
+msgstr "الواجهة البسيطة متوافقة مع البرنامج ,خدمات نظام Wader و oFono قادرة على التحكم بوظيفة EDGE/3G/4G والبرودباند والمودم المحددة"
+
+#. (itstool) path: description/p
+#: modem-manager-gui.appdata.xml.in:17
+msgid ""
+"You can check balance of your SIM card, send or receive SMS messages, "
+"control mobile traffic consuption and more using Modem Manager GUI."
+msgstr "بإمكانك التحقق من الرصيد في هاتفك ,ارسال واستقبال الرسائل القصيرة ,التحكم باستهلاك البيانات والمزيد باستخدام واجهة المستحدم للبرنامج"
+
+#. (itstool) path: description/p
+#: modem-manager-gui.appdata.xml.in:21
+msgid "Current features:"
+msgstr "الميزات الحالية"
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:23
+msgid "Create and control mobile broadband connections"
+msgstr ""
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:24
+msgid "Send and receive SMS messages and store messages in database"
+msgstr "ارسل واستقبل الرسائل القصيرة واحفظها في قاعدة البيانات"
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:25
+msgid ""
+"Initiate USSD requests and read answers (also using interactive sessions)"
+msgstr "بادر بطلبات USSD وإقرأ الإجابات (ايضا باستخدام الجلسات المتفاعلة)"
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:26
+msgid ""
+"View device information: operator name, device mode, IMEI, IMSI, signal "
+"level"
+msgstr "معلومات الجهاز : اسم مقدم الخدمة ,وضع الجهاز ,قوة الإشارة ,IMEI ,IMSI"
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:27
+msgid "Scan available mobile networks"
+msgstr "البحث عن الشبكات المتوفرة"
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:28
+msgid "View mobile traffic statistics and set limits"
+msgstr "أنظر إلى احصائيات شبكة الهاتف وضع قيود"
+
+#. (itstool) path: description/p
+#: modem-manager-gui.appdata.xml.in:30
+msgid ""
+"Please note that some features may be not available due to limitations of "
+"different system services or even different versions of system service in "
+"use."
+msgstr "بعض الميزات قد لا تكون متوفرة بسبب قيود الأنظمة المختلفة أو حتى الإصدارات المختلفة من خدمات النظام التي تعمل حاليا"
+
+#. (itstool) path: screenshot/caption
+#: modem-manager-gui.appdata.xml.in:38
+msgid "Broadband devices overview"
+msgstr ""
+
+#. (itstool) path: screenshot/caption
+#: modem-manager-gui.appdata.xml.in:42
+msgid "SMS messages list"
+msgstr ""
+
+#. (itstool) path: screenshot/caption
+#: modem-manager-gui.appdata.xml.in:46
+msgid "Traffic control"
+msgstr ""

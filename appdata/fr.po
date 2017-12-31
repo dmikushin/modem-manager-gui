@@ -1,0 +1,105 @@
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Modem Manager GUI\n"
+"POT-Creation-Date: 2017-11-04 22:42+0300\n"
+"PO-Revision-Date: 2017-11-04 19:58+0000\n"
+"Last-Translator: Alex <alex@linuxonly.ru>\n"
+"Language-Team: French (http://www.transifex.com/ethereal/modem-manager-gui/language/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. (itstool) path: component/name
+#: modem-manager-gui.appdata.xml.in:7
+msgid "Modem Manager GUI"
+msgstr "Modem Manager GUI"
+
+#. (itstool) path: component/developer_name
+#: modem-manager-gui.appdata.xml.in:8
+msgid "Alex"
+msgstr ""
+
+#. (itstool) path: component/summary
+#: modem-manager-gui.appdata.xml.in:11
+msgid "Control EDGE/3G/4G broadband modem specific functions"
+msgstr "Contrôle des fonctions spécifiques au modem haut débit EDGE / 3G / 4G"
+
+#. (itstool) path: description/p
+#: modem-manager-gui.appdata.xml.in:13
+msgid ""
+"Simple graphical interface compatible with Modem manager, Wader and oFono "
+"system services able to control EDGE/3G/4G broadband modem specific "
+"functions."
+msgstr "Interface graphique simple compatible avec Modem manager, les services système Wader et oFono  capable de contrôler les fonctions spécifiques aux modems à large bande EDGE/3G/4G."
+
+#. (itstool) path: description/p
+#: modem-manager-gui.appdata.xml.in:17
+msgid ""
+"You can check balance of your SIM card, send or receive SMS messages, "
+"control mobile traffic consuption and more using Modem Manager GUI."
+msgstr "Vous pouvez vérifier l'équilibre de votre carte SIM, envoyer ou recevoir des messages SMS, contrôler la consommation du trafic mobile et plus, en utilisantModem Manager GUI."
+
+#. (itstool) path: description/p
+#: modem-manager-gui.appdata.xml.in:21
+msgid "Current features:"
+msgstr "Fonctionnalités actuelles :"
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:23
+msgid "Create and control mobile broadband connections"
+msgstr ""
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:24
+msgid "Send and receive SMS messages and store messages in database"
+msgstr "Envoyer et recevoir des messages SMS et les stocker dans la base de données"
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:25
+msgid ""
+"Initiate USSD requests and read answers (also using interactive sessions)"
+msgstr "Initier des requêtes USSD et lire les réponses (également en utilisant des sessions interactives)"
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:26
+msgid ""
+"View device information: operator name, device mode, IMEI, IMSI, signal "
+"level"
+msgstr "Afficher les informations sur le périphérique : nom de l'opérateur, type appareil, IMEI, IMSI, niveau du signal"
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:27
+msgid "Scan available mobile networks"
+msgstr "Analyse des réseaux mobiles disponibles"
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:28
+msgid "View mobile traffic statistics and set limits"
+msgstr "Afficher les statistiques du trafic mobile et en définir les limites"
+
+#. (itstool) path: description/p
+#: modem-manager-gui.appdata.xml.in:30
+msgid ""
+"Please note that some features may be not available due to limitations of "
+"different system services or even different versions of system service in "
+"use."
+msgstr "Notez que certaines fonctionnalités peuvent ne pas être disponibles en raison des limitations des différents services système ou même des versions différentes du service système en cours d'utilisation."
+
+#. (itstool) path: screenshot/caption
+#: modem-manager-gui.appdata.xml.in:38
+msgid "Broadband devices overview"
+msgstr ""
+
+#. (itstool) path: screenshot/caption
+#: modem-manager-gui.appdata.xml.in:42
+msgid "SMS messages list"
+msgstr ""
+
+#. (itstool) path: screenshot/caption
+#: modem-manager-gui.appdata.xml.in:46
+msgid "Traffic control"
+msgstr ""

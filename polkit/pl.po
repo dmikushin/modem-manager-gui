@@ -1,0 +1,39 @@
+# 
+# Translators:
+# Swift Geek <swiftgeek+github@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Modem Manager GUI\n"
+"POT-Creation-Date: 2015-10-11 20:38+0300\n"
+"PO-Revision-Date: 2017-09-22 19:32+0000\n"
+"Last-Translator: Swift Geek <swiftgeek+github@gmail.com>\n"
+"Language-Team: Polish (http://www.transifex.com/ethereal/modem-manager-gui/language/pl/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: pl\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
+
+#. (itstool) path: action/description
+#: ru.linuxonly.modem-manager-gui.policy.in:10
+msgid "Enable and start modem management services"
+msgstr "Włącz modem i uruchom usługi zarządzania modemem"
+
+#. (itstool) path: action/message
+#: ru.linuxonly.modem-manager-gui.policy.in:11
+msgid ""
+"Modem management services aren't running. You need to authenticate to enable"
+" and start these services."
+msgstr "Usługi zarządzania modem nie są uruchomione. Aby włączyć oraz uruchomić te usługi należy się uwierzytelnić"
+
+#. (itstool) path: action/description
+#: ru.linuxonly.modem-manager-gui.policy.in:21
+msgid "Use modem management service"
+msgstr ""
+
+#. (itstool) path: action/message
+#: ru.linuxonly.modem-manager-gui.policy.in:22
+msgid ""
+"Modem management service needs your credentials. You need to authenticate to"
+" use this service."
+msgstr ""

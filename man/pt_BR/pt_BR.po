@@ -1,20 +1,21 @@
 # SOME DESCRIPTIVE TITLE
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Rafael Fontenelle <rffontenelle@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Modem Manager GUI\n"
-"POT-Creation-Date: 2015-10-04 03:00+0300\n"
+"POT-Creation-Date: 2017-12-31 20:07+0300\n"
 "PO-Revision-Date: 2015-09-30 19:02+0000\n"
 "Last-Translator: Alex <alex@linuxonly.ru>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/ethereal/modem-manager-gui/language/pt_BR/)\n"
+"Language-Team: Portuguese (Brazil) (http://www.transifex.com/ethereal/modem-"
+"manager-gui/language/pt_BR/)\n"
+"Language: pt_BR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: pt_BR\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. type: TH
@@ -26,13 +27,13 @@ msgstr "modem-manager-gui"
 #. type: TH
 #: modem-manager-gui.1:1
 #, no-wrap
-msgid "Sep 2015"
+msgid "Nov 2017"
 msgstr ""
 
 #. type: TH
 #: modem-manager-gui.1:1
 #, no-wrap
-msgid "Modem Manager GUI v0.0.18"
+msgid "Modem Manager GUI v0.0.19"
 msgstr ""
 
 #. type: TH
@@ -51,7 +52,8 @@ msgstr "NOME"
 #: modem-manager-gui.1:4
 msgid ""
 "modem-manager-gui - simple graphical interface for Modem Manager daemon."
-msgstr "modem-manager-gui - interface gráfica simples para o daemon do Modem Manager."
+msgstr ""
+"modem-manager-gui - interface gráfica simples para o daemon do Modem Manager."
 
 #. type: SH
 #: modem-manager-gui.1:4
@@ -75,7 +77,9 @@ msgstr "DESCRIÇÃO"
 msgid ""
 "This program is simple graphical interface for Modem Manager 0.6/0.7, Wader "
 "and oFono daemons using dbus interface."
-msgstr "Esse programa é uma interface gráfica simples para os daemons de Modem Manager 0.6/0.7, Wader e oFono usando interface dbus."
+msgstr ""
+"Esse programa é uma interface gráfica simples para os daemons de Modem "
+"Manager 0.6/0.7, Wader e oFono usando interface dbus."
 
 #. type: TP
 #: modem-manager-gui.1:11
@@ -130,7 +134,8 @@ msgstr "AUTOR"
 #. type: Plain text
 #: modem-manager-gui.1:25
 msgid "Written by Alex. See the about dialog for all contributors."
-msgstr "Escrito por Alex. Veja a informação de Sobre para todas os contribuidores."
+msgstr ""
+"Escrito por Alex. Veja a informação de Sobre para todas os contribuidores."
 
 #. type: SH
 #: modem-manager-gui.1:25
@@ -140,10 +145,13 @@ msgstr "RELATANDO ERROS"
 
 #. type: Plain text
 #: modem-manager-gui.1:28
+#, fuzzy
 msgid ""
-"Report bugs to E<lt>alex@linuxonly.ruE<gt>, or to the bug tracker section on"
-" site E<lt>http://linuxonly.ruE<gt>."
-msgstr "Relate erros para E<lt>alex@linuxonly.ruE<gt> ou para a seção de acompanhamento de erros no site E<lt>http://linuxonly.ruE<gt>."
+"Report bugs to E<lt>alex@linuxonly.ruE<gt>, or to the support forum section "
+"at E<lt>https://linuxonly.ru/forum/modem-manager-gui/E<gt>."
+msgstr ""
+"Relate erros para E<lt>alex@linuxonly.ruE<gt> ou para a seção de "
+"acompanhamento de erros no site E<lt>http://linuxonly.ruE<gt>."
 
 #. type: SH
 #: modem-manager-gui.1:28
@@ -153,16 +161,18 @@ msgstr "COPYRIGHT"
 
 #. type: Plain text
 #: modem-manager-gui.1:30
-msgid "Copyright \\(co 2012-2015 Alex"
+msgid "Copyright \\(co 2012-2017 Alex"
 msgstr ""
 
 #. type: Plain text
 #: modem-manager-gui.1:33
 msgid ""
-"This is free software.  You may redistribute copies of it under the terms of"
-" the GNU General Public License "
-"E<lt>http://www.gnu.org/licenses/gpl.htmlE<gt>."
-msgstr "Esse é um software livre. Você pode redistribuir cópias dele sob os termos da Licença Pública Geral GNU E<lt>http://www.gnu.org/licenses/gpl.htmlE<gt>."
+"This is free software.  You may redistribute copies of it under the terms of "
+"the GNU General Public License E<lt>http://www.gnu.org/licenses/gpl."
+"htmlE<gt>."
+msgstr ""
+"Esse é um software livre. Você pode redistribuir cópias dele sob os termos "
+"da Licença Pública Geral GNU E<lt>http://www.gnu.org/licenses/gpl.htmlE<gt>."
 
 #. type: SH
 #: modem-manager-gui.1:33

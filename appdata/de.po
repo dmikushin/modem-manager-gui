@@ -3,7 +3,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Modem Manager GUI\n"
-"POT-Creation-Date: 2015-09-30 22:02+0300\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-12-31 20:07+0300\n"
 "PO-Revision-Date: 2015-09-30 17:47+0000\n"
 "Last-Translator: Alex <alex@linuxonly.ru>\n"
 "Language-Team: German (http://www.transifex.com/ethereal/modem-manager-gui/"
@@ -14,18 +15,23 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#. (itstool) path: application/name
-#: modem-manager-gui.appdata.xml.in:7
+#. (itstool) path: component/name
+#: modem-manager-gui.appdata.xml.in:7 modem-manager-gui.desktop.in:3
 msgid "Modem Manager GUI"
 msgstr "Modem Manager GUI"
 
-#. (itstool) path: application/summary
+#. (itstool) path: component/developer_name
 #: modem-manager-gui.appdata.xml.in:8
+msgid "Alex"
+msgstr ""
+
+#. (itstool) path: component/summary
+#: modem-manager-gui.appdata.xml.in:11 modem-manager-gui.desktop.in:5
 msgid "Control EDGE/3G/4G broadband modem specific functions"
 msgstr "Modemspezifische Funktionen eines EDGE/3G/4G-Breitbandmodems steuern"
 
 #. (itstool) path: description/p
-#: modem-manager-gui.appdata.xml.in:10
+#: modem-manager-gui.appdata.xml.in:13
 msgid ""
 "Simple graphical interface compatible with Modem manager, Wader and oFono "
 "system services able to control EDGE/3G/4G broadband modem specific "
@@ -36,7 +42,7 @@ msgstr ""
 "Breitbandmodems steuern kann."
 
 #. (itstool) path: description/p
-#: modem-manager-gui.appdata.xml.in:14
+#: modem-manager-gui.appdata.xml.in:17
 msgid ""
 "You can check balance of your SIM card, send or receive SMS messages, "
 "control mobile traffic consuption and more using Modem Manager GUI."
@@ -46,26 +52,31 @@ msgstr ""
 "vieles mehr."
 
 #. (itstool) path: description/p
-#: modem-manager-gui.appdata.xml.in:18
+#: modem-manager-gui.appdata.xml.in:21
 msgid "Current features:"
 msgstr "Derzeitige Funktionsmerkmale:"
 
 #. (itstool) path: ul/li
-#: modem-manager-gui.appdata.xml.in:21
+#: modem-manager-gui.appdata.xml.in:23
+msgid "Create and control mobile broadband connections"
+msgstr ""
+
+#. (itstool) path: ul/li
+#: modem-manager-gui.appdata.xml.in:24
 msgid "Send and receive SMS messages and store messages in database"
 msgstr ""
 "SMS-Nachrichten senden und empfangen und die Nachrichten in einer Datenbank "
 "speichern"
 
 #. (itstool) path: ul/li
-#: modem-manager-gui.appdata.xml.in:22
+#: modem-manager-gui.appdata.xml.in:25
 msgid ""
 "Initiate USSD requests and read answers (also using interactive sessions)"
 msgstr ""
 "USSD-Codes senden und Antworten empfangen (auch in interaktiven Sitzungen)"
 
 #. (itstool) path: ul/li
-#: modem-manager-gui.appdata.xml.in:23
+#: modem-manager-gui.appdata.xml.in:26
 msgid ""
 "View device information: operator name, device mode, IMEI, IMSI, signal level"
 msgstr ""
@@ -73,18 +84,18 @@ msgstr ""
 "Signalstärke"
 
 #. (itstool) path: ul/li
-#: modem-manager-gui.appdata.xml.in:24
+#: modem-manager-gui.appdata.xml.in:27
 msgid "Scan available mobile networks"
 msgstr "Nach verfügbaren mobilen Netzwerken suchen"
 
 #. (itstool) path: ul/li
-#: modem-manager-gui.appdata.xml.in:25
+#: modem-manager-gui.appdata.xml.in:28
 msgid "View mobile traffic statistics and set limits"
 msgstr ""
 "Statistiken für mobilen Netzwerkverkehr anzeigen und Begrenzungen festlegen"
 
 #. (itstool) path: description/p
-#: modem-manager-gui.appdata.xml.in:27
+#: modem-manager-gui.appdata.xml.in:30
 msgid ""
 "Please note that some features may be not available due to limitations of "
 "different system services or even different versions of system service in "
@@ -93,3 +104,30 @@ msgstr ""
 "Bitte beachten Sie, dass einige Funktionsmerkmale aufgrund von "
 "Einschränkungen verschiedener Systemdienste oder selbst unterschiedlicher "
 "Versionen der laufenden Systemdienste nicht verfügbar sein könnten."
+
+#. (itstool) path: screenshot/caption
+#: modem-manager-gui.appdata.xml.in:38
+msgid "Broadband devices overview"
+msgstr ""
+
+#. (itstool) path: screenshot/caption
+#: modem-manager-gui.appdata.xml.in:42
+msgid "SMS messages list"
+msgstr ""
+
+#. (itstool) path: screenshot/caption
+#: modem-manager-gui.appdata.xml.in:46
+msgid "Traffic control"
+msgstr ""
+
+#: modem-manager-gui.desktop.in:4
+msgid "Broadband modem management tool"
+msgstr ""
+
+#: modem-manager-gui.desktop.in:7
+msgid "modem-manager-gui"
+msgstr ""
+
+#: modem-manager-gui.desktop.in:12
+msgid "modem;manager;sms;ussd;"
+msgstr ""

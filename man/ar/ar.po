@@ -1,0 +1,176 @@
+# SOME DESCRIPTIVE TITLE
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# Eslam Maolaoy <maolaoy33@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: Modem Manager GUI\n"
+"POT-Creation-Date: 2017-11-04 23:05+0300\n"
+"PO-Revision-Date: 2017-11-04 20:07+0000\n"
+"Last-Translator: Alex <alex@linuxonly.ru>\n"
+"Language-Team: Arabic (http://www.transifex.com/ethereal/modem-manager-gui/language/ar/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
+
+#. type: TH
+#: modem-manager-gui.1:1
+#, no-wrap
+msgid "modem-manager-gui"
+msgstr "واجهة مستخدم البرنامج"
+
+#. type: TH
+#: modem-manager-gui.1:1
+#, no-wrap
+msgid "Nov 2017"
+msgstr ""
+
+#. type: TH
+#: modem-manager-gui.1:1
+#, no-wrap
+msgid "Modem Manager GUI v0.0.19"
+msgstr ""
+
+#. type: TH
+#: modem-manager-gui.1:1
+#, no-wrap
+msgid "User Commands"
+msgstr "أوامر المستخدم "
+
+#. type: SH
+#: modem-manager-gui.1:2
+#, no-wrap
+msgid "NAME"
+msgstr "الاسم"
+
+#. type: Plain text
+#: modem-manager-gui.1:4
+msgid ""
+"modem-manager-gui - simple graphical interface for Modem Manager daemon."
+msgstr ""
+
+#. type: SH
+#: modem-manager-gui.1:4
+#, no-wrap
+msgid "SYNOPSIS"
+msgstr ""
+
+#. type: Plain text
+#: modem-manager-gui.1:7
+msgid "B<modem-manager-gui> [ -i ] [ -m module ] [ -c module ] [ -l ]..."
+msgstr ""
+
+#. type: SH
+#: modem-manager-gui.1:7
+#, no-wrap
+msgid "DESCRIPTION"
+msgstr "الوصف"
+
+#. type: Plain text
+#: modem-manager-gui.1:11
+msgid ""
+"This program is simple graphical interface for Modem Manager 0.6/0.7, Wader "
+"and oFono daemons using dbus interface."
+msgstr ""
+
+#. type: TP
+#: modem-manager-gui.1:11
+#, no-wrap
+msgid "B<-i, --invisible>"
+msgstr ""
+
+#. type: Plain text
+#: modem-manager-gui.1:14
+msgid "Do not show window on start"
+msgstr "لا تظهر النافذة عند التشغيل"
+
+#. type: TP
+#: modem-manager-gui.1:14
+#, no-wrap
+msgid "B<-m, --mmmodule>"
+msgstr ""
+
+#. type: Plain text
+#: modem-manager-gui.1:17
+msgid "Use specified modem management module"
+msgstr ""
+
+#. type: TP
+#: modem-manager-gui.1:17
+#, no-wrap
+msgid "B<-c, --cmmodule>"
+msgstr ""
+
+#. type: Plain text
+#: modem-manager-gui.1:20
+msgid "Use specified connection management module"
+msgstr ""
+
+#. type: TP
+#: modem-manager-gui.1:20
+#, no-wrap
+msgid "B<-l, --listmodules>"
+msgstr ""
+
+#. type: Plain text
+#: modem-manager-gui.1:23
+msgid "List all available modules and exit"
+msgstr ""
+
+#. type: SH
+#: modem-manager-gui.1:23
+#, no-wrap
+msgid "AUTHOR"
+msgstr "المؤلف"
+
+#. type: Plain text
+#: modem-manager-gui.1:25
+msgid "Written by Alex. See the about dialog for all contributors."
+msgstr ""
+
+#. type: SH
+#: modem-manager-gui.1:25
+#, no-wrap
+msgid "REPORTING BUGS"
+msgstr "التبليغ عن الأخطاء"
+
+#. type: Plain text
+#: modem-manager-gui.1:28
+msgid ""
+"Report bugs to E<lt>alex@linuxonly.ruE<gt>, or to the support forum section "
+"at E<lt>https://linuxonly.ru/forum/modem-manager-gui/E<gt>."
+msgstr ""
+
+#. type: SH
+#: modem-manager-gui.1:28
+#, no-wrap
+msgid "COPYRIGHT"
+msgstr "حقوق النشر"
+
+#. type: Plain text
+#: modem-manager-gui.1:30
+msgid "Copyright \\(co 2012-2017 Alex"
+msgstr ""
+
+#. type: Plain text
+#: modem-manager-gui.1:33
+msgid ""
+"This is free software.  You may redistribute copies of it under the terms of"
+" the GNU General Public License "
+"E<lt>http://www.gnu.org/licenses/gpl.htmlE<gt>."
+msgstr ""
+
+#. type: SH
+#: modem-manager-gui.1:33
+#, no-wrap
+msgid "SEE ALSO"
+msgstr "انظر ايضا"
+
+#. type: Plain text
+#: modem-manager-gui.1:34
+msgid "B<mmcli>(1)"
+msgstr ""

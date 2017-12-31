@@ -1,0 +1,1799 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# 
+# Translators:
+# 周磊 <mfk530@gmail.com>, 2017
+# 周磊 <mfk530@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Modem Manager GUI\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-12-31 20:07+0300\n"
+"PO-Revision-Date: 2017-12-31 17:08+0000\n"
+"Last-Translator: Alex <alex@linuxonly.ru>\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/ethereal/modem-manager-gui/language/zh_CN/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: zh_CN\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+#: ../src/ayatana.c:129
+msgid "Unread SMS"
+msgstr "未读短信"
+
+#: ../src/ayatana.c:303
+msgid "Unread messages"
+msgstr "未读消息"
+
+#: ../src/connection-editor-window.c:336
+#, c-format
+msgid ""
+"<b>%s is not valid</b>\n"
+"<small>It won't be saved and used on connection initialization</small>"
+msgstr "<b>%s 是无效的</b>\n<small>它不会被保存以及用于连接初始化</small>"
+
+#: ../src/connection-editor-window.c:400 ../src/connection-editor-window.c:410
+#: ../src/connection-editor-window.c:734 ../src/connection-editor-window.c:956
+#: ../src/connection-editor-window.c:1007
+msgid "Unnamed connection"
+msgstr "未命名的连接"
+
+#: ../src/connection-editor-window.c:438
+msgid "APN name"
+msgstr "APN名称"
+
+#: ../src/connection-editor-window.c:577
+msgid "First DNS server IP address"
+msgstr "主要DNS服务器IP地址"
+
+#: ../src/connection-editor-window.c:588
+msgid "Second DNS server IP address"
+msgstr "备用DNS服务器IP地址"
+
+#: ../src/connection-editor-window.c:1433
+#: ../resources/ui/modem-manager-gui.ui:559
+msgid "Connection"
+msgstr "连接"
+
+#: ../src/contacts-page.c:353
+msgid "<b>Error adding contact</b>"
+msgstr "<b>添加联系人出错</b>"
+
+#: ../src/contacts-page.c:389
+msgid "<b>Remove contact</b>"
+msgstr "<b>删除联系人</b>"
+
+#: ../src/contacts-page.c:389
+msgid "Really want to remove contact?"
+msgstr "真的要删除联系人吗？"
+
+#: ../src/contacts-page.c:393 ../src/contacts-page.c:398
+msgid "<b>Error removing contact</b>"
+msgstr "<b>添加联系人出错</b>"
+
+#: ../src/contacts-page.c:393
+msgid "Contact not removed from device"
+msgstr "联系人未从设备中删除"
+
+#: ../src/contacts-page.c:398
+msgid "Contact not selected"
+msgstr "未选择联系人"
+
+#: ../src/contacts-page.c:432 ../src/sms-page.c:1650
+msgid "<b>Modem contacts</b>"
+msgstr "<b>Modem联系人</b>"
+
+#: ../src/contacts-page.c:528 ../src/sms-page.c:1615
+msgid "<b>GNOME contacts</b>"
+msgstr "<b> GNOME联系人</b>"
+
+#: ../src/contacts-page.c:535 ../src/sms-page.c:1632
+msgid "<b>KDE contacts</b>"
+msgstr "<b> KDE联系人</b>"
+
+#: ../src/contacts-page.c:551 ../resources/ui/modem-manager-gui.ui:2764
+msgid "First name"
+msgstr "名字"
+
+#: ../src/contacts-page.c:555 ../resources/ui/modem-manager-gui.ui:2776
+msgid "First number"
+msgstr "头号"
+
+#: ../src/contacts-page.c:559 ../resources/ui/modem-manager-gui.ui:2788
+msgid "EMail"
+msgstr "邮箱"
+
+#: ../src/contacts-page.c:563 ../resources/ui/modem-manager-gui.ui:2800
+msgid "Group"
+msgstr "群组"
+
+#: ../src/contacts-page.c:567 ../resources/ui/modem-manager-gui.ui:2812
+msgid "Second name"
+msgstr "中间名"
+
+#: ../src/contacts-page.c:571 ../resources/ui/modem-manager-gui.ui:2824
+msgid "Second number"
+msgstr "第二个号码"
+
+#: ../src/devices-page.c:292 ../src/devices-page.c:345
+msgid "<b>Error opening device</b>"
+msgstr "<b>设备打开出错</b>"
+
+#: ../src/devices-page.c:404
+#, c-format
+msgid ""
+"<b>%s %s</b>\n"
+"Version:%s Port:%s Type:%s"
+msgstr "<b>%s %s</b>\n版本:%s 端口:%s 类型:%s"
+
+#: ../src/devices-page.c:454
+msgid "Selected"
+msgstr "已选"
+
+#: ../src/devices-page.c:460 ../resources/ui/modem-manager-gui.ui:943
+msgid "Device"
+msgstr "设备"
+
+#: ../src/devices-page.c:736 ../src/devices-page.c:768
+#: ../resources/ui/modem-manager-gui.ui:595
+msgid "Activate"
+msgstr "启用"
+
+#: ../src/devices-page.c:761
+msgid "Deactivate"
+msgstr "停用"
+
+#: ../src/devices-page.c:800
+#, c-format
+msgid "Connecting to %s..."
+msgstr "连接到%s..."
+
+#: ../src/devices-page.c:811
+#, c-format
+msgid "Disconnecting from %s..."
+msgstr "从%s断开连接..."
+
+#: ../src/info-page.c:75 ../src/info-page.c:82 ../src/info-page.c:135
+#: ../src/info-page.c:143
+msgid "Not supported"
+msgstr "不支持"
+
+#: ../src/main.c:392 ../src/main.c:395 ../src/main.c:398 ../src/main.c:2809
+#: ../src/main.c:2820
+msgid "Error while initialization"
+msgstr "初始化失败"
+
+#: ../src/main.c:392
+msgid "Unable to start needed system services without correct credentials"
+msgstr "没有正确的凭据，无法启动所需的系统服务"
+
+#: ../src/main.c:395
+msgid "Unable to communicate with available system services"
+msgstr "无法与可用的系统服务通信"
+
+#: ../src/main.c:506
+msgid "Success"
+msgstr "成功"
+
+#: ../src/main.c:511
+msgid "Failed"
+msgstr "失败"
+
+#: ../src/main.c:516 ../src/svcmanager.c:640
+msgid "Timeout"
+msgstr "超时"
+
+#: ../src/main.c:653 ../resources/ui/modem-manager-gui.ui:465
+msgid "_Stop"
+msgstr ""
+
+#: ../src/main.c:780
+msgid "Unlocking device..."
+msgstr ""
+
+#: ../src/main.c:796
+msgid "Enabling device..."
+msgstr "正在启用设备..."
+
+#: ../src/main.c:1128
+msgid "No devices found in system"
+msgstr "在系统中找不到设备"
+
+#: ../src/main.c:1142
+msgid ""
+"Modem is not ready for operation. Please wait while modem being prepared..."
+msgstr "调制解调器未准备好操作。正在准备调制解调器，请稍候..."
+
+#: ../src/main.c:1156
+msgid "Modem must be enabled to connect to Internet. Please enable modem."
+msgstr ""
+
+#: ../src/main.c:1157
+msgid ""
+"Modem must be registered in mobile network to connect to Internet. Please "
+"wait..."
+msgstr ""
+
+#: ../src/main.c:1158
+msgid "Modem must be unlocked to connect to Internet. Please enter PIN code."
+msgstr "调制解调器必须解锁才能连接到互联网。 请输入PIN码。"
+
+#: ../src/main.c:1159
+msgid ""
+"Network manager does not support Internet connection management functions."
+msgstr "网络管理器不支持互联网连接管理功能。"
+
+#: ../src/main.c:1175
+msgid "Modem must be enabled to read and write SMS. Please enable modem."
+msgstr "必须启用调制解调器才能读取和写入短信。 请启用调制解调器"
+
+#: ../src/main.c:1176
+msgid ""
+"Modem must be registered in mobile network to receive and send SMS. Please "
+"wait..."
+msgstr "调制解调器必须在移动网络上注册才能收发短信。 请稍候..."
+
+#: ../src/main.c:1177
+msgid "Modem must be unlocked to receive and send SMS. Please enter PIN code."
+msgstr "调制解调器必须解锁才能接收和发送短信。 请输入PIN码。"
+
+#: ../src/main.c:1178
+msgid "Modem manager does not support SMS manipulation functions."
+msgstr "调制解调器管理器不支持短信操作功能。"
+
+#: ../src/main.c:1179
+msgid "Modem manager does not support sending of SMS messages."
+msgstr "调制解调器管理器不支持发送短信。"
+
+#: ../src/main.c:1197
+msgid "Modem must be enabled to send USSD. Please enable modem."
+msgstr "必须启用调制解调器才能发送USSD。请启用调制解调器。"
+
+#: ../src/main.c:1198
+msgid ""
+"Modem must be registered in mobile network to send USSD. Please wait..."
+msgstr "调制解调器必须在移动网络上注册才能发送USSD。 请稍候..."
+
+#: ../src/main.c:1199
+msgid "Modem must be unlocked to send USSD. Please enter PIN code."
+msgstr "调制解调器必须解锁才能发送USSD。 请输入PIN码。"
+
+#: ../src/main.c:1200
+msgid "Modem manager does not support sending of USSD requests."
+msgstr "调制解调器管理器不支持发送USSD请求。"
+
+#: ../src/main.c:1227
+msgid ""
+"Modem must be enabled to scan for available networks. Please enable modem."
+msgstr "必须启用调制解调器才能扫描可用的网络。 请启用调制解调器"
+
+#: ../src/main.c:1229
+msgid ""
+"Modem must be unlocked to scan for available networks. Please enter PIN "
+"code."
+msgstr "必须解锁调制解调器才能扫描可用的网络。 请输入PIN码。"
+
+#: ../src/main.c:1230
+msgid "Modem manager does not support scanning for available mobile networks."
+msgstr "调制解调器管理器不支持扫描可用的移动网络。"
+
+#: ../src/main.c:1231
+msgid "Modem is connected now. Please disconnect to scan."
+msgstr "调制解调器已连接。 请断开连接再扫描。"
+
+#: ../src/main.c:1262
+msgid "Modem must be enabled to export contacts from it. Please enable modem."
+msgstr "必须启用调制解调器才能从中导出联系人。 请启用调制解调器。"
+
+#: ../src/main.c:1264
+msgid ""
+"Modem must be unlocked to export contacts from it. Please enter PIN code."
+msgstr "调制解调器必须解锁才能从中导出联系人。 请输入PIN码。"
+
+#: ../src/main.c:1265
+msgid "Modem manager does not support modem contacts manipulation functions."
+msgstr "调制解调器管理器不支持联系人操作功能。"
+
+#: ../src/main.c:1266
+msgid "Modem manager does not support modem contacts edition functions."
+msgstr "调制解调器管理器不支持联系人编辑功能"
+
+#: ../src/main.c:1304
+msgid "Enter PIN"
+msgstr ""
+
+#: ../src/main.c:1306
+msgid ""
+"SIM card is locked with PUK code. Please contact your mobile operator for "
+"further instructions."
+msgstr ""
+
+#: ../src/main.c:1309
+msgid ""
+"SIM card seems non-functional. Please contact your mobile operator for "
+"further instructions."
+msgstr ""
+
+#: ../src/main.c:1322
+msgid "Enable"
+msgstr ""
+
+#: ../src/main.c:1581
+msgid "_Devices"
+msgstr "_Devices"
+
+#: ../src/main.c:1585
+msgid "_SMS"
+msgstr "_SMS"
+
+#: ../src/main.c:1590
+msgid "_USSD"
+msgstr "_USSD"
+
+#: ../src/main.c:1595
+msgid "_Info"
+msgstr ""
+
+#: ../src/main.c:1600
+msgid "S_can"
+msgstr ""
+
+#: ../src/main.c:1605
+msgid "_Traffic"
+msgstr ""
+
+#: ../src/main.c:1610
+msgid "C_ontacts"
+msgstr ""
+
+#: ../src/main.c:1698 ../src/main.c:1729
+msgid "Modem Manager GUI window hidden"
+msgstr "Modem Manager GUI 窗口隐藏"
+
+#: ../src/main.c:1698 ../src/main.c:1729
+msgid "Use tray icon or messaging menu to show window again"
+msgstr ""
+
+#: ../src/main.c:1793
+msgid "Error while displaying the help contents"
+msgstr ""
+
+#: ../src/main.c:1919
+#, c-format
+msgid "%s disconnected"
+msgstr ""
+
+#: ../src/main.c:2056
+msgid "Show window"
+msgstr ""
+
+#: ../src/main.c:2062
+msgid "New SMS"
+msgstr ""
+
+#: ../src/main.c:2068 ../src/main.c:2720
+msgid "Quit"
+msgstr ""
+
+#: ../src/main.c:2680
+msgid "_Quit"
+msgstr ""
+
+#: ../src/main.c:2686
+msgid "_Actions"
+msgstr ""
+
+#: ../src/main.c:2689
+msgid "_Preferences"
+msgstr ""
+
+#: ../src/main.c:2692
+msgid "_Edit"
+msgstr ""
+
+#: ../src/main.c:2695 ../src/main.c:2699
+msgid "_Help"
+msgstr ""
+
+#: ../src/main.c:2697
+msgid "_About"
+msgstr ""
+
+#: ../src/main.c:2709 ../resources/ui/modem-manager-gui.ui:3172
+msgid "Preferences"
+msgstr ""
+
+#: ../src/main.c:2714
+msgid "Help"
+msgstr ""
+
+#: ../src/main.c:2716 ../resources/ui/modem-manager-gui.ui:1719
+msgid "About"
+msgstr ""
+
+#: ../src/main.c:2809 ../src/main.c:2864
+msgid ""
+"Unable to find MMGUI modules. Please check if application installed "
+"correctly"
+msgstr ""
+
+#: ../src/main.c:2820
+msgid "Interface building error"
+msgstr "界面构建错误"
+
+#: ../src/main.c:2876
+msgid "Modem management modules:\n"
+msgstr ""
+
+#: ../src/main.c:2877 ../src/main.c:2881
+msgid "Module"
+msgstr ""
+
+#: ../src/main.c:2877 ../src/main.c:2881 ../src/ussd-page.c:544
+msgid "Description"
+msgstr ""
+
+#: ../src/main.c:2880
+msgid "Connection management modules:\n"
+msgstr ""
+
+#: ../src/main.c:2919
+#, c-format
+msgid "Segmentation fault at address: %p\n"
+msgstr ""
+
+#: ../src/main.c:2922
+msgid "Stack trace:\n"
+msgstr ""
+
+#: ../src/main.c:2988
+msgid "Do not show window on start"
+msgstr ""
+
+#: ../src/main.c:2989
+msgid "Use specified modem management module"
+msgstr ""
+
+#: ../src/main.c:2990
+msgid "Use specified connection management module"
+msgstr ""
+
+#: ../src/main.c:2991
+msgid "List all available modules and exit"
+msgstr ""
+
+#: ../src/main.c:3028
+msgid "- tool for EDGE/3G/4G modem specific functions control"
+msgstr ""
+
+#: ../src/main.c:3035
+#, c-format
+msgid "Command line option parsing failed: %s\n"
+msgstr ""
+
+#: ../src/preferences-window.c:111 ../src/strformat.c:352
+#: ../src/welcome-window.c:197
+msgid "Undefined"
+msgstr ""
+
+#: ../src/scan-page.c:44
+msgid "Scanning networks..."
+msgstr "正在扫描网络..."
+
+#: ../src/scan-page.c:46
+msgid "Device error"
+msgstr ""
+
+#: ../src/scan-page.c:97
+#, c-format
+msgid ""
+"<b>%s</b>\n"
+"<small>%s ID: %u Availability: %s Access tech: %s</small>"
+msgstr ""
+
+#: ../src/scan-page.c:135
+msgid "<b>Error scanning networks</b>"
+msgstr ""
+
+#: ../src/scan-page.c:149 ../resources/ui/modem-manager-gui.ui:1066
+msgid "Operator"
+msgstr ""
+
+#: ../src/sms-page.c:343
+#, c-format
+msgid "Received %u new SMS messages"
+msgstr ""
+
+#: ../src/sms-page.c:345 ../src/sms-page.c:423
+msgid "Received new SMS message"
+msgstr ""
+
+#: ../src/sms-page.c:357
+msgid "Message senders: "
+msgstr ""
+
+#: ../src/sms-page.c:494 ../src/sms-page.c:1163
+#, c-format
+msgid ""
+"<b>%s</b>\n"
+"<small>%s</small>"
+msgstr ""
+
+#: ../src/sms-page.c:548
+msgid ""
+"<b>SMS number is not valid</b>\n"
+"<small>Only numbers from 2 to 20 digits without\n"
+"letters and symbols can be used</small>"
+msgstr ""
+
+#: ../src/sms-page.c:550
+msgid ""
+"<b>SMS text is not valid</b>\n"
+"<small>Please write some text to send</small>"
+msgstr ""
+
+#: ../src/sms-page.c:675
+#, c-format
+msgid "Sending SMS to number \"%s\"..."
+msgstr ""
+
+#: ../src/sms-page.c:697
+msgid "Wrong number or device not ready"
+msgstr ""
+
+#: ../src/sms-page.c:703
+msgid "Saving SMS..."
+msgstr ""
+
+#: ../src/sms-page.c:774
+#, c-format
+msgid "Really want to remove messages (%u) ?"
+msgstr ""
+
+#: ../src/sms-page.c:775
+msgid "<b>Remove messages</b>"
+msgstr ""
+
+#: ../src/sms-page.c:797
+#, c-format
+msgid "Some messages weren't removed (%u)"
+msgstr ""
+
+#: ../src/sms-page.c:1087
+msgid "Incoming"
+msgstr ""
+
+#: ../src/sms-page.c:1092
+msgid ""
+"This is folder for your incoming SMS messages.\n"
+"You can answer selected message using 'Answer' button."
+msgstr ""
+
+#: ../src/sms-page.c:1097
+msgid "Sent"
+msgstr ""
+
+#: ../src/sms-page.c:1102
+msgid "This is folder for your sent SMS messages."
+msgstr ""
+
+#: ../src/sms-page.c:1107
+msgid "Drafts"
+msgstr ""
+
+#: ../src/sms-page.c:1112
+msgid ""
+"This is folder for your SMS message drafts.\n"
+"Select message and click 'Answer' button to start editing."
+msgstr ""
+
+#: ../src/sms-page.c:1219
+msgid ""
+"<b>Incoming</b>\n"
+"<small>Incoming messages</small>"
+msgstr ""
+
+#: ../src/sms-page.c:1220
+msgid ""
+"<b>Sent</b>\n"
+"<small>Sent messages</small>"
+msgstr ""
+
+#: ../src/sms-page.c:1221
+msgid ""
+"<b>Drafts</b>\n"
+"<small>Message drafts</small>"
+msgstr ""
+
+#: ../src/sms-page.c:1749 ../resources/ui/modem-manager-gui.ui:2932
+msgid "Disabled"
+msgstr ""
+
+#: ../src/sms-page.c:1903 ../resources/ui/modem-manager-gui.ui:355
+#: ../resources/ui/modem-manager-gui.ui:778
+#: ../resources/ui/modem-manager-gui.ui:3580
+#: ../resources/ui/modem-manager-gui.ui:3999
+msgid "SMS"
+msgstr "短信"
+
+#: ../src/strformat.c:39
+#, c-format
+msgid "<small><b>%.3f kbps</b></small>"
+msgstr ""
+
+#: ../src/strformat.c:41
+#, c-format
+msgid "%.3f kbps"
+msgstr ""
+
+#: ../src/strformat.c:46
+#, c-format
+msgid "<small><b>%.3g Mbps</b></small>"
+msgstr ""
+
+#: ../src/strformat.c:48
+#, c-format
+msgid "%.3g Mbps"
+msgstr ""
+
+#: ../src/strformat.c:53
+#, c-format
+msgid "<small><b>%.3g Gbps</b></small>"
+msgstr ""
+
+#: ../src/strformat.c:55
+#, c-format
+msgid "%.3g Gbps"
+msgstr ""
+
+#: ../src/strformat.c:87
+#, c-format
+msgid "<small><b>%u sec</b></small>"
+msgstr ""
+
+#: ../src/strformat.c:89
+#, c-format
+msgid "%u sec"
+msgstr ""
+
+#: ../src/strformat.c:93
+#, c-format
+msgid "<small><b>%s:%s</b></small>"
+msgstr ""
+
+#: ../src/strformat.c:95
+#, c-format
+msgid "%s:%s"
+msgstr ""
+
+#: ../src/strformat.c:99
+#, c-format
+msgid "<small><b>%s:%s:%s</b></small>"
+msgstr ""
+
+#: ../src/strformat.c:101
+#, c-format
+msgid "%s:%s:%s"
+msgstr ""
+
+#: ../src/strformat.c:105
+msgid "<small><b>%"
+msgstr ""
+
+#: ../src/strformat.c:107
+msgid "%"
+msgstr ""
+
+#: ../src/strformat.c:124
+#, c-format
+msgid "<small><b>%u</b></small>"
+msgstr ""
+
+#: ../src/strformat.c:126
+#, c-format
+msgid "%u"
+msgstr ""
+
+#: ../src/strformat.c:131
+#, c-format
+msgid "<small><b>%.3g Kb</b></small>"
+msgstr ""
+
+#: ../src/strformat.c:133
+#, c-format
+msgid "%.3g Kb"
+msgstr ""
+
+#: ../src/strformat.c:138
+#, c-format
+msgid "<small><b>%.3g Mb</b></small>"
+msgstr ""
+
+#: ../src/strformat.c:140
+#, c-format
+msgid "%.3g Mb"
+msgstr ""
+
+#: ../src/strformat.c:145
+#, c-format
+msgid "<small><b>%.3g Gb</b></small>"
+msgstr ""
+
+#: ../src/strformat.c:147
+#, c-format
+msgid "%.3g Gb"
+msgstr ""
+
+#: ../src/strformat.c:152
+#, c-format
+msgid "<small><b>%.3g Tb</b></small>"
+msgstr ""
+
+#: ../src/strformat.c:154
+#, c-format
+msgid "%.3g Tb"
+msgstr ""
+
+#: ../src/strformat.c:186
+msgid "Today, %T"
+msgstr ""
+
+#: ../src/strformat.c:187 ../src/strformat.c:191 ../src/strformat.c:195
+#: ../src/strformat.c:206 ../src/strformat.c:236 ../src/strformat.c:244
+#: ../src/strformat.c:252 ../src/strformat.c:323 ../src/traffic-page.c:134
+#, c-format
+msgid "Unknown"
+msgstr "未知"
+
+#: ../src/strformat.c:190
+msgid "Yesterday, %T"
+msgstr ""
+
+#: ../src/strformat.c:194
+msgid "%d %B %Y, %T"
+msgstr ""
+
+#: ../src/strformat.c:246
+msgid "Available"
+msgstr ""
+
+#: ../src/strformat.c:248
+msgid "Current"
+msgstr ""
+
+#: ../src/strformat.c:250
+msgid "Forbidden"
+msgstr ""
+
+#: ../src/strformat.c:286
+msgid "Not registered"
+msgstr ""
+
+#: ../src/strformat.c:288
+msgid "Home network"
+msgstr ""
+
+#: ../src/strformat.c:290
+msgid "Searching"
+msgstr "搜索中"
+
+#: ../src/strformat.c:292
+msgid "Registration denied"
+msgstr ""
+
+#: ../src/strformat.c:294 ../src/strformat.c:298
+msgid "Unknown status"
+msgstr ""
+
+#: ../src/strformat.c:296
+msgid "Roaming network"
+msgstr ""
+
+#: ../src/strformat.c:337
+#, c-format
+msgid "%3.0f minutes"
+msgstr ""
+
+#: ../src/strformat.c:341
+#, c-format
+msgid "%3.1f hours"
+msgstr ""
+
+#: ../src/strformat.c:345
+#, c-format
+msgid "%2.0f days"
+msgstr ""
+
+#: ../src/strformat.c:349
+#, c-format
+msgid "%2.0f weeks"
+msgstr ""
+
+#: ../src/strformat.c:364
+#, c-format
+msgid "%2.0f sec"
+msgstr ""
+
+#: ../src/strformat.c:367
+#, c-format
+msgid "%u min, %u sec"
+msgstr ""
+
+#: ../src/svcmanager.c:693
+msgid "Job canceled"
+msgstr ""
+
+#: ../src/svcmanager.c:695
+msgid "Systemd timeout reached"
+msgstr ""
+
+#: ../src/svcmanager.c:697
+msgid "Service activation failed"
+msgstr ""
+
+#: ../src/svcmanager.c:699
+msgid "Service depends on already failed service"
+msgstr ""
+
+#: ../src/svcmanager.c:701
+msgid "Service skipped"
+msgstr ""
+
+#: ../src/svcmanager.c:703
+msgid "Unknown error"
+msgstr ""
+
+#: ../src/svcmanager.c:768
+msgid "Unknown activation status"
+msgstr ""
+
+#: ../src/svcmanager.c:839
+msgid "Unknown entity type"
+msgstr ""
+
+#: ../src/traffic-page.c:246
+msgid "Day"
+msgstr ""
+
+#: ../src/traffic-page.c:250
+msgid "Received data"
+msgstr ""
+
+#: ../src/traffic-page.c:254
+msgid "Transmitted data"
+msgstr ""
+
+#: ../src/traffic-page.c:258
+msgid "Session time"
+msgstr ""
+
+#: ../src/traffic-page.c:482
+msgid "Application"
+msgstr ""
+
+#: ../src/traffic-page.c:486
+msgid "PID"
+msgstr "PID"
+
+#: ../src/traffic-page.c:490
+msgid "Protocol"
+msgstr ""
+
+#: ../src/traffic-page.c:494 ../src/welcome-window.c:269
+msgid "State"
+msgstr ""
+
+#: ../src/traffic-page.c:498
+msgid "Buffer"
+msgstr ""
+
+#: ../src/traffic-page.c:502
+msgid "Port"
+msgstr ""
+
+#: ../src/traffic-page.c:506
+msgid "Destination"
+msgstr ""
+
+#: ../src/traffic-page.c:532
+msgid "Traffic limit exceeded"
+msgstr ""
+
+#: ../src/traffic-page.c:536
+msgid "Time limit exceeded"
+msgstr ""
+
+#: ../src/traffic-page.c:723
+#, c-format
+msgid ""
+"Traffic: %s, limit set to: %s\n"
+"Time: %s, limit set to: %s\n"
+"Please check entered values and try once more"
+msgstr ""
+
+#: ../src/traffic-page.c:728
+msgid "Wrong traffic and time limit values"
+msgstr "流量和时间限制值错误"
+
+#: ../src/traffic-page.c:731
+#, c-format
+msgid ""
+"Traffic: %s, limit set to: %s\n"
+"Please check entered values and try once more"
+msgstr ""
+
+#: ../src/traffic-page.c:734
+msgid "Wrong traffic limit value"
+msgstr "流量限制值错误"
+
+#: ../src/traffic-page.c:737
+#, c-format
+msgid ""
+"Time: %s, limit set to: %s\n"
+"Please check entered values and try once more"
+msgstr ""
+
+#: ../src/traffic-page.c:740
+msgid "Wrong time limit value"
+msgstr "时间限制值错误"
+
+#: ../src/traffic-page.c:834 ../src/traffic-page.c:858
+#: ../src/traffic-page.c:882
+msgid "<small><b>Disconnected</b></small>"
+msgstr "<small><b>已断开</b></small>"
+
+#: ../src/traffic-page.c:846 ../src/traffic-page.c:852
+#: ../src/traffic-page.c:870 ../src/traffic-page.c:876
+msgid "<small><b>Limit</b></small>"
+msgstr "<small><b>限制</b></small>"
+
+#: ../src/traffic-page.c:849 ../src/traffic-page.c:855
+#: ../src/traffic-page.c:873 ../src/traffic-page.c:879
+msgid "<small><b>Disabled</b></small>"
+msgstr ""
+
+#: ../src/traffic-page.c:1022
+msgid "kbps"
+msgstr "kbps"
+
+#: ../src/traffic-page.c:1036
+msgid "sec"
+msgstr "秒"
+
+#: ../src/traffic-page.c:1120
+msgid "RX speed"
+msgstr "RX速度"
+
+#: ../src/traffic-page.c:1139
+msgid "TX speed"
+msgstr "TX速度"
+
+#: ../src/traffic-page.c:1155
+msgid "Parameter"
+msgstr "参数"
+
+#: ../src/traffic-page.c:1160
+msgid "Value"
+msgstr "值"
+
+#: ../src/traffic-page.c:1166
+msgid "<small><b>Session</b></small>"
+msgstr ""
+
+#: ../src/traffic-page.c:1169 ../src/traffic-page.c:1193
+#: ../src/traffic-page.c:1205
+msgid "<small><b>Received data</b></small>"
+msgstr ""
+
+#: ../src/traffic-page.c:1172 ../src/traffic-page.c:1196
+#: ../src/traffic-page.c:1208
+msgid "<small><b>Transmitted data</b></small>"
+msgstr ""
+
+#: ../src/traffic-page.c:1175
+msgid "<small><b>Receive speed</b></small>"
+msgstr ""
+
+#: ../src/traffic-page.c:1178
+msgid "<small><b>Transmit speed</b></small>"
+msgstr ""
+
+#: ../src/traffic-page.c:1181
+msgid "<small><b>Session time</b></small>"
+msgstr ""
+
+#: ../src/traffic-page.c:1184
+msgid "<small><b>Traffic left</b></small>"
+msgstr ""
+
+#: ../src/traffic-page.c:1187
+msgid "<small><b>Time left</b></small>"
+msgstr ""
+
+#: ../src/traffic-page.c:1190
+msgid "<small><b>Month</b></small>"
+msgstr ""
+
+#: ../src/traffic-page.c:1199 ../src/traffic-page.c:1211
+msgid "<small><b>Total time</b></small>"
+msgstr ""
+
+#: ../src/traffic-page.c:1202
+msgid "<small><b>Year</b></small>"
+msgstr ""
+
+#: ../src/traffic-page.c:1236
+msgid "Traffic limit exceeded... It's time to take rest \\(^_^)/"
+msgstr ""
+
+#: ../src/traffic-page.c:1261
+msgid "Time limit exceeded... Go sleep and have nice dreams -_-"
+msgstr ""
+
+#: ../src/ussd-page.c:68
+msgid "Sample command"
+msgstr "示例指令"
+
+#: ../src/ussd-page.c:290 ../src/ussd-page.c:311
+msgid ""
+"<b>USSD request is not valid</b>\n"
+"<small>Request must be 160 symbols long\n"
+"started with '*' and ended with '#'</small>"
+msgstr ""
+
+#: ../src/ussd-page.c:395
+#, c-format
+msgid "Sending USSD request %s..."
+msgstr ""
+
+#: ../src/ussd-page.c:402
+#, c-format
+msgid "Sending USSD response %s..."
+msgstr ""
+
+#: ../src/ussd-page.c:413 ../src/ussd-page.c:416 ../src/ussd-page.c:419
+msgid "<b>Error sending USSD</b>"
+msgstr "<b>发送USSD出错</b>"
+
+#: ../src/ussd-page.c:413
+msgid "Wrong USSD request or device not ready"
+msgstr "错误的USSD请求或设备未准备好"
+
+#: ../src/ussd-page.c:416
+msgid "USSD session terminated. You can send new request"
+msgstr ""
+
+#: ../src/ussd-page.c:419
+msgid "Wrong USSD request"
+msgstr "错误的USSD请求"
+
+#: ../src/ussd-page.c:442
+msgid ""
+"\n"
+"USSD session is active. Waiting for your input...\n"
+msgstr ""
+
+#: ../src/ussd-page.c:455
+msgid ""
+"\n"
+"No answer received..."
+msgstr ""
+
+#: ../src/ussd-page.c:538 ../resources/ui/modem-manager-gui.ui:3517
+msgid "Command"
+msgstr "指令"
+
+#: ../src/welcome-window.c:246 ../resources/ui/modem-manager-gui.ui:289
+msgid "_Let's Start!"
+msgstr ""
+
+#: ../src/welcome-window.c:265
+msgid "Service"
+msgstr ""
+
+#: ../src/welcome-window.c:280
+msgid "_Close"
+msgstr ""
+
+#: ../src/welcome-window.c:310
+msgid "Activation..."
+msgstr ""
+
+#: ../src/welcome-window.c:330
+msgid "<span foreground=\"green\">Success</span>"
+msgstr "<span foreground=\"green\">成功</span>"
+
+#: ../src/welcome-window.c:333
+#, c-format
+msgid "<span foreground=\"red\">%s</span>"
+msgstr "<span foreground=\"red\">%s</span>"
+
+#: ../resources/ui/modem-manager-gui.ui:62
+msgid "Welcome"
+msgstr "欢迎"
+
+#: ../resources/ui/modem-manager-gui.ui:111
+msgid ""
+"Despite of it's name, Modem Manager GUI supports different backends. Please "
+"select backends you plan to use. If not sure, just do not change anything."
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:125
+#: ../resources/ui/modem-manager-gui.ui:3735
+msgid "Modem manager"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:140
+#: ../resources/ui/modem-manager-gui.ui:3747
+msgid "Connection manager"
+msgstr "连接管理"
+
+#: ../resources/ui/modem-manager-gui.ui:175
+msgid "Welcome to Modem Manager GUI"
+msgstr "欢迎使用Modem Manager GUI"
+
+#: ../resources/ui/modem-manager-gui.ui:189
+msgid "Enable services after activation"
+msgstr "激活后启用服务"
+
+#: ../resources/ui/modem-manager-gui.ui:217
+msgid "Services activation"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:233
+msgid ""
+"Modem Manager GUI uses special system services to communicate with modems "
+"and network stack. Please wait until all needed services being activated."
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:317
+msgid "Modem Manager GUI"
+msgstr "Modem Manager GUI"
+
+#: ../resources/ui/modem-manager-gui.ui:337
+msgid "View and select available devices <b>CTRL+F1</b>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:339
+#: ../resources/ui/modem-manager-gui.ui:644
+#: ../resources/ui/modem-manager-gui.ui:3983
+msgid "Devices"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:353
+msgid "Send and receive SMS messages <b>CTRL+F2</b>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:369
+msgid "Send USSD requests <b>CTRL+F3</b>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:371
+#: ../resources/ui/modem-manager-gui.ui:895
+#: ../resources/ui/modem-manager-gui.ui:4013
+msgid "USSD"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:385
+msgid "View active device information <b>CTRL+F4</b>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:387
+#: ../resources/ui/modem-manager-gui.ui:1318
+#: ../resources/ui/modem-manager-gui.ui:4027
+msgid "Info"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:401
+msgid "Scan existing mobile networks <b>CTRL+F5</b>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:403
+#: ../resources/ui/modem-manager-gui.ui:1414
+#: ../resources/ui/modem-manager-gui.ui:4041
+msgid "Scan"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:417
+msgid "Monitor network traffic <b>CTRL+F6</b>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:419
+#: ../resources/ui/modem-manager-gui.ui:1560
+#: ../resources/ui/modem-manager-gui.ui:4055
+#: ../resources/ui/modem-manager-gui.ui:4265
+msgid "Traffic"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:433
+msgid "View system and modem addressbooks <b>CTRL+F7</b>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:435
+#: ../resources/ui/modem-manager-gui.ui:1671
+#: ../resources/ui/modem-manager-gui.ui:4069
+msgid "Contacts"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:580
+#: ../resources/ui/modem-manager-gui.ui:846
+msgid "Edit"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:584
+msgid "Open connection editor <b>CTRL+E</b>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:599
+msgid "Activate or deactivate connection <b>CTRL+A</b>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:664
+msgid "Send new SMS message <b>CTRL+N</b>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:666
+msgid "New"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:680
+msgid "Remove selected message <b>CTRL+D</b>"
+msgstr "删除选择的消息 <b>CTRL+D</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:682
+msgid "Remove"
+msgstr "删除"
+
+#: ../resources/ui/modem-manager-gui.ui:696
+msgid "Answer selected message <b>CTRL+A</b>"
+msgstr "回复选择的消息 <b>CTRL+A</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:698
+msgid "Answer"
+msgstr "回复"
+
+#: ../resources/ui/modem-manager-gui.ui:797
+msgid "Request"
+msgstr "请求"
+
+#: ../resources/ui/modem-manager-gui.ui:828
+#: ../resources/ui/modem-manager-gui.ui:2901
+msgid "Send"
+msgstr "发送"
+
+#: ../resources/ui/modem-manager-gui.ui:832
+msgid "Send ussd request <b>CTRL+S</b>"
+msgstr "发送UUSD请求 <b>CTRL+S</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:850
+msgid "Edit USSD commands list <b>CTRL+E</b>"
+msgstr "编辑USSD指令列表 <b>CTRL+E</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:968
+msgid "IMEI"
+msgstr "IMEI"
+
+#: ../resources/ui/modem-manager-gui.ui:993
+msgid "IMSI/ESN"
+msgstr "IMSI/ESN"
+
+#: ../resources/ui/modem-manager-gui.ui:1022
+msgid "<b>Equipment</b>"
+msgstr "<b>设备</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:1091
+msgid "Mode"
+msgstr "模式"
+
+#: ../resources/ui/modem-manager-gui.ui:1116
+msgid "Signal level"
+msgstr "信号等级"
+
+#: ../resources/ui/modem-manager-gui.ui:1128
+msgid "Operator code"
+msgstr "操作员代码"
+
+#: ../resources/ui/modem-manager-gui.ui:1153
+msgid "Registration"
+msgstr "注册"
+
+#: ../resources/ui/modem-manager-gui.ui:1197
+#: ../resources/ui/modem-manager-gui.ui:2166
+msgid "<b>Network</b>"
+msgstr "<b>网络</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:1241
+msgid ""
+"3GPP Location\n"
+"<small>MCC/MNC/LAC/RNC/CID</small>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:1255
+msgid ""
+"GPS location\n"
+"<small>Longitude/Latitude</small>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:1299
+msgid "<b>Location</b>"
+msgstr "<b>位置</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:1362
+msgid "Scan available mobile networks <b>CTRL+S</b>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:1364
+msgid "Start scan"
+msgstr "开始扫描"
+
+#: ../resources/ui/modem-manager-gui.ui:1388
+msgid "Create connection"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:1434
+msgid "Set traffic amount or time limit for disconnect <b>CTRL+L</b>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:1436
+msgid "Set limit"
+msgstr "设置限制"
+
+#: ../resources/ui/modem-manager-gui.ui:1450
+msgid "View list of active network connections <b>CTRL+C</b>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:1452
+#: ../resources/ui/modem-manager-gui.ui:1883
+msgid "Connections"
+msgstr "连接"
+
+#: ../resources/ui/modem-manager-gui.ui:1466
+msgid "View daily traffic statistics <b>CTRL+S</b>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:1468
+msgid "Statistics"
+msgstr "统计"
+
+#: ../resources/ui/modem-manager-gui.ui:1519
+msgid "Transmission speed"
+msgstr "传输速度"
+
+#: ../resources/ui/modem-manager-gui.ui:1580
+msgid "Add new contact to modem addressbook <b>CTRL+N</b>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:1582
+#: ../resources/ui/modem-manager-gui.ui:2637
+msgid "New contact"
+msgstr "新联系人"
+
+#: ../resources/ui/modem-manager-gui.ui:1596
+msgid "Remove contact from modem addressbook <b>CTRL+D</b>"
+msgstr "从调制解调器地址簿删除联系人 <b>CTRL+D</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:1598
+msgid "Remove contact"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:1622
+msgid "Send SMS message to selected contact <b>CTRL+S</b>"
+msgstr "发送短信到指定联系人 <b>CTRL+S</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:1624
+msgid "Send SMS"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:1729
+msgid "Copyright 2012-2017 Alex"
+msgstr "Copyright 2012-2017 Alex"
+
+#: ../resources/ui/modem-manager-gui.ui:1730
+msgid "Tool for EDGE/3G/4G modem specific functions control"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:1732
+msgid "Homepage"
+msgstr "主页"
+
+#: ../resources/ui/modem-manager-gui.ui:1733
+msgid "GPL3"
+msgstr "GPL3"
+
+#: ../resources/ui/modem-manager-gui.ui:1735
+msgid "English: Alex <alex@linuxonly.ru>"
+msgstr "English: Alex <alex@linuxonly.ru>"
+
+#: ../resources/ui/modem-manager-gui.ui:1771
+msgid "Active connections"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:1824
+msgid "Terminate selected application using SIGTERM signal <b>CTRL+T</b>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:1826
+msgid "Terminate application"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:1947
+msgid "Add new broadband connection"
+msgstr "添加新的宽带连接"
+
+#: ../resources/ui/modem-manager-gui.ui:1949
+msgid "Add connection"
+msgstr "添加连接"
+
+#: ../resources/ui/modem-manager-gui.ui:1964
+msgid "Remove selected connection"
+msgstr "删除选择的连接"
+
+#: ../resources/ui/modem-manager-gui.ui:1966
+msgid "Remove connection"
+msgstr "删除连接"
+
+#: ../resources/ui/modem-manager-gui.ui:2048
+msgid "Name"
+msgstr "名称"
+
+#: ../resources/ui/modem-manager-gui.ui:2060
+msgid "APN"
+msgstr "APN"
+
+#: ../resources/ui/modem-manager-gui.ui:2087
+msgid "<b>Connection</b>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:2121
+msgid "Network ID"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:2131
+msgid "Enable roaming"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:2199
+msgid "Access number"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:2211
+msgid "User name"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:2223
+msgid "Password"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:2278
+msgid "<b>Authentication</b>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:2311
+msgid "DNS 1"
+msgstr "DNS 1"
+
+#: ../resources/ui/modem-manager-gui.ui:2323
+msgid "DNS 2"
+msgstr "DNS 2"
+
+#: ../resources/ui/modem-manager-gui.ui:2367
+msgid "<b>DNS</b>"
+msgstr "<b>DNS</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:2423
+msgid "Error"
+msgstr "错误"
+
+#: ../resources/ui/modem-manager-gui.ui:2534
+msgid "Ask me again"
+msgstr "再问我一次"
+
+#: ../resources/ui/modem-manager-gui.ui:2552
+msgid "<b>Quit or minimize?</b>"
+msgstr "<b>退出或最小化？</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:2564
+msgid "What do you want application to do on window close?"
+msgstr "你想在窗户关闭时应用程序做什么？"
+
+#: ../resources/ui/modem-manager-gui.ui:2573
+msgid "Just quit"
+msgstr "直接退出"
+
+#: ../resources/ui/modem-manager-gui.ui:2588
+msgid "Minimize to tray or messaging menu"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:2852
+msgid "New SMS message"
+msgstr "新的短信"
+
+#: ../resources/ui/modem-manager-gui.ui:2916
+msgid "Save"
+msgstr "保存"
+
+#: ../resources/ui/modem-manager-gui.ui:2968
+msgid "Number"
+msgstr "号码"
+
+#: ../resources/ui/modem-manager-gui.ui:3100
+msgid "Please enter PIN code to unlock modem"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:3131
+msgid "PIN"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:3249
+msgid "Use sounds for events"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:3264
+msgid "Hide window to tray on close"
+msgstr "关闭时隐藏窗口到托盘"
+
+#: ../resources/ui/modem-manager-gui.ui:3279
+msgid "Save window geometry and placement"
+msgstr "保存窗口大小和位置"
+
+#: ../resources/ui/modem-manager-gui.ui:3294
+msgid "Add program to autostart list"
+msgstr "添加程序到自启动列表"
+
+#: ../resources/ui/modem-manager-gui.ui:3315
+msgid "<b>Behaviour</b>"
+msgstr "<b>行为</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:3325
+msgid "Behaviour"
+msgstr "行为"
+
+#: ../resources/ui/modem-manager-gui.ui:3356
+msgid "Concatenate messages"
+msgstr "连接消息"
+
+#: ../resources/ui/modem-manager-gui.ui:3371
+msgid "Expand folders"
+msgstr "展开文件夹"
+
+#: ../resources/ui/modem-manager-gui.ui:3386
+msgid "Place old messages on top"
+msgstr "将旧信息放在顶部"
+
+#: ../resources/ui/modem-manager-gui.ui:3407
+msgid "<b>Presentation</b>"
+msgstr "<b>介绍</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:3437
+msgid "Validity period"
+msgstr "有效期"
+
+#: ../resources/ui/modem-manager-gui.ui:3446
+msgid "Send delivery report if possible"
+msgstr "如果可能的话发送递送报告"
+
+#: ../resources/ui/modem-manager-gui.ui:3484
+msgid "<b>Message parameters</b>"
+msgstr "<b>消息参数</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:3540
+msgid ""
+"<i><small>Use <b>%n</b> for message sender number and <b>%t</b> for it's "
+"text (eg. <b>zenity --info --title=%n --text=%t</b>).</small></i>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:3559
+msgid "<b>Custom command</b>"
+msgstr "<b>自定义指令</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:3632
+msgid "RX Speed graph color"
+msgstr "RX速度图表颜色"
+
+#: ../resources/ui/modem-manager-gui.ui:3644
+msgid "TX Speed graph color"
+msgstr "TX速度图表颜色"
+
+#: ../resources/ui/modem-manager-gui.ui:3656
+msgid "Movement direction"
+msgstr "运动方向"
+
+#: ../resources/ui/modem-manager-gui.ui:3670
+msgid "Left to right"
+msgstr "从左到右"
+
+#: ../resources/ui/modem-manager-gui.ui:3671
+msgid "Right to left"
+msgstr "从右到左"
+
+#: ../resources/ui/modem-manager-gui.ui:3687
+msgid "<b>Traffic</b>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:3700
+msgid "Graphs"
+msgstr "图表"
+
+#: ../resources/ui/modem-manager-gui.ui:3789
+msgid "<b>Preferred backends</b>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:3821
+msgid "Enable device"
+msgstr "启用设备"
+
+#: ../resources/ui/modem-manager-gui.ui:3833
+msgid "Send SMS message"
+msgstr "发送短信"
+
+#: ../resources/ui/modem-manager-gui.ui:3845
+msgid "Send USSD request"
+msgstr "发送USSD请求"
+
+#: ../resources/ui/modem-manager-gui.ui:3857
+msgid "Scan networks"
+msgstr "扫描网络"
+
+#: ../resources/ui/modem-manager-gui.ui:3937
+msgid "<b>Operations timeouts</b>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:3957
+msgid "Modules"
+msgstr "模块"
+
+#: ../resources/ui/modem-manager-gui.ui:4089
+msgid "<b>Active pages</b>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:4102
+msgid "Pages"
+msgstr "页面"
+
+#: ../resources/ui/modem-manager-gui.ui:4135
+msgid "Question"
+msgstr "问题"
+
+#: ../resources/ui/modem-manager-gui.ui:4171
+msgid "Traffic limits"
+msgstr "流量限制"
+
+#: ../resources/ui/modem-manager-gui.ui:4233
+msgid "Enable traffic limit"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:4248
+msgid "Enable time limit"
+msgstr "启用时间限制"
+
+#: ../resources/ui/modem-manager-gui.ui:4291
+msgid "Mb"
+msgstr "Mb"
+
+#: ../resources/ui/modem-manager-gui.ui:4292
+msgid "Gb"
+msgstr "Gb"
+
+#: ../resources/ui/modem-manager-gui.ui:4293
+msgid "Tb"
+msgstr "Tb"
+
+#: ../resources/ui/modem-manager-gui.ui:4305
+#: ../resources/ui/modem-manager-gui.ui:4396
+msgid "Message"
+msgstr "信息"
+
+#: ../resources/ui/modem-manager-gui.ui:4329
+#: ../resources/ui/modem-manager-gui.ui:4420
+msgid "Action"
+msgstr "动作"
+
+#: ../resources/ui/modem-manager-gui.ui:4343
+#: ../resources/ui/modem-manager-gui.ui:4434
+msgid "Show message"
+msgstr "显示消息"
+
+#: ../resources/ui/modem-manager-gui.ui:4344
+#: ../resources/ui/modem-manager-gui.ui:4435
+msgid "Disconnect"
+msgstr "断开"
+
+#: ../resources/ui/modem-manager-gui.ui:4357
+msgid "Time"
+msgstr "时间"
+
+#: ../resources/ui/modem-manager-gui.ui:4383
+msgid "Minutes"
+msgstr "分"
+
+#: ../resources/ui/modem-manager-gui.ui:4384
+msgid "Hours"
+msgstr "时"
+
+#: ../resources/ui/modem-manager-gui.ui:4464
+msgid "Traffic statistics"
+msgstr "流量统计"
+
+#: ../resources/ui/modem-manager-gui.ui:4518
+msgid "Selected statistics period"
+msgstr "选定统计期间"
+
+#: ../resources/ui/modem-manager-gui.ui:4559
+msgid "January"
+msgstr "一月"
+
+#: ../resources/ui/modem-manager-gui.ui:4560
+msgid "February"
+msgstr "二月"
+
+#: ../resources/ui/modem-manager-gui.ui:4561
+msgid "March"
+msgstr "三月"
+
+#: ../resources/ui/modem-manager-gui.ui:4562
+msgid "April"
+msgstr "四月"
+
+#: ../resources/ui/modem-manager-gui.ui:4563
+msgid "May"
+msgstr "五月"
+
+#: ../resources/ui/modem-manager-gui.ui:4564
+msgid "June"
+msgstr "六月"
+
+#: ../resources/ui/modem-manager-gui.ui:4565
+msgid "July"
+msgstr "七月"
+
+#: ../resources/ui/modem-manager-gui.ui:4566
+msgid "August"
+msgstr "八月"
+
+#: ../resources/ui/modem-manager-gui.ui:4567
+msgid "September"
+msgstr "九月"
+
+#: ../resources/ui/modem-manager-gui.ui:4568
+msgid "October"
+msgstr "十月"
+
+#: ../resources/ui/modem-manager-gui.ui:4569
+msgid "November"
+msgstr "十一月"
+
+#: ../resources/ui/modem-manager-gui.ui:4570
+msgid "December"
+msgstr "十二月"
+
+#: ../resources/ui/modem-manager-gui.ui:4627
+msgid "USSD commands"
+msgstr "USSD指令"
+
+#: ../resources/ui/modem-manager-gui.ui:4680
+msgid "Add new USSD command <b>CTRL+N</b>"
+msgstr "添加新的USSD指令 <b>CTRL+N</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:4682
+msgid "Add"
+msgstr "添加"
+
+#: ../resources/ui/modem-manager-gui.ui:4696
+msgid "Remove selected USSD command <b>CTRL+D</b>"
+msgstr "删除选择的USSD指令 <b>CTRL+D</b>"
+
+#: ../resources/ui/modem-manager-gui.ui:4698
+msgid "Delete"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:4722
+msgid ""
+"Force USSD answer encoding change from GSM7 to UCS2 (useful for Huawei "
+"modems) <b>CTRL+E</b>"
+msgstr ""
+
+#: ../resources/ui/modem-manager-gui.ui:4724
+msgid "Change message encoding"
+msgstr ""

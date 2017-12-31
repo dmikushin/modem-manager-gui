@@ -1,0 +1,38 @@
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: Modem Manager GUI\n"
+"POT-Creation-Date: 2015-10-11 20:38+0300\n"
+"PO-Revision-Date: 2017-09-23 07:58+0000\n"
+"Last-Translator: L'Africain <lafricain79@gmail.com>\n"
+"Language-Team: French (http://www.transifex.com/ethereal/modem-manager-gui/language/fr/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: fr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#. (itstool) path: action/description
+#: ru.linuxonly.modem-manager-gui.policy.in:10
+msgid "Enable and start modem management services"
+msgstr "Activer et démarrer les services de gestion de modem"
+
+#. (itstool) path: action/message
+#: ru.linuxonly.modem-manager-gui.policy.in:11
+msgid ""
+"Modem management services aren't running. You need to authenticate to enable"
+" and start these services."
+msgstr "Les services de gestion du modem ne sont pas en cours d'exécution. Vous devez vous authentifier pour activer et démarrer ces services."
+
+#. (itstool) path: action/description
+#: ru.linuxonly.modem-manager-gui.policy.in:21
+msgid "Use modem management service"
+msgstr "Utiliser le service de gestion des modems"
+
+#. (itstool) path: action/message
+#: ru.linuxonly.modem-manager-gui.policy.in:22
+msgid ""
+"Modem management service needs your credentials. You need to authenticate to"
+" use this service."
+msgstr "Le service de gestion du modem a besoin de vos informations d'identification. Vous devez vous authentifier pour utiliser ce service."
