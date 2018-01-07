@@ -747,7 +747,7 @@ msgstr "Utilisez <app>Modem Manager GUI</app> pour envoyer les requêtes USSD et
 #. (itstool) path: page/title
 #: C/usage-ussd.page:25
 msgid "USSD codes"
-msgstr "Codes USSD "
+msgstr "Codes USSD"
 
 #. (itstool) path: page/p
 #: C/usage-ussd.page:26
@@ -788,7 +788,7 @@ msgid ""
 " displayed. This code is the usual one for requesting the balance for a "
 "prepaid card. If you like to send another code, click on the <gui "
 "style=\"button\">Edit</gui> button on the right"
-msgstr "Dans l'entrée de texte en haut de la fenêtre, le code <cmd> *100#</cmd> est déjà affiché. Ce code est habituellement utilisé pour demander le solde d'une carte prépayée. Si vous souhaitez envoyer un autre code, cliquez sur le bouton <gui style =\"button\"> Éditer</ gui> à droite."
+msgstr "Dans l'entrée de texte en haut de la fenêtre, le code <cmd>*100#</cmd> est déjà affiché. Ce code est habituellement utilisé pour demander le solde d'une carte prépayée. Si vous souhaitez envoyer un autre code, cliquez sur le bouton <gui style=\"button\">Éditer</gui> à droite."
 
 #. (itstool) path: page/p
 #: C/usage-ussd.page:42
@@ -797,7 +797,7 @@ msgid ""
 "attention to hints displayed under USSD answers. You can send USSD responses"
 " using text entry for USSD commands. If you'll send new USSD command while "
 "USSD session is active, this session will be closed automatically."
-msgstr "<App>Modem Manager GUI</app> prend en charge les sessions USSD interactives, faites attention aux indications affichées avec les réponses USSD. Vous pouvez envoyer des réponses USSD en utilisant les entrées de texte pour les commandes USSD. Si vous envoyez une nouvelle commande USSD alors que la session USSD est active, cette session sera fermée automatiquement."
+msgstr "<app>Modem Manager GUI</app> prend en charge les sessions USSD interactives, faites attention aux indications affichées avec les réponses USSD. Vous pouvez envoyer des réponses USSD en utilisant les entrées de texte pour les commandes USSD. Si vous envoyez une nouvelle commande USSD alors que la session USSD est active, cette session sera fermée automatiquement."
 
 #. (itstool) path: note/p
 #: C/usage-ussd.page:47
@@ -806,7 +806,7 @@ msgid ""
 "click on the <gui style=\"button\">Edit</gui> button and toggle the <gui "
 "style=\"button\">Change message encoding</gui> button in the toolbar of "
 "opened window."
-msgstr "Si vous utilisez des périphériques Huawei et obtenez des réponses USSD illisibles, vous pouvez essayer de cliquer sur le bouton <gui style = \"button\"> Éditer</ gui> et cliquer sur le bouton <gui style = \"button\">Modifier l'encodage des messages</ gui> dans la barre d'outils de la fenêtre ouverte."
+msgstr "Si vous utilisez des périphériques Huawei et obtenez des réponses USSD illisibles, vous pouvez essayer de cliquer sur le bouton <gui style = \"button\"> Éditer</gui> et cliquer sur le bouton <gui style=\"button\">Modifier l'encodage des messages</gui> dans la barre d'outils de la fenêtre ouverte."
 
 #. (itstool) path: note/p
 #: C/usage-ussd.page:53
