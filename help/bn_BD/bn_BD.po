@@ -224,7 +224,7 @@ msgstr "<app>মডেম ম্যনেজার গুই</app> ModemManager 
 #. (itstool) path: page/p
 #: C/index.page:30
 msgid "You can use <app>Modem Manager GUI</app> for the following tasks:"
-msgstr "আপনি<মডেম <app>ম্যনেজার গুই</app> ব্যবহার করতে পারেন এই কাজগুলোর জন্যঃ"
+msgstr "আপনি <app>মডেম ম্যনেজার গুই</app> ব্যবহার করতে পারেন এই কাজগুলোর জন্যঃ"
 
 #. (itstool) path: item/p
 #: C/index.page:35
