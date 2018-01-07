@@ -144,7 +144,7 @@ msgid ""
 "The graphical user interface, the traditional man page and the Gnome-style "
 "user manual of <app>Modem Manager GUI</app> can be translated into your "
 "language."
-msgstr "L'interface utilisateur graphique, la page de manuel traditionnelle et l'aide Gnome de <app>Modem Manager GUI</ app> peuvent être traduits dans votre langue."
+msgstr "L'interface utilisateur graphique, la page de manuel traditionnelle et l'aide Gnome de <app>Modem Manager GUI</app> peuvent être traduits dans votre langue."
 
 #. (itstool) path: page/p
 #: C/contrib-translations.page:25
@@ -407,7 +407,7 @@ msgid ""
 "system contacts storages. Supported system contact storages are: Evolution "
 "Data Server used by GNOME applications (GNOME contacts section) and Akonadi "
 "server used by KDE applications (KDE contacts section)."
-msgstr "Le modem à large bande a accès aux contacts stockés sur la carte SIM. Certains modems peuvent également stocker des contacts dans la mémoire interne. <App>Modem Manager GUI</app> peut fonctionner avec les contacts de ces stockages et peut également exporter des contacts à partir des contacts du système. Les stockages de contacts système pris en charge sont : Evolution Data Server utilisé par les applications GNOME (section contacts GNOME) et le serveur Akonadi utilisé par les applications KDE (section contacts KDE)."
+msgstr "Le modem à large bande a accès aux contacts stockés sur la carte SIM. Certains modems peuvent également stocker des contacts dans la mémoire interne. <app>Modem Manager GUI</app> peut fonctionner avec les contacts de ces stockages et peut également exporter des contacts à partir des contacts du système. Les stockages de contacts système pris en charge sont : Evolution Data Server utilisé par les applications GNOME (section contacts GNOME) et le serveur Akonadi utilisé par les applications KDE (section contacts KDE)."
 
 #. (itstool) path: p/media
 #. This is a reference to an external file such as an image or video. When
@@ -554,7 +554,7 @@ msgid ""
 "After clicking on a device, it might be needed to activate it first, if it "
 "was not otherwise activated on your system. <app>Modem Manager GUI</app> "
 "will ask you for confirmation in that case."
-msgstr "Après avoir cliqué sur un périphérique, il peut s'avérer nécessaire de l'activer en premier si celui-ci n'était pas activé sur votre système. <App>Modem Manager GUI</app> vous demandera  dans ce cas une confirmation."
+msgstr "Après avoir cliqué sur un périphérique, il peut s'avérer nécessaire de l'activer en premier si celui-ci n'était pas activé sur votre système. <app>Modem Manager GUI</app> vous demandera  dans ce cas une confirmation."
 
 #. (itstool) path: page/p
 #: C/usage-modem.page:37
