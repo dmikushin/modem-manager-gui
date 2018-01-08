@@ -84,7 +84,7 @@ msgstr "Ce programme est distribué sous les termes de la Licence publique gén�
 #. (itstool) path: info/desc
 #: C/contrib-code.page:9
 msgid "How you can help make <app>Modem Manager GUI </app> better."
-msgstr "Comment puis-je aider à améliorer <app>Modem Manager GUI </app>."
+msgstr "Comment puis-je aider à améliorer <app>Modem Manager GUI</app>."
 
 #. (itstool) path: page/title
 #: C/contrib-code.page:25
@@ -159,7 +159,7 @@ msgstr "Il existe une page du projet <link href=\"https://www.transifex.com/proj
 msgid ""
 "For general help on how Transifex works, see the <link "
 "href=\"http://support.transifex.com/\">Transifex Help Desk</link>."
-msgstr "Pour obtenir de l'aide générale sur le fonctionnement de Transifex, consultez le <link href =\"http://support.transifex.com/\"> service d'assistance de Transifex </link>."
+msgstr "Pour obtenir de l'aide générale sur le fonctionnement de Transifex, consultez le <link href =\"http://support.transifex.com/\">service d'assistance de Transifex</link>."
 
 #. (itstool) path: note/p
 #: C/contrib-translations.page:35
@@ -169,7 +169,7 @@ msgid ""
 "</link>. Although <app>Modem Manager GUI</app> shouldn't be considered as "
 "pure Gnome software, it will be often used in GTK based environments and "
 "should match the conceptual world of such applications."
-msgstr "Pour votre travail, vous devriez jeter un coup d'œil aux règles et aux dictionnaires des équipes locales de traduction <link href=\"https://l10n.gnome.org/teams/\">Gnome </link>. Bien que <app>Modem Manager GUI</app> ne soit pas considéré à proprement parler comme un logiciel Gnome, il sera souvent utilisé dans des environnements basés sur GTK et devrait correspondre au monde conceptuel de ces applications."
+msgstr "Pour votre travail, vous devriez jeter un coup d'œil aux règles et aux dictionnaires des équipes locales de traduction <link href=\"https://l10n.gnome.org/teams/\">Gnome</link>. Bien que <app>Modem Manager GUI</app> ne soit pas considéré à proprement parler comme un logiciel Gnome, il sera souvent utilisé dans des environnements basés sur GTK et devrait correspondre au monde conceptuel de ces applications."
 
 #. (itstool) path: info/desc
 #: C/index.page:6
@@ -184,7 +184,7 @@ msgstr "Aide de Modem Manager GUI."
 #: C/index.page:7
 msgctxt "_"
 msgid "external ref='figures/gnome-hello-logo.png' md5='__failed__'"
-msgstr "external ref='figures/gnome-hello-logo.png' md5='__échec__'"
+msgstr "external ref='figures/gnome-hello-logo.png' md5='__failed__'"
 
 #. (itstool) path: info/title
 #: C/index.page:8
@@ -806,7 +806,7 @@ msgid ""
 "click on the <gui style=\"button\">Edit</gui> button and toggle the <gui "
 "style=\"button\">Change message encoding</gui> button in the toolbar of "
 "opened window."
-msgstr "Si vous utilisez des périphériques Huawei et obtenez des réponses USSD illisibles, vous pouvez essayer de cliquer sur le bouton <gui style = \"button\"> Éditer</gui> et cliquer sur le bouton <gui style=\"button\">Modifier l'encodage des messages</gui> dans la barre d'outils de la fenêtre ouverte."
+msgstr "Si vous utilisez des périphériques Huawei et obtenez des réponses USSD illisibles, vous pouvez essayer de cliquer sur le bouton <gui style=\"button\">Éditer</gui> et cliquer sur le bouton <gui style=\"button\">Modifier l'encodage des messages</gui> dans la barre d'outils de la fenêtre ouverte."
 
 #. (itstool) path: note/p
 #: C/usage-ussd.page:53
@@ -828,4 +828,5 @@ msgstr "Vous pouvez utiliser de tels codes à plusieurs fins : plan de changem
 msgid ""
 "<_:info-1/> <_:title-2/> <_:p-3/> <_:p-4/> <_:figure-5/> <_:p-6/>. <_:p-7/> "
 "<_:note-8/> <_:note-9/> <_:p-10/>"
-msgstr "<_:info-1/> <_:titre-2/> <_:p-3/> <_:p-4/> <_:image-5/> <_:p-6/>. <_:p-7/> <_:note-8/> <_:note-9/> <_:p-10/>"
+msgstr "<_:info-1/> <_:title-2/> <_:p-3/> <_:p-4/> <_:figure-5/> <_:p-6/>. <_:p-7/> "
+"<_:note-8/> <_:note-9/> <_:p-10/>"
