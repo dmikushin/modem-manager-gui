@@ -147,7 +147,7 @@ echo "/*
 #ifndef __RESOURCES_H__
 #define __RESOURCES_H__
 
-#define RESOURCE_MAINWINDOW_ICON         \"$prefix/share/pixmaps/modem-manager-gui.png\"
+#define RESOURCE_MAINWINDOW_ICON         \"$prefix/share/icons/hicolor/128x128/apps/modem-manager-gui.png\"
 #define RESOURCE_MAINWINDOW_UI           \"$prefix/share/modem-manager-gui/ui/modem-manager-gui.ui\"
 
 #define RESOURCE_TOOLBAR_DEV             \"$prefix/share/modem-manager-gui/pixmaps/dev-tb.png\"
