@@ -1,7 +1,7 @@
 /*
  *      devices-page.c
  *      
- *      Copyright 2012-2017 Alex <alex@linuxonly.ru>
+ *      Copyright 2012-2018 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -81,7 +81,7 @@ gboolean mmgui_main_device_handle_removed_from_thread(gpointer data)
 	/*Look for available devices*/
 	if (!g_slist_length(mmguicore_devices_get_list(mmguiappdata->mmguiapp->core))) {
 		/*No devices available, lock control buttons*/
-		mmgui_main_ui_control_buttons_disable(mmguiappdata->mmguiapp, TRUE);
+		mmgui_main_ui_controls_disable(mmguiappdata->mmguiapp, TRUE, TRUE, TRUE);
 		/*Update connections controls*/
 		mmgui_main_device_connections_update_state(mmguiappdata->mmguiapp);
 	} else if (mmguicore_devices_get_current(mmguiappdata->mmguiapp->core) == NULL) {
@@ -336,17 +336,17 @@ gboolean mmgui_main_device_select_from_list(mmgui_application_t mmguiapp, gchar 
 	
 	if (selected) {
 		if (mmguicore_devices_open(mmguiapp->core, curid, TRUE)) {
-			mmgui_main_ui_control_buttons_disable(mmguiapp, FALSE);
+			mmgui_main_ui_controls_disable(mmguiapp, FALSE, FALSE, TRUE);
 			gmm_settings_set_string(mmguiapp->settings, "device_identifier", identifier);
 			return TRUE;
 		} else {
-			mmgui_main_ui_control_buttons_disable(mmguiapp, TRUE);
+			mmgui_main_ui_controls_disable(mmguiapp, TRUE, TRUE, TRUE);
 			mmgui_main_device_connections_update_state(mmguiapp);
 			mmgui_main_ui_error_dialog_open(mmguiapp, _("<b>Error opening device</b>"), mmguicore_get_last_error(mmguiapp->core));
 		}
 	} else {
 		g_debug("No devices to select\n");
-		mmgui_main_ui_control_buttons_disable(mmguiapp, TRUE);
+		mmgui_main_ui_controls_disable(mmguiapp, TRUE, TRUE, TRUE);
 		mmgui_main_device_connections_update_state(mmguiapp);
 	}
 	

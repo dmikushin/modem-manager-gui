@@ -1,7 +1,7 @@
 /*
  *      main.c
  *      
- *      Copyright 2012-2017 Alex <alex@linuxonly.ru>
+ *      Copyright 2012-2018 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -477,6 +477,7 @@ gboolean mmgui_main_ui_error_dialog_open(mmgui_application_t mmguiapp, gchar *ca
 static gboolean mmgui_ui_infobar_show_result_timer(gpointer data)
 {
 	mmgui_application_t mmguiapp;
+	guint page;
 			
 	mmguiapp = (mmgui_application_t)data;
 	
@@ -488,6 +489,13 @@ static gboolean mmgui_ui_infobar_show_result_timer(gpointer data)
 	/*Hide infobar*/
 	gtk_widget_set_visible(mmguiapp->window->infobar, FALSE);
 	
+	/*Update state*/
+	if (mmguiapp->window->infobarlock) {
+		mmguiapp->window->infobarlock = FALSE;
+		page = gtk_notebook_get_current_page(GTK_NOTEBOOK(mmguiapp->window->notebook));
+		mmgui_main_ui_test_device_state(mmguiapp, page);
+	}
+	
 	return G_SOURCE_REMOVE;
 }
 
@@ -497,8 +505,6 @@ void mmgui_ui_infobar_show_result(mmgui_application_t mmguiapp, gint result, gch
 	guint page;
 	
 	if (mmguiapp == NULL) return;
-	
-	printf("Result %u -> %s\n", result, message);
 	
 	switch (result) {
 		case MMGUI_MAIN_INFOBAR_RESULT_SUCCESS:
@@ -550,25 +556,7 @@ void mmgui_ui_infobar_show_result(mmgui_application_t mmguiapp, gint result, gch
 	}
 	
 	/*Unblock controls*/
-	page = gtk_notebook_get_current_page(GTK_NOTEBOOK(mmguiapp->window->notebook));
-	mmgui_main_ui_test_device_state(mmguiapp, page);
-	/*Toolbar*/
-	gtk_widget_set_sensitive(mmguiapp->window->devbutton, TRUE);
-	gtk_widget_set_sensitive(mmguiapp->window->smsbutton, TRUE);
-	gtk_widget_set_sensitive(mmguiapp->window->ussdbutton, TRUE);
-	gtk_widget_set_sensitive(mmguiapp->window->infobutton, TRUE);
-	gtk_widget_set_sensitive(mmguiapp->window->scanbutton, TRUE);
-	gtk_widget_set_sensitive(mmguiapp->window->trafficbutton, TRUE);
-	gtk_widget_set_sensitive(mmguiapp->window->contactsbutton, TRUE);
-	/*Application menu*/
-	mmgui_main_ui_application_menu_set_state(mmguiapp, TRUE);
-	
-	if (mmguiapp->window->infobarlock) {
-		/*Update state*/
-		page = gtk_notebook_get_current_page(GTK_NOTEBOOK(mmguiapp->window->notebook));
-		mmgui_main_ui_test_device_state(mmguiapp, page);
-		mmguiapp->window->infobarlock = FALSE;
-	}
+	mmgui_main_ui_controls_disable(mmguiapp, FALSE, FALSE, TRUE);
 }
 
 static gboolean mmgui_ui_infobar_timeout_timer(gpointer data)
@@ -598,8 +586,6 @@ void mmgui_ui_infobar_show(mmgui_application_t mmguiapp, gchar *message, gint ty
 	if ((mmguiapp == NULL) || (message == NULL)) return;
 	
 	if (mmguiapp->window->infobarlock) return;
-	
-	printf("Infobar %u -> %s\n", type, message);
 	
 	/*First of all remove timeout timer (if any)*/
 	if (mmguiapp->window->infobartimeout > 0) {
@@ -632,18 +618,7 @@ void mmgui_ui_infobar_show(mmgui_application_t mmguiapp, gchar *message, gint ty
 		/*Lock infobar for progress operation*/
 		mmguiapp->window->infobarlock = TRUE;
 		/*Block controls*/
-		page = gtk_notebook_get_current_page(GTK_NOTEBOOK(mmguiapp->window->notebook));
-		mmgui_main_ui_page_control_disable(mmguiapp, page, TRUE, FALSE);
-		/*Toolbar*/
-		gtk_widget_set_sensitive(mmguiapp->window->devbutton, FALSE);
-		gtk_widget_set_sensitive(mmguiapp->window->smsbutton, FALSE);
-		gtk_widget_set_sensitive(mmguiapp->window->ussdbutton, FALSE);
-		gtk_widget_set_sensitive(mmguiapp->window->infobutton, FALSE);
-		gtk_widget_set_sensitive(mmguiapp->window->scanbutton, FALSE);
-		gtk_widget_set_sensitive(mmguiapp->window->trafficbutton, FALSE);
-		gtk_widget_set_sensitive(mmguiapp->window->contactsbutton, FALSE);
-		/*Application menu*/
-		mmgui_main_ui_application_menu_set_state(mmguiapp, FALSE);
+		mmgui_main_ui_controls_disable(mmguiapp, TRUE, FALSE, FALSE);
 		/*Prepare infobar*/
 		gtk_info_bar_set_message_type(GTK_INFO_BAR(mmguiapp->window->infobar), msgtype);
 		gtk_widget_set_visible(mmguiapp->window->infobarimage, FALSE);
@@ -655,7 +630,7 @@ void mmgui_ui_infobar_show(mmgui_application_t mmguiapp, gchar *message, gint ty
 		} else {
 			gtk_widget_set_visible(mmguiapp->window->infobarstopbutton, FALSE);
 		}
-		/*Set new timeout timer */
+		/*Set new timeout timer*/
 		mmguiapp->window->infobartimeout = g_timeout_add_seconds(MMGUI_MAIN_OPERATION_TIMEOUT, mmgui_ui_infobar_timeout_timer, mmguiapp);
 	} else {
 		gtk_image_set_from_icon_name(GTK_IMAGE(mmguiapp->window->infobarimage), iconname, GTK_ICON_SIZE_BUTTON);
@@ -685,6 +660,7 @@ void mmgui_ui_infobar_show(mmgui_application_t mmguiapp, gchar *message, gint ty
 	gtk_box_pack_start(GTK_BOX(mmguiapp->window->windowbox), mmguiapp->window->infobar, FALSE, TRUE, 0);
 	gtk_widget_set_vexpand(GTK_WIDGET(mmguiapp->window->infobar), FALSE);
 	gtk_box_reorder_child(GTK_BOX(mmguiapp->window->windowbox), mmguiapp->window->infobar, 1);
+	
 	/*Show infobar*/
 	gtk_widget_set_visible(mmguiapp->window->infobar, TRUE);
 }
@@ -777,11 +753,11 @@ static gboolean mmgui_ui_infobar_pin_callback(gpointer data)
 	if (response == GTK_RESPONSE_APPLY) {
 		pin = (gchar *)gtk_entry_get_text(GTK_ENTRY(mmguiapp->window->pinentry));
 		if (mmguicore_devices_unlock_with_pin(mmguiapp->core, pin)) {
-			mmgui_ui_infobar_show(mmguiapp, _("Unlocking device..."), MMGUI_MAIN_INFOBAR_TYPE_PROGRESS, NULL, NULL);
+			mmgui_ui_infobar_show(mmguiapp, _("Unlocking device..."), MMGUI_MAIN_INFOBAR_TYPE_PROGRESS_UNSTOPPABLE, NULL, NULL);
 		}
 	}
 	
-	return TRUE;
+	return FALSE;
 }
 
 static gboolean mmgui_ui_infobar_enable_callback(gpointer data)
@@ -826,23 +802,9 @@ void mmgui_ui_infobar_process_stop_signal(GtkInfoBar *info_bar, gint response_id
 	if (res) {
 		mmgui_ui_infobar_show_result(mmguiapp, MMGUI_MAIN_INFOBAR_RESULT_INTERRUPT, NULL);
 		/*Unblock controls*/
-		page = gtk_notebook_get_current_page(GTK_NOTEBOOK(mmguiapp->window->notebook));
-		mmgui_main_ui_test_device_state(mmguiapp, page);
-		/*Toolbar*/
-		gtk_widget_set_sensitive(mmguiapp->window->devbutton, TRUE);
-		gtk_widget_set_sensitive(mmguiapp->window->smsbutton, TRUE);
-		gtk_widget_set_sensitive(mmguiapp->window->ussdbutton, TRUE);
-		gtk_widget_set_sensitive(mmguiapp->window->infobutton, TRUE);
-		gtk_widget_set_sensitive(mmguiapp->window->scanbutton, TRUE);
-		gtk_widget_set_sensitive(mmguiapp->window->trafficbutton, TRUE);
-		gtk_widget_set_sensitive(mmguiapp->window->contactsbutton, TRUE);
-		/*Application menu*/
-		mmgui_main_ui_application_menu_set_state(mmguiapp, TRUE);
-		
+		mmgui_main_ui_controls_disable(mmguiapp, FALSE, FALSE, TRUE);
+		/*Release lock*/
 		if (mmguiapp->window->infobarlock) {
-			/*Update state*/
-			page = gtk_notebook_get_current_page(GTK_NOTEBOOK(mmguiapp->window->notebook));
-			mmgui_main_ui_test_device_state(mmguiapp, page);
 			mmguiapp->window->infobarlock = FALSE;
 		}
 	}
@@ -1136,7 +1098,7 @@ gboolean mmgui_main_ui_test_device_state(mmgui_application_t mmguiapp, guint set
 	registered = mmguicore_devices_get_registered(mmguiapp->core);
 	prepared = mmguicore_devices_get_prepared(mmguiapp->core);
 	
-	g_debug("STATE: locked: %u, enabled: %u, registered: %u, prepared: %u\n", locked, enabled, registered, prepared);
+	g_debug("Device state: locked: %u, enabled: %u, registered: %u, prepared: %u", locked, enabled, registered, prepared);
 	
 	/*Common messages*/
 	prepmessage = _("Modem is not ready for operation. Please wait while modem being prepared...");
@@ -1849,10 +1811,13 @@ static void mmgui_main_ui_section_menu_item_activate_signal(GSimpleAction *actio
 	}
 }
 
-
-void mmgui_main_ui_control_buttons_disable(mmgui_application_t mmguiapp, gboolean disable)
+void mmgui_main_ui_controls_disable(mmgui_application_t mmguiapp, gboolean disable, gboolean firstpage, gboolean updatestate)
 {
+	guint page;
+	
 	if (mmguiapp == NULL) return;
+	
+	page = gtk_notebook_get_current_page(GTK_NOTEBOOK(mmguiapp->window->notebook));
 	
 	/*Toolbar*/
 	gtk_widget_set_sensitive(mmguiapp->window->smsbutton, !disable);
@@ -1864,22 +1829,28 @@ void mmgui_main_ui_control_buttons_disable(mmgui_application_t mmguiapp, gboolea
 	
 	/*Application menu*/
 	mmgui_main_ui_application_menu_set_state(mmguiapp, !disable);
-	
-	/*Hide infobar*/
-	if (!disable) {
-		mmgui_ui_infobar_show_result(mmguiapp, MMGUI_MAIN_INFOBAR_RESULT_INTERRUPT, NULL);
-	}
-	
+		
 	if (disable) {
-		/*Toolbar*/
-		gtk_toggle_tool_button_set_active(GTK_TOGGLE_TOOL_BUTTON(mmguiapp->window->devbutton), TRUE);
-		gtk_notebook_set_current_page(GTK_NOTEBOOK(mmguiapp->window->notebook), MMGUI_MAIN_PAGE_DEVICES);
-		/*Application menu*/
-		mmgui_main_ui_application_menu_set_page(mmguiapp, MMGUI_MAIN_PAGE_DEVICES);
+		if (firstpage) {
+			/*Toolbar*/
+			gtk_toggle_tool_button_set_active(GTK_TOGGLE_TOOL_BUTTON(mmguiapp->window->devbutton), TRUE);
+			gtk_notebook_set_current_page(GTK_NOTEBOOK(mmguiapp->window->notebook), MMGUI_MAIN_PAGE_DEVICES);
+			/*Application menu*/
+			mmgui_main_ui_application_menu_set_page(mmguiapp, MMGUI_MAIN_PAGE_DEVICES);
+		} else {
+			gtk_widget_set_sensitive(mmguiapp->window->devbutton, FALSE);
+			mmgui_main_ui_page_control_disable(mmguiapp, page, TRUE, FALSE);
+		}
+	} else {
+		if (!firstpage) {
+			gtk_widget_set_sensitive(mmguiapp->window->devbutton, TRUE);
+		}
 	}
 	
 	/*Update state*/
-	mmgui_main_ui_test_device_state(mmguiapp, MMGUI_MAIN_PAGE_DEVICES);
+	if (updatestate) {
+		mmgui_main_ui_test_device_state(mmguiapp, page);
+	}
 }
 
 gboolean mmgui_main_ui_update_statusbar_from_thread(gpointer data)

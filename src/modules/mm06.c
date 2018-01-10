@@ -1496,7 +1496,16 @@ static gboolean mmgui_module_devices_update_device_mode(gpointer mmguicore, gint
 	/*Blocked status signal*/
 	if (blockedsignal) {
 		if (mmguicorelc->eventcb != NULL) {
-			(mmguicorelc->eventcb)(MMGUI_EVENT_DEVICE_BLOCKED_STATUS, mmguicorelc, GUINT_TO_POINTER(device->blocked));
+			if (device->operation != MMGUI_DEVICE_OPERATION_UNLOCK) {
+				(mmguicorelc->eventcb)(MMGUI_EVENT_DEVICE_BLOCKED_STATUS, mmguicorelc, GUINT_TO_POINTER(device->blocked));
+			} else {
+				if (mmguicorelc->device != NULL) {
+					mmguicorelc->device->operation = MMGUI_DEVICE_OPERATION_IDLE;
+				}
+				if (mmguicorelc->eventcb != NULL) {
+					(mmguicorelc->eventcb)(MMGUI_EVENT_MODEM_UNLOCK_WITH_PIN_RESULT, mmguicorelc, GUINT_TO_POINTER(TRUE));
+				}
+			}
 		}
 	}
 	/*Registered status signal*/

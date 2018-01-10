@@ -549,7 +549,16 @@ static void mmgui_module_card_signal_handler(GDBusProxy *proxy, const gchar *sen
 							mmguicore->device->blocked = mmgui_module_device_get_locked_from_unlock_string(parameter);
 							mmguicore->device->locktype = mmgui_module_device_get_lock_type_from_unlock_string(parameter);
 							if (mmguicore->eventcb != NULL) {
-								(mmguicore->eventcb)(MMGUI_EVENT_DEVICE_BLOCKED_STATUS, mmguicore, GUINT_TO_POINTER(mmguicore->device->blocked));
+								if (mmguicore->device->operation != MMGUI_DEVICE_OPERATION_UNLOCK) {
+									(mmguicore->eventcb)(MMGUI_EVENT_DEVICE_BLOCKED_STATUS, mmguicore, GUINT_TO_POINTER(mmguicore->device->blocked));
+								} else {
+									if (mmguicore->device != NULL) {
+										mmguicore->device->operation = MMGUI_DEVICE_OPERATION_IDLE;
+									}
+									if (mmguicore->eventcb != NULL) {
+										(mmguicore->eventcb)(MMGUI_EVENT_MODEM_UNLOCK_WITH_PIN_RESULT, mmguicore, GUINT_TO_POINTER(TRUE));
+									}
+								}
 							}
 						}
 					}

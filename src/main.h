@@ -407,10 +407,8 @@ typedef struct _mmgui_application_data *mmgui_application_data_t;
 
 gboolean mmgui_main_ui_question_dialog_open(mmgui_application_t mmguiapp, gchar *caption, gchar *text);
 gboolean mmgui_main_ui_error_dialog_open(mmgui_application_t mmguiapp, gchar *caption, gchar *text);
-
 void mmgui_ui_infobar_show_result(mmgui_application_t mmguiapp, gint result, gchar *message);
 void mmgui_ui_infobar_show(mmgui_application_t mmguiapp, gchar *message, gint type, mmgui_infobar_close_func callback, gchar *buttoncaption);
-
 gboolean mmgui_main_ui_test_device_state(mmgui_application_t mmguiapp, guint setpage);
 void mmgui_main_ui_devices_button_toggled_signal(GObject *object, gpointer data);
 void mmgui_main_ui_sms_button_toggled_signal(GObject *object, gpointer data);
@@ -424,7 +422,7 @@ gboolean mmgui_main_ui_window_delete_event_signal(GtkWidget *widget, GdkEvent  *
 void mmgui_main_ui_window_destroy_signal(GObject *object, gpointer data);
 gchar *mmgui_main_ui_message_validity_scale_value_format(GtkScale *scale, gdouble value, gpointer user_data);
 gchar *mmgui_main_ui_timeout_scale_value_format(GtkScale *scale, gdouble value, gpointer user_data);
-void mmgui_main_ui_control_buttons_disable(mmgui_application_t mmguiapp, gboolean disable);
+void mmgui_main_ui_controls_disable(mmgui_application_t mmguiapp, gboolean disable, gboolean firstpage, gboolean updatestate);
 void mmgui_main_ui_interrupt_operation_button_clicked_signal(GObject *object, gpointer data);
 gboolean mmgui_main_ui_update_statusbar_from_thread(gpointer data);
 
