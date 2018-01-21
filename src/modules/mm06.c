@@ -260,58 +260,69 @@ static void mmgui_module_signal_handler(GDBusProxy *proxy, const gchar *sender_n
 	moduledata = (moduledata_t)mmguicore->moduledata;
 	if (moduledata == NULL) return;
 	
-	if (mmguicore->eventcb != NULL) {
-		if (g_str_equal(signal_name, "DeviceAdded")) {
-			g_variant_get(parameters, "(o)", &devpath);
-			if (devpath != NULL) {
-				device = mmgui_module_device_new(mmguicore, devpath);
+	if (g_str_equal(signal_name, "DeviceAdded")) {
+		g_variant_get(parameters, "(o)", &devpath);
+		if (devpath != NULL) {
+			device = mmgui_module_device_new(mmguicore, devpath);
+			if (mmguicore->eventcb != NULL) {
 				(mmguicore->eventcb)(MMGUI_EVENT_DEVICE_ADDED, mmguicore, device);
 			}
-		} else if (g_str_equal(signal_name, "DeviceRemoved")) {
-			g_variant_get(parameters, "(o)", &devpath);
-			if (devpath != NULL) {
-				id = mmgui_module_device_id(devpath);
+		}
+	} else if (g_str_equal(signal_name, "DeviceRemoved")) {
+		g_variant_get(parameters, "(o)", &devpath);
+		if (devpath != NULL) {
+			id = mmgui_module_device_id(devpath);
+			if (mmguicore->eventcb != NULL) {
 				(mmguicore->eventcb)(MMGUI_EVENT_DEVICE_REMOVED, mmguicore, GUINT_TO_POINTER(id));
 			}
-		} else if (g_str_equal(signal_name, "Completed")) {
-			g_variant_get(parameters, "(ub)", &id, &status);
-			if ((status) && (!moduledata->needsmspolling)) {
+		}
+	} else if (g_str_equal(signal_name, "Completed")) {
+		g_variant_get(parameters, "(ub)", &id, &status);
+		if ((status) && (!moduledata->needsmspolling)) {
+			if (mmguicore->eventcb != NULL) {
 				(mmguicore->eventcb)(MMGUI_EVENT_SMS_COMPLETED, mmguicore, GUINT_TO_POINTER(id));
 			}
-		} else if (g_str_equal(signal_name, "SignalQuality")) {
-			g_variant_get(parameters, "(u)", &id);
-			if (mmguicore->device != NULL) {
-				mmguicore->device->siglevel = id;
+		}
+	} else if (g_str_equal(signal_name, "SignalQuality")) {
+		g_variant_get(parameters, "(u)", &id);
+		if (mmguicore->device != NULL) {
+			mmguicore->device->siglevel = id;
+			if (mmguicore->eventcb != NULL) {
 				(mmguicore->eventcb)(MMGUI_EVENT_SIGNAL_LEVEL_CHANGE, mmguicore, mmguicore->device);
 			}
-		} else if (g_str_equal(signal_name, "RegistrationInfo")) {
-			if (mmguicore->device != NULL) {
-				g_variant_get(parameters, "(uss)", &regstatus, &operatorcode, &operatorname);
-				if (mmguicore->device->operatorname != NULL) {
-					g_free(mmguicore->device->operatorname);
-					mmguicore->device->operatorname = NULL;
-				}
-				mmguicore->device->registered = mmgui_module_device_registered_from_status(regstatus);
-				mmguicore->device->regstatus = mmgui_module_registration_status_translate(regstatus);
-				mmguicore->device->operatorcode = mmgui_module_gsm_operator_code(operatorcode);
-				mmguicore->device->operatorname = g_strdup(operatorname);
+		}
+	} else if (g_str_equal(signal_name, "RegistrationInfo")) {
+		if (mmguicore->device != NULL) {
+			g_variant_get(parameters, "(uss)", &regstatus, &operatorcode, &operatorname);
+			if (mmguicore->device->operatorname != NULL) {
+				g_free(mmguicore->device->operatorname);
+				mmguicore->device->operatorname = NULL;
+			}
+			mmguicore->device->registered = mmgui_module_device_registered_from_status(regstatus);
+			mmguicore->device->regstatus = mmgui_module_registration_status_translate(regstatus);
+			mmguicore->device->operatorcode = mmgui_module_gsm_operator_code(operatorcode);
+			mmguicore->device->operatorname = g_strdup(operatorname);
+			if (mmguicore->eventcb != NULL) {
 				(mmguicore->eventcb)(MMGUI_EVENT_NETWORK_REGISTRATION_CHANGE, mmguicore, mmguicore->device);
 			}
-		} else if (g_str_equal(signal_name, "RegistrationStateChanged")) {
-			if (mmguicore->device != NULL) {
-				g_variant_get(parameters, "(uu)", &regstatus, &regstatus2);
-				mmguicore->device->registered = mmgui_module_cdma_device_registered_from_status(regstatus);
-				mmguicore->device->regstatus = mmgui_module_cdma_registration_status_translate(regstatus);
-				if (mmguicore->device->regstatus == MMGUI_REG_STATUS_UNKNOWN) {
-					mmguicore->device->registered = mmgui_module_cdma_device_registered_from_status(regstatus2);
-					mmguicore->device->regstatus = mmgui_module_cdma_registration_status_translate(regstatus2);
-				}
+		}
+	} else if (g_str_equal(signal_name, "RegistrationStateChanged")) {
+		if (mmguicore->device != NULL) {
+			g_variant_get(parameters, "(uu)", &regstatus, &regstatus2);
+			mmguicore->device->registered = mmgui_module_cdma_device_registered_from_status(regstatus);
+			mmguicore->device->regstatus = mmgui_module_cdma_registration_status_translate(regstatus);
+			if (mmguicore->device->regstatus == MMGUI_REG_STATUS_UNKNOWN) {
+				mmguicore->device->registered = mmgui_module_cdma_device_registered_from_status(regstatus2);
+				mmguicore->device->regstatus = mmgui_module_cdma_registration_status_translate(regstatus2);
 			}
-		} else if (g_str_equal(signal_name, "StateChanged")) {
-			if (mmguicore->device != NULL) {
-				g_variant_get(parameters, "(uuu)", &oldstate, &newstate, &changereason);
-				mmgui_module_devices_update_device_mode(mmguicore, oldstate, newstate, changereason);
+			if (mmguicore->eventcb != NULL) {
+				(mmguicore->eventcb)(MMGUI_EVENT_NETWORK_REGISTRATION_CHANGE, mmguicore, mmguicore->device);
 			}
+		}
+	} else if (g_str_equal(signal_name, "StateChanged")) {
+		if (mmguicore->device != NULL) {
+			g_variant_get(parameters, "(uuu)", &oldstate, &newstate, &changereason);
+			mmgui_module_devices_update_device_mode(mmguicore, oldstate, newstate, changereason);
 		}
 	}
 	
@@ -321,7 +332,6 @@ static void mmgui_module_signal_handler(GDBusProxy *proxy, const gchar *sender_n
 static void mmgui_module_property_change_handler(GDBusProxy *proxy, GVariant *changed_properties, GStrv invalidated_properties, gpointer data)
 {
 	mmguicore_t mmguicore;
-	mmguidevice_t device;
 	GVariantIter *iter;
 	const gchar *key;
 	GVariant *value;
@@ -331,31 +341,28 @@ static void mmgui_module_property_change_handler(GDBusProxy *proxy, GVariant *ch
 	mmguicore = (mmguicore_t)data;
 	
 	if (mmguicore->device == NULL) return;
-	device = mmguicore->device;
 	
 	if (g_variant_n_children(changed_properties) > 0) {
 		g_variant_get(changed_properties, "a{sv}", &iter);
 		while (g_variant_iter_loop(iter, "{&sv}", &key, &value)) {
 			if (g_str_equal(key, "Location")) {
-				/*Enable location interface and update location*/
-				if (mmgui_module_devices_enable_location(mmguicore, device, TRUE)) {
-					if (mmgui_module_devices_update_location(mmguicore, device)) {
-						if (mmguicore->eventcb != NULL) {
-							(mmguicore->eventcb)(MMGUI_EVENT_LOCATION_CHANGE, mmguicore, device);
-						}
+				/*Update location*/
+				if (mmgui_module_devices_update_location(mmguicore, mmguicore->device)) {
+					if (mmguicore->eventcb != NULL) {
+						(mmguicore->eventcb)(MMGUI_EVENT_LOCATION_CHANGE, mmguicore, mmguicore->device);
 					}
 				}
 			} else if (g_str_equal(key, "AllowedMode")) {
 				/*Update allowed mode*/
-				device->allmode = g_variant_get_uint32(value);
+				mmguicore->device->allmode = g_variant_get_uint32(value);
 				if (mmguicore->eventcb != NULL) {
-					(mmguicore->eventcb)(MMGUI_EVENT_NETWORK_MODE_CHANGE, mmguicore, device);
+					(mmguicore->eventcb)(MMGUI_EVENT_NETWORK_MODE_CHANGE, mmguicore, mmguicore->device);
 				}
 			} else if (g_str_equal(key, "AccessTechnology")) {
 				/*Update access technology*/
-				device->mode = g_variant_get_uint32(value);
+				mmguicore->device->mode = g_variant_get_uint32(value);
 				if (mmguicore->eventcb != NULL) {
-					(mmguicore->eventcb)(MMGUI_EVENT_NETWORK_MODE_CHANGE, mmguicore, device);
+					(mmguicore->eventcb)(MMGUI_EVENT_NETWORK_MODE_CHANGE, mmguicore, mmguicore->device);
 				}
 			}
 			g_debug("Property changed: %s\n", key);
@@ -1124,47 +1131,51 @@ G_MODULE_EXPORT gboolean mmgui_module_devices_state(gpointer mmguicore, enum _mm
 		case MMGUI_DEVICE_STATE_REQUEST_REGISTERED:
 			/*Is device registered in network*/
 			if (moduledata->netproxy != NULL) {
-				if (device->type == MMGUI_DEVICE_TYPE_GSM) {
-					error = NULL;
-					data = g_dbus_proxy_call_sync(moduledata->netproxy,
-													"GetRegistrationInfo",
-													NULL,
-													0,
-													-1,
-													NULL,
-													&error);
-					if ((data == NULL) && (error != NULL)) {
-						mmgui_module_handle_error_message(mmguicorelc, error);
-						g_error_free(error);
-						res = FALSE;
-					} else {
-						g_variant_get(data, "((uss))", &regstatus, &operatorcode, &operatorname);
-						res = mmgui_module_device_registered_from_status(regstatus);
-						device->registered = res;
-						g_variant_unref(data);
-					}
-				} else if (device->type == MMGUI_DEVICE_TYPE_CDMA) {
-					error = NULL;
-					data = g_dbus_proxy_call_sync(moduledata->netproxy,
-													"GetRegistrationState",
-													NULL,
-													0,
-													-1,
-													NULL,
-													&error);
-					if ((data == NULL) && (error != NULL)) {
-						mmgui_module_handle_error_message(mmguicorelc, error);
-						g_error_free(error);
-					} else {
-						g_variant_get(data, "((uu))", &intval1, &intval2);
-						res = mmgui_module_cdma_device_registered_from_status(intval1);
-						device->registered = res;
-						if (device->regstatus == MMGUI_REG_STATUS_UNKNOWN) {
-							res = mmgui_module_cdma_device_registered_from_status(intval2);
+				if (moduledata->netproxy != NULL) {
+					if (device->type == MMGUI_DEVICE_TYPE_GSM) {
+						error = NULL;
+						data = g_dbus_proxy_call_sync(moduledata->netproxy,
+														"GetRegistrationInfo",
+														NULL,
+														0,
+														-1,
+														NULL,
+														&error);
+						if ((data == NULL) && (error != NULL)) {
+							mmgui_module_handle_error_message(mmguicorelc, error);
+							g_error_free(error);
+							res = FALSE;
+						} else {
+							g_variant_get(data, "((uss))", &regstatus, &operatorcode, &operatorname);
+							res = mmgui_module_device_registered_from_status(regstatus);
 							device->registered = res;
+							g_variant_unref(data);
 						}
-						g_variant_unref(data);
+					} else if (device->type == MMGUI_DEVICE_TYPE_CDMA) {
+						error = NULL;
+						data = g_dbus_proxy_call_sync(moduledata->netproxy,
+														"GetRegistrationState",
+														NULL,
+														0,
+														-1,
+														NULL,
+														&error);
+						if ((data == NULL) && (error != NULL)) {
+							mmgui_module_handle_error_message(mmguicorelc, error);
+							g_error_free(error);
+						} else {
+							g_variant_get(data, "((uu))", &intval1, &intval2);
+							res = mmgui_module_cdma_device_registered_from_status(intval1);
+							device->registered = res;
+							if (device->regstatus == MMGUI_REG_STATUS_UNKNOWN) {
+								res = mmgui_module_cdma_device_registered_from_status(intval2);
+								device->registered = res;
+							}
+							g_variant_unref(data);
+						}
 					}
+				} else {
+					res = FALSE;
 				}
 			} else {
 				res = FALSE;
@@ -1288,12 +1299,11 @@ static gboolean mmgui_module_devices_update_device_mode(gpointer mmguicore, gint
 	
 	/*Device enabled status*/
 	enabledsignal = FALSE;
-	if (device->operation != MMGUI_DEVICE_OPERATION_ENABLE) {
-		oldenabled = device->enabled;
-		device->enabled = mmgui_module_device_enabled_from_state(newstate);
-		/*Is enabled signal needed */
-		enabledsignal = (oldenabled != device->enabled);
-	}
+	oldenabled = device->enabled;
+	device->enabled = mmgui_module_device_enabled_from_state(newstate);
+	/*Is enabled signal needed */
+	enabledsignal = (oldenabled != device->enabled);
+	
 	/*Device blocked status and lock type*/
 	blockedsignal = FALSE;
 	if (moduledata->modemproxy != NULL) {
@@ -1479,6 +1489,17 @@ static gboolean mmgui_module_devices_update_device_mode(gpointer mmguicore, gint
 				}
 			}
 		}
+		
+		if (moduledata->locationproxy != NULL) {
+			/*Enable location interface and update location*/
+			if (mmgui_module_devices_enable_location(mmguicorelc, device, TRUE)) {
+				if (mmgui_module_devices_update_location(mmguicorelc, device)) {
+					if (mmguicorelc->eventcb != NULL) {
+						(mmguicorelc->eventcb)(MMGUI_EVENT_LOCATION_CHANGE, mmguicorelc, device);
+					}
+				}
+			}
+		}
 	}
 	
 	/*Enabled status signal*/
@@ -1488,6 +1509,9 @@ static gboolean mmgui_module_devices_update_device_mode(gpointer mmguicore, gint
 				(mmguicorelc->eventcb)(MMGUI_EVENT_DEVICE_ENABLED_STATUS, mmguicorelc, GUINT_TO_POINTER(device->enabled));
 			}
 		} else {
+			if (mmguicorelc->device != NULL) {
+				mmguicorelc->device->operation = MMGUI_DEVICE_OPERATION_IDLE;
+			}
 			if (mmguicorelc->eventcb != NULL) {
 				(mmguicorelc->eventcb)(MMGUI_EVENT_MODEM_ENABLE_RESULT, mmguicorelc, GUINT_TO_POINTER(TRUE));
 			}

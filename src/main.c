@@ -1535,6 +1535,7 @@ void mmgui_main_window_update_active_pages(mmgui_application_t mmguiapp)
 	g_menu_remove_all(mmguiapp->window->appsection);
 	mmguiapp->window->menuitemcount = 0;
 	#else
+	gint i;
 	for (i = mmguiapp->window->menuitemcount-1; i >= 0; i--) {
 		g_menu_remove(mmguiapp->window->appsection, i);
 	}
