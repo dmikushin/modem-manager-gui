@@ -18,6 +18,7 @@ install:
 	(cd src && ${MAKE} install)
 	(cd src/modules && ${MAKE} install)
 	(cd src/plugins && ${MAKE} install)
+	(cd src/scripts && ${MAKE} install)
 	(cd resources && ${MAKE} install)
 	(cd po && ${MAKE} install)
 	(cd man && ${MAKE} install)
@@ -29,6 +30,7 @@ uninstall:
 	(cd src && ${MAKE} uninstall)
 	(cd src/modules && ${MAKE} uninstall)
 	(cd src/plugins && ${MAKE} uninstall)
+	(cd src/scripts && ${MAKE} uninstall)
 	(cd resources && ${MAKE} uninstall)
 	(cd po && ${MAKE} uninstall)
 	(cd man && ${MAKE} uninstall)
@@ -58,16 +60,3 @@ upload-translations-sources:
 
 download-translations:
 	tx pull -a
-
-source-archive:
-	(cd src && ${MAKE} clean)
-	(cd src/modules && ${MAKE} clean)
-	(cd src/plugins && ${MAKE} clean)
-	(cd resources && ${MAKE} clean)
-	(cd po && ${MAKE} clean)
-	(cd man && ${MAKE} clean)
-	(cd help && ${MAKE} clean)
-	(cd appdata && ${MAKE} clean)
-	(cd polkit && ${MAKE} clean)
-	chmod +x configure
-	tar --exclude='./Makefile_h' --exclude='./src/resources.h' --transform 's,^\.,$(notdir $(CURDIR)),' -zcvf ../$(notdir $(CURDIR)).tar.gz .

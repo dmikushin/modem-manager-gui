@@ -97,6 +97,7 @@ struct _mmgui_main_window {
 	GdkPixbuf *signal75icon;
 	GdkPixbuf *signal100icon;
 	GdkPixbuf *mainicon;
+	GdkPixbuf *symbolicicon;
 	//Dialogs
 	GtkWidget *aboutdialog;
 	GtkWidget *prefdialog;
@@ -177,6 +178,9 @@ struct _mmgui_main_window {
 	GtkWidget *answersmsbutton;
 	GdkPixbuf *smsreadicon;
 	GdkPixbuf *smsunreadicon;
+	GdkPixbuf *smsrecvfoldericon;
+	GdkPixbuf *smssentfoldericon;
+	GdkPixbuf *smsdraftsfoldericon;
 	GtkTreePath *incomingpath;
 	GtkTreePath *sentpath;
 	GtkTreePath *draftspath;

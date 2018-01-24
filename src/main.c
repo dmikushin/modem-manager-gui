@@ -2018,10 +2018,14 @@ static void mmgui_main_tray_icon_exit_signal(GtkMenuItem *menuitem, gpointer dat
 
 static void mmgui_main_tray_icon_build(mmgui_application_t mmguiapp)
 {
+	gchar *iconfilepath;
+	
 	if (mmguiapp == NULL) return;
 	
 	/*Indicator*/
-	mmguiapp->window->indicator = app_indicator_new(RESOURCE_LOCALE_DOMAIN, RESOURCE_MAINWINDOW_ICON, APP_INDICATOR_CATEGORY_APPLICATION_STATUS);
+	iconfilepath = g_build_filename(RESOURCE_SYMBOLIC_ICONS_DIR, "modem-manager-gui-symbolic.svg", NULL);
+	mmguiapp->window->indicator = app_indicator_new(RESOURCE_LOCALE_DOMAIN, iconfilepath, APP_INDICATOR_CATEGORY_APPLICATION_STATUS);
+	g_free(iconfilepath);
 	/*Indicator menu*/
 	mmguiapp->window->indmenu = gtk_menu_new();
 	/*Show window entry*/
@@ -2229,12 +2233,72 @@ static gboolean mmgui_main_settings_load(mmgui_application_t mmguiapp)
 	return TRUE;
 }
 
+static GdkPixbuf *mmgui_main_application_load_image_to_pixbuf(GtkIconTheme *theme, const gchar *name, const gchar *path, gint size, gboolean scalable)
+{
+	GdkPixbuf *pixbuf;
+	GError *error;
+	gchar *iconname, *filepath;
+		
+	if ((theme == NULL) || (name == NULL) || (path == NULL) || (size == 0)) return NULL;
+	
+	/*First try to load icon from theme*/
+	error = NULL;
+	if (g_str_has_prefix(name, "modem-manager-gui")) {
+		iconname = g_strdup(name);
+	} else {
+		iconname = g_strdup_printf("modem-manager-gui-%s", name);
+	}
+	g_debug("Loading icon \'%s\' from current icon theme", iconname);
+	pixbuf = gtk_icon_theme_load_icon(theme, iconname, size, 0, &error);
+	if (pixbuf == NULL) {
+		if (error != NULL) {
+			g_debug("Error while loading icon \'%s\' from current icon theme: %s", iconname, error->message);
+			g_error_free(error);
+		}
+		/*Then try to load embedded icon*/
+		if (scalable) {
+			filepath = g_strdup_printf("%s%s%s.svg", path, G_DIR_SEPARATOR_S, name);
+		} else {
+			filepath = g_strdup_printf("%s%s%s.png", path, G_DIR_SEPARATOR_S, name);
+		}
+		error = NULL;
+		g_debug("Loading icon from file \'%s\'", filepath);
+		pixbuf = gdk_pixbuf_new_from_file_at_size(filepath, size, size, &error);
+		if (pixbuf == NULL) {
+			if (error != NULL) {
+				g_debug("Error while loading icon from file \'%s\': %s\n", filepath, error->message);
+				g_error_free(error);
+			}
+		}
+		g_free(filepath);
+	}
+	g_free(iconname);
+	
+	/*Show missing icon if requested one isn't loaded*/
+	if (pixbuf == NULL) {
+		error = NULL;
+		g_debug("Loading failback icon \'image-missing\' from current icon theme", iconname);
+		pixbuf = gtk_icon_theme_load_icon(theme, "image-missing", size, 0, &error);
+		if (pixbuf == NULL) {
+			if (error != NULL) {
+				g_debug("Error while failback loading icon \'image-missing\' from current icon theme: %s\n", error->message);
+				g_error_free(error);
+			}
+		}
+	}
+	
+	return pixbuf;
+}
+
 static gboolean mmgui_main_application_build_user_interface(mmgui_application_t mmguiapp)
 {
+	gchar *uifilepath;
 	GtkBuilder *builder;
+	GtkIconTheme *icontheme;
 	GError *error;
 	GtkStyleContext *context;
-	GtkWidget *tbimage;
+	GtkWidget *image;
+	GdkPixbuf *pixbuf;
 	gint i;
 	static struct _mmgui_application_data shortcutsdata[MMGUI_MAIN_CONTROL_SHORTCUT_NUMBER];
 	
@@ -2424,30 +2488,32 @@ static gboolean mmgui_main_application_build_user_interface(mmgui_application_t 
 	};
 	/*Toolbar image buttons*/
 	struct _mmgui_main_widgetset buttonimgset[] = {
-		{RESOURCE_TOOLBAR_DEV, &(mmguiapp->window->devbutton)},
-		{RESOURCE_TOOLBAR_SMS, &(mmguiapp->window->smsbutton)},
-		{RESOURCE_TOOLBAR_USSD, &(mmguiapp->window->ussdbutton)},
-		{RESOURCE_TOOLBAR_INFO, &(mmguiapp->window->infobutton)},
-		{RESOURCE_TOOLBAR_SCAN, &(mmguiapp->window->scanbutton)},
-		{RESOURCE_TOOLBAR_CONT, &(mmguiapp->window->contactsbutton)},
-		{RESOURCE_TOOLBAR_TRAFFIC, &(mmguiapp->window->trafficbutton)}
+		{"dev-tb", &(mmguiapp->window->devbutton)},
+		{"sms-tb", &(mmguiapp->window->smsbutton)},
+		{"ussd-tb", &(mmguiapp->window->ussdbutton)},
+		{"info-tb", &(mmguiapp->window->infobutton)},
+		{"scan-tb", &(mmguiapp->window->scanbutton)},
+		{"cont-tb", &(mmguiapp->window->contactsbutton)},
+		{"traffic-tb", &(mmguiapp->window->trafficbutton)}
 	};
 	/*Image widgets*/
 	struct _mmgui_main_widgetset imgwidgetset[] = {
-		{RESOURCE_INFO_EQUIPMENT, &(mmguiapp->window->equipmentimage)},
-		{RESOURCE_INFO_NETWORK, &(mmguiapp->window->networkimage)},
-		{RESOURCE_INFO_LOCATION, &(mmguiapp->window->locationimage)}
+		{"info-equipment", &(mmguiapp->window->equipmentimage)},
+		{"info-network", &(mmguiapp->window->networkimage)},
+		{"info-location", &(mmguiapp->window->locationimage)}
 	};
 	/*Pixbufs*/
 	struct _mmgui_main_pixbufset pixbufset[] = {
-		{RESOURCE_MAINWINDOW_ICON, &(mmguiapp->window->mainicon)},
-		{RESOURCE_SIGNAL_0, &(mmguiapp->window->signal0icon)},
-		{RESOURCE_SIGNAL_25, &(mmguiapp->window->signal25icon)},
-		{RESOURCE_SIGNAL_50, &(mmguiapp->window->signal50icon)},
-		{RESOURCE_SIGNAL_75, &(mmguiapp->window->signal75icon)},
-		{RESOURCE_SIGNAL_100, &(mmguiapp->window->signal100icon)},
-		{RESOURCE_SMS_READ, &(mmguiapp->window->smsreadicon)},
-		{RESOURCE_SMS_UNREAD, &(mmguiapp->window->smsunreadicon)}
+		{"signal-0", &(mmguiapp->window->signal0icon)},
+		{"signal-25", &(mmguiapp->window->signal25icon)},
+		{"signal-50", &(mmguiapp->window->signal50icon)},
+		{"signal-75", &(mmguiapp->window->signal75icon)},
+		{"signal-100", &(mmguiapp->window->signal100icon)},
+		{"sms-read", &(mmguiapp->window->smsreadicon)},
+		{"sms-unread", &(mmguiapp->window->smsunreadicon)},
+		{"message-received", &(mmguiapp->window->smsrecvfoldericon)},
+		{"message-sent", &(mmguiapp->window->smssentfoldericon)},
+		{"message-drafts", &(mmguiapp->window->smsdraftsfoldericon)},
 	};
 	/*Application windows*/
 	GtkWidget **appwindows[] = {
@@ -2464,6 +2530,7 @@ static gboolean mmgui_main_application_build_user_interface(mmgui_application_t 
 		&(mmguiapp->window->conneditdialog),
 		&(mmguiapp->window->newcontactdialog),
 		&(mmguiapp->window->welcomewindow),
+		&(mmguiapp->window->conneditdialog)
 	};
 	/*Accelerator closures*/
 	struct _mmgui_main_closureset closureset[] = {
@@ -2506,45 +2573,56 @@ static gboolean mmgui_main_application_build_user_interface(mmgui_application_t 
 	
 	if (mmguiapp == NULL) return FALSE;
 	
+	/*Building user interface*/
 	error = NULL;
-	
 	builder = gtk_builder_new();
-	
-	if (gtk_builder_add_from_file(builder, RESOURCE_MAINWINDOW_UI, &error) == 0) {
+	uifilepath = g_build_filename(RESOURCE_UI_DIR, "modem-manager-gui.ui", NULL);
+	if (gtk_builder_add_from_file(builder, uifilepath, &error) == 0) {
 		g_printf("User interface file parse error: %s\n", (error->message != NULL) ? error->message : "Unknown");
 		g_error_free(error);
+		g_free(uifilepath);
 		return FALSE;
 	}
+	g_free(uifilepath);
 	/*Translation domain*/
 	gtk_builder_set_translation_domain(builder, RESOURCE_LOCALE_DOMAIN);
 	/*Loading widgets*/
-	for (i=0; i<sizeof(widgetset)/sizeof(struct _mmgui_main_widgetset); i++) {
+	for (i = 0; i < sizeof(widgetset)/sizeof(struct _mmgui_main_widgetset); i++) {
 		*(widgetset[i].widget) = GTK_WIDGET(gtk_builder_get_object(builder, widgetset[i].name));
 	}
-	/*Loading images for toolbar buttons*/
-	for (i=0; i<sizeof(buttonimgset)/sizeof(struct _mmgui_main_widgetset); i++) {
-		tbimage = gtk_image_new_from_file(buttonimgset[i].name);
-		gtk_tool_button_set_icon_widget(GTK_TOOL_BUTTON(*(buttonimgset[i].widget)), GTK_WIDGET(tbimage));
-		gtk_widget_show(tbimage);
-	}
-	/*Loading image widgets*/
-	for (i=0; i<sizeof(imgwidgetset)/sizeof(struct _mmgui_main_widgetset); i++) {
-		gtk_image_set_from_file(GTK_IMAGE(*(imgwidgetset[i].widget)), imgwidgetset[i].name);
-	}
-	/*Loading pixbufs*/
-	for (i=0; i<sizeof(pixbufset)/sizeof(struct _mmgui_main_pixbufset); i++) {
-		error = NULL;
-		*(pixbufset[i].pixbuf) = gdk_pixbuf_new_from_file(pixbufset[i].name, &error);
-		if (*(pixbufset[i].pixbuf) == NULL) {
-			g_debug("Pixbuf '%s' load error: %s\n", pixbufset[i].name, (error->message != NULL) ? error->message : "Unknown");
-			g_error_free(error);
+	/*Loading images*/
+	icontheme = gtk_icon_theme_get_default();
+	/*Main icon*/
+	mmguiapp->window->mainicon = mmgui_main_application_load_image_to_pixbuf(icontheme, "modem-manager-gui", RESOURCE_SCALABLE_ICONS_DIR, 128, TRUE);
+	/*Symbolic icon*/
+	mmguiapp->window->symbolicicon = mmgui_main_application_load_image_to_pixbuf(icontheme, "modem-manager-gui-symbolic", RESOURCE_SYMBOLIC_ICONS_DIR, 16, TRUE);
+	/*Images for toolbar buttons*/
+	for (i = 0; i < sizeof(buttonimgset)/sizeof(struct _mmgui_main_widgetset); i++) {
+		pixbuf = mmgui_main_application_load_image_to_pixbuf(icontheme, buttonimgset[i].name, RESOURCE_PIXMAPS_DIR, 32, FALSE);
+		if (pixbuf != NULL) {
+			image = gtk_image_new_from_pixbuf(pixbuf);
+			gtk_tool_button_set_icon_widget(GTK_TOOL_BUTTON(*(buttonimgset[i].widget)), GTK_WIDGET(image));
+			gtk_widget_show(image);
+			g_object_unref(pixbuf);
 		}
+	}
+	/*Image widgets*/
+	for (i = 0; i < sizeof(imgwidgetset)/sizeof(struct _mmgui_main_widgetset); i++) {
+		pixbuf = mmgui_main_application_load_image_to_pixbuf(icontheme, imgwidgetset[i].name, RESOURCE_PIXMAPS_DIR, 48, FALSE);
+		if (pixbuf != NULL) {
+			gtk_image_set_from_pixbuf(GTK_IMAGE(*(imgwidgetset[i].widget)), pixbuf);
+			g_object_unref(pixbuf);
+		}
+	}
+	/*Pixbufs*/
+	for (i = 0; i < sizeof(pixbufset)/sizeof(struct _mmgui_main_pixbufset); i++) {
+		*(pixbufset[i].pixbuf) = mmgui_main_application_load_image_to_pixbuf(icontheme, pixbufset[i].name, RESOURCE_PIXMAPS_DIR, 22, FALSE);
 	}
 	/*Using images*/
 	gtk_about_dialog_set_logo(GTK_ABOUT_DIALOG(mmguiapp->window->aboutdialog), GDK_PIXBUF(mmguiapp->window->mainicon));
 	gtk_image_set_from_pixbuf(GTK_IMAGE(mmguiapp->window->welcomeimage), GDK_PIXBUF(mmguiapp->window->mainicon));
 	/*Collecting application windows*/
-	for (i=0; i<sizeof(appwindows)/sizeof(GtkWidget **); i++) {
+	for (i = 0; i < sizeof(appwindows)/sizeof(GtkWidget **); i++) {
 		gtk_window_set_application(GTK_WINDOW(*(appwindows[i])), GTK_APPLICATION(mmguiapp->gtkapplication));
 		if ((*(appwindows[i]) != NULL) && (mmguiapp->window->mainicon != NULL)) {
 			gtk_window_set_icon(GTK_WINDOW(*(appwindows[i])), mmguiapp->window->mainicon);
@@ -2706,7 +2784,7 @@ static void mmgui_main_continue_initialization(mmgui_application_t mmguiapp, mmg
 	/*Upadate library cache: name needed libraries first*/
 	mmguiapp->libcache = mmgui_libpaths_cache_new("libnotify", "libebook-1.2", "libmessaging-menu", "libindicate",  NULL);
 	/*Notifications object*/
-	mmguiapp->notifications = mmgui_notifications_new(mmguiapp->libcache);
+	mmguiapp->notifications = mmgui_notifications_new(mmguiapp->libcache, mmguiapp->window->mainicon);
 	/*Address books object*/
 	mmguiapp->addressbooks = mmgui_addressbooks_new(mmgui_main_event_callback, mmguiapp->libcache, mmguiapp);
 	/*Open ayatana interface*/

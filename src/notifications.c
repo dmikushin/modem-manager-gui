@@ -27,7 +27,7 @@
 #include "../resources.h"
 
 
-mmgui_notifications_t mmgui_notifications_new(mmgui_libpaths_cache_t libcache)
+mmgui_notifications_t mmgui_notifications_new(mmgui_libpaths_cache_t libcache, GdkPixbuf *icon)
 {
 	mmgui_notifications_t notifications;
 	GError *error;
@@ -85,13 +85,8 @@ mmgui_notifications_t mmgui_notifications_new(mmgui_libpaths_cache_t libcache)
 					g_list_free(capabilities);
 				}
 			}
-			/*Load icon for notifications*/
-			error = NULL;
-			notifications->notifyicon = gdk_pixbuf_new_from_file(RESOURCE_MAINWINDOW_ICON, &error);
-			if ((notifications->notifyicon == NULL) && (error != NULL)) {
-				g_debug("Error loadig application icon: %s\n", error->message);
-				g_error_free(error);
-			}
+			/*Icon for notifications*/
+			notifications->notifyicon = icon;
 		}
 	}
 		
@@ -101,6 +96,7 @@ mmgui_notifications_t mmgui_notifications_new(mmgui_libpaths_cache_t libcache)
 gboolean mmgui_notifications_show(mmgui_notifications_t notifications, gchar *caption, gchar *text, enum _mmgui_notifications_sound sound, NotifyActionCallback defcallback, gpointer userdata)
 {
 	gpointer notification;
+	gchar *soundpath;
 				
 	if (notifications == NULL) return FALSE;
 	
@@ -115,7 +111,9 @@ gboolean mmgui_notifications_show(mmgui_notifications_t notifications, gchar *ca
 			}
 			switch (sound) {
 				case MMGUI_NOTIFICATIONS_SOUND_MESSAGE:
-					(notifications->notify_notification_set_hint)(notification, "sound-file", g_variant_new_string(RESOURCE_SOUND_MESSAGE));
+					soundpath = g_build_filename(RESOURCE_SOUNDS_DIR, "message.ogg", NULL);
+					(notifications->notify_notification_set_hint)(notification, "sound-file", g_variant_new_string(soundpath));
+					g_free(soundpath);
 					break;
 				case MMGUI_NOTIFICATIONS_SOUND_INFO:
 					(notifications->notify_notification_set_hint)(notification, "sound-name", g_variant_new_string("dialog-information"));

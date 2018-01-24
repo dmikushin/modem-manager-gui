@@ -76,7 +76,7 @@ struct _mmgui_notifications {
 
 typedef struct _mmgui_notifications *mmgui_notifications_t;
 
-mmgui_notifications_t mmgui_notifications_new(mmgui_libpaths_cache_t libcache);
+mmgui_notifications_t mmgui_notifications_new(mmgui_libpaths_cache_t libcache, GdkPixbuf *icon);
 gboolean mmgui_notifications_show(mmgui_notifications_t notifications, gchar *caption, gchar *text, enum _mmgui_notifications_sound sound, NotifyActionCallback defcallback, gpointer userdata);
 void mmgui_notifications_close(mmgui_notifications_t notifications);
 

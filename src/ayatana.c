@@ -281,6 +281,7 @@ void mmgui_ayatana_close(mmgui_ayatana_t ayatana)
 
 void mmgui_ayatana_set_unread_messages_number(mmgui_ayatana_t ayatana, guint number)
 {
+	gchar *iconpath;
 	GFile *file;
 	GIcon *icon;
 	gchar numstr[32];
@@ -298,7 +299,8 @@ void mmgui_ayatana_set_unread_messages_number(mmgui_ayatana_t ayatana, guint num
 				}
 			} else {
 				if (number > 0) {
-					file = g_file_new_for_path(RESOURCE_SMS_UNREAD);
+					iconpath = g_build_filename(RESOURCE_SYMBOLIC_ICONS_DIR, "modem-manager-gui-symbolic.svg", NULL);
+					file = g_file_new_for_path(iconpath);
 					icon = g_file_icon_new(file);
 					(ayatana->backend.mmenu.messaging_menu_app_append_source)(ayatana->backend.mmenu.server, "sms", icon, _("Unread messages"));
 					(ayatana->backend.mmenu.messaging_menu_app_set_source_count)(ayatana->backend.mmenu.server, "sms", number);
@@ -306,6 +308,7 @@ void mmgui_ayatana_set_unread_messages_number(mmgui_ayatana_t ayatana, guint num
 					g_signal_connect(G_OBJECT(ayatana->backend.mmenu.server), "activate-source::sms", G_CALLBACK(mmgui_ayatana_indicator_client_clicked_signal), ayatana);
 					g_object_unref(icon);
 					g_object_unref(file);
+					g_free(iconpath);
 				}
 			}
 		}

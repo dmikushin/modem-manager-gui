@@ -1211,8 +1211,6 @@ gboolean mmgui_main_sms_list_fill(mmgui_application_t mmguiapp)
 	GtkTreeModel *model;
 	GtkTreeIter iter;
 	gint i;
-	GdkPixbuf *foldericon;
-	gboolean foldericonused;
 	GSList *iterator;
 	mmgui_application_data_t appdata;
 		
@@ -1225,9 +1223,9 @@ gboolean mmgui_main_sms_list_fill(mmgui_application_t mmguiapp)
 	GtkTreePath **folderpath[3]    = {&mmguiapp->window->incomingpath,
 										&mmguiapp->window->sentpath,
 										&mmguiapp->window->draftspath};
-	const gchar *foldericonfile[3] = {RESOURCE_MESSAGE_RECEIVED, 
-										RESOURCE_MESSAGE_SENT, 
-										RESOURCE_MESSAGE_DRAFTS};
+	GdkPixbuf **foldericon[3]      = {&mmguiapp->window->smsrecvfoldericon, 
+										&mmguiapp->window->smssentfoldericon, 
+										&mmguiapp->window->smsdraftsfoldericon};
 	
 	if (mmguiapp == NULL) return FALSE;
 	
@@ -1236,43 +1234,32 @@ gboolean mmgui_main_sms_list_fill(mmgui_application_t mmguiapp)
 		
 		model = gtk_tree_view_get_model(GTK_TREE_VIEW(mmguiapp->window->smslist));
 		if (model != NULL) {
+			/*Detach and clear model*/
 			g_object_ref(model);
 			gtk_tree_view_set_model(GTK_TREE_VIEW(mmguiapp->window->smslist), NULL);
 			gtk_tree_store_clear(GTK_TREE_STORE(model));
-			
-			for (i=0; i<3; i++) {
-				foldericon = gdk_pixbuf_new_from_file(foldericonfile[i], NULL);
-				if (foldericon != NULL) {
-					foldericonused = TRUE;
-				} else {
-					foldericon = mmguiapp->window->smsunreadicon;
-					foldericonused = FALSE;
-				}
-				
+			/*Add folders*/
+			for (i = 0; i < 3; i++) {
 				gtk_tree_store_append(GTK_TREE_STORE(model), &iter, NULL);
-				gtk_tree_store_set(GTK_TREE_STORE(model), &iter, MMGUI_MAIN_SMSLIST_ICON, foldericon, MMGUI_MAIN_SMSLIST_SMS, foldercomments[i], MMGUI_MAIN_SMSLIST_ID, 0, MMGUI_MAIN_SMSLIST_FOLDER, folderids[i], MMGUI_MAIN_SMSLIST_ISFOLDER, TRUE, -1);
+				gtk_tree_store_set(GTK_TREE_STORE(model), &iter, MMGUI_MAIN_SMSLIST_ICON, *foldericon[i], MMGUI_MAIN_SMSLIST_SMS, foldercomments[i], MMGUI_MAIN_SMSLIST_ID, 0, MMGUI_MAIN_SMSLIST_FOLDER, folderids[i], MMGUI_MAIN_SMSLIST_ISFOLDER, TRUE, -1);
 				*(folderpath[i]) = gtk_tree_model_get_path(model, &iter);
-				
-				if (foldericonused) {
-					g_object_unref(foldericon);
-				}
 			}
-			
+			/*Add messages*/
 			if (smslist != NULL) {
 				for (iterator=smslist; iterator; iterator=iterator->next) {
 					mmgui_main_sms_add_to_list(mmguiapp, (mmgui_sms_message_t)iterator->data, model);
 				}
 			}
-			
+			/*Attach model*/
 			gtk_tree_view_set_model(GTK_TREE_VIEW(mmguiapp->window->smslist), model);
 			g_object_unref(model);
-			
+			/*Expand folders if needed*/
 			if (mmguiapp->options->smsexpandfolders) {
 				gtk_tree_view_expand_all(GTK_TREE_VIEW(mmguiapp->window->smslist));
 			}
 		}
 		
-		//Free resources
+		/*Free resources*/
 		if (smslist != NULL) {
 			mmgui_smsdb_message_free_list(smslist);
 		}
