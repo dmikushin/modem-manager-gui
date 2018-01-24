@@ -5,7 +5,7 @@ LMANDIR = $(PREFIX)/share/man
 
 all:
 	while read lang; do \
-		po4a-translate -f man -m modem-manager-gui.1 -p $$lang/$$lang.po -l $$lang/modem-manager-gui.1 -k 5; \
+		po4a-translate -f man -m modem-manager-gui.1 -p $$lang/$$lang.po -l $$lang/modem-manager-gui.1 -k 1; \
 	done < LINGUAS
 
 install:

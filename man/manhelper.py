@@ -11,7 +11,7 @@ destfilename = os.path.abspath(sys.argv[2])
 intfilename = os.path.join(tempfile.gettempdir(), str(uuid.uuid4()))
 reffilename = os.path.join(os.path.dirname(sys.argv[0]), 'modem-manager-gui.1')
 
-command = 'po4a-translate -f man -k 5 -m ' + reffilename + ' -p ' + srcfilename + ' -l ' + intfilename
+command = 'po4a-translate -f man -k 1 -m ' + reffilename + ' -p ' + srcfilename + ' -l ' + intfilename
 wexit = os.system(command)
 
 if (wexit == 0):
