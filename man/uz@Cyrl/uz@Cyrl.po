@@ -1,21 +1,20 @@
 # SOME DESCRIPTIVE TITLE
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Umid Almasov <u.almasov@gmail.com>, 2015
+# Umidjon Almasov <u.almasov@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Modem Manager GUI\n"
-"POT-Creation-Date: 2017-12-31 20:07+0300\n"
-"PO-Revision-Date: 2015-10-02 11:23+0000\n"
-"Last-Translator: Umid Almasov <u.almasov@gmail.com>\n"
-"Language-Team: Uzbek (Cyrillic) (http://www.transifex.com/ethereal/modem-"
-"manager-gui/language/uz@Cyrl/)\n"
-"Language: uz@Cyrl\n"
+"POT-Creation-Date: 2017-11-04 23:05+0300\n"
+"PO-Revision-Date: 2018-01-24 18:34+0000\n"
+"Last-Translator: Alex <alex@linuxonly.ru>\n"
+"Language-Team: Uzbek (Cyrillic) (http://www.transifex.com/ethereal/modem-manager-gui/language/uz%40Cyrl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: uz@Cyrl\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. type: TH
@@ -32,9 +31,9 @@ msgstr ""
 
 #. type: TH
 #: modem-manager-gui.1:1
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "Modem Manager GUI v0.0.19"
-msgstr "Modem Manager GUI в0.0.18"
+msgstr ""
 
 #. type: TH
 #: modem-manager-gui.1:1
@@ -52,8 +51,7 @@ msgstr "НОМИ"
 #: modem-manager-gui.1:4
 msgid ""
 "modem-manager-gui - simple graphical interface for Modem Manager daemon."
-msgstr ""
-"modem-manager-gui - Modem Manager демони учун оддий графика интерфейси."
+msgstr "modem-manager-gui - Modem Manager демони учун оддий графика интерфейси."
 
 #. type: SH
 #: modem-manager-gui.1:4
@@ -155,16 +153,15 @@ msgstr "МУАЛЛИФЛИК ҲУҚУҚИ"
 
 #. type: Plain text
 #: modem-manager-gui.1:30
-#, fuzzy
 msgid "Copyright \\(co 2012-2017 Alex"
-msgstr "Муаллифлик ҳуқуқи \\(co 2012-2015 Alex"
+msgstr ""
 
 #. type: Plain text
 #: modem-manager-gui.1:33
 msgid ""
-"This is free software.  You may redistribute copies of it under the terms of "
-"the GNU General Public License E<lt>http://www.gnu.org/licenses/gpl."
-"htmlE<gt>."
+"This is free software.  You may redistribute copies of it under the terms of"
+" the GNU General Public License "
+"E<lt>http://www.gnu.org/licenses/gpl.htmlE<gt>."
 msgstr ""
 
 #. type: SH
@@ -177,6 +174,3 @@ msgstr ""
 #: modem-manager-gui.1:34
 msgid "B<mmcli>(1)"
 msgstr "B<mmcli>(1)"
-
-#~ msgid "Sep 2015"
-#~ msgstr "Сент. 2015"

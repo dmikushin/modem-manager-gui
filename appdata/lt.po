@@ -1,24 +1,21 @@
-#
+# 
 # Translators:
 # Mantas Kriaučiūnas <mantas@akl.lt>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Modem Manager GUI\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-31 20:07+0300\n"
-"PO-Revision-Date: 2015-09-30 17:47+0000\n"
+"POT-Creation-Date: 2017-11-04 22:42+0300\n"
+"PO-Revision-Date: 2018-01-24 18:45+0000\n"
 "Last-Translator: Alex <alex@linuxonly.ru>\n"
-"Language-Team: Lithuanian (http://www.transifex.com/ethereal/modem-manager-"
-"gui/language/lt/)\n"
-"Language: lt\n"
+"Language-Team: Lithuanian (http://www.transifex.com/ethereal/modem-manager-gui/language/lt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n"
-"%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: lt\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #. (itstool) path: component/name
-#: modem-manager-gui.appdata.xml.in:7 modem-manager-gui.desktop.in:3
+#: modem-manager-gui.appdata.xml.in:7
 msgid "Modem Manager GUI"
 msgstr ""
 
@@ -28,7 +25,7 @@ msgid "Alex"
 msgstr ""
 
 #. (itstool) path: component/summary
-#: modem-manager-gui.appdata.xml.in:11 modem-manager-gui.desktop.in:5
+#: modem-manager-gui.appdata.xml.in:11
 msgid "Control EDGE/3G/4G broadband modem specific functions"
 msgstr ""
 
@@ -71,7 +68,8 @@ msgstr ""
 #. (itstool) path: ul/li
 #: modem-manager-gui.appdata.xml.in:26
 msgid ""
-"View device information: operator name, device mode, IMEI, IMSI, signal level"
+"View device information: operator name, device mode, IMEI, IMSI, signal "
+"level"
 msgstr ""
 
 #. (itstool) path: ul/li
@@ -105,16 +103,4 @@ msgstr ""
 #. (itstool) path: screenshot/caption
 #: modem-manager-gui.appdata.xml.in:46
 msgid "Traffic control"
-msgstr ""
-
-#: modem-manager-gui.desktop.in:4
-msgid "Broadband modem management tool"
-msgstr ""
-
-#: modem-manager-gui.desktop.in:7
-msgid "modem-manager-gui"
-msgstr ""
-
-#: modem-manager-gui.desktop.in:12
-msgid "modem;manager;sms;ussd;"
 msgstr ""

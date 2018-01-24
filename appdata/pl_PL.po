@@ -1,26 +1,23 @@
-#
+# 
 # Translators:
-# Wiktor Jezioro <wikjezioro@op.pl>, 2015
+# Wiktor Jezioro <wikjezioro@op.pl>, 2015,2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Modem Manager GUI\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-31 20:07+0300\n"
-"PO-Revision-Date: 2015-09-30 17:47+0000\n"
+"POT-Creation-Date: 2017-11-04 22:42+0300\n"
+"PO-Revision-Date: 2018-01-24 18:45+0000\n"
 "Last-Translator: Alex <alex@linuxonly.ru>\n"
-"Language-Team: Polish (Poland) (http://www.transifex.com/ethereal/modem-"
-"manager-gui/language/pl_PL/)\n"
-"Language: pl_PL\n"
+"Language-Team: Polish (Poland) (http://www.transifex.com/ethereal/modem-manager-gui/language/pl_PL/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
+"Language: pl_PL\n"
+"Plural-Forms: nplurals=4; plural=(n==1 ? 0 : (n%10>=2 && n%10<=4) && (n%100<12 || n%100>14) ? 1 : n!=1 && (n%10>=0 && n%10<=1) || (n%10>=5 && n%10<=9) || (n%100>=12 && n%100<=14) ? 2 : 3);\n"
 
 #. (itstool) path: component/name
-#: modem-manager-gui.appdata.xml.in:7 modem-manager-gui.desktop.in:3
+#: modem-manager-gui.appdata.xml.in:7
 msgid "Modem Manager GUI"
-msgstr ""
+msgstr "Modem Manager GUI"
 
 #. (itstool) path: component/developer_name
 #: modem-manager-gui.appdata.xml.in:8
@@ -28,9 +25,9 @@ msgid "Alex"
 msgstr ""
 
 #. (itstool) path: component/summary
-#: modem-manager-gui.appdata.xml.in:11 modem-manager-gui.desktop.in:5
+#: modem-manager-gui.appdata.xml.in:11
 msgid "Control EDGE/3G/4G broadband modem specific functions"
-msgstr ""
+msgstr "Kontrola EDGE / 3G / 4G - specyficznych funkcji modemu szerokopasmowego"
 
 #. (itstool) path: description/p
 #: modem-manager-gui.appdata.xml.in:13
@@ -45,12 +42,12 @@ msgstr ""
 msgid ""
 "You can check balance of your SIM card, send or receive SMS messages, "
 "control mobile traffic consuption and more using Modem Manager GUI."
-msgstr ""
+msgstr "Możesz sprawdzić saldo karty SIM, wysyłać i odbierać wiadomości SMS, bez jakichkolwiek ograniczeń kontrolować ruch mobilny i więcej za pomocą prorgamu Modem Manager GUI."
 
 #. (itstool) path: description/p
 #: modem-manager-gui.appdata.xml.in:21
 msgid "Current features:"
-msgstr ""
+msgstr "Aktualne funkcje:"
 
 #. (itstool) path: ul/li
 #: modem-manager-gui.appdata.xml.in:23
@@ -60,19 +57,20 @@ msgstr ""
 #. (itstool) path: ul/li
 #: modem-manager-gui.appdata.xml.in:24
 msgid "Send and receive SMS messages and store messages in database"
-msgstr ""
+msgstr "Wysyłanie i odbieranie wiadomości SMS i przechowywanie w bazie"
 
 #. (itstool) path: ul/li
 #: modem-manager-gui.appdata.xml.in:25
 msgid ""
 "Initiate USSD requests and read answers (also using interactive sessions)"
-msgstr ""
+msgstr "Inicjowanie żądania USSD i przeczytanie odpowiedzi (również za pomocą sesji interaktywnych)"
 
 #. (itstool) path: ul/li
 #: modem-manager-gui.appdata.xml.in:26
 msgid ""
-"View device information: operator name, device mode, IMEI, IMSI, signal level"
-msgstr ""
+"View device information: operator name, device mode, IMEI, IMSI, signal "
+"level"
+msgstr "Wyświetlanie informacji o urządzeniu: nazwę operatora, tryb urządzenia, IMEI, IMSI, poziom sygnału"
 
 #. (itstool) path: ul/li
 #: modem-manager-gui.appdata.xml.in:27
@@ -90,7 +88,7 @@ msgid ""
 "Please note that some features may be not available due to limitations of "
 "different system services or even different versions of system service in "
 "use."
-msgstr ""
+msgstr "Należy pamiętać, że niektóre funkcje mogą być niedostępne ze względu na ograniczenia różnych usług systemowych, a nawet różne wersje usługi systemowej w użyciu."
 
 #. (itstool) path: screenshot/caption
 #: modem-manager-gui.appdata.xml.in:38
@@ -105,16 +103,4 @@ msgstr ""
 #. (itstool) path: screenshot/caption
 #: modem-manager-gui.appdata.xml.in:46
 msgid "Traffic control"
-msgstr ""
-
-#: modem-manager-gui.desktop.in:4
-msgid "Broadband modem management tool"
-msgstr ""
-
-#: modem-manager-gui.desktop.in:7
-msgid "modem-manager-gui"
-msgstr ""
-
-#: modem-manager-gui.desktop.in:12
-msgid "modem;manager;sms;ussd;"
 msgstr ""

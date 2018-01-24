@@ -1,25 +1,23 @@
-#
+# 
 # Translators:
-# Reazul Iqbal <reazuliqbal@yahoo.com>, 2015
+# Reazul Iqbal <reazuliqbal@yahoo.com>, 2015-2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Modem Manager GUI\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-31 20:07+0300\n"
-"PO-Revision-Date: 2015-09-30 17:47+0000\n"
+"POT-Creation-Date: 2017-11-04 22:42+0300\n"
+"PO-Revision-Date: 2018-01-24 18:45+0000\n"
 "Last-Translator: Alex <alex@linuxonly.ru>\n"
-"Language-Team: Bengali (Bangladesh) (http://www.transifex.com/ethereal/modem-"
-"manager-gui/language/bn_BD/)\n"
-"Language: bn_BD\n"
+"Language-Team: Bengali (Bangladesh) (http://www.transifex.com/ethereal/modem-manager-gui/language/bn_BD/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: bn_BD\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. (itstool) path: component/name
-#: modem-manager-gui.appdata.xml.in:7 modem-manager-gui.desktop.in:3
+#: modem-manager-gui.appdata.xml.in:7
 msgid "Modem Manager GUI"
-msgstr "মডেম ম্যানেজার জি ইউ আই"
+msgstr "মডেম ম্যানেজার গুই"
 
 #. (itstool) path: component/developer_name
 #: modem-manager-gui.appdata.xml.in:8
@@ -27,7 +25,7 @@ msgid "Alex"
 msgstr ""
 
 #. (itstool) path: component/summary
-#: modem-manager-gui.appdata.xml.in:11 modem-manager-gui.desktop.in:5
+#: modem-manager-gui.appdata.xml.in:11
 msgid "Control EDGE/3G/4G broadband modem specific functions"
 msgstr "EDGE/3G/4G ব্রডব্যান্ড মডেমের কার্যকারিতা নিয়ন্ত্রণ করুন"
 
@@ -37,14 +35,14 @@ msgid ""
 "Simple graphical interface compatible with Modem manager, Wader and oFono "
 "system services able to control EDGE/3G/4G broadband modem specific "
 "functions."
-msgstr ""
+msgstr "সহজ গ্রাফিক্যাল ইন্টারফেস যা মডেম ম্যানেজার, ওয়েডার, এবং ওফোনও সিস্টেম ব্যবহার করে EDGE/3G/4G ব্রডব্যান্ড মডেমের নির্দিষ্ট ফাংশন নিয়ন্ত্রণ করতে সক্ষম।"
 
 #. (itstool) path: description/p
 #: modem-manager-gui.appdata.xml.in:17
 msgid ""
 "You can check balance of your SIM card, send or receive SMS messages, "
 "control mobile traffic consuption and more using Modem Manager GUI."
-msgstr ""
+msgstr "মডেম ম্যানেজার গ্রাফিক্যাল ইউজার ইন্টারফেস ব্যবহার করে আপনি আপনার সিম কার্ডের ব্যালেন্স চেক করতে, এসএমএস পাঠানো বা গ্রহণ, মোবাইল ট্রাফিক ব্যবহার এবং আরো অনেক কিছু নিয়ন্ত্রণ করতে পারবেন."
 
 #. (itstool) path: description/p
 #: modem-manager-gui.appdata.xml.in:21
@@ -59,29 +57,30 @@ msgstr ""
 #. (itstool) path: ul/li
 #: modem-manager-gui.appdata.xml.in:24
 msgid "Send and receive SMS messages and store messages in database"
-msgstr ""
+msgstr "এসএমএস পাঠান ও গ্রহণ করুন এবং ডাটাবেজে জমা করুন।"
 
 #. (itstool) path: ul/li
 #: modem-manager-gui.appdata.xml.in:25
 msgid ""
 "Initiate USSD requests and read answers (also using interactive sessions)"
-msgstr ""
+msgstr "ইউএসএসডি অনুরোধ পাঠান এবং উত্তর পুড়ন (ইন্টারেক্টিভ সেশান সহযোগে)"
 
 #. (itstool) path: ul/li
 #: modem-manager-gui.appdata.xml.in:26
 msgid ""
-"View device information: operator name, device mode, IMEI, IMSI, signal level"
-msgstr ""
+"View device information: operator name, device mode, IMEI, IMSI, signal "
+"level"
+msgstr "ডিভাইস তথ্য দেখুন: অপারেটরের নাম, ডিভাইস মোড, IMEI, IMSI, সিগনাল লেবেল"
 
 #. (itstool) path: ul/li
 #: modem-manager-gui.appdata.xml.in:27
 msgid "Scan available mobile networks"
-msgstr ""
+msgstr "মোবাইল নেটওয়ার্ক স্ক্যান করুন"
 
 #. (itstool) path: ul/li
 #: modem-manager-gui.appdata.xml.in:28
 msgid "View mobile traffic statistics and set limits"
-msgstr ""
+msgstr "মোবাইল ট্রাফিক পরিসংখ্যান ও নির্ধারিত সীমা দেখুন"
 
 #. (itstool) path: description/p
 #: modem-manager-gui.appdata.xml.in:30
@@ -89,7 +88,7 @@ msgid ""
 "Please note that some features may be not available due to limitations of "
 "different system services or even different versions of system service in "
 "use."
-msgstr ""
+msgstr "অনুগ্রহ করে লক্ষ্য করুন যে কিছু সুবিধা বিভিন্ন সিস্টেম পরিষেবার সীমাবদ্ধতা বা সিস্টেমে সেবা এমনকি বিভিন্ন সংস্করণ কারণে উপলব্ধ নাও হতে পারে."
 
 #. (itstool) path: screenshot/caption
 #: modem-manager-gui.appdata.xml.in:38
@@ -104,16 +103,4 @@ msgstr ""
 #. (itstool) path: screenshot/caption
 #: modem-manager-gui.appdata.xml.in:46
 msgid "Traffic control"
-msgstr ""
-
-#: modem-manager-gui.desktop.in:4
-msgid "Broadband modem management tool"
-msgstr ""
-
-#: modem-manager-gui.desktop.in:7
-msgid "modem-manager-gui"
-msgstr ""
-
-#: modem-manager-gui.desktop.in:12
-msgid "modem;manager;sms;ussd;"
 msgstr ""

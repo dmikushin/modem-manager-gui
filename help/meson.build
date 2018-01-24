@@ -28,7 +28,7 @@ help_media = [
 	'figures/startup-window.png'
 ]
 
-gnome.yelp(meson.project_name(),
+gnome.yelp('modem-manager-gui',
 		sources: help_files,
 		media: help_media,
 		symlink_media: true,

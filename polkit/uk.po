@@ -1,45 +1,39 @@
-#
+# 
 # Translators:
 # Yarema aka Knedlyk <yupadmin@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Modem Manager GUI\n"
-"POT-Creation-Date: 2017-12-31 20:07+0300\n"
-"PO-Revision-Date: 2015-08-28 12:07+0000\n"
+"POT-Creation-Date: 2015-10-11 20:38+0300\n"
+"PO-Revision-Date: 2018-01-24 18:50+0000\n"
 "Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
-"Language-Team: Ukrainian (http://www.transifex.com/ethereal/modem-manager-"
-"gui/language/uk/)\n"
-"Language: uk\n"
+"Language-Team: Ukrainian (http://www.transifex.com/ethereal/modem-manager-gui/language/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #. (itstool) path: action/description
-#: ru.linuxonly.modem-manager-gui.policy.in:11
+#: ru.linuxonly.modem-manager-gui.policy.in:10
 msgid "Enable and start modem management services"
 msgstr "Включити і запустити сервіси управління модемом"
 
 #. (itstool) path: action/message
-#: ru.linuxonly.modem-manager-gui.policy.in:12
+#: ru.linuxonly.modem-manager-gui.policy.in:11
 msgid ""
-"Modem management services aren't running. You need to authenticate to enable "
-"and start these services."
-msgstr ""
-"Сервіси управління модемом не запущені. Вам потрібно авторизуватися, щоб "
-"включити і запустити ці сервіси."
+"Modem management services aren't running. You need to authenticate to enable"
+" and start these services."
+msgstr "Сервіси управління модемом не запущені. Вам потрібно авторизуватися, щоб включити і запустити ці сервіси."
 
 #. (itstool) path: action/description
-#: ru.linuxonly.modem-manager-gui.policy.in:22
+#: ru.linuxonly.modem-manager-gui.policy.in:21
 msgid "Use modem management service"
 msgstr "Використання сервісу управління модемом"
 
 #. (itstool) path: action/message
-#: ru.linuxonly.modem-manager-gui.policy.in:23
+#: ru.linuxonly.modem-manager-gui.policy.in:22
 msgid ""
-"Modem management service needs your credentials. You need to authenticate to "
-"use this service."
-msgstr ""
-"Сервіс управління модемом потребує Ваші дані. Вам потрібно авторизуватися "
-"для використання цього сервісу."
+"Modem management service needs your credentials. You need to authenticate to"
+" use this service."
+msgstr "Сервіс управління модемом потребує Ваші дані. Вам потрібно авторизуватися для використання цього сервісу."

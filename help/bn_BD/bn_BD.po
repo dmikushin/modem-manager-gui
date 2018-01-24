@@ -1,13 +1,13 @@
 # 
 # Translators:
 # Md. Emruz Hossain <hossainemruz@gmail.com>, 2016
-# Md. Emruz Hossain <hossainemruz@gmail.com>, 2017
+# Md. Emruz Hossain <hossainemruz@gmail.com>, 2016-2017
 # Reazul Iqbal <reazuliqbal@yahoo.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Modem Manager GUI\n"
 "POT-Creation-Date: 2017-11-11 00:57+0300\n"
-"PO-Revision-Date: 2017-11-10 22:20+0000\n"
+"PO-Revision-Date: 2018-01-24 18:19+0000\n"
 "Last-Translator: Alex <alex@linuxonly.ru>\n"
 "Language-Team: Bengali (Bangladesh) (http://www.transifex.com/ethereal/modem-manager-gui/language/bn_BD/)\n"
 "MIME-Version: 1.0\n"

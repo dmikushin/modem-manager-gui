@@ -1,24 +1,21 @@
 # SOME DESCRIPTIVE TITLE
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Alex <alex@linuxonly.ru>, 2013-2015
+# Alex <alex@linuxonly.ru>, 2013-2015,2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Modem Manager GUI\n"
-"POT-Creation-Date: 2017-12-31 20:07+0300\n"
-"PO-Revision-Date: 2015-09-30 19:03+0000\n"
+"POT-Creation-Date: 2017-11-04 23:05+0300\n"
+"PO-Revision-Date: 2018-01-24 18:34+0000\n"
 "Last-Translator: Alex <alex@linuxonly.ru>\n"
-"Language-Team: Russian (http://www.transifex.com/ethereal/modem-manager-gui/"
-"language/ru/)\n"
-"Language: ru\n"
+"Language-Team: Russian (http://www.transifex.com/ethereal/modem-manager-gui/language/ru/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
-"%100>=11 && n%100<=14)? 2 : 3);\n"
+"Language: ru\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
 
 #. type: TH
 #: modem-manager-gui.1:1
@@ -30,13 +27,13 @@ msgstr "modem-manager-gui"
 #: modem-manager-gui.1:1
 #, no-wrap
 msgid "Nov 2017"
-msgstr ""
+msgstr "Ноя 2017"
 
 #. type: TH
 #: modem-manager-gui.1:1
-#, fuzzy, no-wrap
+#, no-wrap
 msgid "Modem Manager GUI v0.0.19"
-msgstr "Modem Manager GUI v0.0.18"
+msgstr "Modem Manager GUI v0.0.19"
 
 #. type: TH
 #: modem-manager-gui.1:1
@@ -54,8 +51,7 @@ msgstr "ИМЯ"
 #: modem-manager-gui.1:4
 msgid ""
 "modem-manager-gui - simple graphical interface for Modem Manager daemon."
-msgstr ""
-"modem-manager-gui - простой графический интерфейс для демона Modem Manager."
+msgstr "modem-manager-gui - простой графический интерфейс для демона Modem Manager."
 
 #. type: SH
 #: modem-manager-gui.1:4
@@ -79,9 +75,7 @@ msgstr "ОПИСАНИЕ"
 msgid ""
 "This program is simple graphical interface for Modem Manager 0.6/0.7, Wader "
 "and oFono daemons using dbus interface."
-msgstr ""
-"Данная программа является простым графическим интерфейсом для демонов Modem "
-"Manager 0.6/0.7 Wader и oFono, использующим интерфейс dbus."
+msgstr "Данная программа является простым графическим интерфейсом для демонов Modem Manager 0.6/0.7 Wader и oFono, использующим интерфейс dbus."
 
 #. type: TP
 #: modem-manager-gui.1:11
@@ -114,8 +108,7 @@ msgstr "B<-c, --cmmodule>"
 #. type: Plain text
 #: modem-manager-gui.1:20
 msgid "Use specified connection management module"
-msgstr ""
-"Использовать указанный модуль поддержки системы управления соединениями"
+msgstr "Использовать указанный модуль поддержки системы управления соединениями"
 
 #. type: TP
 #: modem-manager-gui.1:20
@@ -137,9 +130,7 @@ msgstr "АВТОР"
 #. type: Plain text
 #: modem-manager-gui.1:25
 msgid "Written by Alex. See the about dialog for all contributors."
-msgstr ""
-"Основным разработчиком является Alex. Имена других участников процесса "
-"разработки находятся в диалоге сведений о программе."
+msgstr "Основным разработчиком является Alex. Имена других участников процесса разработки находятся в диалоге сведений о программе."
 
 #. type: SH
 #: modem-manager-gui.1:25
@@ -149,14 +140,10 @@ msgstr "ОШИБКИ"
 
 #. type: Plain text
 #: modem-manager-gui.1:28
-#, fuzzy
 msgid ""
 "Report bugs to E<lt>alex@linuxonly.ruE<gt>, or to the support forum section "
 "at E<lt>https://linuxonly.ru/forum/modem-manager-gui/E<gt>."
-msgstr ""
-"Сообщения об ошибках отправляйте на адрес электронной почты "
-"E<lt>alex@linuxonly.ruE<gt>, либо оcтавляйте в разделе BUGTRACKER сайта "
-"E<lt>http://linuxonly.ruE<gt>."
+msgstr "Сообщения об ошибках отправляйте на адрес электронной почты E<lt>alex@linuxonly.ruE<gt>, либо оcтавляйте в разделе форума технической поддержки, расположенном по адресу E<lt>https://linuxonly.ru/forum/modem-manager-gui/E<gt>."
 
 #. type: SH
 #: modem-manager-gui.1:28
@@ -166,20 +153,16 @@ msgstr "АВТОРСКИЕ ПРАВА"
 
 #. type: Plain text
 #: modem-manager-gui.1:30
-#, fuzzy
 msgid "Copyright \\(co 2012-2017 Alex"
-msgstr "Copyright \\(co 2012-2015 Alex"
+msgstr "Copyright \\(co 2012-2017 Alex"
 
 #. type: Plain text
 #: modem-manager-gui.1:33
 msgid ""
-"This is free software.  You may redistribute copies of it under the terms of "
-"the GNU General Public License E<lt>http://www.gnu.org/licenses/gpl."
-"htmlE<gt>."
-msgstr ""
-"Это свободное программное обеспечение. Вы можете распространять его копии в "
-"соответствии с условиями лицензии GNU General Public License E<lt>http://www."
-"gnu.org/licenses/gpl.htmlE<gt>."
+"This is free software.  You may redistribute copies of it under the terms of"
+" the GNU General Public License "
+"E<lt>http://www.gnu.org/licenses/gpl.htmlE<gt>."
+msgstr "Это свободное программное обеспечение. Вы можете распространять его копии в соответствии с условиями лицензии GNU General Public License E<lt>http://www.gnu.org/licenses/gpl.htmlE<gt>."
 
 #. type: SH
 #: modem-manager-gui.1:33
@@ -191,6 +174,3 @@ msgstr "СМ. ТАКЖЕ"
 #: modem-manager-gui.1:34
 msgid "B<mmcli>(1)"
 msgstr "B<mmcli>(1)"
-
-#~ msgid "Sep 2015"
-#~ msgstr "Сен 2015"

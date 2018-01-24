@@ -1,23 +1,21 @@
 # SOME DESCRIPTIVE TITLE
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # This file is distributed under the same license as the PACKAGE package.
-#
+# 
 # Translators:
-# Yarema aka Knedlyk <yupadmin@gmail.com>, 2014
+# Yarema aka Knedlyk <yupadmin@gmail.com>, 2014-2015,2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Modem Manager GUI\n"
-"POT-Creation-Date: 2017-12-31 20:07+0300\n"
-"PO-Revision-Date: 2015-09-30 19:02+0000\n"
-"Last-Translator: Alex <alex@linuxonly.ru>\n"
-"Language-Team: Ukrainian (http://www.transifex.com/ethereal/modem-manager-"
-"gui/language/uk/)\n"
-"Language: uk\n"
+"POT-Creation-Date: 2017-11-04 23:05+0300\n"
+"PO-Revision-Date: 2018-01-24 18:34+0000\n"
+"Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
+"Language-Team: Ukrainian (http://www.transifex.com/ethereal/modem-manager-gui/language/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #. type: TH
 #: modem-manager-gui.1:1
@@ -29,13 +27,13 @@ msgstr "modem-manager-gui"
 #: modem-manager-gui.1:1
 #, no-wrap
 msgid "Nov 2017"
-msgstr ""
+msgstr "Листопад 2017"
 
 #. type: TH
 #: modem-manager-gui.1:1
 #, no-wrap
 msgid "Modem Manager GUI v0.0.19"
-msgstr ""
+msgstr "Менеджер модемів v0.0.19"
 
 #. type: TH
 #: modem-manager-gui.1:1
@@ -53,8 +51,7 @@ msgstr "НАЗВА"
 #: modem-manager-gui.1:4
 msgid ""
 "modem-manager-gui - simple graphical interface for Modem Manager daemon."
-msgstr ""
-"modem-manager-gui - простий графічний інтерфейс для демону Менеджера модемів."
+msgstr "modem-manager-gui - простий графічний інтерфейс для демону Менеджера модемів."
 
 #. type: SH
 #: modem-manager-gui.1:4
@@ -78,9 +75,7 @@ msgstr "ОПИС"
 msgid ""
 "This program is simple graphical interface for Modem Manager 0.6/0.7, Wader "
 "and oFono daemons using dbus interface."
-msgstr ""
-"Ця програма є простим графічним інтерфейсом для демонів Менеджера модемів "
-"0.6/0.7, Wader і oFono, використовуючи інтерфейс dbus."
+msgstr "Ця програма є простим графічним інтерфейсом для демонів Менеджера модемів 0.6/0.7, Wader і oFono, використовуючи інтерфейс dbus."
 
 #. type: TP
 #: modem-manager-gui.1:11
@@ -145,13 +140,10 @@ msgstr "ПОВІДОМЛЕННЯ ПРО ВАДИ"
 
 #. type: Plain text
 #: modem-manager-gui.1:28
-#, fuzzy
 msgid ""
 "Report bugs to E<lt>alex@linuxonly.ruE<gt>, or to the support forum section "
 "at E<lt>https://linuxonly.ru/forum/modem-manager-gui/E<gt>."
-msgstr ""
-"Повідомляйте про вади E<lt>alex@linuxonly.ruE<gt>, або на секції трекеру вад "
-"на сторінці E<lt>http://linuxonly.ruE<gt>."
+msgstr "Повідомляйте про вади E<lt>alex@linuxonly.ruE<gt>, або на секції трекеру вад на сторінці E<lt>http://linuxonly.ruE<gt>."
 
 #. type: SH
 #: modem-manager-gui.1:28
@@ -162,18 +154,15 @@ msgstr "ПРАВА"
 #. type: Plain text
 #: modem-manager-gui.1:30
 msgid "Copyright \\(co 2012-2017 Alex"
-msgstr ""
+msgstr "Всі права застережено \\(co 2012-2017 Alex"
 
 #. type: Plain text
 #: modem-manager-gui.1:33
 msgid ""
-"This is free software.  You may redistribute copies of it under the terms of "
-"the GNU General Public License E<lt>http://www.gnu.org/licenses/gpl."
-"htmlE<gt>."
-msgstr ""
-"Це є вільна програма. Ви можете розповсюджувати її згідно з правилами "
-"Загальної публічної ліцензії GNU E<lt>http://www.gnu.org/licenses/gpl."
-"htmlE<gt>."
+"This is free software.  You may redistribute copies of it under the terms of"
+" the GNU General Public License "
+"E<lt>http://www.gnu.org/licenses/gpl.htmlE<gt>."
+msgstr "Це є вільна програма. Ви можете розповсюджувати її згідно з правилами Загальної публічної ліцензії GNU E<lt>http://www.gnu.org/licenses/gpl.htmlE<gt>."
 
 #. type: SH
 #: modem-manager-gui.1:33

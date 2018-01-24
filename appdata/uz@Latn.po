@@ -1,23 +1,21 @@
-#
+# 
 # Translators:
-# Umid Almasov <u.almasov@gmail.com>, 2014
+# Umidjon Almasov <u.almasov@gmail.com>, 2014
 msgid ""
 msgstr ""
 "Project-Id-Version: Modem Manager GUI\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-31 20:07+0300\n"
-"PO-Revision-Date: 2015-09-30 17:47+0000\n"
+"POT-Creation-Date: 2017-11-04 22:42+0300\n"
+"PO-Revision-Date: 2018-01-24 18:45+0000\n"
 "Last-Translator: Alex <alex@linuxonly.ru>\n"
-"Language-Team: Uzbek (Latin) (http://www.transifex.com/ethereal/modem-"
-"manager-gui/language/uz@Latn/)\n"
-"Language: uz@Latn\n"
+"Language-Team: Uzbek (Latin) (http://www.transifex.com/ethereal/modem-manager-gui/language/uz%40Latn/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: uz@Latn\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. (itstool) path: component/name
-#: modem-manager-gui.appdata.xml.in:7 modem-manager-gui.desktop.in:3
+#: modem-manager-gui.appdata.xml.in:7
 msgid "Modem Manager GUI"
 msgstr "Modem Manager GUI"
 
@@ -27,7 +25,7 @@ msgid "Alex"
 msgstr ""
 
 #. (itstool) path: component/summary
-#: modem-manager-gui.appdata.xml.in:11 modem-manager-gui.desktop.in:5
+#: modem-manager-gui.appdata.xml.in:11
 msgid "Control EDGE/3G/4G broadband modem specific functions"
 msgstr "EDGE/3G/4G keng tezlikdagi modem maxsus funksiyalarini boshqarish"
 
@@ -37,20 +35,14 @@ msgid ""
 "Simple graphical interface compatible with Modem manager, Wader and oFono "
 "system services able to control EDGE/3G/4G broadband modem specific "
 "functions."
-msgstr ""
-"EDGE/3G/4G keng tezlikdagi modem maxsus funksiyalarini boshqarish "
-"imkoniyatiga ega Modem manager, Wader va oFono tizim xizmatlariga mos "
-"keladigan oddiy grafik interfeysi."
+msgstr "EDGE/3G/4G keng tezlikdagi modem maxsus funksiyalarini boshqarish imkoniyatiga ega Modem manager, Wader va oFono tizim xizmatlariga mos keladigan oddiy grafik interfeysi."
 
 #. (itstool) path: description/p
 #: modem-manager-gui.appdata.xml.in:17
 msgid ""
 "You can check balance of your SIM card, send or receive SMS messages, "
 "control mobile traffic consuption and more using Modem Manager GUI."
-msgstr ""
-"Modem Manager GUI dasturidan foydalanib siz SIM-kartaning balansini "
-"tekshirish, SMS xabarlarini qabul qilish va yuborish, mobil trafik "
-"xarajatlarini boshqarish va boshqa imkoniyatlarga ega bo'lasiz."
+msgstr "Modem Manager GUI dasturidan foydalanib siz SIM-kartaning balansini tekshirish, SMS xabarlarini qabul qilish va yuborish, mobil trafik xarajatlarini boshqarish va boshqa imkoniyatlarga ega bo'lasiz."
 
 #. (itstool) path: description/p
 #: modem-manager-gui.appdata.xml.in:21
@@ -65,25 +57,20 @@ msgstr ""
 #. (itstool) path: ul/li
 #: modem-manager-gui.appdata.xml.in:24
 msgid "Send and receive SMS messages and store messages in database"
-msgstr ""
-"SMS xabarlarni yuborish va qabul qilish va xabarlarni ma'lumot bazasida "
-"saqlash"
+msgstr "SMS xabarlarni yuborish va qabul qilish va xabarlarni ma'lumot bazasida saqlash"
 
 #. (itstool) path: ul/li
 #: modem-manager-gui.appdata.xml.in:25
 msgid ""
 "Initiate USSD requests and read answers (also using interactive sessions)"
-msgstr ""
-"USSD so'rovlarni yuborish va javoblarni o'qish (o'zaro faol seanslardan "
-"foydalangan holda ham)"
+msgstr "USSD so'rovlarni yuborish va javoblarni o'qish (o'zaro faol seanslardan foydalangan holda ham)"
 
 #. (itstool) path: ul/li
 #: modem-manager-gui.appdata.xml.in:26
 msgid ""
-"View device information: operator name, device mode, IMEI, IMSI, signal level"
-msgstr ""
-"Qurilma haqida ma'lumotni ko'rish: operator nomi, qurilma rejimi, IMEI, "
-"IMSI, signal darajasi"
+"View device information: operator name, device mode, IMEI, IMSI, signal "
+"level"
+msgstr "Qurilma haqida ma'lumotni ko'rish: operator nomi, qurilma rejimi, IMEI, IMSI, signal darajasi"
 
 #. (itstool) path: ul/li
 #: modem-manager-gui.appdata.xml.in:27
@@ -116,16 +103,4 @@ msgstr ""
 #. (itstool) path: screenshot/caption
 #: modem-manager-gui.appdata.xml.in:46
 msgid "Traffic control"
-msgstr ""
-
-#: modem-manager-gui.desktop.in:4
-msgid "Broadband modem management tool"
-msgstr ""
-
-#: modem-manager-gui.desktop.in:7
-msgid "modem-manager-gui"
-msgstr ""
-
-#: modem-manager-gui.desktop.in:12
-msgid "modem;manager;sms;ussd;"
 msgstr ""

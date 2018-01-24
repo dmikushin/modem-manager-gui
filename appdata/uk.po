@@ -1,34 +1,31 @@
-#
+# 
 # Translators:
-# Yarema aka Knedlyk <yupadmin@gmail.com>, 2014
+# Yarema aka Knedlyk <yupadmin@gmail.com>, 2014,2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Modem Manager GUI\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-31 20:07+0300\n"
-"PO-Revision-Date: 2015-09-30 17:47+0000\n"
-"Last-Translator: Alex <alex@linuxonly.ru>\n"
-"Language-Team: Ukrainian (http://www.transifex.com/ethereal/modem-manager-"
-"gui/language/uk/)\n"
-"Language: uk\n"
+"POT-Creation-Date: 2017-11-04 22:42+0300\n"
+"PO-Revision-Date: 2018-01-24 18:45+0000\n"
+"Last-Translator: Yarema aka Knedlyk <yupadmin@gmail.com>\n"
+"Language-Team: Ukrainian (http://www.transifex.com/ethereal/modem-manager-gui/language/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Language: uk\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #. (itstool) path: component/name
-#: modem-manager-gui.appdata.xml.in:7 modem-manager-gui.desktop.in:3
+#: modem-manager-gui.appdata.xml.in:7
 msgid "Modem Manager GUI"
 msgstr "Менеджер модемів"
 
 #. (itstool) path: component/developer_name
 #: modem-manager-gui.appdata.xml.in:8
 msgid "Alex"
-msgstr ""
+msgstr "Алекс"
 
 #. (itstool) path: component/summary
-#: modem-manager-gui.appdata.xml.in:11 modem-manager-gui.desktop.in:5
+#: modem-manager-gui.appdata.xml.in:11
 msgid "Control EDGE/3G/4G broadband modem specific functions"
 msgstr "Контроль за EDGE/3G/4G специфічними функціями модему"
 
@@ -38,20 +35,14 @@ msgid ""
 "Simple graphical interface compatible with Modem manager, Wader and oFono "
 "system services able to control EDGE/3G/4G broadband modem specific "
 "functions."
-msgstr ""
-"Простий графічний інтерфейс, узгоджений з Менеджером модемів, Wader і oFono "
-"системними сервісами, для контролю специфічними EDGE/3G/4G функціями "
-"модемів. "
+msgstr "Простий графічний інтерфейс, узгоджений з Менеджером модемів, Wader і oFono системними сервісами, для контролю специфічними EDGE/3G/4G функціями модемів. "
 
 #. (itstool) path: description/p
 #: modem-manager-gui.appdata.xml.in:17
 msgid ""
 "You can check balance of your SIM card, send or receive SMS messages, "
 "control mobile traffic consuption and more using Modem Manager GUI."
-msgstr ""
-"Ви можете перевірити баланс Вашої карти SIM, вислати або отримати "
-"повідомлення SMS, контролювати використання мобільного трафіку і багато "
-"іншого, використовуючи Менеджер модемів."
+msgstr "Ви можете перевірити баланс Вашої карти SIM, вислати або отримати повідомлення SMS, контролювати використання мобільного трафіку і багато іншого, використовуючи Менеджер модемів."
 
 #. (itstool) path: description/p
 #: modem-manager-gui.appdata.xml.in:21
@@ -61,29 +52,25 @@ msgstr "Поточні можливості:"
 #. (itstool) path: ul/li
 #: modem-manager-gui.appdata.xml.in:23
 msgid "Create and control mobile broadband connections"
-msgstr ""
+msgstr "Створення і контроль з’єднань"
 
 #. (itstool) path: ul/li
 #: modem-manager-gui.appdata.xml.in:24
 msgid "Send and receive SMS messages and store messages in database"
-msgstr ""
-"Висилання і отримання повідомлень SMS, зберігання повідомлень в базі даних "
+msgstr "Висилання і отримання повідомлень SMS, зберігання повідомлень в базі даних "
 
 #. (itstool) path: ul/li
 #: modem-manager-gui.appdata.xml.in:25
 msgid ""
 "Initiate USSD requests and read answers (also using interactive sessions)"
-msgstr ""
-"Висилання запитів USSD і читання відповідей (також з використанням "
-"інтерактивного сеансу)"
+msgstr "Висилання запитів USSD і читання відповідей (також з використанням інтерактивного сеансу)"
 
 #. (itstool) path: ul/li
 #: modem-manager-gui.appdata.xml.in:26
 msgid ""
-"View device information: operator name, device mode, IMEI, IMSI, signal level"
-msgstr ""
-"Перегляд інформації пристрою: назва оператора, режим пристрою, IMEI, IMSI, "
-"півень сигналу "
+"View device information: operator name, device mode, IMEI, IMSI, signal "
+"level"
+msgstr "Перегляд інформації пристрою: назва оператора, режим пристрою, IMEI, IMSI, півень сигналу "
 
 #. (itstool) path: ul/li
 #: modem-manager-gui.appdata.xml.in:27
@@ -101,34 +88,19 @@ msgid ""
 "Please note that some features may be not available due to limitations of "
 "different system services or even different versions of system service in "
 "use."
-msgstr ""
-"Зауважте, що деякі можливості можуть бути недоступними завдяки обмеженням на "
-"різні системні сервіси, або навіть використанням різних версій системних "
-"сервісів."
+msgstr "Зауважте, що деякі можливості можуть бути недоступними завдяки обмеженням на різні системні сервіси, або навіть використанням різних версій системних сервісів."
 
 #. (itstool) path: screenshot/caption
 #: modem-manager-gui.appdata.xml.in:38
 msgid "Broadband devices overview"
-msgstr ""
+msgstr "Огляд широкосмугових пристроїв"
 
 #. (itstool) path: screenshot/caption
 #: modem-manager-gui.appdata.xml.in:42
 msgid "SMS messages list"
-msgstr ""
+msgstr "Список SMS повідомлень"
 
 #. (itstool) path: screenshot/caption
 #: modem-manager-gui.appdata.xml.in:46
 msgid "Traffic control"
-msgstr ""
-
-#: modem-manager-gui.desktop.in:4
-msgid "Broadband modem management tool"
-msgstr ""
-
-#: modem-manager-gui.desktop.in:7
-msgid "modem-manager-gui"
-msgstr ""
-
-#: modem-manager-gui.desktop.in:12
-msgid "modem;manager;sms;ussd;"
-msgstr ""
+msgstr "Обмеження трафіку"
