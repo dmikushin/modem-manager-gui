@@ -991,10 +991,10 @@ static gboolean mmgui_module_device_get_connected(mmguicore_t mmguicore)
 	GVariant *contexts, *properties, *propdict;
 	GVariantIter coniterl1, coniterl2;
 	GVariant *connodel1, *connodel2;
-	GVariant *conparams, *parameter;
+	GVariant *conparams, *typev, *statev;
 	gsize strlength;
-	const gchar *valuestr;
-	gboolean internet, connected;
+	const gchar *type;
+	gboolean connected;
 	
 	if (mmguicore == NULL) return FALSE;
 	mmguicorelc = (mmguicore_t)mmguicore;
@@ -1034,20 +1034,21 @@ static gboolean mmgui_module_device_get_connected(mmguicore_t mmguicore)
 				conparams = g_variant_get_child_value(connodel2, 1);
 				if (conparams != NULL) {
 					/*Type*/
-					parameter = g_variant_lookup_value(conparams, "Type", G_VARIANT_TYPE_STRING);
-					if (parameter != NULL) {
+					typev = g_variant_lookup_value(conparams, "Type", G_VARIANT_TYPE_STRING);
+					if (typev != NULL) {
 						strlength = 256;
-						valuestr = g_variant_get_string(parameter, &strlength);
-						internet = g_str_equal(valuestr, "internet");
-						g_variant_unref(parameter);
-					}
-					if (internet) {
-						/*State*/
-						parameter = g_variant_lookup_value(conparams, "Active", G_VARIANT_TYPE_BOOLEAN);
-						if (parameter != NULL) {
-							connected = g_variant_get_boolean(parameter);
-							g_variant_unref(parameter);
+						type = g_variant_get_string(typev, &strlength);
+						if ((type != NULL) && (type[0] != '\0')) {
+							if (g_str_equal(type, "internet")) {
+								/*State*/
+								statev = g_variant_lookup_value(conparams, "Active", G_VARIANT_TYPE_BOOLEAN);
+								if (statev != NULL) {
+									connected = g_variant_get_boolean(statev);
+									g_variant_unref(statev);
+								}
+							}
 						}
+						g_variant_unref(typev);
 					}
 					g_variant_unref(conparams);
 				}
@@ -1078,10 +1079,10 @@ static gboolean mmgui_module_device_get_connected(mmguicore_t mmguicore)
 			return FALSE;
 		}
 		
-		parameter = g_variant_lookup_value(propdict, "Powered", G_VARIANT_TYPE_BOOLEAN);
-		if (parameter != NULL) {
-			connected = g_variant_get_boolean(parameter);
-			g_variant_unref(parameter);
+		statev = g_variant_lookup_value(propdict, "Powered", G_VARIANT_TYPE_BOOLEAN);
+		if (statev != NULL) {
+			connected = g_variant_get_boolean(statev);
+			g_variant_unref(statev);
 		}
 	}
 	

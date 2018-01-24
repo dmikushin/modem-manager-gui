@@ -30,7 +30,6 @@
 mmgui_notifications_t mmgui_notifications_new(mmgui_libpaths_cache_t libcache, GdkPixbuf *icon)
 {
 	mmgui_notifications_t notifications;
-	GError *error;
 	gboolean libopened;
 	GList *capabilities, *iterator;
 		

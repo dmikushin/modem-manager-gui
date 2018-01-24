@@ -502,8 +502,7 @@ static gboolean mmgui_ui_infobar_show_result_timer(gpointer data)
 void mmgui_ui_infobar_show_result(mmgui_application_t mmguiapp, gint result, gchar *message)
 {
 	gchar *iconname, *defmessage, *resmessage;
-	guint page;
-	
+		
 	if (mmguiapp == NULL) return;
 	
 	switch (result) {
@@ -581,8 +580,7 @@ void mmgui_ui_infobar_show(mmgui_application_t mmguiapp, gchar *message, gint ty
 {
 	gchar *iconname;
 	GtkMessageType msgtype;
-	guint page;
-	
+		
 	if ((mmguiapp == NULL) || (message == NULL)) return;
 	
 	if (mmguiapp->window->infobarlock) return;
@@ -779,8 +777,7 @@ void mmgui_ui_infobar_process_stop_signal(GtkInfoBar *info_bar, gint response_id
 {
 	mmgui_application_t mmguiapp;
 	gboolean res;	
-	guint page;
-			
+				
 	mmguiapp = (mmgui_application_t)data;
 	
 	if ((mmguiapp == NULL) || (response_id != GTK_RESPONSE_CLOSE)) return;
@@ -2277,7 +2274,7 @@ static GdkPixbuf *mmgui_main_application_load_image_to_pixbuf(GtkIconTheme *them
 	/*Show missing icon if requested one isn't loaded*/
 	if (pixbuf == NULL) {
 		error = NULL;
-		g_debug("Loading failback icon \'image-missing\' from current icon theme", iconname);
+		g_debug("Loading failback icon \'image-missing\' from current icon theme");
 		pixbuf = gtk_icon_theme_load_icon(theme, "image-missing", size, 0, &error);
 		if (pixbuf == NULL) {
 			if (error != NULL) {
