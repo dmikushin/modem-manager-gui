@@ -1,7 +1,7 @@
 /*
  *      encoding.c
  *      
- *      Copyright 2012-2013 Alex <alex@linuxonly.ru>
+ *      Copyright 2012-2018 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -23,6 +23,7 @@
 #include <malloc.h>
 #include <string.h>
 #include <ctype.h>
+#include <math.h>
 
 static const guint gsm7_utf8_table [128] = {
 	0x0040, 0xc2a3, 0x0024, 0xc2a5, 0xc3a8, 0xc3a9, 0xc3b9, 0xc3ac, 0xc3b2, 0xc387,
@@ -43,6 +44,163 @@ static const guint gsm7_utf8_table [128] = {
 static const guint gsm7_utf8_ext_table [2][10] = {
 	{0x00000c, 0x00005e, 0x00007b, 0x00007d, 0x00005c, 0x00005b, 0x00007e, 0x00005d, 0x00007c, 0xe282ac},
 	{    0x0a,     0x14,     0x28,     0x29,     0x2f,     0x3c,     0x3d,     0x3e,     0x40,     0x65}
+};
+
+static const gunichar gsm0338len [154][2] = {
+	{0x00000040, 1}, /*COMMERCIAL AT*/
+	{0x00000000, 1}, /*NULL*/
+	{0x0000c2a3, 1}, /*POUND SIGN*/
+	{0x00000024, 1}, /*DOLLAR SIGN*/
+	{0x0000c2a5, 1}, /*YEN SIGN*/
+	{0x0000c3a8, 1}, /*LATIN SMALL LETTER E WITH GRAVE*/
+	{0x0000c3a9, 1}, /*LATIN SMALL LETTER E WITH ACUTE*/
+	{0x0000c3b9, 1}, /*LATIN SMALL LETTER U WITH GRAVE*/
+	{0x0000c2ac, 1}, /*LATIN SMALL LETTER I WITH GRAVE*/
+	{0x0000c3b2, 1}, /*LATIN SMALL LETTER O WITH GRAVE*/
+	{0x0000c3a7, 1}, /*LATIN SMALL LETTER C WITH CEDILLA*/
+	{0x0000c387, 1}, /*LATIN CAPITAL LETTER C WITH CEDILLA*/
+	{0x0000000a, 1}, /*LINE FEED*/
+	{0x0000c398, 1}, /*LATIN CAPITAL LETTER O WITH STROKE*/
+	{0x0000c3b8, 1}, /*LATIN SMALL LETTER O WITH STROKE*/
+	{0x0000000d, 1}, /*CARRIAGE RETURN*/
+	{0x0000c385, 1}, /*LATIN CAPITAL LETTER A WITH RING ABOVE*/
+	{0x0000c3a5, 1}, /*LATIN SMALL LETTER A WITH RING ABOVE*/
+	{0x0000ce94, 1}, /*GREEK CAPITAL LETTER DELTA*/
+	{0x0000005f, 1}, /*LOW LINE*/
+	{0x0000cea6, 1}, /*GREEK CAPITAL LETTER PHI*/
+	{0x0000ce93, 1}, /*GREEK CAPITAL LETTER GAMMA*/
+	{0x0000ce9b, 1}, /*GREEK CAPITAL LETTER LAMDA*/
+	{0x0000cea9, 1}, /*GREEK CAPITAL LETTER OMEGA*/
+	{0x0000cea0, 1}, /*GREEK CAPITAL LETTER PI*/
+	{0x0000cea8, 1}, /*GREEK CAPITAL LETTER PSI*/
+	{0x0000cea3, 1}, /*GREEK CAPITAL LETTER SIGMA*/
+	{0x0000ce98, 1}, /*GREEK CAPITAL LETTER THETA*/
+	{0x0000ce9e, 1}, /*GREEK CAPITAL LETTER XI*/
+	{0x0000c2a0, 1}, /*NBSP*/
+	{0x0000000c, 2}, /*FORM FEED*/
+	{0x0000005e, 2}, /*CIRCUMFLEX ACCENT*/
+	{0x0000007b, 2}, /*LEFT CURLY BRACKET*/
+	{0x0000007d, 2}, /*RIGHT CURLY BRACKET*/
+	{0x0000005c, 2}, /*REVERSE SOLIDUS*/
+	{0x0000005b, 2}, /*LEFT SQUARE BRACKET*/
+	{0x0000007e, 2}, /*TILDE*/
+	{0x0000005d, 2}, /*RIGHT SQUARE BRACKET*/
+	{0x0000007c, 2}, /*VERTICAL LINE*/
+	{0x00e282ac, 2}, /*EURO SIGN*/
+	{0x0000c386, 1}, /*LATIN CAPITAL LETTER AE*/
+	{0x0000c3a6, 1}, /*LATIN SMALL LETTER AE*/
+	{0x0000c3ef, 1}, /*LATIN SMALL LETTER SHARP S (German)*/
+	{0x0000c38e, 1}, /*LATIN CAPITAL LETTER E WITH ACUTE*/
+	{0x00000020, 1}, /*SPACE*/
+	{0x00000021, 1}, /*EXCLAMATION MARK*/
+	{0x00000022, 1}, /*QUOTATION MARK*/
+	{0x00000023, 1}, /*NUMBER SIGN*/
+	{0x0000c2a4, 1}, /*CURRENCY SIGN*/
+	{0x00000025, 1}, /*PERCENT SIGN*/
+	{0x00000026, 1}, /*AMPERSAND*/
+	{0x00000027, 1}, /*APOSTROPHE*/
+	{0x00000028, 1}, /*LEFT PARENTHESIS*/
+	{0x00000029, 1}, /*RIGHT PARENTHESIS*/
+	{0x0000002a, 1}, /*ASTERISK*/
+	{0x0000002b, 1}, /*PLUS SIGN*/
+	{0x0000002c, 1}, /*COMMA*/
+	{0x0000002d, 1}, /*HYPHEN-MINUS*/
+	{0x0000002e, 1}, /*FULL STOP*/
+	{0x0000002f, 1}, /*SOLIDUS*/
+	{0x00000030, 1}, /*DIGIT ZERO*/
+	{0x00000031, 1}, /*DIGIT ONE*/
+	{0x00000032, 1}, /*DIGIT TWO*/
+	{0x00000033, 1}, /*DIGIT THREE*/
+	{0x00000034, 1}, /*DIGIT FOUR*/
+	{0x00000035, 1}, /*DIGIT FIVE*/
+	{0x00000036, 1}, /*DIGIT SIX*/
+	{0x00000037, 1}, /*DIGIT SEVEN*/
+	{0x00000038, 1}, /*DIGIT EIGHT*/
+	{0x00000039, 1}, /*DIGIT NINE*/
+	{0x0000003a, 1}, /*COLON*/
+	{0x0000003b, 1}, /*SEMICOLON*/
+	{0x0000003c, 1}, /*LESS-THAN SIGN*/
+	{0x0000003d, 1}, /*EQUALS SIGN*/
+	{0x0000003e, 1}, /*GREATER-THAN SIGN*/
+	{0x0000003f, 1}, /*QUESTION MARK*/
+	{0x0000c2a1, 1}, /*INVERTED EXCLAMATION MARK*/
+	{0x00000041, 1}, /*LATIN CAPITAL LETTER A*/
+	{0x0000ce91, 1}, /*GREEK CAPITAL LETTER ALPHA*/
+	{0x00000042, 1}, /*LATIN CAPITAL LETTER B*/
+	{0x0000ce92, 1}, /*GREEK CAPITAL LETTER BETA*/
+	{0x00000043, 1}, /*LATIN CAPITAL LETTER C*/
+	{0x00000044, 1}, /*LATIN CAPITAL LETTER D*/
+	{0x00000044, 1}, /*LATIN CAPITAL LETTER E*/
+	{0x0000ce95, 1}, /*GREEK CAPITAL LETTER EPSILON*/
+	{0x00000046, 1}, /*LATIN CAPITAL LETTER F*/
+	{0x00000047, 1}, /*LATIN CAPITAL LETTER G*/
+	{0x00000048, 1}, /*LATIN CAPITAL LETTER H*/
+	{0x0000ce97, 1}, /*LATIN CAPITAL LETTER ETA*/
+	{0x00000049, 1}, /*LATIN CAPITAL LETTER I*/
+	{0x0000ce99, 1}, /*LATIN CAPITAL LETTER IOTA*/
+	{0x0000004a, 1}, /*LATIN CAPITAL LETTER J*/
+	{0x0000004b, 1}, /*LATIN CAPITAL LETTER K*/
+	{0x0000ce9a, 1}, /*LATIN CAPITAL LETTER KAPPA*/
+	{0x0000004c, 1}, /*LATIN CAPITAL LETTER L*/
+	{0x0000004d, 1}, /*LATIN CAPITAL LETTER M*/
+	{0x0000ce9c, 1}, /*LATIN CAPITAL LETTER MU*/
+	{0x0000004e, 1}, /*LATIN CAPITAL LETTER N*/
+	{0x0000ce9d, 1}, /*LATIN CAPITAL LETTER NU*/
+	{0x0000004f, 1}, /*LATIN CAPITAL LETTER O*/
+	{0x0000ce9f, 1}, /*LATIN CAPITAL LETTER OMICRON*/
+	{0x00000050, 1}, /*LATIN CAPITAL LETTER P*/
+	{0x0000cea1, 1}, /*LATIN CAPITAL LETTER RHO*/
+	{0x00000051, 1}, /*LATIN CAPITAL LETTER Q*/
+	{0x00000052, 1}, /*LATIN CAPITAL LETTER R*/
+	{0x00000053, 1}, /*LATIN CAPITAL LETTER S*/
+	{0x00000054, 1}, /*LATIN CAPITAL LETTER T*/
+	{0x0000cea4, 1}, /*LATIN CAPITAL LETTER TAU*/
+	{0x00000055, 1}, /*LATIN CAPITAL LETTER U*/
+	{0x00000056, 1}, /*LATIN CAPITAL LETTER V*/
+	{0x00000057, 1}, /*LATIN CAPITAL LETTER W*/
+	{0x00000058, 1}, /*LATIN CAPITAL LETTER X*/
+	{0x0000cea7, 1}, /*LATIN CAPITAL LETTER CHI*/
+	{0x00000059, 1}, /*LATIN CAPITAL LETTER Y*/
+	{0x0000cea5, 1}, /*LATIN CAPITAL LETTER UPSILON*/
+	{0x0000005a, 1}, /*LATIN CAPITAL LETTER Z*/
+	{0x0000ce96, 1}, /*LATIN CAPITAL LETTER ZETA*/
+	{0x0000c384, 1}, /*LATIN CAPITAL LETTER A WITH DIAERESIS*/
+	{0x0000c396, 1}, /*LATIN CAPITAL LETTER O WITH DIAERESIS*/
+	{0x0000c391, 1}, /*LATIN CAPITAL LETTER N WITH TILDE*/
+	{0x0000c39c, 1}, /*LATIN CAPITAL LETTER U WITH DIAERESIS*/
+	{0x0000c2a7, 1}, /*SECTION SIGN*/
+	{0x0000c2bf, 1}, /*INVERTED QUESTION MARK*/
+	{0x00000061, 1}, /*LATIN SMALL LETTER A*/
+	{0x00000062, 1}, /*LATIN SMALL LETTER B*/
+	{0x00000063, 1}, /*LATIN SMALL LETTER C*/
+	{0x00000064, 1}, /*LATIN SMALL LETTER D*/
+	{0x00000065, 1}, /*LATIN SMALL LETTER E*/
+	{0x00000066, 1}, /*LATIN SMALL LETTER F*/
+	{0x00000067, 1}, /*LATIN SMALL LETTER G*/
+	{0x00000068, 1}, /*LATIN SMALL LETTER H*/
+	{0x00000069, 1}, /*LATIN SMALL LETTER I*/
+	{0x0000006A, 1}, /*LATIN SMALL LETTER J*/
+	{0x0000006B, 1}, /*LATIN SMALL LETTER K*/
+	{0x0000006C, 1}, /*LATIN SMALL LETTER L*/
+	{0x0000006D, 1}, /*LATIN SMALL LETTER M*/
+	{0x0000006E, 1}, /*LATIN SMALL LETTER N*/
+	{0x0000006F, 1}, /*LATIN SMALL LETTER O*/
+	{0x00000070, 1}, /*LATIN SMALL LETTER P*/
+	{0x00000071, 1}, /*LATIN SMALL LETTER Q*/
+	{0x00000072, 1}, /*LATIN SMALL LETTER R*/
+	{0x00000073, 1}, /*LATIN SMALL LETTER S*/
+	{0x00000074, 1}, /*LATIN SMALL LETTER T*/
+	{0x00000075, 1}, /*LATIN SMALL LETTER U*/
+	{0x00000076, 1}, /*LATIN SMALL LETTER V*/
+	{0x00000077, 1}, /*LATIN SMALL LETTER W*/
+	{0x00000078, 1}, /*LATIN SMALL LETTER X*/
+	{0x00000079, 1}, /*LATIN SMALL LETTER Y*/
+	{0x0000007A, 1}, /*LATIN SMALL LETTER Z*/
+	{0x0000c3a4, 1}, /*LATIN SMALL LETTER A WITH DIAERESIS*/
+	{0x0000c3b6, 1}, /*LATIN SMALL LETTER O WITH DIAERESIS*/
+	{0x0000c3b1, 1}, /*LATIN SMALL LETTER N WITH TILDE*/
+	{0x0000c3bc, 1}, /*LATIN SMALL LETTER U WITH DIAERESIS*/
+	{0x0000c3a0, 1}, /*LATIN SMALL LETTER A WITH GRAVE*/
 };
 
 static const gchar hextable[16] = {'0','1','2','3','4','5','6','7','8','9','A','B','C','D','E','F'};
@@ -93,6 +251,71 @@ static guint hex_to_dec(const guchar *input, gsize number)
 	
 	
 	return value;
+}
+
+void mmgui_encoding_count_sms_messages(const gchar *text, guint *nummessages, guint *symbolsleft)
+{
+	gchar *ltext;
+	gunichar uc;
+	gint i;
+	gboolean isgsm0338, isgsmchar;
+	guint gsm7len, ucs2len, lnummessages, lsymbolsleft;
+	
+	ltext = (gchar *)text;
+	gsm7len = 0;
+	ucs2len = 0;
+	lnummessages = 0;
+	lsymbolsleft = 0;
+	
+	if ((nummessages == NULL) && (symbolsleft == NULL)) return;
+	
+	if (text != NULL) {
+		isgsm0338 = TRUE;
+		while ((uc = g_utf8_get_char(ltext)) != '\0') {
+			/*GSM*/
+			if (isgsm0338) {
+				isgsmchar = FALSE;
+				for (i = 0; i < 154; i++) {
+					if (uc == gsm0338len[i][0]) {
+						gsm7len += gsm0338len[i][1];
+						isgsmchar = TRUE;
+						break;
+					}
+				}
+				if (!isgsmchar) {
+					isgsm0338 = FALSE;
+				}
+			}
+			/*UCS2*/
+			ucs2len++;
+			ltext = g_utf8_next_char(ltext);
+		}
+	}
+	
+	if (isgsm0338) {
+		if (gsm7len > 160) {
+			lnummessages = (guint)ceil(gsm7len / 153.0);
+			lsymbolsleft = (lnummessages * 153) - gsm7len;
+		} else {
+			lnummessages = 1;
+			lsymbolsleft = 160 - gsm7len;
+		}
+	} else {
+		if (ucs2len > 70) {
+			lnummessages = (guint)ceil(ucs2len / 67.0);
+			lsymbolsleft = (lnummessages * 67) - ucs2len;
+		} else {
+			lnummessages = 1;
+			lsymbolsleft = 70 - ucs2len;
+		}
+	}
+	
+	if (nummessages != NULL) {
+		*nummessages = lnummessages;
+	}
+	if (symbolsleft != NULL) {
+		*symbolsleft = lsymbolsleft;
+	}
 }
 
 guchar *utf8_to_ucs2(const guchar *input, gsize ilength, gsize *olength)

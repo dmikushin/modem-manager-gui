@@ -1,7 +1,7 @@
 /*
  *      encoding.h
  *      
- *      Copyright 2012 Alex <alex@linuxonly.ru>
+ *      Copyright 2012-2018 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -22,6 +22,7 @@
 
 #include <glib.h>
 
+void mmgui_encoding_count_sms_messages(const gchar *text, guint *nummessages, guint *symbolsleft);
 guchar *utf8_to_ucs2(const guchar *input, gsize ilength, gsize *olength);
 guchar *ucs2_to_utf8(const guchar *input, gsize ilength, gsize *olength);
 guchar *utf8_to_gsm7(const guchar *input, gsize ilength, gsize *olength);

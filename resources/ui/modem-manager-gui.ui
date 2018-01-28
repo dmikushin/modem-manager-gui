@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.20.1 -->
+<!-- Generated with glade 3.20.2 -->
 <interface>
   <requires lib="gtk+" version="3.4"/>
   <object class="GtkSizeGroup" id="conneditsizegroup"/>
@@ -2900,7 +2900,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                 <property name="is_important">True</property>
                 <property name="label" translatable="yes">Send</property>
                 <property name="use_underline">True</property>
-                <property name="icon_name">mail-message-new</property>
+                <property name="icon_name">mail-send</property>
                 <signal name="clicked" handler="mmgui_main_sms_new_send_signal" swapped="no"/>
               </object>
               <packing>
@@ -2935,7 +2935,34 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                 <signal name="clicked" handler="mmgui_main_sms_new_disable_spellchecker_signal" swapped="no"/>
               </object>
               <packing>
+                <property name="expand">True</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkSeparatorToolItem" id="newsmsseparator">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+              </object>
+              <packing>
                 <property name="expand">False</property>
+                <property name="homogeneous">True</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkToolItem" id="newsmscounterstub">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkLabel" id="newsmscounterlabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="label" translatable="yes">160/1</property>
+                  </object>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">True</property>
                 <property name="homogeneous">True</property>
               </packing>
             </child>
