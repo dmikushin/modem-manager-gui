@@ -122,6 +122,7 @@
                       <object class="GtkLabel" id="welcomemmlabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="margin_left">5</property>
                         <property name="label" translatable="yes">Modem manager</property>
                         <property name="xalign">0</property>
                         <attributes>
@@ -137,6 +138,7 @@
                       <object class="GtkLabel" id="welcomecmlabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="margin_left">5</property>
                         <property name="label" translatable="yes">Connection manager</property>
                         <property name="xalign">0</property>
                       </object>
@@ -665,7 +667,7 @@
                         <property name="is_important">True</property>
                         <property name="label" translatable="yes">New</property>
                         <property name="use_underline">True</property>
-                        <property name="icon_name">mail-message-new</property>
+                        <property name="icon_name">document-new</property>
                         <signal name="clicked" handler="mmgui_main_sms_new_button_clicked_signal" swapped="no"/>
                       </object>
                       <packing>
@@ -681,7 +683,7 @@
                         <property name="is_important">True</property>
                         <property name="label" translatable="yes">Remove</property>
                         <property name="use_underline">True</property>
-                        <property name="icon_name">user-trash</property>
+                        <property name="icon_name">edit-delete</property>
                         <signal name="clicked" handler="mmgui_main_sms_remove_button_clicked_signal" swapped="no"/>
                       </object>
                       <packing>
@@ -697,7 +699,7 @@
                         <property name="is_important">True</property>
                         <property name="label" translatable="yes">Answer</property>
                         <property name="use_underline">True</property>
-                        <property name="icon_name">mail-reply-sender</property>
+                        <property name="icon_name">document-edit</property>
                         <signal name="clicked" handler="mmgui_main_sms_answer_button_clicked_signal" swapped="no"/>
                       </object>
                       <packing>
@@ -751,6 +753,8 @@
                             <property name="can_focus">True</property>
                             <property name="editable">False</property>
                             <property name="wrap_mode">word</property>
+                            <property name="left_margin">5</property>
+                            <property name="right_margin">5</property>
                           </object>
                         </child>
                       </object>
@@ -928,6 +932,7 @@
                               <object class="GtkImage" id="equipmentimage">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
+                                <property name="margin_right">15</property>
                                 <property name="icon_size">6</property>
                               </object>
                               <packing>
@@ -952,6 +957,8 @@
                               <object class="GtkLabel" id="devicevlabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
+                                <property name="halign">center</property>
+                                <property name="margin_left">75</property>
                                 <property name="hexpand">True</property>
                                 <property name="selectable">True</property>
                                 <property name="ellipsize">end</property>
@@ -977,6 +984,8 @@
                               <object class="GtkLabel" id="imeivlabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
+                                <property name="halign">center</property>
+                                <property name="margin_left">75</property>
                                 <property name="hexpand">True</property>
                                 <property name="selectable">True</property>
                                 <property name="ellipsize">end</property>
@@ -1002,6 +1011,8 @@
                               <object class="GtkLabel" id="imsivlabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
+                                <property name="halign">center</property>
+                                <property name="margin_left">75</property>
                                 <property name="hexpand">True</property>
                                 <property name="selectable">True</property>
                                 <property name="ellipsize">end</property>
@@ -1033,6 +1044,7 @@
                   <object class="GtkFrame" id="networkframe">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="hexpand">True</property>
                     <property name="vexpand">True</property>
                     <property name="label_xalign">0</property>
                     <property name="shadow_type">none</property>
@@ -1051,6 +1063,7 @@
                               <object class="GtkImage" id="networkimage">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
+                                <property name="margin_right">15</property>
                                 <property name="icon_size">6</property>
                               </object>
                               <packing>
@@ -1075,6 +1088,8 @@
                               <object class="GtkLabel" id="operatorvlabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
+                                <property name="halign">center</property>
+                                <property name="margin_left">75</property>
                                 <property name="hexpand">True</property>
                                 <property name="selectable">True</property>
                                 <property name="ellipsize">end</property>
@@ -1100,6 +1115,8 @@
                               <object class="GtkLabel" id="modevlabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
+                                <property name="halign">center</property>
+                                <property name="margin_left">75</property>
                                 <property name="hexpand">True</property>
                                 <property name="selectable">True</property>
                                 <property name="ellipsize">end</property>
@@ -1137,6 +1154,8 @@
                               <object class="GtkLabel" id="operatorcodevlabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
+                                <property name="halign">center</property>
+                                <property name="margin_left">75</property>
                                 <property name="hexpand">True</property>
                                 <property name="selectable">True</property>
                                 <property name="ellipsize">end</property>
@@ -1162,6 +1181,8 @@
                               <object class="GtkLabel" id="regstatevlabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
+                                <property name="halign">center</property>
+                                <property name="margin_left">75</property>
                                 <property name="hexpand">True</property>
                                 <property name="selectable">True</property>
                                 <property name="ellipsize">end</property>
@@ -1177,6 +1198,7 @@
                                 <property name="can_focus">False</property>
                                 <property name="halign">center</property>
                                 <property name="valign">center</property>
+                                <property name="margin_left">75</property>
                                 <property name="hexpand">True</property>
                                 <property name="show_text">True</property>
                                 <property name="ellipsize">middle</property>
@@ -1226,6 +1248,7 @@
                               <object class="GtkImage" id="locationimage">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
+                                <property name="margin_right">15</property>
                                 <property name="icon_size">6</property>
                               </object>
                               <packing>
@@ -1266,6 +1289,8 @@
                               <object class="GtkLabel" id="3gpplocationvlabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
+                                <property name="halign">center</property>
+                                <property name="margin_left">75</property>
                                 <property name="hexpand">True</property>
                                 <property name="selectable">True</property>
                                 <property name="ellipsize">end</property>
@@ -1279,6 +1304,8 @@
                               <object class="GtkLabel" id="gpslocationvlabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
+                                <property name="halign">center</property>
+                                <property name="margin_left">75</property>
                                 <property name="hexpand">True</property>
                                 <property name="selectable">True</property>
                                 <property name="ellipsize">end</property>
@@ -1363,7 +1390,7 @@
                         <property name="is_important">True</property>
                         <property name="label" translatable="yes">Start scan</property>
                         <property name="use_underline">True</property>
-                        <property name="icon_name">system-search</property>
+                        <property name="icon_name">edit-find</property>
                         <signal name="clicked" handler="mmgui_main_scan_start_button_clicked_signal" swapped="no"/>
                       </object>
                       <packing>
@@ -1435,7 +1462,7 @@
                         <property name="is_important">True</property>
                         <property name="label" translatable="yes">Set limit</property>
                         <property name="use_underline">True</property>
-                        <property name="icon_name">go-last</property>
+                        <property name="icon_name">network-offline</property>
                         <signal name="clicked" handler="mmgui_main_traffic_limits_dialog_button_clicked_signal" swapped="no"/>
                       </object>
                       <packing>
@@ -1451,7 +1478,7 @@
                         <property name="is_important">True</property>
                         <property name="label" translatable="yes">Connections</property>
                         <property name="use_underline">True</property>
-                        <property name="icon_name">network-wireless</property>
+                        <property name="icon_name">network-receive</property>
                         <signal name="clicked" handler="mmgui_main_traffic_connections_dialog_button_clicked_signal" swapped="no"/>
                       </object>
                       <packing>
@@ -1467,7 +1494,7 @@
                         <property name="is_important">True</property>
                         <property name="label" translatable="yes">Statistics</property>
                         <property name="use_underline">True</property>
-                        <property name="icon_name">format-justify-fill</property>
+                        <property name="icon_name">x-office-calendar</property>
                         <signal name="clicked" handler="mmgui_main_traffic_statistics_dialog_button_clicked_signal" swapped="no"/>
                       </object>
                       <packing>
@@ -1508,7 +1535,7 @@
                       </packing>
                     </child>
                     <child>
-                      <object class="GtkBox" id="box5">
+                      <object class="GtkBox" id="trafficplotbox">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="orientation">vertical</property>
@@ -1517,6 +1544,9 @@
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
                             <property name="label" translatable="yes">Transmission speed</property>
+                            <attributes>
+                              <attribute name="weight" value="bold"/>
+                            </attributes>
                           </object>
                           <packing>
                             <property name="expand">False</property>
@@ -1623,7 +1653,7 @@
                         <property name="is_important">True</property>
                         <property name="label" translatable="yes">Send SMS</property>
                         <property name="use_underline">True</property>
-                        <property name="icon_name">mail-message-new</property>
+                        <property name="icon_name">document-new</property>
                         <signal name="clicked" handler="mmgui_main_contacts_sms_button_clicked_signal" swapped="no"/>
                       </object>
                       <packing>
@@ -1721,12 +1751,10 @@
     <property name="window_position">center-on-parent</property>
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
-    <property name="skip_taskbar_hint">True</property>
-    <property name="skip_pager_hint">True</property>
     <property name="transient_for">window</property>
     <property name="program_name">Modem Manager GUI</property>
     <property name="version">0.0.19</property>
-    <property name="copyright" translatable="yes">Copyright 2012-2017 Alex</property>
+    <property name="copyright" translatable="yes">Copyright 2012-2018 Alex</property>
     <property name="comments" translatable="yes">Tool for EDGE/3G/4G modem specific functions control</property>
     <property name="website">http://linuxonly.ru/page/modem-manager-gui</property>
     <property name="website_label" translatable="yes">Homepage</property>
@@ -1771,11 +1799,10 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
     <property name="title" translatable="yes">Active connections</property>
     <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
-    <property name="default_width">550</property>
-    <property name="default_height">350</property>
+    <property name="default_width">650</property>
+    <property name="default_height">400</property>
+    <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
-    <property name="skip_taskbar_hint">True</property>
-    <property name="skip_pager_hint">True</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox5">
@@ -1825,7 +1852,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                     <property name="is_important">True</property>
                     <property name="label" translatable="yes">Terminate application</property>
                     <property name="use_underline">True</property>
-                    <property name="icon_name">list-remove</property>
+                    <property name="icon_name">process-stop</property>
                     <signal name="clicked" handler="mmgui_main_traffic_connections_terminate_button_clicked_signal" swapped="no"/>
                   </object>
                   <packing>
@@ -1865,6 +1892,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
+            <property name="padding">5</property>
             <property name="position">1</property>
           </packing>
         </child>
@@ -1881,9 +1909,11 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
     <property name="can_focus">False</property>
     <property name="border_width">5</property>
     <property name="title" translatable="yes">Connections</property>
+    <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
     <property name="default_width">650</property>
-    <property name="default_height">400</property>
+    <property name="default_height">550</property>
+    <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
@@ -2081,9 +2111,12 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                           </object>
                         </child>
                         <child type="label">
-                          <object class="GtkLabel" id="connnamefremelabel">
+                          <object class="GtkLabel" id="connnameframelabel">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="margin_left">5</property>
+                            <property name="margin_top">5</property>
+                            <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">&lt;b&gt;Connection&lt;/b&gt;</property>
                             <property name="use_markup">True</property>
                             <property name="ellipsize">start</property>
@@ -2163,6 +2196,9 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                           <object class="GtkLabel" id="connetlabel">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="margin_left">5</property>
+                            <property name="margin_top">5</property>
+                            <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">&lt;b&gt;Network&lt;/b&gt;</property>
                             <property name="use_markup">True</property>
                           </object>
@@ -2275,6 +2311,9 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                           <object class="GtkLabel" id="connauthframelabel">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="margin_left">5</property>
+                            <property name="margin_top">5</property>
+                            <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">&lt;b&gt;Authentication&lt;/b&gt;</property>
                             <property name="use_markup">True</property>
                           </object>
@@ -2364,6 +2403,9 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                           <object class="GtkLabel" id="conndnslabel">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="margin_left">5</property>
+                            <property name="margin_top">5</property>
+                            <property name="margin_bottom">5</property>
                             <property name="label" translatable="yes">&lt;b&gt;DNS&lt;/b&gt;</property>
                             <property name="use_markup">True</property>
                           </object>
@@ -2392,6 +2434,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
+            <property name="padding">5</property>
             <property name="position">1</property>
           </packing>
         </child>
@@ -2423,10 +2466,9 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
     <property name="title" translatable="yes">Error</property>
     <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
+    <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
-    <property name="skip_taskbar_hint">True</property>
-    <property name="skip_pager_hint">True</property>
-    <property name="deletable">False</property>
+    <property name="urgency_hint">True</property>
     <property name="transient_for">window</property>
     <property name="message_type">error</property>
     <property name="buttons">close</property>
@@ -2460,9 +2502,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
     <property name="window_position">center-on-parent</property>
     <property name="default_width">320</property>
     <property name="default_height">200</property>
-    <property name="type_hint">normal</property>
-    <property name="skip_taskbar_hint">True</property>
-    <property name="skip_pager_hint">True</property>
+    <property name="destroy_with_parent">True</property>
+    <property name="type_hint">dialog</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox9">
@@ -2535,7 +2576,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="receives_default">False</property>
-                <property name="xalign">0</property>
+                <property name="halign">start</property>
                 <property name="active">True</property>
                 <property name="draw_indicator">True</property>
               </object>
@@ -2574,7 +2615,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="receives_default">False</property>
-                <property name="xalign">0</property>
+                <property name="halign">start</property>
                 <property name="active">True</property>
                 <property name="draw_indicator">True</property>
               </object>
@@ -2589,7 +2630,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
                 <property name="receives_default">False</property>
-                <property name="xalign">0</property>
+                <property name="halign">start</property>
                 <property name="active">True</property>
                 <property name="draw_indicator">True</property>
                 <property name="group">exitcloseradio</property>
@@ -2638,7 +2679,6 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
     <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
     <property name="destroy_with_parent">True</property>
-    <property name="hide_titlebar_when_maximized">True</property>
     <property name="type_hint">dialog</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
@@ -2690,6 +2730,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
           <object class="GtkGrid" id="newcontactgrid">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
+            <property name="row_spacing">5</property>
+            <property name="column_spacing">5</property>
             <property name="column_homogeneous">True</property>
             <child>
               <object class="GtkEntry" id="contactnameentry">
@@ -2833,6 +2875,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
+            <property name="padding">5</property>
             <property name="position">1</property>
           </packing>
         </child>
@@ -2852,17 +2895,16 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
     <property name="title" translatable="yes">New SMS message</property>
     <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
-    <property name="default_width">550</property>
-    <property name="default_height">350</property>
+    <property name="default_width">650</property>
+    <property name="default_height">400</property>
+    <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
-    <property name="skip_taskbar_hint">True</property>
-    <property name="skip_pager_hint">True</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox2">
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
-        <property name="spacing">2</property>
+        <property name="spacing">5</property>
         <child internal-child="action_area">
           <object class="GtkButtonBox" id="dialog-action_area2">
             <property name="can_focus">False</property>
@@ -2886,112 +2928,110 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
             <property name="expand">False</property>
             <property name="fill">True</property>
             <property name="pack_type">end</property>
-            <property name="position">0</property>
+            <property name="position">1</property>
           </packing>
         </child>
         <child>
-          <object class="GtkToolbar" id="smsmsgtoolbar">
-            <property name="visible">True</property>
-            <property name="can_focus">False</property>
-            <child>
-              <object class="GtkToolButton" id="newsmssendtb">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="is_important">True</property>
-                <property name="label" translatable="yes">Send</property>
-                <property name="use_underline">True</property>
-                <property name="icon_name">mail-send</property>
-                <signal name="clicked" handler="mmgui_main_sms_new_send_signal" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="homogeneous">True</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkToolButton" id="newsmssavetb">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="is_important">True</property>
-                <property name="label" translatable="yes">Save</property>
-                <property name="use_underline">True</property>
-                <property name="icon_name">document-save</property>
-                <signal name="clicked" handler="mmgui_main_sms_new_save_signal" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="homogeneous">True</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkMenuToolButton" id="newsmsspellchecktb">
-                <property name="visible">True</property>
-                <property name="sensitive">False</property>
-                <property name="can_focus">False</property>
-                <property name="is_important">True</property>
-                <property name="label" translatable="yes">Disabled</property>
-                <property name="use_underline">True</property>
-                <property name="icon_name">tools-check-spelling</property>
-                <signal name="clicked" handler="mmgui_main_sms_new_disable_spellchecker_signal" swapped="no"/>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="homogeneous">True</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSeparatorToolItem" id="newsmsseparator">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="homogeneous">True</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkToolItem" id="newsmscounterstub">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <child>
-                  <object class="GtkLabel" id="newsmscounterlabel">
-                    <property name="visible">True</property>
-                    <property name="can_focus">False</property>
-                    <property name="label" translatable="yes">160/1</property>
-                  </object>
-                </child>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="homogeneous">True</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox" id="box3">
+          <object class="GtkBox" id="newsmsbox">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
             <child>
+              <object class="GtkToolbar" id="smsmsgtoolbar">
+                <property name="visible">True</property>
+                <property name="can_focus">False</property>
+                <child>
+                  <object class="GtkToolButton" id="newsmssendtb">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="is_important">True</property>
+                    <property name="label" translatable="yes">Send</property>
+                    <property name="use_underline">True</property>
+                    <property name="icon_name">mail-send</property>
+                    <signal name="clicked" handler="mmgui_main_sms_new_send_signal" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToolButton" id="newsmssavetb">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="is_important">True</property>
+                    <property name="label" translatable="yes">Save</property>
+                    <property name="use_underline">True</property>
+                    <property name="icon_name">document-save</property>
+                    <signal name="clicked" handler="mmgui_main_sms_new_save_signal" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkMenuToolButton" id="newsmsspellchecktb">
+                    <property name="visible">True</property>
+                    <property name="sensitive">False</property>
+                    <property name="can_focus">False</property>
+                    <property name="is_important">True</property>
+                    <property name="label" translatable="yes">Disabled</property>
+                    <property name="use_underline">True</property>
+                    <property name="icon_name">tools-check-spelling</property>
+                    <signal name="clicked" handler="mmgui_main_sms_new_disable_spellchecker_signal" swapped="no"/>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSeparatorToolItem" id="newsmsseparator">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                  </object>
+                  <packing>
+                    <property name="expand">False</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+                <child>
+                  <object class="GtkToolItem" id="newsmscounterstub">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkLabel" id="newsmscounterlabel">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="label" translatable="yes">160/1</property>
+                      </object>
+                    </child>
+                  </object>
+                  <packing>
+                    <property name="expand">True</property>
+                    <property name="homogeneous">True</property>
+                  </packing>
+                </child>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
+              </packing>
+            </child>
+            <child>
               <object class="GtkGrid" id="newsmsgrid">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="row_spacing">3</property>
+                <property name="row_spacing">5</property>
                 <child>
                   <object class="GtkLabel" id="smsnumberlabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
-                    <property name="margin_left">5</property>
                     <property name="margin_right">5</property>
                     <property name="margin_top">5</property>
                     <property name="margin_bottom">5</property>
-                    <property name="xpad">5</property>
                     <property name="label" translatable="yes">Number</property>
                   </object>
                   <packing>
@@ -3003,6 +3043,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                   <object class="GtkComboBox" id="smsnumbercombo">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="margin_left">5</property>
                     <property name="hexpand">True</property>
                     <property name="has_entry">True</property>
                     <child internal-child="entry">
@@ -3041,14 +3082,14 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
               <packing>
                 <property name="expand">True</property>
                 <property name="fill">True</property>
-                <property name="position">0</property>
+                <property name="position">1</property>
               </packing>
             </child>
           </object>
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
-            <property name="position">1</property>
+            <property name="position">0</property>
           </packing>
         </child>
       </object>
@@ -3066,6 +3107,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
     <property name="resizable">False</property>
     <property name="default_width">400</property>
     <property name="default_height">50</property>
+    <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
@@ -3200,16 +3242,15 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
     <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
     <property name="default_width">450</property>
-    <property name="default_height">300</property>
+    <property name="default_height">550</property>
+    <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
-    <property name="skip_taskbar_hint">True</property>
-    <property name="skip_pager_hint">True</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="prefdialogvbox">
         <property name="can_focus">False</property>
         <property name="orientation">vertical</property>
-        <property name="spacing">2</property>
+        <property name="spacing">5</property>
         <child internal-child="action_area">
           <object class="GtkButtonBox" id="prefdialogactionarea">
             <property name="can_focus">False</property>
@@ -3339,6 +3380,9 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                   <object class="GtkLabel" id="prefbehaviourlabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="margin_left">5</property>
+                    <property name="margin_top">5</property>
+                    <property name="margin_bottom">5</property>
                     <property name="label" translatable="yes">&lt;b&gt;Behaviour&lt;/b&gt;</property>
                     <property name="use_markup">True</property>
                   </object>
@@ -3431,6 +3475,9 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                       <object class="GtkLabel" id="prefsmspreslabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="margin_left">5</property>
+                        <property name="margin_top">5</property>
+                        <property name="margin_bottom">5</property>
                         <property name="label" translatable="yes">&lt;b&gt;Presentation&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                       </object>
@@ -3461,6 +3508,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                               <object class="GtkLabel" id="prefsmsvaliditylabel">
                                 <property name="visible">True</property>
                                 <property name="can_focus">False</property>
+                                <property name="margin_left">5</property>
+                                <property name="margin_right">5</property>
                                 <property name="label" translatable="yes">Validity period</property>
                               </object>
                               <packing>
@@ -3493,6 +3542,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                 <property name="adjustment">prefsmsvalidityadjustment</property>
                                 <property name="fill_level">256</property>
                                 <property name="round_digits">0</property>
+                                <property name="value_pos">right</property>
                                 <signal name="format-value" handler="mmgui_preferences_window_message_validity_scale_value_format" swapped="no"/>
                               </object>
                               <packing>
@@ -3508,6 +3558,9 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                       <object class="GtkLabel" id="prefsmsparamslabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="margin_left">5</property>
+                        <property name="margin_top">5</property>
+                        <property name="margin_bottom">5</property>
                         <property name="label" translatable="yes">&lt;b&gt;Message parameters&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                       </object>
@@ -3583,6 +3636,9 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                       <object class="GtkLabel" id="prefsmscommandframelabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="margin_left">5</property>
+                        <property name="margin_top">5</property>
+                        <property name="margin_bottom">5</property>
                         <property name="label" translatable="yes">&lt;b&gt;Custom command&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                       </object>
@@ -3711,6 +3767,9 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                   <object class="GtkLabel" id="preftrafficlabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="margin_left">5</property>
+                    <property name="margin_top">5</property>
+                    <property name="margin_bottom">5</property>
                     <property name="label" translatable="yes">&lt;b&gt;Traffic&lt;/b&gt;</property>
                     <property name="use_markup">True</property>
                   </object>
@@ -3813,6 +3872,9 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                       <object class="GtkLabel" id="prefmodulesbackendslabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="margin_left">5</property>
+                        <property name="margin_top">5</property>
+                        <property name="margin_bottom">5</property>
                         <property name="label" translatable="yes">&lt;b&gt;Preferred backends&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                       </object>
@@ -3898,6 +3960,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                 <property name="hexpand">True</property>
                                 <property name="adjustment">prefenebledevicetimeoutadjustment</property>
                                 <property name="round_digits">1</property>
+                                <property name="value_pos">right</property>
                                 <signal name="format-value" handler="mmgui_preferences_window_timeout_scale_value_format" swapped="no"/>
                               </object>
                               <packing>
@@ -3914,6 +3977,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                 <property name="hexpand">True</property>
                                 <property name="adjustment">prefsendsmstimeoutadjustment</property>
                                 <property name="round_digits">1</property>
+                                <property name="value_pos">right</property>
                                 <signal name="format-value" handler="mmgui_preferences_window_timeout_scale_value_format" swapped="no"/>
                               </object>
                               <packing>
@@ -3930,6 +3994,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                 <property name="hexpand">True</property>
                                 <property name="adjustment">prefsendussdtimeoutadjustment</property>
                                 <property name="round_digits">1</property>
+                                <property name="value_pos">right</property>
                                 <signal name="format-value" handler="mmgui_preferences_window_timeout_scale_value_format" swapped="no"/>
                               </object>
                               <packing>
@@ -3946,6 +4011,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                 <property name="hexpand">True</property>
                                 <property name="adjustment">prefscannetworkstimeoutadjustment</property>
                                 <property name="round_digits">1</property>
+                                <property name="value_pos">right</property>
                                 <signal name="format-value" handler="mmgui_preferences_window_timeout_scale_value_format" swapped="no"/>
                               </object>
                               <packing>
@@ -3961,6 +4027,9 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                       <object class="GtkLabel" id="prefmodulestimeoutslabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="margin_left">5</property>
+                        <property name="margin_top">5</property>
+                        <property name="margin_bottom">5</property>
                         <property name="label" translatable="yes">&lt;b&gt;Operations timeouts&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                       </object>
@@ -4012,6 +4081,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                             <property name="sensitive">False</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
+                            <property name="halign">start</property>
                             <property name="active">True</property>
                             <property name="draw_indicator">True</property>
                           </object>
@@ -4027,6 +4097,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
+                            <property name="halign">start</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -4041,6 +4112,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
+                            <property name="halign">start</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -4055,6 +4127,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
+                            <property name="halign">start</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -4069,6 +4142,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
+                            <property name="halign">start</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -4083,6 +4157,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
+                            <property name="halign">start</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -4097,6 +4172,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
+                            <property name="halign">start</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -4113,6 +4189,9 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                   <object class="GtkLabel" id="prefactivepageslabel">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <property name="margin_left">5</property>
+                    <property name="margin_top">5</property>
+                    <property name="margin_bottom">5</property>
                     <property name="label" translatable="yes">&lt;b&gt;Active pages&lt;/b&gt;</property>
                     <property name="use_markup">True</property>
                   </object>
@@ -4162,9 +4241,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
     <property name="title" translatable="yes">Question</property>
     <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
+    <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
-    <property name="skip_taskbar_hint">True</property>
-    <property name="skip_pager_hint">True</property>
     <property name="deletable">False</property>
     <property name="transient_for">window</property>
     <property name="message_type">question</property>
@@ -4198,11 +4276,10 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
     <property name="title" translatable="yes">Traffic limits</property>
     <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
-    <property name="default_width">380</property>
-    <property name="default_height">260</property>
+    <property name="default_width">500</property>
+    <property name="default_height">400</property>
+    <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
-    <property name="skip_taskbar_hint">True</property>
-    <property name="skip_pager_hint">True</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox4">
@@ -4250,228 +4327,328 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
           </packing>
         </child>
         <child>
-          <object class="GtkGrid" id="trafficlimitsgrid">
+          <object class="GtkBox" id="trafficlimitsbox">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
-            <property name="row_homogeneous">True</property>
-            <property name="column_homogeneous">True</property>
+            <property name="orientation">vertical</property>
             <child>
-              <object class="GtkCheckButton" id="trafficlimitcheckbutton">
-                <property name="label" translatable="yes">Enable traffic limit</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="xalign">0</property>
-                <property name="draw_indicator">True</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">0</property>
-                <property name="width">3</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkCheckButton" id="timelimitcheckbutton">
-                <property name="label" translatable="yes">Enable time limit</property>
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="receives_default">False</property>
-                <property name="xalign">0</property>
-                <property name="draw_indicator">True</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">4</property>
-                <property name="width">3</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="trafficamountlabel">
+              <object class="GtkFrame" id="trafficlimitstrafficframe">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Traffic</property>
-                <property name="xalign">0</property>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">none</property>
+                <child>
+                  <object class="GtkAlignment" id="trafficlimitstrafficalignment">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="left_padding">12</property>
+                    <child>
+                      <object class="GtkGrid" id="trafficlimitstrafficgrid">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="row_spacing">5</property>
+                        <property name="column_spacing">5</property>
+                        <property name="column_homogeneous">True</property>
+                        <child>
+                          <object class="GtkCheckButton" id="trafficlimitcheckbutton">
+                            <property name="label" translatable="yes">Enable traffic limit</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">False</property>
+                            <property name="halign">start</property>
+                            <property name="valign">center</property>
+                            <property name="draw_indicator">True</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">0</property>
+                            <property name="width">3</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="trafficamountlabel">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="valign">center</property>
+                            <property name="label" translatable="yes">Traffic</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkSpinButton" id="trafficamount">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="valign">center</property>
+                            <property name="invisible_char">●</property>
+                            <property name="text" translatable="yes">1</property>
+                            <property name="adjustment">trafficadjustment</property>
+                            <property name="numeric">True</property>
+                            <property name="value">1</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkComboBoxText" id="trafficunits">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="valign">center</property>
+                            <items>
+                              <item translatable="yes">Mb</item>
+                              <item translatable="yes">Gb</item>
+                              <item translatable="yes">Tb</item>
+                            </items>
+                          </object>
+                          <packing>
+                            <property name="left_attach">2</property>
+                            <property name="top_attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="trafficmessagelabel">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="valign">center</property>
+                            <property name="label" translatable="yes">Message</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkEntry" id="trafficmessage">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="valign">center</property>
+                            <property name="invisible_char">●</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">2</property>
+                            <property name="width">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="trafficactionlabel">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="valign">center</property>
+                            <property name="label" translatable="yes">Action</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">3</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkComboBoxText" id="trafficaction">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="valign">center</property>
+                            <property name="active">0</property>
+                            <items>
+                              <item translatable="yes">Show message</item>
+                              <item translatable="yes">Disconnect</item>
+                            </items>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">3</property>
+                            <property name="width">2</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child type="label">
+                  <object class="GtkLabel" id="trafficlimitstrafficlabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_left">5</property>
+                    <property name="margin_top">5</property>
+                    <property name="margin_bottom">5</property>
+                    <property name="label" translatable="yes">&lt;b&gt;Traffic&lt;/b&gt;</property>
+                    <property name="use_markup">True</property>
+                  </object>
+                </child>
               </object>
               <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">1</property>
+                <property name="expand">True</property>
+                <property name="fill">True</property>
+                <property name="position">0</property>
               </packing>
             </child>
             <child>
-              <object class="GtkSpinButton" id="trafficamount">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="invisible_char">●</property>
-                <property name="adjustment">trafficadjustment</property>
-                <property name="numeric">True</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkComboBoxText" id="trafficunits">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <items>
-                  <item translatable="yes">Mb</item>
-                  <item translatable="yes">Gb</item>
-                  <item translatable="yes">Tb</item>
-                </items>
-              </object>
-              <packing>
-                <property name="left_attach">2</property>
-                <property name="top_attach">1</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="trafficmessagelabel">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Message</property>
-                <property name="xalign">0</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkEntry" id="trafficmessage">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="invisible_char">●</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">2</property>
-                <property name="width">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="trafficactionlabel">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Action</property>
-                <property name="xalign">0</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">3</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkComboBoxText" id="trafficaction">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="active">0</property>
-                <items>
-                  <item translatable="yes">Show message</item>
-                  <item translatable="yes">Disconnect</item>
-                </items>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">3</property>
-                <property name="width">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="timeamountlabel">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Time</property>
-                <property name="xalign">0</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">5</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSpinButton" id="timeamount">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="invisible_char">●</property>
-                <property name="adjustment">timeadjustment</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">5</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkComboBoxText" id="timeunits">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="active">0</property>
-                <items>
-                  <item translatable="yes">Minutes</item>
-                  <item translatable="yes">Hours</item>
-                </items>
-              </object>
-              <packing>
-                <property name="left_attach">2</property>
-                <property name="top_attach">5</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="timemessagelabel">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Message</property>
-                <property name="xalign">0</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">6</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkEntry" id="timemessage">
-                <property name="visible">True</property>
-                <property name="can_focus">True</property>
-                <property name="invisible_char">●</property>
-              </object>
-              <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">6</property>
-                <property name="width">2</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkLabel" id="timeactionlabel">
-                <property name="visible">True</property>
-                <property name="can_focus">False</property>
-                <property name="label" translatable="yes">Action</property>
-                <property name="xalign">0</property>
-              </object>
-              <packing>
-                <property name="left_attach">0</property>
-                <property name="top_attach">7</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkComboBoxText" id="timeaction">
+              <object class="GtkFrame" id="trafficlimitstimeframe">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="active">0</property>
-                <items>
-                  <item translatable="yes">Show message</item>
-                  <item translatable="yes">Disconnect</item>
-                </items>
+                <property name="label_xalign">0</property>
+                <property name="shadow_type">none</property>
+                <child>
+                  <object class="GtkAlignment" id="trafficlimitstimealignment">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="left_padding">12</property>
+                    <child>
+                      <object class="GtkGrid" id="trafficlimitstimegrid">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                        <property name="row_spacing">5</property>
+                        <property name="column_spacing">5</property>
+                        <property name="column_homogeneous">True</property>
+                        <child>
+                          <object class="GtkCheckButton" id="timelimitcheckbutton">
+                            <property name="label" translatable="yes">Enable time limit</property>
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="receives_default">False</property>
+                            <property name="halign">start</property>
+                            <property name="valign">center</property>
+                            <property name="draw_indicator">True</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">0</property>
+                            <property name="width">3</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="timeamountlabel">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="valign">center</property>
+                            <property name="label" translatable="yes">Time</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkSpinButton" id="timeamount">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="valign">center</property>
+                            <property name="invisible_char">●</property>
+                            <property name="text" translatable="yes">1</property>
+                            <property name="adjustment">timeadjustment</property>
+                            <property name="value">1</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkComboBoxText" id="timeunits">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="valign">center</property>
+                            <property name="active">0</property>
+                            <items>
+                              <item translatable="yes">Minutes</item>
+                              <item translatable="yes">Hours</item>
+                            </items>
+                          </object>
+                          <packing>
+                            <property name="left_attach">2</property>
+                            <property name="top_attach">1</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="timemessagelabel">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="valign">center</property>
+                            <property name="label" translatable="yes">Message</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkEntry" id="timemessage">
+                            <property name="visible">True</property>
+                            <property name="can_focus">True</property>
+                            <property name="valign">center</property>
+                            <property name="invisible_char">●</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">2</property>
+                            <property name="width">2</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkLabel" id="timeactionlabel">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="valign">center</property>
+                            <property name="label" translatable="yes">Action</property>
+                            <property name="xalign">0</property>
+                          </object>
+                          <packing>
+                            <property name="left_attach">0</property>
+                            <property name="top_attach">3</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <object class="GtkComboBoxText" id="timeaction">
+                            <property name="visible">True</property>
+                            <property name="can_focus">False</property>
+                            <property name="valign">center</property>
+                            <property name="active">0</property>
+                            <items>
+                              <item translatable="yes">Show message</item>
+                              <item translatable="yes">Disconnect</item>
+                            </items>
+                          </object>
+                          <packing>
+                            <property name="left_attach">1</property>
+                            <property name="top_attach">3</property>
+                            <property name="width">2</property>
+                          </packing>
+                        </child>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child type="label">
+                  <object class="GtkLabel" id="trafficlimitstimelabel">
+                    <property name="visible">True</property>
+                    <property name="can_focus">False</property>
+                    <property name="margin_left">5</property>
+                    <property name="margin_top">5</property>
+                    <property name="margin_bottom">5</property>
+                    <property name="label" translatable="yes">&lt;b&gt;Time&lt;/b&gt;</property>
+                    <property name="use_markup">True</property>
+                  </object>
+                </child>
               </object>
               <packing>
-                <property name="left_attach">1</property>
-                <property name="top_attach">7</property>
-                <property name="width">2</property>
+                <property name="expand">False</property>
+                <property name="fill">True</property>
+                <property name="position">1</property>
               </packing>
             </child>
           </object>
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
+            <property name="padding">5</property>
             <property name="position">1</property>
           </packing>
         </child>
@@ -4491,11 +4668,10 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
     <property name="title" translatable="yes">Traffic statistics</property>
     <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
-    <property name="default_width">550</property>
-    <property name="default_height">350</property>
+    <property name="default_width">650</property>
+    <property name="default_height">400</property>
+    <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
-    <property name="skip_taskbar_hint">True</property>
-    <property name="skip_pager_hint">True</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox13">
@@ -4529,15 +4705,16 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
           </packing>
         </child>
         <child>
-          <object class="GtkBox" id="box7">
+          <object class="GtkBox" id="trafficstatsbox">
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="orientation">vertical</property>
+            <property name="spacing">5</property>
             <child>
               <object class="GtkBox" id="trafficstatsctlbox">
                 <property name="visible">True</property>
                 <property name="can_focus">False</property>
-                <property name="spacing">2</property>
+                <property name="spacing">5</property>
                 <child>
                   <object class="GtkLabel" id="trafficstatslabel">
                     <property name="visible">True</property>
@@ -4636,6 +4813,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
+            <property name="padding">5</property>
             <property name="position">1</property>
           </packing>
         </child>
@@ -4654,11 +4832,10 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
     <property name="title" translatable="yes">USSD commands</property>
     <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
-    <property name="default_width">550</property>
-    <property name="default_height">350</property>
+    <property name="default_width">650</property>
+    <property name="default_height">400</property>
+    <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
-    <property name="skip_taskbar_hint">True</property>
-    <property name="skip_pager_hint">True</property>
     <property name="transient_for">window</property>
     <child internal-child="vbox">
       <object class="GtkBox" id="dialog-vbox8">
@@ -4789,6 +4966,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
           <packing>
             <property name="expand">True</property>
             <property name="fill">True</property>
+            <property name="padding">5</property>
             <property name="position">1</property>
           </packing>
         </child>

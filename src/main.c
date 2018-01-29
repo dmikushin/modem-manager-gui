@@ -151,6 +151,7 @@ static void mmgui_main_application_unresolved_error(mmgui_application_t mmguiapp
 static gboolean mmgui_main_contacts_load_from_thread(gpointer data);
 static gboolean mmgui_main_settings_ui_load(mmgui_application_t mmguiapp);
 static gboolean mmgui_main_settings_load(mmgui_application_t mmguiapp);
+static GdkPixbuf *mmgui_main_application_load_image_to_pixbuf(GtkIconTheme *theme, const gchar *name, const gchar *path, gint size, gboolean scalable);
 static gboolean mmgui_main_application_build_user_interface(mmgui_application_t mmguiapp);
 static void mmgui_main_application_terminate(mmgui_application_t mmguiapp);
 static void mmgui_main_application_startup_signal(GtkApplication *application, gpointer data);
@@ -163,7 +164,7 @@ static void mmgui_main_application_backtrace_signal_handler(int sig, siginfo_t *
 #endif
 static void mmgui_main_application_termination_signal_handler(int sig, siginfo_t *info, ucontext_t *ucontext);
 
-//EVENTS
+/*EVENTS*/
 static void mmgui_main_event_callback(enum _mmgui_event event, gpointer mmguicore, gpointer data, gpointer userdata)
 {
 	mmguidevice_t device;
@@ -354,7 +355,7 @@ static void mmgui_main_event_callback(enum _mmgui_event event, gpointer mmguicor
 		case MMGUI_EVENT_NET_STATUS:
 			g_idle_add(mmgui_main_ui_update_statusbar_from_thread, mmguiapp);
 			g_idle_add(mmgui_main_traffic_stats_update_from_thread, mmguiapp);
-			if (gtk_widget_get_visible(mmguiapp->window->trafficstatsdialog)) {
+			if ((GTK_IS_WIDGET(mmguiapp->window->trafficstatsdialog)) && (gtk_widget_get_visible(mmguiapp->window->trafficstatsdialog))) {
 				g_idle_add(mmgui_main_traffic_stats_history_update_from_thread, mmguiapp);
 			}
 			break;
@@ -441,7 +442,7 @@ static gboolean mmgui_main_handle_extend_capabilities(mmgui_application_t mmguia
 	return TRUE;
 }
 
-//UI
+/*UI*/
 gboolean mmgui_main_ui_question_dialog_open(mmgui_application_t mmguiapp, gchar *caption, gchar *text)
 {
 	gint response;
@@ -1576,8 +1577,7 @@ void mmgui_main_window_update_active_pages(mmgui_application_t mmguiapp)
 static enum _mmgui_main_exit_dialog_result mmgui_main_ui_window_hide_dialog(mmgui_application_t mmguiapp)
 {
 	gint response;
-	/*gchar *strcolor;*/
-	
+		
 	if (mmguiapp == NULL) return MMGUI_MAIN_EXIT_DIALOG_CANCEL;
 	if ((mmguiapp->options == NULL) || (mmguiapp->settings == NULL)) return MMGUI_MAIN_EXIT_DIALOG_CANCEL;
 	
@@ -1614,15 +1614,15 @@ static void mmgui_main_ui_window_save_geometry(mmgui_application_t mmguiapp)
 	if (mmguiapp == NULL) return;
 	
 	if (mmguiapp->options->savegeometry) {
-		//Get window geometry and coordinates
+		/*Get window geometry and coordinates*/
 		gtk_window_get_size(GTK_WINDOW(mmguiapp->window->window), &(mmguiapp->options->wgwidth), &(mmguiapp->options->wgheight));
 		/*Get new coordinates only if window visible or use saved coordinates otherwise*/
 		if (gtk_widget_get_visible(mmguiapp->window->window)) {
 			gtk_window_get_position(GTK_WINDOW(mmguiapp->window->window), &(mmguiapp->options->wgposx), &(mmguiapp->options->wgposy));
 		}
-		//Save it
+		/*Save it*/
 		if ((mmguiapp->options->wgwidth >= 1) && (mmguiapp->options->wgheight >= 1)) {
-			//Window geometry
+			/*Window geometry*/
 			gmm_settings_set_int(mmguiapp->settings, "window_geometry_width", mmguiapp->options->wgwidth);
 			gmm_settings_set_int(mmguiapp->settings, "window_geometry_height", mmguiapp->options->wgheight);
 			gmm_settings_set_int(mmguiapp->settings, "window_geometry_x", mmguiapp->options->wgposx);
@@ -1909,7 +1909,7 @@ gboolean mmgui_main_ui_update_statusbar_from_thread(gpointer data)
 	return FALSE;
 }
 
-//TRAY
+/*TRAY*/
 #if RESOURCE_INDICATOR_ENABLED
 
 static gboolean mmgui_main_tray_handle_state_change_from_thread(gpointer data)
@@ -2084,14 +2084,14 @@ static void mmgui_main_ayatana_event_callback(enum _mmgui_ayatana_event event, g
 	}
 }
 
-//Initialization
+/*Initialization*/
 static void mmgui_main_application_unresolved_error(mmgui_application_t mmguiapp, gchar *caption, gchar *text)
 {
 	GtkWidget *dialog;
 	
 	if ((mmguiapp == NULL) || (caption == NULL) || (text == NULL)) return;
 	
-	//Show error message (Interface may be not built, so using custom message box)
+	/*Show error message (Interface may be not built, so using custom message box)*/
 	dialog = gtk_message_dialog_new(NULL,
 									GTK_DIALOG_MODAL,
 									GTK_MESSAGE_ERROR,
@@ -2101,7 +2101,7 @@ static void mmgui_main_application_unresolved_error(mmgui_application_t mmguiapp
 	gtk_dialog_run(GTK_DIALOG(dialog));
 	gtk_widget_destroy (dialog);
 	
-	//Close application
+	/*Close application*/
 	mmgui_main_application_terminate(mmguiapp);
 }
 
@@ -2337,6 +2337,7 @@ static gboolean mmgui_main_application_build_user_interface(mmgui_application_t 
 		{"newsmssendtb", &(mmguiapp->window->newsmssendtb)},
 		{"newsmssavetb", &(mmguiapp->window->newsmssavetb)},
 		{"newsmsspellchecktb", &(mmguiapp->window->newsmsspellchecktb)},
+		{"newsmscounterlabel", &(mmguiapp->window->newsmscounterlabel)},
 		/*Devices page*/
 		{"devlist", &(mmguiapp->window->devlist)},
 		{"devconnctl", &(mmguiapp->window->devconnctl)},
@@ -2349,7 +2350,6 @@ static gboolean mmgui_main_application_build_user_interface(mmgui_application_t 
 		{"contreeview", &(mmguiapp->window->contreeview)},
 		{"connnameentry", &(mmguiapp->window->connnameentry)},
 		{"connnameapnentry", &(mmguiapp->window->connnameapnentry)},
-		{"connnametechcombo", &(mmguiapp->window->connnametechcombo)},
 		{"connnetroamingcheckbutton", &(mmguiapp->window->connnetroamingcheckbutton)},
 		{"connnetidspinbutton", &(mmguiapp->window->connnetidspinbutton)},
 		{"connauthnumberentry", &(mmguiapp->window->connauthnumberentry)},
@@ -2361,8 +2361,6 @@ static gboolean mmgui_main_application_build_user_interface(mmgui_application_t 
 		{"pinentry", &(mmguiapp->window->pinentry)},
 		{"pinentryapplybutton", &(mmguiapp->window->pinentryapplybutton)},
 		/*SMS page*/
-		{"smsinfobar", &(mmguiapp->window->smsinfobar)},
-		{"smsinfobarlabel", &(mmguiapp->window->smsinfobarlabel)},
 		{"smslist", &(mmguiapp->window->smslist)},
 		{"smstext", &(mmguiapp->window->smstext)},
 		{"newsmsbutton", &(mmguiapp->window->newsmsbutton)},
@@ -2383,22 +2381,16 @@ static gboolean mmgui_main_application_build_user_interface(mmgui_application_t 
 		{"networkimage", &(mmguiapp->window->networkimage)},
 		{"locationimage", &(mmguiapp->window->locationimage)},
 		/*USSD page*/
-		{"ussdinfobar", &(mmguiapp->window->ussdinfobar)},
-		{"ussdinfobarlabel", &(mmguiapp->window->ussdinfobarlabel)},
 		{"ussdentry", &(mmguiapp->window->ussdentry)},
 		{"ussdcombobox", &(mmguiapp->window->ussdcombobox)},
 		{"ussdeditor", &(mmguiapp->window->ussdeditor)},
 		{"ussdsend", &(mmguiapp->window->ussdsend)},
 		{"ussdtext", &(mmguiapp->window->ussdtext)},
 		/*Scan page*/
-		{"scaninfobar", &(mmguiapp->window->scaninfobar)},
-		{"scaninfobarlabel", &(mmguiapp->window->scaninfobarlabel)},
 		{"scanlist", &(mmguiapp->window->scanlist)},
 		{"startscanbutton", &(mmguiapp->window->startscanbutton)},
 		{"scancreateconnectionbutton", &(mmguiapp->window->scancreateconnectionbutton)},
 		/*Contacts page*/
-		{"contactsinfobar", &(mmguiapp->window->contactsinfobar)},
-		{"contactsinfobarlabel", &(mmguiapp->window->contactsinfobarlabel)},
 		{"newcontactbutton", &(mmguiapp->window->newcontactbutton)},
 		{"removecontactbutton", &(mmguiapp->window->removecontactbutton)},
 		{"smstocontactbutton", &(mmguiapp->window->smstocontactbutton)},
@@ -2586,6 +2578,9 @@ static gboolean mmgui_main_application_build_user_interface(mmgui_application_t 
 	/*Loading widgets*/
 	for (i = 0; i < sizeof(widgetset)/sizeof(struct _mmgui_main_widgetset); i++) {
 		*(widgetset[i].widget) = GTK_WIDGET(gtk_builder_get_object(builder, widgetset[i].name));
+		if (*(widgetset[i].widget) == NULL) {
+			g_debug("Unable to reference widget %s", widgetset[i].name);
+		}
 	}
 	/*Loading images*/
 	icontheme = gtk_icon_theme_get_default();
@@ -2694,7 +2689,7 @@ static void mmgui_main_application_startup_signal(GtkApplication *application, g
 	mmgui_application_t mmguiapp;
 	GtkSettings *gtksettings;
 	gboolean showappmenu, showmenubar;
-	GMenu *menu, *actsection, /**appsection,*/ *prefsection, *helpsection, *quitsection;
+	GMenu *menu, *actsection, *prefsection, *helpsection, *quitsection;
 	static GActionEntry app_actions[] = {
 		{ "section", mmgui_main_ui_section_menu_item_activate_signal, "s", "'devices'", NULL },
 		{ "preferences", mmgui_preferences_window_activate_signal, NULL, NULL, NULL },
@@ -2795,10 +2790,6 @@ static void mmgui_main_continue_initialization(mmgui_application_t mmguiapp, mmg
 	/*Open home page*/
 	mmgui_main_ui_test_device_state(mmguiapp, MMGUI_MAIN_PAGE_DEVICES);
 	mmgui_main_ui_page_setup_shortcuts(mmguiapp, MMGUI_MAIN_PAGE_DEVICES);
-	/*Get available connections*/
-	/*if (mmguicore_connections_enum(mmguiapp->core)) {
-		mmgui_main_connection_editor_window_list_fill(mmguiapp);
-	}*/
 	/*Load UI-specific settings and open device if any*/
 	mmgui_main_settings_ui_load(mmguiapp);
 	/*Finally show window*/
@@ -3030,7 +3021,7 @@ int main(int argc, char *argv[])
 	mmguiapp->coreoptions->timeexecuted = FALSE;
 	listmodules = FALSE;
 	
-	//Predefined CLI options
+	/*Predefined CLI options*/
 	GOptionEntry entries[] = {
 		{ "invisible",   'i', 0, G_OPTION_ARG_NONE,   &mmguiapp->options->invisible,    _("Do not show window on start"), NULL },
 		{ "mmmodule",    'm', 0, G_OPTION_ARG_STRING, &mmguiapp->coreoptions->mmmodule, _("Use specified modem management module"), NULL },
@@ -3039,12 +3030,12 @@ int main(int argc, char *argv[])
 		{ NULL }
 	};
 	
-	//Locale
+	/*Locale*/
 	#ifndef LC_ALL
 		#define LC_ALL 0
 	#endif
 	
-	//Backtrace handler
+	/*Backtrace handler*/
 	#ifdef __GLIBC__
 		struct sigaction btsa;
 		
@@ -3071,7 +3062,7 @@ int main(int argc, char *argv[])
 	
 	g_set_application_name("Modem Manager GUI");
 	
-	//CLI options parsing
+	/*CLI options parsing*/
 	optcontext = g_option_context_new(_("- tool for EDGE/3G/4G modem specific functions control"));
 	g_option_context_add_main_entries(optcontext, entries, RESOURCE_LOCALE_DOMAIN);
 	g_option_context_add_group(optcontext, gtk_get_option_group(TRUE));
@@ -3101,8 +3092,8 @@ int main(int argc, char *argv[])
 		return EXIT_SUCCESS;
 	}
 	
-	//Run GTK+ application
-	mmguiapp->gtkapplication = gtk_application_new("org.gtk.ModemManagerGUI", 0);
+	/*Run GTK+ application*/
+	mmguiapp->gtkapplication = gtk_application_new("ru.linuxonly.modem-manager-gui", 0);
 		
 	g_signal_connect(mmguiapp->gtkapplication, "startup", G_CALLBACK(mmgui_main_application_startup_signal), mmguiapp);
 	
@@ -3112,7 +3103,7 @@ int main(int argc, char *argv[])
 	
 	status = g_application_run(G_APPLICATION(mmguiapp->gtkapplication), argc, argv);
 	
-	//Free previously allocated resources
+	/*Free previously allocated resources*/
 	g_object_unref(G_OBJECT(mmguiapp->gtkapplication));
 	
 	if (mmguiapp->options != NULL) {

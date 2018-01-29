@@ -1,7 +1,7 @@
 /*
  *      sms-page.c
  *      
- *      Copyright 2012-2017 Alex <alex@linuxonly.ru>
+ *      Copyright 2012-2018 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -37,6 +37,7 @@
 #include "../resources.h"
 #include "settings.h"
 #include "sms-page.h"
+#include "encoding.h"
 #include "main.h"
 
 #if RESOURCE_SPELLCHECKER_ENABLED
@@ -216,7 +217,7 @@ static void mmgui_main_sms_select_entry_from_list(mmgui_application_t mmguiapp, 
 
 static void mmgui_main_sms_get_message_list_hash_destroy_notify(gpointer data)
 {
-	//Free unique sender name hash table entries
+	/*Free unique sender name hash table entries*/
 	if (data != NULL) g_free(data);
 }
 
@@ -517,26 +518,46 @@ static void mmgui_main_sms_new_dialog_number_changed_signal(GtkEditable *editabl
 	gint bufferchars;
 	gint *smsvalidflags;
 	gint newsmsvalidflags;
+	GtkTextIter start, end;
+	gchar *text;
+	gchar messagecountertext[32];
+	guint symbolsleft, nummessages;
 	
 	appdata = (mmgui_application_data_t)data;
 	
 	if (appdata == NULL) return;
 	
-	number = gtk_entry_get_text(GTK_ENTRY(appdata->mmguiapp->window->smsnumberentry));
-	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(appdata->mmguiapp->window->smstextview));
 	smsvalidflags = (gint *)appdata->data;
 	
-	//Validate SMS number
+	/*Validate SMS number*/
+	number = gtk_entry_get_text(GTK_ENTRY(appdata->mmguiapp->window->smsnumberentry));
 	newnumvalid = mmguicore_sms_validate_number(number);
+	
+	/*Validate text and count symbols*/
+	buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(appdata->mmguiapp->window->smstextview));
 	if (buffer != NULL) {
 		bufferchars = gtk_text_buffer_get_char_count(buffer);
+		gtk_text_buffer_get_bounds(buffer, &start, &end);
+		text = gtk_text_buffer_get_text(buffer, (const GtkTextIter *)&start, (const GtkTextIter *)&end, TRUE);
+		if (text != NULL) {
+			mmgui_encoding_count_sms_messages((const gchar *)text, &nummessages, &symbolsleft);
+			memset(messagecountertext, 0, sizeof(messagecountertext));
+			g_snprintf(messagecountertext, sizeof(messagecountertext), "%u/%u", symbolsleft, nummessages);
+			gtk_label_set_text(GTK_LABEL(appdata->mmguiapp->window->newsmscounterlabel),  messagecountertext);
+			g_free(text);
+		}
 	} else {
 		bufferchars = 0;
 	}
 	
+	/*Validation flags*/
 	newsmsvalidflags = MMGUI_MAIN_NEW_SMS_VALIDATION_VALID;
-	if (!newnumvalid) newsmsvalidflags &= MMGUI_MAIN_NEW_SMS_VALIDATION_WRONG_NUMBER;
-	if (bufferchars == 0) newsmsvalidflags &= MMGUI_MAIN_NEW_SMS_VALIDATION_WRONG_TEXT;
+	if (!newnumvalid) {
+		newsmsvalidflags &= MMGUI_MAIN_NEW_SMS_VALIDATION_WRONG_NUMBER;
+	}
+	if (bufferchars == 0) {
+		newsmsvalidflags &= MMGUI_MAIN_NEW_SMS_VALIDATION_WRONG_TEXT;
+	}
 	
 	if (((!newnumvalid) || (bufferchars == 0)) && ((*smsvalidflags == MMGUI_MAIN_NEW_SMS_VALIDATION_VALID) || (*smsvalidflags != newsmsvalidflags))) {
 		#if GTK_CHECK_VERSION(3,10,0)
@@ -1001,17 +1022,19 @@ static void mmgui_main_sms_list_selection_changed_signal(GtkTreeSelection *selec
 									/*Message heading*/
 									gtk_text_buffer_get_end_iter(textbuffer, &endtextiter);
 									gtk_text_buffer_insert_with_tags(textbuffer, &endtextiter, mmgui_smsdb_message_get_number(sms), -1, mmguiapp->window->smsheadingtag, NULL);
+									gtk_text_buffer_get_end_iter(textbuffer, &endtextiter);
+									gtk_text_buffer_insert(textbuffer, &endtextiter, "\n", -1);
 									/*Timestamp*/
 									timestamp = mmgui_smsdb_message_get_timestamp(sms);
 									gtk_text_buffer_get_end_iter(textbuffer, &endtextiter);
 									gtk_text_buffer_insert_with_tags(textbuffer, &endtextiter, mmgui_str_format_sms_time(timestamp, timestr, sizeof(timestr)), -1, mmguiapp->window->smsdatetag, NULL);
 									gtk_text_buffer_get_end_iter(textbuffer, &endtextiter);
-									gtk_text_buffer_insert(textbuffer, &endtextiter, "\n", -1);
+									gtk_text_buffer_insert(textbuffer, &endtextiter, "\n\n", -1);
 									/*Message text*/
 									gtk_text_buffer_get_end_iter(textbuffer, &endtextiter);
 									gtk_text_buffer_insert(textbuffer, &endtextiter, mmgui_smsdb_message_get_text(sms), -1);
 									gtk_text_buffer_get_end_iter(textbuffer, &endtextiter);
-									gtk_text_buffer_insert(textbuffer, &endtextiter, "\n\n", -1);
+									gtk_text_buffer_insert(textbuffer, &endtextiter, "\n", -1);
 									
 									/*Test if sender number is available*/
 									if (smscaps & MMGUI_SMS_CAPS_SEND) {
@@ -1187,7 +1210,7 @@ static void mmgui_main_sms_add_to_list(mmgui_application_t mmguiapp, mmgui_sms_m
 			break;
 	}
 	
-	//Place new message on top or append to list
+	/*Place new message on top or append to list*/
 	if (mmguiapp->options->smsoldontop) {
 		gtk_tree_store_append(GTK_TREE_STORE(model), &child, &iter);
 	} else {
@@ -1264,7 +1287,7 @@ gboolean mmgui_main_sms_list_fill(mmgui_application_t mmguiapp)
 			mmgui_smsdb_message_free_list(smslist);
 		}
 		
-		//Get new messages from modem
+		/*Get new messages from modem*/
 		appdata = g_new0(struct _mmgui_application_data, 1);
 		appdata->mmguiapp = mmguiapp;
 		appdata->data = GUINT_TO_POINTER(mmguiapp->options->concatsms);
@@ -1733,7 +1756,7 @@ void mmgui_main_sms_new_disable_spellchecker_signal(GtkToolButton *toolbutton, g
 		g_object_ref(mmguiapp->window->newsmsspellchecker);
 		gtk_spell_checker_detach(mmguiapp->window->newsmsspellchecker);
 		gmm_settings_set_boolean(mmguiapp->settings, "spell_checker_enabled", FALSE);
-		gtk_tool_button_set_label(GTK_TOOL_BUTTON(mmguiapp->window->newsmsspellchecktb), _("Disabled"));
+		gtk_label_set_text(GTK_LABEL(mmguiapp->window->newsmslanguagelabel), _("Disabled"));
 	} else {
 		/*Attach spellchecker*/
 		gtk_spell_checker_attach(mmguiapp->window->newsmsspellchecker, GTK_TEXT_VIEW(mmguiapp->window->smstextview));
@@ -1741,7 +1764,7 @@ void mmgui_main_sms_new_disable_spellchecker_signal(GtkToolButton *toolbutton, g
 		gmm_settings_set_boolean(mmguiapp->settings, "spell_checker_enabled", TRUE);
 		langcode = gtk_spell_checker_get_language(mmguiapp->window->newsmsspellchecker);
 		langname = gtk_spell_checker_decode_language_code(langcode);
-		gtk_tool_button_set_label(GTK_TOOL_BUTTON(mmguiapp->window->newsmsspellchecktb), langname);
+		gtk_label_set_text(GTK_LABEL(mmguiapp->window->newsmslanguagelabel), langname);
 		g_free(langname);
 	}
 }
@@ -1766,7 +1789,7 @@ static void mmgui_main_sms_spellcheck_menu_activate_signal(GtkMenuItem *menuitem
 	langname = gtk_spell_checker_decode_language_code((const gchar *)appdata->data);
 	gtk_spell_checker_set_language(appdata->mmguiapp->window->newsmsspellchecker, appdata->data, NULL);
 	gmm_settings_set_string(appdata->mmguiapp->settings, "spell_checker_language", appdata->data);
-	gtk_tool_button_set_label(GTK_TOOL_BUTTON(appdata->mmguiapp->window->newsmsspellchecktb), langname);
+	gtk_label_set_text(GTK_LABEL(appdata->mmguiapp->window->newsmslanguagelabel), langname);
 	g_free(langname);
 }
 
@@ -1781,6 +1804,11 @@ gboolean mmgui_main_sms_spellcheck_init(mmgui_application_t mmguiapp)
 	
 	/*Create spell checker*/
 	mmguiapp->window->newsmsspellchecker = gtk_spell_checker_new();
+	/*Change toolbar button*/
+	mmguiapp->window->newsmslanguagelabel = gtk_label_new(_("Disabled"));
+	gtk_tool_button_set_label_widget(GTK_TOOL_BUTTON(mmguiapp->window->newsmsspellchecktb), mmguiapp->window->newsmslanguagelabel);
+	gtk_label_set_ellipsize(GTK_LABEL(mmguiapp->window->newsmslanguagelabel), PANGO_ELLIPSIZE_END);
+	gtk_widget_show(mmguiapp->window->newsmslanguagelabel);
 	/*Fill combo box with languages*/
 	languages = gtk_spell_checker_get_language_list();
 	if (languages != NULL) {
@@ -1820,7 +1848,7 @@ gboolean mmgui_main_sms_spellcheck_init(mmgui_application_t mmguiapp)
 			if (g_str_equal(langcode, userlang)) {
 				gtk_spell_checker_set_language(mmguiapp->window->newsmsspellchecker, langcode, NULL);
 				if (gmm_settings_get_boolean(mmguiapp->settings, "spell_checker_enabled", TRUE)) {
-					gtk_tool_button_set_label(GTK_TOOL_BUTTON(mmguiapp->window->newsmsspellchecktb), langname);
+					gtk_label_set_text(GTK_LABEL(mmguiapp->window->newsmslanguagelabel), langname);
 				}
 				gtk_widget_set_sensitive(mmguiapp->window->newsmsspellchecktb, TRUE);
 				langset = TRUE;
@@ -1845,7 +1873,7 @@ gboolean mmgui_main_sms_spellcheck_init(mmgui_application_t mmguiapp)
 			langname = gtk_spell_checker_decode_language_code((const gchar *)langcode);
 			gtk_spell_checker_set_language(mmguiapp->window->newsmsspellchecker, langcode, NULL);
 			if (gmm_settings_get_boolean(mmguiapp->settings, "spell_checker_enabled", TRUE)) {
-				gtk_tool_button_set_label(GTK_TOOL_BUTTON(mmguiapp->window->newsmsspellchecktb), langname);
+				gtk_label_set_text(GTK_LABEL(mmguiapp->window->newsmslanguagelabel), langname);
 			}
 			gtk_widget_set_sensitive(mmguiapp->window->newsmsspellchecktb, TRUE);
 			g_free(langname);

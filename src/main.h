@@ -75,7 +75,7 @@ enum _mmgui_main_infobar_result {
 typedef gboolean (*mmgui_infobar_close_func)(gpointer data);
 
 struct _mmgui_main_window {
-	//Window
+	/*Window*/
 	GtkWidget *window;
 	GtkWidget *windowbox;
 	GtkWidget *toolbar;
@@ -98,7 +98,7 @@ struct _mmgui_main_window {
 	GdkPixbuf *signal100icon;
 	GdkPixbuf *mainicon;
 	GdkPixbuf *symbolicicon;
-	//Dialogs
+	/*Dialogs*/
 	GtkWidget *aboutdialog;
 	GtkWidget *prefdialog;
 	GtkWidget *questiondialog;
@@ -122,6 +122,8 @@ struct _mmgui_main_window {
 	GtkWidget *newsmssendtb;
 	GtkWidget *newsmssavetb;
 	GtkWidget *newsmsspellchecktb;
+	GtkWidget *newsmscounterlabel;
+	GtkWidget *newsmslanguagelabel;
 	GtkTreeStore *smsnumlistmodel;
 	GtkTreePath *smsnumlistmodempath;
 	GtkTreePath *smsnumlistgnomepath;
@@ -134,7 +136,7 @@ struct _mmgui_main_window {
         GtkWidget *newsmslangmenu;
         GSList *newsmscodes;
     #endif
-	//Toolbar
+	/*Toolbar*/
 	GtkWidget *devbutton;
 	GtkWidget *smsbutton;
 	GtkWidget *ussdbutton;
@@ -142,9 +144,9 @@ struct _mmgui_main_window {
 	GtkWidget *scanbutton;
 	GtkWidget *contactsbutton;
 	GtkWidget *trafficbutton;
-	//Pages
+	/*Pages*/
 	GtkWidget *notebook;
-	//Devices page
+	/*Devices page*/
 	GtkWidget *devlist;
 	GtkWidget *devconnctl;
 	GtkWidget *devconneditor;
@@ -156,7 +158,6 @@ struct _mmgui_main_window {
 	GtkWidget *contreeview;
 	GtkWidget *connnameentry;
 	GtkWidget *connnameapnentry;
-	GtkWidget *connnametechcombo;
 	GtkWidget *connnetroamingcheckbutton;
 	GtkWidget *connnetidspinbutton;
 	GtkWidget *connauthnumberentry;
@@ -168,9 +169,7 @@ struct _mmgui_main_window {
 	/*PIN entry dialog*/
 	GtkWidget *pinentry;
 	GtkWidget *pinentryapplybutton;
-	//SMS page
-	GtkWidget *smsinfobar;
-	GtkWidget *smsinfobarlabel;
+	/*SMS page*/
 	GtkWidget *smslist;
 	GtkWidget *smstext;
 	GtkWidget *newsmsbutton;
@@ -186,7 +185,7 @@ struct _mmgui_main_window {
 	GtkTreePath *draftspath;
 	GtkTextTag *smsheadingtag;
 	GtkTextTag *smsdatetag;
-	//Info page
+	/*Info page*/
 	GtkWidget *devicevlabel;
 	GtkWidget *operatorvlabel;
 	GtkWidget *operatorcodevlabel;
@@ -200,9 +199,7 @@ struct _mmgui_main_window {
 	GtkWidget *equipmentimage;
 	GtkWidget *networkimage;
 	GtkWidget *locationimage;
-	//USSD page
-	GtkWidget *ussdinfobar;
-	GtkWidget *ussdinfobarlabel;
+	/*USSD page*/
 	GtkWidget *ussdentry;
 	GtkWidget *ussdcombobox;
 	GtkWidget *ussdeditor;
@@ -213,20 +210,16 @@ struct _mmgui_main_window {
 	GtkTextTag *ussdanswertag;
 	GtkEntryCompletion *ussdcompletion;
     GtkListStore *ussdcompletionmodel;
-	//Scan page
-	GtkWidget *scaninfobar;
-	GtkWidget *scaninfobarlabel;
+	/*Scan page*/
 	GtkWidget *scanlist;
 	GtkWidget *startscanbutton;
 	GtkWidget *scancreateconnectionbutton;
-	//Traffic page
+	/*Traffic page*/
 	GtkWidget *trafficparamslist;
 	GtkWidget *trafficdrawingarea;
 	GtkWidget *trafficlimitbutton;
 	GtkWidget *trafficconnbutton;
-	//Contacts page
-	GtkWidget *contactsinfobar;
-	GtkWidget *contactsinfobarlabel;
+	/*Contacts page*/
 	GtkWidget *newcontactbutton;
 	GtkWidget *removecontactbutton;
 	GtkWidget *smstocontactbutton;
@@ -235,7 +228,7 @@ struct _mmgui_main_window {
 	GtkTreePath *contmodempath;
 	GtkTreePath *contgnomepath;
 	GtkTreePath *contkdepath;
-	//New contact dialog
+	/*New contact dialog*/
 	GtkWidget *newcontactdialog;
 	GtkWidget *contactnameentry;
 	GtkWidget *contactnumberentry;
@@ -244,7 +237,7 @@ struct _mmgui_main_window {
 	GtkWidget *contactname2entry;
 	GtkWidget *contactnumber2entry;
 	GtkWidget *newcontactaddbutton;
-	//Limits dialog
+	/*Limits dialog*/
 	GtkWidget *trafficlimitsdialog;
 	GtkWidget *trafficlimitcheckbutton;
 	GtkWidget *trafficamount;
@@ -256,25 +249,25 @@ struct _mmgui_main_window {
 	GtkWidget *timeunits;
 	GtkWidget *timemessage;
 	GtkWidget *timeaction;
-	//Connections dialog
+	/*Connections dialog*/
 	GtkAccelGroup *connaccelgroup;
 	GtkWidget *conndialog;
 	GtkWidget *connscrolledwindow;
 	GtkWidget *conntreeview;
 	GtkWidget *conntermtoolbutton;
-	//Traffic statistics dialog
+	/*Traffic statistics dialog*/
 	GtkWidget *trafficstatsdialog;
 	GtkWidget *trafficstatstreeview;
 	GtkWidget *trafficstatsmonthcb;
 	GtkWidget *trafficstatsyearcb;
-	//USSD editor dialog
+	/*USSD editor dialog*/
 	GtkAccelGroup *ussdaccelgroup;
 	GtkWidget *ussdeditdialog;
 	GtkWidget *ussdedittreeview;
 	GtkWidget *newussdtoolbutton;
 	GtkWidget *removeussdtoolbutton;
 	GtkWidget *ussdencodingtoolbutton;
-	//Preferences
+	/*Preferences*/
 	GtkWidget *prefsmsconcat;
 	GtkWidget *prefsmsexpand;
 	GtkWidget *prefsmsoldontop;
@@ -300,7 +293,7 @@ struct _mmgui_main_window {
 	GtkWidget *prefactivepagesscancb;
 	GtkWidget *prefactivepagestrafficcb;
 	GtkWidget *prefactivepagescontactscb;
-	//Exit dialog
+	/*Exit dialog*/
 	GtkWidget *exitaskagain;
 	GtkWidget *exitcloseradio;
 	GtkWidget *exithideradio;
@@ -381,14 +374,13 @@ struct _mmgui_cli_options {
 typedef struct _mmgui_cli_options *mmgui_cli_options_t;
 
 struct _mmgui_application {
-	//GTK+ application object
+	/*GTK+ application object*/
 	GtkApplication *gtkapplication;
-	//Allocated structures
+	/*Allocated structures*/
 	mmgui_main_window_t window;
 	mmgui_cli_options_t options;
-	//mmgui_traffic_limits_t limits;
 	mmgui_core_options_t coreoptions;
-	//Objects
+	/*Objects*/
 	mmguicore_t core;
 	settings_t settings;
 	modem_settings_t modemsettings;

@@ -1111,6 +1111,7 @@ static gboolean mmguicore_modules_close(mmguicore_t mmguicore)
 		mmguicore->devices_update_state_func = NULL;
 		mmguicore->devices_information_func = NULL;
 		mmguicore->devices_enable_func = NULL;
+		mmguicore->devices_unlock_with_pin_func = NULL;
 		mmguicore->sms_enum_func = NULL;
 		mmguicore->sms_get_func = NULL;
 		mmguicore->sms_delete_func = NULL;
