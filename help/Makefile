@@ -14,15 +14,15 @@ install:
 	install -d $(INSTALLPREFIX)$(DESTDIR)$(HELPDIR)/C/modem-manager-gui
 	cp -r C/* $(INSTALLPREFIX)$(DESTDIR)$(HELPDIR)/C/modem-manager-gui
 	while read lang; do \
-		install -d $(INSTALLPREFIX)$(DESTDIR)$(HELPDIR)/$$lang/modem-manager-gui/figures \
-		cp C/figures/* $(INSTALLPREFIX)$(DESTDIR)$(HELPDIR)/$$lang/modem-manager-gui/figures/ \
-		cp $$lang/*.page $(INSTALLPREFIX)$(DESTDIR)$(HELPDIR)/$$lang/modem-manager-gui/ \
+		install -d $(INSTALLPREFIX)$(DESTDIR)$(HELPDIR)/$$lang/modem-manager-gui/figures; \
+		cp C/figures/* $(INSTALLPREFIX)$(DESTDIR)$(HELPDIR)/$$lang/modem-manager-gui/figures/; \
+		cp $$lang/*.page $(INSTALLPREFIX)$(DESTDIR)$(HELPDIR)/$$lang/modem-manager-gui/; \
 	done < LINGUAS
 
 uninstall:
 	rm -rf $(INSTALLPREFIX)$(DESTDIR)$(HELPDIR)/C/modem-manager-gui
 	while read lang; do \
-		rm -rf $(INSTALLPREFIX)$(DESTDIR)$(HELPDIR)/$$lang/modem-manager-gui \
+		rm -rf $(INSTALLPREFIX)$(DESTDIR)$(HELPDIR)/$$lang/modem-manager-gui; \
 	done < LINGUAS
 
 messages:
