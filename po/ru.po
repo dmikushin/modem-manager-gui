@@ -1585,7 +1585,7 @@ msgstr "<i><small>Используйте <b>%n</b> для подстановки
 
 #: ../resources/ui/modem-manager-gui.ui:3559
 msgid "<b>Custom command</b>"
-msgstr "Пользовательская команда"
+msgstr "<b>Пользовательская команда</b>"
 
 #: ../resources/ui/modem-manager-gui.ui:3632
 msgid "RX Speed graph color"
