@@ -7,7 +7,7 @@ i18n.merge_file('appdata-file',
 	data_dirs: join_paths(meson.source_root(), 'appdata'),
 	po_dir: join_paths(meson.source_root(), 'appdata'),
 	install: true,
-	install_dir: join_paths(get_option('prefix'), get_option('datadir'), 'appdata')
+	install_dir: join_paths(get_option('prefix'), get_option('datadir'), 'metainfo')
 )
 
 i18n.merge_file('desktop-file',

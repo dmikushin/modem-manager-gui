@@ -1,6 +1,6 @@
 include ../Makefile_h
 
-APPDATADIR = $(PREFIX)/share/appdata
+APPDATADIR = $(PREFIX)/share/metainfo
 APPSDIR    = $(PREFIX)/share/applications
 
 all:

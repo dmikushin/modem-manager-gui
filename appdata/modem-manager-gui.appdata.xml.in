@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Copyright 2014-2017 Alex <alex@linuxonly.ru> -->
+<!-- Copyright 2014-2018 Alex <alex@linuxonly.ru> -->
 <component type="desktop-application">
  <id>modem-manager-gui.desktop</id>
  <metadata_license>CC0-1.0</metadata_license>
  <project_license>GPL-3.0+ and CC0-1.0</project_license>
  <name>Modem Manager GUI</name>
  <developer_name>Alex</developer_name>
- <updatecontact>alex@linuxonly.ru</updatecontact>
+ <update_contact>alex@linuxonly.ru</update_contact>
  <translation type="gettext">modem-manager-gui</translation>
  <summary>Control EDGE/3G/4G broadband modem specific functions</summary>
  <description>
@@ -32,6 +32,9 @@
    system services or even different versions of system service in use.
   </p>
  </description>
+ <provides>
+  <binary>modem-manager-gui</binary>
+ </provides>
  <launchable type="desktop-id">modem-manager-gui.desktop</launchable>
  <screenshots>
   <screenshot type="default">
@@ -58,23 +61,11 @@
   <category>Network</category>
   <category>TelephonyTools</category>
 ​ </categories>
- <launchable type="desktop-id">modem-manager-gui.desktop</launchable>
- <provides>
-​  <binary>modem-manager-gui</binary>
-​ </provides>
  <kudos>
   <kudo>AppMenu</kudo>
   <kudo>Notifications</kudo>
   <kudo>ModernToolkit</kudo>
   <kudo>UserDocs</kudo>
  </kudos>
- <releases>
-​  <release version="0.0.19" date="2017-11-20">
-​   <description>
-​    <p>Bugfix release with conection management functions</p>
-​   </description>
-​  </release>
-  <release version="0.0.18" date="2015-10-11" />
-​ </releases>
 </component>
 
