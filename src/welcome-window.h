@@ -1,7 +1,7 @@
 /*
  *      welcome-window.h
  *      
- *      Copyright 2015 Alex <alex@linuxonly.ru>
+ *      Copyright 2015-2018 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -24,6 +24,8 @@
 
 #include "main.h"
 
+void mmgui_welcome_window_services_page_mm_modules_combo_changed(GtkComboBox *widget, gpointer data);
+void mmgui_welcome_window_services_page_cm_modules_combo_changed(GtkComboBox *widget, gpointer data);
 void mmgui_welcome_window_services_page_open(mmgui_application_t mmguiapp);
 void mmgui_welcome_window_activation_page_open(mmgui_application_t mmguiapp);
 void mmgui_welcome_window_close(mmgui_application_t mmguiapp);

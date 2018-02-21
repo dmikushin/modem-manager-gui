@@ -153,6 +153,7 @@
                         <property name="can_focus">False</property>
                         <property name="hexpand">True</property>
                         <property name="id_column">0</property>
+                        <signal name="changed" handler="mmgui_welcome_window_services_page_cm_modules_combo_changed" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -164,6 +165,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
                         <property name="id_column">0</property>
+                        <signal name="changed" handler="mmgui_welcome_window_services_page_mm_modules_combo_changed" swapped="no"/>
                       </object>
                       <packing>
                         <property name="left_attach">1</property>
@@ -192,7 +194,7 @@
                         <property name="visible">True</property>
                         <property name="can_focus">True</property>
                         <property name="receives_default">False</property>
-                        <property name="xalign">0</property>
+                        <property name="halign">start</property>
                         <property name="active">True</property>
                         <property name="draw_indicator">True</property>
                       </object>
@@ -476,11 +478,11 @@
                   </packing>
                 </child>
               </object>
-              <packing>
+              <!--<packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
                 <property name="position">0</property>
-              </packing>
+              </packing>-->
             </child>
             <child internal-child="content_area">
               <object class="GtkBox" id="infobarcontentarea">
@@ -522,11 +524,11 @@
                   </packing>
                 </child>
               </object>
-              <packing>
+              <!--<packing>
                 <property name="expand">False</property>
                 <property name="fill">True</property>
                 <property name="position">0</property>
-              </packing>
+              </packing>-->
             </child>
             <action-widgets>
               <action-widget response="-7">infobarstopbutton</action-widget>
@@ -667,7 +669,7 @@
                         <property name="is_important">True</property>
                         <property name="label" translatable="yes">New</property>
                         <property name="use_underline">True</property>
-                        <property name="icon_name">document-new</property>
+                        <property name="icon_name">mail-message-new</property>
                         <signal name="clicked" handler="mmgui_main_sms_new_button_clicked_signal" swapped="no"/>
                       </object>
                       <packing>
@@ -683,7 +685,7 @@
                         <property name="is_important">True</property>
                         <property name="label" translatable="yes">Remove</property>
                         <property name="use_underline">True</property>
-                        <property name="icon_name">edit-delete</property>
+                        <property name="icon_name">user-trash</property>
                         <signal name="clicked" handler="mmgui_main_sms_remove_button_clicked_signal" swapped="no"/>
                       </object>
                       <packing>
@@ -699,7 +701,7 @@
                         <property name="is_important">True</property>
                         <property name="label" translatable="yes">Answer</property>
                         <property name="use_underline">True</property>
-                        <property name="icon_name">document-edit</property>
+                        <property name="icon_name">mail-reply-sender</property>
                         <signal name="clicked" handler="mmgui_main_sms_answer_button_clicked_signal" swapped="no"/>
                       </object>
                       <packing>
@@ -1030,6 +1032,9 @@
                       <object class="GtkLabel" id="equipmentlabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="margin_left">5</property>
+                        <property name="margin_top">5</property>
+                        <property name="margin_bottom">5</property>
                         <property name="label" translatable="yes">&lt;b&gt;Equipment&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                       </object>
@@ -1216,6 +1221,9 @@
                       <object class="GtkLabel" id="networklabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="margin_left">6</property>
+                        <property name="margin_top">5</property>
+                        <property name="margin_bottom">5</property>
                         <property name="label" translatable="yes">&lt;b&gt;Network&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                       </object>
@@ -1323,6 +1331,9 @@
                       <object class="GtkLabel" id="locationlabel">
                         <property name="visible">True</property>
                         <property name="can_focus">False</property>
+                        <property name="margin_left">5</property>
+                        <property name="margin_top">5</property>
+                        <property name="margin_bottom">5</property>
                         <property name="label" translatable="yes">&lt;b&gt;Location&lt;/b&gt;</property>
                         <property name="use_markup">True</property>
                       </object>
@@ -1478,7 +1489,7 @@
                         <property name="is_important">True</property>
                         <property name="label" translatable="yes">Connections</property>
                         <property name="use_underline">True</property>
-                        <property name="icon_name">network-receive</property>
+                        <property name="icon_name">network-workgroup</property>
                         <signal name="clicked" handler="mmgui_main_traffic_connections_dialog_button_clicked_signal" swapped="no"/>
                       </object>
                       <packing>
@@ -1653,7 +1664,7 @@
                         <property name="is_important">True</property>
                         <property name="label" translatable="yes">Send SMS</property>
                         <property name="use_underline">True</property>
-                        <property name="icon_name">document-new</property>
+                        <property name="icon_name">mail-message-new</property>
                         <signal name="clicked" handler="mmgui_main_contacts_sms_button_clicked_signal" swapped="no"/>
                       </object>
                       <packing>
@@ -3242,7 +3253,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
     <property name="modal">True</property>
     <property name="window_position">center-on-parent</property>
     <property name="default_width">450</property>
-    <property name="default_height">550</property>
+    <property name="default_height">300</property>
     <property name="destroy_with_parent">True</property>
     <property name="type_hint">dialog</property>
     <property name="transient_for">window</property>
@@ -3318,7 +3329,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
-                            <property name="xalign">0</property>
+                            <property name="halign">start</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -3333,7 +3344,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
-                            <property name="xalign">0</property>
+                            <property name="halign">start</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -3348,7 +3359,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
-                            <property name="xalign">0</property>
+                            <property name="halign">start</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -3363,7 +3374,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                             <property name="visible">True</property>
                             <property name="can_focus">True</property>
                             <property name="receives_default">False</property>
-                            <property name="xalign">0</property>
+                            <property name="halign">start</property>
                             <property name="draw_indicator">True</property>
                           </object>
                           <packing>
@@ -3428,7 +3439,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="xalign">0</property>
+                                <property name="halign">start</property>
                                 <property name="draw_indicator">True</property>
                               </object>
                               <packing>
@@ -3443,7 +3454,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="xalign">0</property>
+                                <property name="halign">start</property>
                                 <property name="draw_indicator">True</property>
                               </object>
                               <packing>
@@ -3458,7 +3469,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="xalign">0</property>
+                                <property name="halign">start</property>
                                 <property name="draw_indicator">True</property>
                               </object>
                               <packing>
@@ -3504,6 +3515,8 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                           <object class="GtkGrid" id="prefsmsparamsgrid">
                             <property name="visible">True</property>
                             <property name="can_focus">False</property>
+                            <property name="row_spacing">5</property>
+                            <property name="column_spacing">5</property>
                             <child>
                               <object class="GtkLabel" id="prefsmsvaliditylabel">
                                 <property name="visible">True</property>
@@ -3523,7 +3536,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                 <property name="visible">True</property>
                                 <property name="can_focus">True</property>
                                 <property name="receives_default">False</property>
-                                <property name="xalign">0</property>
+                                <property name="halign">start</property>
                                 <property name="draw_indicator">True</property>
                               </object>
                               <packing>
@@ -3845,6 +3858,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                 <property name="margin_left">5</property>
                                 <property name="margin_right">5</property>
                                 <property name="hexpand">True</property>
+                                <signal name="changed" handler="mmgui_preferences_window_services_page_mm_modules_combo_changed" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>
@@ -3858,6 +3872,7 @@ Umidjon Almasov &lt;u.almasov@gmail.com&gt;</property>
                                 <property name="margin_left">5</property>
                                 <property name="margin_right">5</property>
                                 <property name="hexpand">True</property>
+                                <signal name="changed" handler="mmgui_preferences_window_services_page_cm_modules_combo_changed" swapped="no"/>
                               </object>
                               <packing>
                                 <property name="left_attach">1</property>

@@ -1,7 +1,7 @@
 /*
  *      mm07.c
  *      
- *      Copyright 2013-2017 Alex <alex@linuxonly.ru>
+ *      Copyright 2013-2018 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -35,6 +35,7 @@
 #define MMGUI_MODULE_SYSTEMD_NAME  "ModemManager.service"
 #define MMGUI_MODULE_IDENTIFIER    70
 #define MMGUI_MODULE_DESCRIPTION   "Modem Manager >= 0.7.0"
+#define MMGUI_MODULE_COMPATIBILITY "org.freedesktop.NetworkManager;/usr/sbin/pppd;"
 
 #define MMGUI_MODULE_ENABLE_OPERATION_TIMEOUT           20000
 #define MMGUI_MODULE_SEND_SMS_OPERATION_TIMEOUT         35000
@@ -1091,9 +1092,10 @@ G_MODULE_EXPORT gboolean mmgui_module_init(mmguimodule_t module)
 	module->priority = MMGUI_MODULE_PRIORITY_NORMAL;
 	module->identifier = MMGUI_MODULE_IDENTIFIER;
 	module->functions = MMGUI_MODULE_FUNCTION_BASIC | MMGUI_MODULE_FUNCTION_POLKIT_PROTECTION;
-	g_snprintf(module->servicename, sizeof(module->servicename), MMGUI_MODULE_SERVICE_NAME);
-	g_snprintf(module->systemdname, sizeof(module->systemdname), MMGUI_MODULE_SYSTEMD_NAME);
-	g_snprintf(module->description, sizeof(module->description), MMGUI_MODULE_DESCRIPTION);
+	g_snprintf(module->servicename,   sizeof(module->servicename),   MMGUI_MODULE_SERVICE_NAME);
+	g_snprintf(module->systemdname,   sizeof(module->systemdname),   MMGUI_MODULE_SYSTEMD_NAME);
+	g_snprintf(module->description,   sizeof(module->description),   MMGUI_MODULE_DESCRIPTION);
+	g_snprintf(module->compatibility, sizeof(module->compatibility), MMGUI_MODULE_COMPATIBILITY);
 		
 	return TRUE;
 }

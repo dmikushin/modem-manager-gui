@@ -1,7 +1,7 @@
 /*
  *      connman112.c
  *      
- *      Copyright 2014-2017 Alex <alex@linuxonly.ru>
+ *      Copyright 2014-2018 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -36,6 +36,7 @@
 #define MMGUI_MODULE_SYSTEMD_NAME  "connman.service"
 #define MMGUI_MODULE_IDENTIFIER    112
 #define MMGUI_MODULE_DESCRIPTION   "Connman >= 1.12"
+#define MMGUI_MODULE_COMPATIBILITY "org.ofono;"
 
 /*Internal definitions*/
 #define MODULE_INT_CONNMAN_ERROR_CODE_UNKNOWN_METHOD   19
@@ -186,9 +187,10 @@ G_MODULE_EXPORT gboolean mmgui_module_init(mmguimodule_t module)
 	module->priority = MMGUI_MODULE_PRIORITY_NORMAL;
 	module->identifier = MMGUI_MODULE_IDENTIFIER;
 	module->functions = MMGUI_MODULE_FUNCTION_BASIC;
-	g_snprintf(module->servicename, sizeof(module->servicename), MMGUI_MODULE_SERVICE_NAME);
-	g_snprintf(module->systemdname, sizeof(module->systemdname), MMGUI_MODULE_SYSTEMD_NAME);
-	g_snprintf(module->description, sizeof(module->description), MMGUI_MODULE_DESCRIPTION);
+	g_snprintf(module->servicename,   sizeof(module->servicename),   MMGUI_MODULE_SERVICE_NAME);
+	g_snprintf(module->systemdname,   sizeof(module->systemdname),   MMGUI_MODULE_SYSTEMD_NAME);
+	g_snprintf(module->description,   sizeof(module->description),   MMGUI_MODULE_DESCRIPTION);
+	g_snprintf(module->compatibility, sizeof(module->compatibility), MMGUI_MODULE_COMPATIBILITY);
 	
 	return TRUE;
 }

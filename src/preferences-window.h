@@ -22,6 +22,8 @@
 
 #include <glib.h>
 
+void mmgui_preferences_window_services_page_mm_modules_combo_changed(GtkComboBox *widget, gpointer data);
+void mmgui_preferences_window_services_page_cm_modules_combo_changed(GtkComboBox *widget, gpointer data);
 void mmgui_preferences_window_activate_signal(GSimpleAction *action, GVariant *parameter, gpointer data);
 gchar *mmgui_preferences_window_message_validity_scale_value_format(GtkScale *scale, gdouble value, gpointer data);
 gchar *mmgui_preferences_window_timeout_scale_value_format(GtkScale *scale, gdouble value, gpointer data);

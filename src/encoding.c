@@ -266,11 +266,11 @@ void mmgui_encoding_count_sms_messages(const gchar *text, guint *nummessages, gu
 	ucs2len = 0;
 	lnummessages = 0;
 	lsymbolsleft = 0;
+	isgsm0338 = TRUE;
 	
 	if ((nummessages == NULL) && (symbolsleft == NULL)) return;
 	
 	if (text != NULL) {
-		isgsm0338 = TRUE;
 		while ((uc = g_utf8_get_char(ltext)) != '\0') {
 			/*GSM*/
 			if (isgsm0338) {

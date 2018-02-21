@@ -1,7 +1,7 @@
 /*
  *      svcmanager.c
  *
- *      Copyright 2015-2017 Alex <alex@linuxonly.ru>
+ *      Copyright 2015-2018 Alex <alex@linuxonly.ru>
  *
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -208,10 +208,10 @@ static gboolean mmgui_svcmanager_open_systemd_manager_interface(mmgui_svcmanager
 		g_variant_iter_init(&svciter, svclistv);
 		while (g_variant_iter_loop(&svciter, "(ssssssouso)", &svcname, NULL, &svcloadedstr, &svcactivestr, &svcrunningstr, NULL, NULL, NULL, NULL, NULL)) {
 			/*Only services*/
-			if (g_strrstr(svcname, ".service") != NULL) {
+			if ((g_strrstr(svcname, ".service") != NULL) && (g_str_equal(svcloadedstr, "loaded"))) {
 				service = g_new0(struct _mmgui_svcmanager_service, 1);
 				service->name = g_strdup(svcname);
-				service->loaded = g_str_equal(svcloadedstr, "loaded");
+				service->loaded = TRUE;
 				service->active = g_str_equal(svcactivestr, "active");
 				service->running = g_str_equal(svcrunningstr, "running");
 				service->enabled = FALSE;

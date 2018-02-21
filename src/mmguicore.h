@@ -1,7 +1,7 @@
 /*
  *      mmguicore.h
  *      
- *      Copyright 2013-2017 Alex <alex@linuxonly.ru>
+ *      Copyright 2013-2018 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -122,6 +122,7 @@ struct _mmguimodule {
 	gchar servicename[256];
 	gchar systemdname[256];
 	gchar description[256];
+	gchar compatibility[256];
 	gchar filename[256];
 	gchar shortname[256];
 };
@@ -493,6 +494,7 @@ typedef gboolean (*mmgui_module_device_connection_disconnect_func)(gpointer mmgu
 struct _mmguicore {
 	/*Modules list*/
 	GSList *modules;
+	GSList *modulepairs;
 	/*Cache*/
 	gchar *cachefilename;
 	GKeyFile *cachekeyfile;

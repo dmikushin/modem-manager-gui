@@ -1,7 +1,7 @@
 /*
  *      mmguicore.c
  *      
- *      Copyright 2013-2017 Alex <alex@linuxonly.ru>
+ *      Copyright 2013-2018 Alex <alex@linuxonly.ru>
  *      
  *      This program is free software: you can redistribute it and/or modify
  *      it under the terms of the GNU General Public License as published by
@@ -45,7 +45,7 @@
 #define MMGUICORE_CACHE_DIR              "modem-manager-gui"
 #define MMGUICORE_CACHE_FILE             "modules.conf"
 #define MMGUICORE_CACHE_PERM             0755
-#define MMGUICORE_CACHE_VER              3
+#define MMGUICORE_CACHE_VER              4
 /*Cache file sections*/
 #define MMGUICORE_FILE_ROOT_SECTION      "cache"
 #define MMGUICORE_FILE_TIMESTAMP         "timestamp"
@@ -59,6 +59,7 @@
 #define MMGUICORE_FILE_DESCRIPTION       "description"
 #define MMGUICORE_FILE_SERVICENAME       "servicename"
 #define MMGUICORE_FILE_SYSTEMDNAME       "systemdname"
+#define MMGUICORE_FILE_COMPATIBILITY     "compatibility"
 /*SMS parameters*/
 #define MMGUI_MIN_SMS_NUMBER_LENGTH      3
 #define MMGUI_MAX_SMS_NUMBER_LENGTH      20
@@ -70,22 +71,54 @@
 #define MMGUI_THREAD_REFRESH_CMD         0x01
 
 
+static void mmguicore_event_callback(enum _mmgui_event event, gpointer mmguicore, gpointer data);
+static void mmguicore_svcmanager_callback(gpointer svcmanager, gint event, gpointer subject, gpointer userdata);
+static gint mmguicore_modules_sort(gconstpointer a, gconstpointer b);
+static gchar *mmguicore_modules_extract_name(const gchar *filename, gchar *buffer, gsize *bufsize);
+static gboolean mmguicore_modules_are_compatible(mmguimodule_t module1, mmguimodule_t module2);
+static gboolean mmguicore_modules_cache_open(mmguicore_t mmguicore);
+static gboolean mmguicore_modules_cache_close(mmguicore_t mmguicore);
+static gboolean mmguicore_modules_cache_add_module(mmguicore_t mmguicore, mmguimodule_t module);
+static gint mmguicore_modules_cache_get_enumeration_value(GKeyFile *keyfile, gchar *group, gchar *parameter, gint firstvalue, ...);
+static gchar *mmguicore_modules_cache_get_string_value(GKeyFile *keyfile, gchar *group, gchar *parameter, gchar *target, gsize size);
+static GSList *mmguicore_modules_cache_form_list(mmguicore_t mmguicore);
+static GSList *mmguicore_modules_dir_form_list(mmguicore_t mmguicore, gboolean updatecache);
 static gboolean mmguicore_modules_enumerate(mmguicore_t mmguicore);
 static gboolean mmguicore_modules_prepare(mmguicore_t mmguicore);
-
-static gboolean mmguicore_main(mmguicore_t mmguicore);
-
-gboolean mmguicore_devices_add(mmguicore_t mmguicore, mmguidevice_t device);
-gboolean mmguicore_devices_remove(mmguicore_t mmguicore, guint deviceid);
-gboolean mmguicore_devices_close(mmguicore_t mmguicore);
-void mmguicore_networks_scan_free(GSList *networks);
+static gboolean mmguicore_modules_free(mmguicore_t mmguicore);
+static gboolean mmguicore_modules_mm_open(mmguicore_t mmguicore, mmguimodule_t mmguimodule);
+static gboolean mmguicore_modules_cm_open(mmguicore_t mmguicore, mmguimodule_t mmguimodule);
+static gboolean mmguicore_modules_close(mmguicore_t mmguicore);
+static gboolean mmguicore_modules_select(mmguicore_t mmguicore);
+static gint mmguicore_connections_compare(gconstpointer a, gconstpointer b);
+static gint mmguicore_connections_name_compare(gconstpointer a, gconstpointer b);
+static void mmguicore_connections_free_single(mmguiconn_t connection);
+static void mmguicore_connections_free_foreach(gpointer data, gpointer user_data);
+static void mmguicore_connections_free(mmguicore_t mmguicore);
+static void mmguicore_devices_free_single(mmguidevice_t device);
+static void mmguicore_devices_free_foreach(gpointer data, gpointer user_data);
+static void mmguicore_devices_free(mmguicore_t mmguicore);
+static gboolean mmguicore_devices_add(mmguicore_t mmguicore, mmguidevice_t device);
+static gint mmguicore_devices_remove_compare(gconstpointer a, gconstpointer b);
+static gboolean mmguicore_devices_remove(mmguicore_t mmguicore, guint deviceid);
+static gint mmguicore_devices_open_compare(gconstpointer a, gconstpointer b);
+static gboolean mmguicore_devices_close(mmguicore_t mmguicore);
+static gint mmguicore_sms_sort_index_compare(gconstpointer a, gconstpointer b);
+static gint mmguicore_sms_sort_timestamp_compare(gconstpointer a, gconstpointer b);
+static void mmguicore_sms_merge_foreach(gpointer data, gpointer user_data);
+static void mmguicore_networks_scan_free_foreach(gpointer data, gpointer user_data);
+static void mmguicore_contacts_free_foreach(gpointer data, gpointer user_data);
 static void mmguicore_contacts_free(GSList *contacts);
 static guint mmguicore_contacts_enum(mmguicore_t mmguicore);
+static gint mmguicore_contacts_get_compare(gconstpointer a, gconstpointer b);
+static gint mmguicore_contacts_delete_compare(gconstpointer a, gconstpointer b);
+static gboolean mmguicore_main(mmguicore_t mmguicore);
 static gpointer mmguicore_work_thread(gpointer data);
 static void mmguicore_traffic_count(mmguicore_t mmguicore, guint64 rxbytes, guint64 txbytes);
 static void mmguicore_traffic_zero(mmguicore_t mmguicore);
 static void mmguicore_traffic_limits(mmguicore_t mmguicore);
 static void mmguicore_update_connection_status(mmguicore_t mmguicore, gboolean sendresult, gboolean result);
+
 
 static void mmguicore_event_callback(enum _mmgui_event event, gpointer mmguicore, gpointer data)
 {
@@ -330,6 +363,30 @@ static gint mmguicore_modules_sort(gconstpointer a, gconstpointer b)
 	return 0;
 }
 
+static gint mmguicore_module_pairs_sort(gconstpointer a, gconstpointer b)
+{
+	mmguimodule_t *modpair1, *modpair2;
+	
+	modpair1 = (mmguimodule_t *)a;
+	modpair2 = (mmguimodule_t *)b;
+	
+	if (modpair1[0]->priority + modpair1[1]->priority == modpair2[0]->priority + modpair2[1]->priority) {
+		if (modpair1[0]->identifier + modpair1[1]->identifier == modpair2[0]->identifier + modpair2[1]->identifier) {
+			return 0;
+		} else if (modpair1[0]->identifier + modpair1[1]->identifier > modpair2[0]->identifier + modpair2[1]->identifier) {
+			return -1;
+		} else if (modpair1[0]->identifier + modpair1[1]->identifier < modpair2[0]->identifier + modpair2[1]->identifier) {
+			return 1;
+		}
+	} else if (modpair1[0]->priority + modpair1[1]->priority > modpair2[0]->priority + modpair2[1]->priority) {
+		return -1;
+	} else if (modpair1[0]->priority + modpair1[1]->priority < modpair2[0]->priority + modpair2[1]->priority) {
+		return 1;
+	}
+	
+	return 0;
+}
+
 static gchar *mmguicore_modules_extract_name(const gchar *filename, gchar *buffer, gsize *bufsize)
 {
 	gchar *segend, *segstart;
@@ -360,6 +417,38 @@ static gchar *mmguicore_modules_extract_name(const gchar *filename, gchar *buffe
 	*bufsize = 0;
 	
 	return NULL;
+}
+
+static gboolean mmguicore_modules_are_compatible(mmguimodule_t module1, mmguimodule_t module2)
+{
+	gchar **clist1, **clist2;
+	gint cseq1, cseq2;
+	gboolean found;
+	
+	if ((module1 == NULL) || (module2 == NULL)) return FALSE;
+	if ((module1->servicename[0] == '\0') || (module2->servicename[0] == '\0')) return FALSE;
+	if ((module1->compatibility[0] == '\0') || (module2->compatibility[0] == '\0')) return FALSE;
+	
+	found = FALSE;
+	
+	/*First find out if the first module compatible with second one*/
+	clist1 = g_strsplit(module1->compatibility, ";", -1);
+	for (cseq1 = 0; (clist1[cseq1] != NULL) && (clist1[cseq1][0] != '\0') && (!found); cseq1++) {
+		if (g_ascii_strcasecmp(clist1[cseq1], module2->servicename) == 0) {
+			/*One-way compatibility found, test reverse compatibility*/
+			clist2 = g_strsplit(module2->compatibility, ";", -1);
+			for (cseq2 = 0; (clist2[cseq2] != NULL) && (clist2[cseq2][0] != '\0'); cseq2++) {
+				if (g_ascii_strcasecmp(clist2[cseq2], module1->servicename) == 0) {
+					found = TRUE;
+					break;
+				}
+			}
+			g_strfreev(clist2);
+		}
+	}
+	g_strfreev(clist1);
+	
+	return found;
 }
 
 static gboolean mmguicore_modules_cache_open(mmguicore_t mmguicore)
@@ -513,6 +602,7 @@ static gboolean mmguicore_modules_cache_add_module(mmguicore_t mmguicore, mmguim
 	g_key_file_set_string(mmguicore->cachekeyfile, module->filename, MMGUICORE_FILE_DESCRIPTION, module->description);
 	g_key_file_set_string(mmguicore->cachekeyfile, module->filename, MMGUICORE_FILE_SERVICENAME, module->servicename);
 	g_key_file_set_string(mmguicore->cachekeyfile, module->filename, MMGUICORE_FILE_SYSTEMDNAME, module->systemdname);
+	g_key_file_set_string(mmguicore->cachekeyfile, module->filename, MMGUICORE_FILE_COMPATIBILITY, module->compatibility);
 	
 	return TRUE;
 }
@@ -659,6 +749,11 @@ static GSList *mmguicore_modules_cache_form_list(mmguicore_t mmguicore)
 				g_free(modparams);
 				continue;
 			}
+			/*Module compatibility string*/
+			if (mmguicore_modules_cache_get_string_value(mmguicore->cachekeyfile, groups[i], MMGUICORE_FILE_COMPATIBILITY, modparams->compatibility, sizeof(modparams->compatibility)) == NULL) {
+				g_free(modparams);
+				continue;
+			}
 			/*Module filename*/
 			strncpy(modparams->filename, groups[i], sizeof(modparams->filename));
 			/*Add to list*/
@@ -752,12 +847,22 @@ static GSList *mmguicore_modules_dir_form_list(mmguicore_t mmguicore, gboolean u
 
 static gboolean mmguicore_modules_enumerate(mmguicore_t mmguicore)
 {
-	mmguimodule_t modparams;
-	GSList *iterator;
+	mmguimodule_t mod1, mod2;
+	GSList *iter1;
 	gsize shortnamelen;
-	gboolean mmavailable, cmavailable;
-	
+	GHashTable *mmmods, *cmmods;
+	GHashTableIter iter2;
+	gchar *sn1;
+	gchar **comp;
+	gint cid;
+	mmguimodule_t *modpair;
+	gboolean mmavailable, cmavailable, res;
+		
 	if (mmguicore == NULL) return FALSE;
+	
+	res = FALSE;
+	
+	mmguicore->modulepairs = NULL;
 	
 	/*Form full modules list*/
 	if (mmguicore->updatecache) {
@@ -783,40 +888,45 @@ static gboolean mmguicore_modules_enumerate(mmguicore_t mmguicore)
 	mmavailable = FALSE;
 	cmavailable = FALSE;
 	
+	mmmods = g_hash_table_new_full(g_str_hash, g_str_equal, (GDestroyNotify)g_free, NULL);
+	cmmods = g_hash_table_new_full(g_str_hash, g_str_equal, (GDestroyNotify)g_free, NULL);
+	
 	/*Mark available modules*/
 	if (mmguicore->modules != NULL) {
-		for (iterator=mmguicore->modules; iterator; iterator=iterator->next) {
-			modparams = iterator->data;
-			shortnamelen = sizeof(modparams->shortname);
-			if (mmguicore_modules_extract_name(modparams->filename, modparams->shortname, &shortnamelen) != NULL) {
+		for (iter1 = mmguicore->modules; iter1 != NULL; iter1 = iter1->next) {
+			mod1 = iter1->data;
+			shortnamelen = sizeof(mod1->shortname);
+			if (mmguicore_modules_extract_name(mod1->filename, mod1->shortname, &shortnamelen) != NULL) {
 				/*Test service/file existence*/
-				modparams->applicable = FALSE;
-				modparams->activationtech = MMGUI_SVCMANGER_ACTIVATION_TECH_NA;
-				switch (modparams->requirement) {
+				mod1->applicable = FALSE;
+				mod1->activationtech = MMGUI_SVCMANGER_ACTIVATION_TECH_NA;
+				switch (mod1->requirement) {
 					case MMGUI_MODULE_REQUIREMENT_SERVICE:
-						modparams->applicable = mmgui_svcmanager_get_service_state(mmguicore->svcmanager, modparams->systemdname, modparams->servicename);
-						if (!modparams->applicable) {
-							modparams->activationtech = mmgui_svcmanager_get_service_activation_tech(mmguicore->svcmanager, modparams->systemdname, modparams->servicename);
+						mod1->applicable = mmgui_svcmanager_get_service_state(mmguicore->svcmanager, mod1->systemdname, mod1->servicename);
+						if (!mod1->applicable) {
+							mod1->activationtech = mmgui_svcmanager_get_service_activation_tech(mmguicore->svcmanager, mod1->systemdname, mod1->servicename);
 						}
 						break;
 					case MMGUI_MODULE_REQUIREMENT_FILE:
-						if (g_file_test(modparams->servicename, G_FILE_TEST_EXISTS)) {
-							modparams->applicable = TRUE;
+						if (g_file_test(mod1->servicename, G_FILE_TEST_EXISTS)) {
+							mod1->applicable = TRUE;
 						}
 						break;
 					case MMGUI_MODULE_REQUIREMENT_NONE:
-						modparams->applicable = TRUE;
+						mod1->applicable = TRUE;
 						break;
 					default:
 						break;
 				}
 				/*Set module type available flag*/
-				if ((modparams->applicable) || (modparams->activationtech != MMGUI_SVCMANGER_ACTIVATION_TECH_NA)) {
-					switch (modparams->type) {
+				if ((mod1->applicable) || (mod1->activationtech != MMGUI_SVCMANGER_ACTIVATION_TECH_NA)) {
+					switch (mod1->type) {
 						case MMGUI_MODULE_TYPE_MODEM_MANAGER:
+							g_hash_table_insert(mmmods, g_strdup(mod1->servicename), mod1);
 							mmavailable = TRUE;
 							break;
 						case MMGUI_MODULE_TYPE_CONNECTION_MANGER:
+							g_hash_table_insert(cmmods, g_strdup(mod1->servicename), mod1);
 							cmavailable = TRUE;
 							break;
 						default:
@@ -825,42 +935,74 @@ static gboolean mmguicore_modules_enumerate(mmguicore_t mmguicore)
 				}	
 			}
 		}
-		
 		/*Sort modules*/
 		mmguicore->modules = g_slist_sort(mmguicore->modules, mmguicore_modules_sort);
 	}
 	
-	return mmavailable && cmavailable;
+	/*Find at least one pair of compatible modules*/
+	if (mmavailable && cmavailable) {
+		g_hash_table_iter_init(&iter2, mmmods);
+		while (g_hash_table_iter_next(&iter2, (gpointer *)&sn1, (gpointer *)&mod1)) {
+			comp = g_strsplit(mod1->compatibility, ";", -1);
+			if (comp != NULL) {
+				for (cid = 0; (comp[cid] != NULL) && (comp[cid][0] != '\0'); cid++) {
+					mod2 = g_hash_table_lookup(cmmods, comp[cid]);
+					if (mod2 != NULL) {
+						if (mmguicore_modules_are_compatible(mod1, mod2)) {
+							modpair = g_malloc0(sizeof(mmguimodule_t) * 2);
+							modpair[0] = mod1;
+							modpair[1] = mod2;
+							mmguicore->modulepairs = g_slist_prepend(mmguicore->modulepairs, modpair);
+							g_debug("Found pair of modules: %s <---> %s\n", mod1->servicename, mod2->servicename);
+							res = TRUE;
+						}
+					}
+				}
+				g_strfreev(comp);
+			}
+		}
+	}
+	/*Sort module pairs*/
+	mmguicore->modulepairs = g_slist_sort(mmguicore->modulepairs, mmguicore_module_pairs_sort);
+			
+	/*Free resources*/
+	g_hash_table_destroy(mmmods);
+	g_hash_table_destroy(cmmods);
+	
+	return res;
 } 
 
 static gboolean mmguicore_modules_prepare(mmguicore_t mmguicore)
 {
-	mmguimodule_t modparams;
-	GSList *iterator;
+	mmguimodule_t curmod, mmmod, cmmod;
+	mmguimodule_t *modpair;
+	GSList *iter;
+	gboolean pairfound;
 	
 	if (mmguicore == NULL) return FALSE;
 	if (mmguicore->modules == NULL) return FALSE;
 	
-	for (iterator=mmguicore->modules; iterator; iterator=iterator->next) {
-		modparams = iterator->data;
-		/*Test if module is recommended*/
-		modparams->recommended = FALSE;
-		switch (modparams->type) {
+	mmmod = NULL;
+	cmmod = NULL;
+	pairfound = TRUE;
+	
+	/*Search for modules selected by user*/
+	for (iter = mmguicore->modules; iter != NULL; iter = iter->next) {
+		curmod = iter->data;
+		switch (curmod->type) {
 			case MMGUI_MODULE_TYPE_MODEM_MANAGER:
-				/*Set recommended flag*/
 				if (mmguicore->options != NULL) {
 					if (mmguicore->options->mmmodule != NULL) {
-						if (g_str_equal(modparams->shortname, mmguicore->options->mmmodule)) {
-							modparams->recommended = TRUE;
+						if (g_str_equal(curmod->shortname, mmguicore->options->mmmodule)) {
+							mmmod = curmod;
 						}
 					}
 				}
 			case MMGUI_MODULE_TYPE_CONNECTION_MANGER:
-				/*Set recommended flag*/
 				if (mmguicore->options != NULL) {
 					if (mmguicore->options->cmmodule != NULL) {
-						if (g_str_equal(modparams->shortname, mmguicore->options->cmmodule)) {
-							modparams->recommended = TRUE;
+						if (g_str_equal(curmod->shortname, mmguicore->options->cmmodule)) {
+							cmmod = curmod;
 						}
 					}
 				}
@@ -868,10 +1010,67 @@ static gboolean mmguicore_modules_prepare(mmguicore_t mmguicore)
 			default:
 				break;
 		}
-		/*Schedule activation if recommended*/
-		if ((modparams->recommended) && (!modparams->applicable) && (modparams->activationtech != MMGUI_SVCMANGER_ACTIVATION_TECH_NA) && (modparams->requirement == MMGUI_MODULE_REQUIREMENT_SERVICE)) {
-			mmgui_svcmanager_schedule_start_service(mmguicore->svcmanager, modparams->systemdname, modparams->servicename, modparams->shortname, mmguicore->options->enableservices);
+	}
+	
+	/*If modules are not compatible, use failsafe ones*/
+	if (!mmguicore_modules_are_compatible(mmmod, cmmod)) {
+		pairfound = FALSE;
+		for (iter = mmguicore->modulepairs; iter != NULL; iter = iter->next) {
+			modpair = (mmguimodule_t *)iter->data;
+			if ((mmmod != NULL) && (cmmod != NULL)) {
+				/*Selected modules arent compatible - find connection manager*/
+				curmod = modpair[0];
+				if (g_ascii_strcasecmp(mmmod->servicename, curmod->servicename) == 0) {
+					cmmod = modpair[1];
+					pairfound = TRUE;
+					g_debug("Modules are not compatible, using safe combination: %s <---> %s\n", mmmod->servicename, cmmod->servicename);
+					break;
+				}
+			} else if ((mmmod == NULL) && (cmmod != NULL)) {
+				/*Connection manager not selected - select one*/
+				curmod = modpair[1];
+				if (g_ascii_strcasecmp(cmmod->servicename, curmod->servicename) == 0) {
+					mmmod = modpair[0];
+					pairfound = TRUE;
+					g_debug("Modem manager not available, using safe combination: %s <---> %s\n", mmmod->servicename, cmmod->servicename);
+					break;
+				}
+			} else if ((mmmod != NULL) && (cmmod == NULL)) {
+				/*Modem manager not selected - select one*/
+				curmod = modpair[0];
+				if (g_ascii_strcasecmp(mmmod->servicename, curmod->servicename) == 0) {
+					cmmod = modpair[1];
+					pairfound = TRUE;
+					g_debug("Connection manager not available, using safe combination: %s <---> %s\n", mmmod->servicename, cmmod->servicename);
+					break;
+				}
+			} else {
+				/*No module selected - take first pair*/
+				mmmod = modpair[0];
+				cmmod = modpair[1];
+				pairfound = TRUE;
+				g_debug("Selected pair of modules is not available, using safe combination: %s <---> %s\n", mmmod->servicename, cmmod->servicename);
+				break;
+			}
 		}
+	}
+	
+	/*If pair is still not found, select first one*/
+	if (!pairfound) {
+		modpair = (mmguimodule_t *)g_slist_nth_data(mmguicore->modulepairs, 0);
+		mmmod = modpair[0];
+		cmmod = modpair[1];
+		g_debug("Selected pair of modules is not available, using safe combination: %s <---> %s\n", mmmod->servicename, cmmod->servicename);
+	}
+	
+	/*Mark modules as recommended and schedule activation*/
+	mmmod->recommended = TRUE;
+	if ((!mmmod->applicable) && (mmmod->activationtech != MMGUI_SVCMANGER_ACTIVATION_TECH_NA) && (mmmod->requirement == MMGUI_MODULE_REQUIREMENT_SERVICE)) {
+		mmgui_svcmanager_schedule_start_service(mmguicore->svcmanager, mmmod->systemdname, mmmod->servicename, mmmod->shortname, mmguicore->options->enableservices);
+	}
+	cmmod->recommended = TRUE;
+	if ((!cmmod->applicable) && (cmmod->activationtech != MMGUI_SVCMANGER_ACTIVATION_TECH_NA) && (cmmod->requirement == MMGUI_MODULE_REQUIREMENT_SERVICE)) {
+		mmgui_svcmanager_schedule_start_service(mmguicore->svcmanager, cmmod->systemdname, cmmod->servicename, cmmod->shortname, mmguicore->options->enableservices);
 	}
 	
 	/*Initiate services activation*/
@@ -890,9 +1089,16 @@ GSList *mmguicore_modules_get_list(mmguicore_t mmguicore)
 static gboolean mmguicore_modules_free(mmguicore_t mmguicore)
 {
 	if (mmguicore == NULL) return FALSE;
-	if (mmguicore->modules == NULL) return FALSE;
 	
-	g_slist_free(mmguicore->modules);
+	/*Free pairs list*/
+	if (mmguicore->modulepairs != NULL) {
+		g_slist_foreach(mmguicore->modulepairs,(GFunc)g_free, NULL);
+		g_slist_free(mmguicore->modulepairs);
+	}
+	/*Free modules list*/
+	if (mmguicore->modules != NULL) {
+		g_slist_free(mmguicore->modules);
+	}
 	
 	return TRUE;
 }
@@ -1093,14 +1299,14 @@ static gboolean mmguicore_modules_close(mmguicore_t mmguicore)
 {
 	if (mmguicore == NULL) return FALSE;
 	
-	//Modem manager module functions 
+	/*Modem manager module functions*/
 	if (mmguicore->module != NULL) {
 		if (mmguicore->close_func != NULL) {
 			mmguicore->close_func(mmguicore);
 		}
 		g_module_close(mmguicore->module);
 		mmguicore->module = NULL;
-		//Module function pointers
+		/*Module function pointers*/
 		mmguicore->open_func = NULL;
 		mmguicore->close_func = NULL;
 		mmguicore->last_error_func = NULL;
@@ -1127,14 +1333,14 @@ static gboolean mmguicore_modules_close(mmguicore_t mmguicore)
 		mmguicore->moduleptr = NULL;
 	}
 	
-	//Connection manager module functions
+	/*Connection manager module functions*/
 	if (mmguicore->cmodule != NULL) {
 		if (mmguicore->connection_close_func != NULL) {
 			mmguicore->connection_close_func(mmguicore);
 		}
 		g_module_close(mmguicore->cmodule);
 		mmguicore->cmodule = NULL;
-		//Module function pointers
+		/*Module function pointers*/
 		mmguicore->connection_open_func = NULL;
 		mmguicore->connection_close_func = NULL;
 		mmguicore->connection_enum_func = NULL;
@@ -1159,7 +1365,8 @@ static gboolean mmguicore_modules_close(mmguicore_t mmguicore)
 static gboolean mmguicore_modules_select(mmguicore_t mmguicore)
 {
 	GSList *iterator;
-	mmguimodule_t module;
+	mmguimodule_t module, mmmod, cmmod;
+	mmguimodule_t *modpair;
 	gboolean mmfound, cmfound;
 	
 	if (mmguicore == NULL) return FALSE;
@@ -1171,7 +1378,7 @@ static gboolean mmguicore_modules_select(mmguicore_t mmguicore)
 	
 	mmfound = FALSE;
 	cmfound = FALSE;
-	
+		
 	/*Try to open recommended modules first*/
 	for (iterator=mmguicore->modules; iterator; iterator=iterator->next) {
 		module = iterator->data;
@@ -1189,22 +1396,48 @@ static gboolean mmguicore_modules_select(mmguicore_t mmguicore)
 	
 	/*If modules not opened use full list*/
 	if (!((mmfound) && (cmfound))) {
-		for (iterator=mmguicore->modules; iterator; iterator=iterator->next) {
-			module = iterator->data;
-			if (module->applicable) {
-				if ((module->type == MMGUI_MODULE_TYPE_MODEM_MANAGER) && (!mmfound)) {
-					mmfound = mmguicore_modules_mm_open(mmguicore, module);
-				} else if ((module->type == MMGUI_MODULE_TYPE_CONNECTION_MANGER) && (!cmfound)) {
-					cmfound = mmguicore_modules_cm_open(mmguicore, module);
+		if ((!mmfound) && (cmfound)) {
+			/*Find compatible modem manager module and open it*/
+			for (iterator=mmguicore->modulepairs; iterator; iterator=iterator->next) {
+				modpair = (mmguimodule_t *)iterator->data;
+				mmmod = modpair[0];
+				cmmod = modpair[1];
+				module = mmguicore->cmoduleptr;
+				if ((g_ascii_strcasecmp(module->servicename, cmmod->servicename) == 0) && (mmmod->applicable)) {
+					mmfound = mmguicore_modules_mm_open(mmguicore, mmmod);
+					if (mmfound) {
+						break;
+					}
 				}
 			}
-			if ((mmfound) && (cmfound)) {
-				break;
+		} else if ((mmfound) && (!cmfound)) {
+			/*Find compatible connection manager module and open it*/
+			for (iterator=mmguicore->modulepairs; iterator; iterator=iterator->next) {
+				modpair = (mmguimodule_t *)iterator->data;
+				mmmod = modpair[0];
+				cmmod = modpair[1];
+				module = mmguicore->moduleptr;
+				if ((g_ascii_strcasecmp(module->servicename, mmmod->servicename) == 0) && (cmmod->applicable)) {
+					cmfound = mmguicore_modules_cm_open(mmguicore, cmmod);
+					if (cmfound) {
+						break;
+					}
+				}
 			}
-		}	
+		} else if ((!mmfound) && (!cmfound)) {
+			/*Find compatible pair of modules and open it*/
+			for (iterator=mmguicore->modulepairs; iterator; iterator=iterator->next) {
+				modpair = (mmguimodule_t *)iterator->data;
+				mmfound = mmguicore_modules_mm_open(mmguicore, modpair[0]);
+				cmfound = mmguicore_modules_cm_open(mmguicore, modpair[1]);
+				if ((mmfound) && (cmfound)) {
+					break;
+				}
+			}
+		}
 	}
 		
-	return mmfound;
+	return ((mmfound) && (cmfound));
 }
 
 void mmguicore_modules_mm_set_timeouts(mmguicore_t mmguicore, gint operation1, gint timeout1, ...)
@@ -1534,7 +1767,7 @@ gboolean mmguicore_devices_enum(mmguicore_t mmguicore)
 	return TRUE;
 }
 
-gboolean mmguicore_devices_add(mmguicore_t mmguicore, mmguidevice_t device)
+static gboolean mmguicore_devices_add(mmguicore_t mmguicore, mmguidevice_t device)
 {
 	if ((mmguicore == NULL) || (device == NULL)) return FALSE;
 	
@@ -1562,7 +1795,7 @@ static gint mmguicore_devices_remove_compare(gconstpointer a, gconstpointer b)
 	}
 }
 
-gboolean mmguicore_devices_remove(mmguicore_t mmguicore, guint deviceid)
+static gboolean mmguicore_devices_remove(mmguicore_t mmguicore, guint deviceid)
 {
 	GSList *deviceptr;
 	
@@ -1571,22 +1804,22 @@ gboolean mmguicore_devices_remove(mmguicore_t mmguicore, guint deviceid)
 	
 	deviceptr = g_slist_find_custom(mmguicore->devices, GUINT_TO_POINTER(deviceid), mmguicore_devices_remove_compare);
 	
-	if (deviceptr != NULL) {
-		if (mmguicore->device != NULL) {
-			if (mmguicore->device->id == deviceid) {
-				//Close currently opened device
-				mmguicore_devices_close(mmguicore);
-			}
+	if (deviceptr == NULL) return FALSE;
+	
+	if (mmguicore->device != NULL) {
+		if (mmguicore->device->id == deviceid) {
+			/*Close currently opened device*/
+			mmguicore_devices_close(mmguicore);
 		}
-		//Remove device structure from list
-		mmguicore->devices = g_slist_remove(mmguicore->devices, deviceptr->data);
-		//Free device structure
-		mmguicore_devices_free_single(deviceptr->data);
-		//g_printf("Device successfully removed\n");
-		return TRUE;
-	} else {
-		return FALSE;
 	}
+	/*Remove device structure from list*/
+	mmguicore->devices = g_slist_remove(mmguicore->devices, deviceptr->data);
+	/*Free device structure*/
+	mmguicore_devices_free_single(deviceptr->data);
+	
+	g_debug("Device successfully removed\n");
+	
+	return TRUE;
 }
 
 static gint mmguicore_devices_open_compare(gconstpointer a, gconstpointer b)
@@ -1617,35 +1850,35 @@ gboolean mmguicore_devices_open(mmguicore_t mmguicore, guint deviceid, gboolean 
 	deviceptr = g_slist_find_custom(mmguicore->devices, GUINT_TO_POINTER(deviceid), mmguicore_devices_open_compare);
 	
 	if (deviceptr != NULL) {
-		//Test currently opened device
+		/*Test currently opened device*/
 		if (mmguicore->device != NULL) {
 			if (mmguicore->device->id == deviceid) {
-				//Already opened
+				/*Already opened*/
 				return TRUE;
 			} else {
-				//Close currently opened device
+				/*Close currently opened device*/
 				mmguicore_devices_close(mmguicore);
 			}
 		}
 		if ((mmguicore->devices_open_func)(mmguicore, deviceptr->data)) {
 			mmguicore->device = deviceptr->data;
-			//Update device information
+			/*Update device information*/
 			if (mmguicore->devices_information_func != NULL) {
 				(mmguicore->devices_information_func)(mmguicore);
-				//Open SMS database
+				/*Open SMS database*/
 				mmguicore->device->smsdb = mmgui_smsdb_open(mmguicore->device->persistentid, mmguicore->device->internalid);
-				//Open traffic database
+				/*Open traffic database*/
 				mmguicore->device->trafficdb = mmgui_trafficdb_open(mmguicore->device->persistentid, mmguicore->device->internalid);
-				//Open contacts
+				/*Open contacts*/
 				mmguicore_contacts_enum(mmguicore);
-				//For Huawei modem USSD answers must be converted
+				/*For Huawei modem USSD answers must be converted*/
 				if (g_ascii_strcasecmp(mmguicore->device->manufacturer, "huawei") == 0) {
 					mmguicore->device->ussdencoding = MMGUI_USSD_ENCODING_UCS2;
 				} else {
 					mmguicore->device->ussdencoding = MMGUI_USSD_ENCODING_GSM7;
 				}
 			}
-			//Open connection statistics source
+			/*Open connection statistics source*/
 			if (mmguicore->device_connection_open_func != NULL) {
 				(mmguicore->device_connection_open_func)(mmguicore, deviceptr->data);
 			}
@@ -1670,32 +1903,32 @@ gboolean mmguicore_devices_open(mmguicore_t mmguicore, guint deviceid, gboolean 
 			return TRUE;
 		}
 	} else if ((openfirst) && (deviceptr == NULL) && (mmguicore->devices != NULL)) {
-		//Open first available device if specified is not found
+		/*Open first available device if specified is not found*/
 		if (mmguicore->devices->data != NULL) {
 			if (mmguicore->device != NULL) {
-				//Close currently opened device
+				/*Close currently opened device*/
 				mmguicore_devices_close(mmguicore);
 			}
 			
 			if ((mmguicore->devices_open_func)(mmguicore, mmguicore->devices->data)) {
 				mmguicore->device = mmguicore->devices->data;
-				//Update device information
+				/*Update device information*/
 				if (mmguicore->devices_information_func != NULL) {
 					(mmguicore->devices_information_func)(mmguicore);
-					//Open SMS database
+					/*Open SMS database*/
 					mmguicore->device->smsdb = mmgui_smsdb_open(mmguicore->device->persistentid, mmguicore->device->internalid);
-					//Open traffic database
+					/*Open traffic database*/
 					mmguicore->device->trafficdb = mmgui_trafficdb_open(mmguicore->device->persistentid, mmguicore->device->internalid);
-					//Open contacts
+					/*Open contacts*/
 					mmguicore_contacts_enum(mmguicore);
-					//For Huawei modem USSD answers must be converted
+					/*For Huawei modem USSD answers must be converted*/
 					if (g_ascii_strcasecmp(mmguicore->device->manufacturer, "huawei") == 0) {
 						mmguicore->device->ussdencoding = MMGUI_USSD_ENCODING_UCS2;
 					} else {
 						mmguicore->device->ussdencoding = MMGUI_USSD_ENCODING_GSM7;
 					}
 				}
-				//Open connection statistics source
+				/*Open connection statistics source*/
 				if (mmguicore->device_connection_open_func != NULL) {
 					(mmguicore->device_connection_open_func)(mmguicore, mmguicore->devices->data);
 				}
@@ -1725,7 +1958,7 @@ gboolean mmguicore_devices_open(mmguicore_t mmguicore, guint deviceid, gboolean 
 	return FALSE;
 }
 
-gboolean mmguicore_devices_close(mmguicore_t mmguicore)
+static gboolean mmguicore_devices_close(mmguicore_t mmguicore)
 {
 	gboolean result;
 	
@@ -2567,6 +2800,7 @@ mmguicore_t mmguicore_init(mmgui_event_ext_callback callback, mmgui_core_options
 	mmguicore = g_new0(struct _mmguicore, 1);
 	/*Modules*/
 	mmguicore->modules = NULL;
+	mmguicore->modulepairs = NULL;
 	/*Modem manager module*/
 	mmguicore->module = NULL;
 	mmguicore->moduleptr = NULL;
