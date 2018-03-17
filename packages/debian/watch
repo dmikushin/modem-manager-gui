@@ -1,0 +1,3 @@
+version=3
+http://download.tuxfamily.org/gsf/source/ modem-manager-gui-(.+)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz)))
+# Links from http://linuxonly.ru/cms/download.php?list.8 redirect to download.tuxfamily.org

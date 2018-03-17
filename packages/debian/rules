@@ -1,0 +1,16 @@
+#!/usr/bin/make -f
+export DEB_LDFLAGS_MAINT_APPEND=-Wl,--as-needed
+export DEB_BUILD_MAINT_OPTIONS=hardening=+all
+
+%:
+	dh $@
+
+override_dh_auto_clean:
+	if [ -f Makefile_h ] ; then \
+	    dh_auto_clean ; \
+	fi
+
+override_dh_auto_install:
+	dh_auto_install
+	rm -rf debian/tmp/usr/share/help/en_US/
+	rm -rf debian/tmp/usr/share/man/en_US/
