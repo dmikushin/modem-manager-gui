@@ -1,3 +1,27 @@
+* Sat Mar 17 2018 <alex@linuxonly.ru>
+  * New connection control functionality for NetworkManager/Connman has been added
+  * Builtin PIN code input dialog can be used to unlock SIM
+  * User is informed when he/she needs to unlock SIM with PIN/PUK
+  * Active pages can be selected from properties dialog
+  * User can set custom command to be executed on new SMS reception
+  * MMGUI notifications can be disabled with GNOME desktop settings center
+  * Traffic graph movement can be configured from properties dialog
+  * Modules are checked for compatibility with each other before loading
+  * Meson build system is fully supported
+  * Theme MMGUI icons are used when available (thanks to Andrei)
+  * New monochrome and scalable icons have been added for better desktop integration
+  * Deprecated GtkStatusIcon has been replaced with AppIndicator (Debian bug #826399)
+  * UI has been refreshed for better look and feel (thanks to Andrei)
+  * Registration handler in MM06 module has been fixed (thanks to Alexey)
+  * Invisible infobar bug has been fixed with GTK+ bug workaround
+  * Stalled connection to Akonadi server bug has been fixed (Debian bug #834697)
+  * Akonadi server error handler typo has been corrected
+  * Timestamp parser for legacy MM versions has been fixed (thanks to Vin)
+  * Appdata file format has been updated
+  * Some other bugs have been fixed too
+  * Most translations have been updated
+  * Version 0.0.19 release
+
 * Sun Oct 11 2015 <alex@linuxonly.ru>
   * Version 0.0.18 release
 

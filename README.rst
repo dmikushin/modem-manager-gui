@@ -16,13 +16,13 @@ Current features:
 
 Main window:
 
-.. image:: https://linuxonly.ru/e107_media/12ac94514f/images/2017-06/modem_manager_gui_devices.png
+.. image:: https://linuxonly.ru/e107_media/18d0a3f656/images/2017-06/modem_manager_gui_devices.png
 
 Building from source
 --------------------
 First of all, you'll need to install such development packages:
 
-- GTK version 3.4.0 or later
+- GTK+ version 3.4.0 or later
 - Glib version 2.32.1 or later
 - GDBM version 1.10 or later
 - po4a version 0.45 or later
