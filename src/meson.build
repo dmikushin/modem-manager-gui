@@ -43,4 +43,4 @@ mmgui = executable('modem-manager-gui',
 	c_args: c_args,
 	link_args: link_args,
 	install: true,
-	dependencies : [glib, gobject, gio, gtk, gdbm, gtkspell, appindicator])
+	dependencies : [glib, gobject, gio, gmodule, gtk, gdbm, gtkspell, appindicator, m])

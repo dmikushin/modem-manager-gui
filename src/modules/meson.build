@@ -14,7 +14,7 @@ mm06 = shared_library('modmm_mm06',
 	c_args: mm06_c_args,
 	install: true,
 	install_dir: join_paths(get_option('prefix'), get_option('libdir'), 'modem-manager-gui', 'modules'),
-	dependencies : [glib, gobject, gio, gmodule, gdbm])
+	dependencies : [glib, gobject, gio, gmodule, gdbm, m])
 
 mm07_c_sources = [
 	'../smsdb.c',
@@ -32,7 +32,7 @@ mm07 = shared_library('modmm_mm07',
 	c_args: mm07_c_args,
 	install: true,
 	install_dir: join_paths(get_option('prefix'), get_option('libdir'), 'modem-manager-gui', 'modules'),
-	dependencies : [glib, gobject, gio, gmodule, gdbm])
+	dependencies : [glib, gobject, gio, gmodule, gdbm, m])
 
 nm09_c_sources = [
 	'uuid.c',
@@ -82,7 +82,7 @@ ofono109 = shared_library('modmm_ofono109',
 	c_args: ofono109_c_args,
 	install: true,
 	install_dir: join_paths(get_option('prefix'), get_option('libdir'), 'modem-manager-gui', 'modules'),
-	dependencies : [glib, gobject, gio, gmodule, gdbm, rt])
+	dependencies : [glib, gobject, gio, gmodule, gdbm, rt, m])
 
 connman112_c_sources = [
 	'uuid.c',

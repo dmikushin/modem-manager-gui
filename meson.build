@@ -13,6 +13,7 @@ gtkspell = dependency('gtkspell3-3.0', version: '>=3.0.3', required: false)
 appindicator = dependency('appindicator3-0.1', version: '>=0.4.92', required: false)
 gdbm = meson.get_compiler('c').find_library('gdbm')
 rt = meson.get_compiler('c').find_library('rt')
+m = meson.get_compiler('c').find_library('m')
 
 po4a = find_program('po4a')
 
