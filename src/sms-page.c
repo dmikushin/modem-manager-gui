@@ -103,7 +103,7 @@ static void mmgui_main_sms_new_dialog_number_changed_signal(GtkEditable *editabl
 static enum _mmgui_main_new_sms_dialog_result mmgui_main_sms_new_dialog(mmgui_application_t mmguiapp, const gchar *number, const gchar *text);
 static void mmgui_main_sms_list_selection_changed_signal(GtkTreeSelection *selection, gpointer data);
 static void mmgui_main_sms_list_row_activated_signal(GtkTreeView *treeview, GtkTreePath *path, GtkTreeViewColumn *col, gpointer data);
-static void mmgui_main_sms_add_to_list(mmgui_application_t mmguiapp, mmgui_sms_message_t sms, GtkTreeModel *model);
+static void mmgui_main_sms_add_to_list(mmgui_application_t mmguiapp, mmgui_sms_message_t sms, GtkTreeModel *model, gboolean expand);
 static gboolean mmgui_main_sms_autocompletion_select_entry_signal(GtkEntryCompletion *widget, GtkTreeModel *model, GtkTreeIter *iter, gpointer user_data);
 static void mmgui_main_sms_autocompletion_model_fill(mmgui_application_t mmguiapp, guint source);
 static void mmgui_main_sms_menu_model_fill(mmgui_application_t mmguiapp, guint source);
@@ -314,7 +314,7 @@ gboolean mmgui_main_sms_get_message_list_from_thread(gpointer data)
 			/*Add message to database*/
 			mmgui_smsdb_add_sms(mmguicore_devices_get_sms_db(mmguiappdata->mmguiapp->core), message);
 			/*Add message to list*/
-			mmgui_main_sms_add_to_list(mmguiappdata->mmguiapp, message, NULL);
+			mmgui_main_sms_add_to_list(mmguiappdata->mmguiapp, message, NULL, mmguiappdata->mmguiapp->options->smsexpandfolders);
 			/*Add unique sender name into hash table*/
 			if (g_hash_table_lookup(sendernames, message->number) == NULL) {
 				currentsender = g_strdup(mmgui_smsdb_message_get_number(message));
@@ -415,7 +415,7 @@ gboolean mmgui_main_sms_get_message_from_thread(gpointer data)
 	mmgui_smsdb_add_sms(mmguicore_devices_get_sms_db(mmguiappdata->mmguiapp->core), message);
 	
 	/*Add message to list*/
-	mmgui_main_sms_add_to_list(mmguiappdata->mmguiapp, message, NULL);
+	mmgui_main_sms_add_to_list(mmguiappdata->mmguiapp, message, NULL, mmguiappdata->mmguiapp->options->smsexpandfolders);
 	
 	/*Remove message from device*/
 	mmguicore_sms_delete(mmguiappdata->mmguiapp->core, mmgui_smsdb_message_get_identifier(message));
@@ -707,7 +707,7 @@ gboolean mmgui_main_sms_send(mmgui_application_t mmguiapp, const gchar *number, 
 				/*Add message to database*/
 				mmgui_smsdb_add_sms(mmguicore_devices_get_sms_db(mmguiapp->core), message);
 				/*Add message to list*/
-				mmgui_main_sms_add_to_list(mmguiapp, message, NULL);
+				mmgui_main_sms_add_to_list(mmguiapp, message, NULL, mmguiapp->options->smsexpandfolders);
 				/*Free message*/
 				mmgui_smsdb_message_free(message);
 				/*Save last number*/
@@ -731,7 +731,7 @@ gboolean mmgui_main_sms_send(mmgui_application_t mmguiapp, const gchar *number, 
 			/*Add message to database*/
 			mmgui_smsdb_add_sms(mmguicore_devices_get_sms_db(mmguiapp->core), message);
 			/*Add message to list*/
-			mmgui_main_sms_add_to_list(mmguiapp, message, NULL);
+			mmgui_main_sms_add_to_list(mmguiapp, message, NULL, mmguiapp->options->smsexpandfolders);
 			/*Free message*/
 			mmgui_smsdb_message_free(message);
 			/*Save last number*/
@@ -1165,48 +1165,67 @@ static void mmgui_main_sms_list_row_activated_signal(GtkTreeView *treeview, GtkT
 	mmgui_main_sms_answer(mmguiapp);
 }
 
-static void mmgui_main_sms_add_to_list(mmgui_application_t mmguiapp, mmgui_sms_message_t sms, GtkTreeModel *model)
+static void mmgui_main_sms_add_to_list(mmgui_application_t mmguiapp, mmgui_sms_message_t sms, GtkTreeModel *model, gboolean expand)
 {
 	GtkTreeIter iter, child;
+	GtkTreePath *expandpath;
 	time_t timestamp;
 	gchar *markup;
-	//struct tm *tmptime;
 	gchar timestr[200];
 	GdkPixbuf *icon;
 	guint folder;
-	
+		
 	if ((mmguiapp == NULL) || (sms == NULL)) return;
 	
+	/*Get model if needed*/
 	if (model == NULL) {
 		model = gtk_tree_view_get_model(GTK_TREE_VIEW(mmguiapp->window->smslist));
 	}
 	
+	/*Get message timestamp*/
 	timestamp = mmgui_smsdb_message_get_timestamp(sms);
 	
+	/*Format caption*/
 	markup = g_strdup_printf(_("<b>%s</b>\n<small>%s</small>"), mmgui_smsdb_message_get_number(sms), mmgui_str_format_sms_time(timestamp, timestr, sizeof(timestr))); 
 	
+	/*Choose icon*/
 	if (mmgui_smsdb_message_get_read(sms)) {
 		icon = mmguiapp->window->smsreadicon;
 	} else {
 		icon = mmguiapp->window->smsunreadicon;
 	}
 	
+	/*Create iterators*/
+	expandpath = NULL;
+	
 	switch (mmgui_smsdb_message_get_folder(sms)) {
 		case MMGUI_SMSDB_SMS_FOLDER_INCOMING:
 			folder = MMGUI_SMSDB_SMS_FOLDER_INCOMING;
 			gtk_tree_model_get_iter(model, &iter, mmguiapp->window->incomingpath);
+			if ((expand) && (!gtk_tree_model_iter_has_child(model, &iter))) {
+				expandpath = mmguiapp->window->incomingpath;
+			}
 			break;
 		case MMGUI_SMSDB_SMS_FOLDER_SENT:
 			folder = MMGUI_SMSDB_SMS_FOLDER_SENT;
 			gtk_tree_model_get_iter(model, &iter, mmguiapp->window->sentpath);
+			if ((expand) && (!gtk_tree_model_iter_has_child(model, &iter))) {
+				expandpath = mmguiapp->window->sentpath;
+			}
 			break;
 		case MMGUI_SMSDB_SMS_FOLDER_DRAFTS:
 			folder = MMGUI_SMSDB_SMS_FOLDER_DRAFTS;
 			gtk_tree_model_get_iter(model, &iter, mmguiapp->window->draftspath);
+			if ((expand) && (!gtk_tree_model_iter_has_child(model, &iter))) {
+				expandpath = mmguiapp->window->draftspath;
+			}
 			break;
 		default:
 			folder = MMGUI_SMSDB_SMS_FOLDER_INCOMING;
 			gtk_tree_model_get_iter(model, &iter, mmguiapp->window->incomingpath);
+			if ((expand) && (!gtk_tree_model_iter_has_child(model, &iter))) {
+				expandpath = mmguiapp->window->incomingpath;
+			}
 			break;
 	}
 	
@@ -1217,6 +1236,7 @@ static void mmgui_main_sms_add_to_list(mmgui_application_t mmguiapp, mmgui_sms_m
 		gtk_tree_store_insert(GTK_TREE_STORE(model), &child, &iter, 0);
 	}
 	
+	/*Finally add message*/
 	gtk_tree_store_set(GTK_TREE_STORE(model), &child,
 						MMGUI_MAIN_SMSLIST_ICON, icon,
 						MMGUI_MAIN_SMSLIST_SMS, markup,
@@ -1225,7 +1245,13 @@ static void mmgui_main_sms_add_to_list(mmgui_application_t mmguiapp, mmgui_sms_m
 						MMGUI_MAIN_SMSLIST_ISFOLDER, FALSE,
 						-1);
 	
+	/*Free markup string*/
 	g_free(markup);
+	
+	/*Expand list with first message if needed*/
+	if (expandpath != NULL) {
+		gtk_tree_view_expand_to_path(GTK_TREE_VIEW(mmguiapp->window->smslist), expandpath);
+	}
 }
 
 gboolean mmgui_main_sms_list_fill(mmgui_application_t mmguiapp)
@@ -1270,7 +1296,7 @@ gboolean mmgui_main_sms_list_fill(mmgui_application_t mmguiapp)
 			/*Add messages*/
 			if (smslist != NULL) {
 				for (iterator=smslist; iterator; iterator=iterator->next) {
-					mmgui_main_sms_add_to_list(mmguiapp, (mmgui_sms_message_t)iterator->data, model);
+					mmgui_main_sms_add_to_list(mmguiapp, (mmgui_sms_message_t)iterator->data, model, FALSE);
 				}
 			}
 			/*Attach model*/
