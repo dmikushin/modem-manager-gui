@@ -232,7 +232,7 @@ static void mmgui_history_remove_synchronized_messages_foreach(gpointer data, gp
 	
 	if (gdbm_exists(historydata->db, key)) {
 		if (gdbm_delete(historydata->db, key) == 0) {
-			ofono_debug("[HISTORY PLUGIN] Removed syncronized message: %s", rmkeystr);
+			ofono_debug("[HISTORY PLUGIN] Removed synchronized message: %s", rmkeystr);
 		}
 	}
 }

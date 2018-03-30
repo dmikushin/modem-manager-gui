@@ -164,7 +164,7 @@ static gboolean mmgui_svcmanager_open_systemd_manager_interface(mmgui_svcmanager
 	
 	/*Test if systemd can be used*/
 	if (!mmgui_polkit_action_needed(svcmanager->polkit, "ru.linuxonly.modem-manager-gui.manage-services", TRUE)) {
-		g_debug("Systemd doesnt work with polkit\n");
+		g_debug("Systemd doesn't work with polkit\n");
 		return FALSE;
 	}
 
@@ -931,8 +931,8 @@ gboolean mmgui_svcmanager_start_services_activation(mmgui_svcmanager_t svcmanage
 	mmgui_svcmanager_services_activation_chain(svcmanager);
 	
 	if (svcmanager->svcsinqueue) {
-		/*Drop autorization*/
-		mmgui_polkit_revoke_autorization(svcmanager->polkit, "ru.linuxonly.modem-manager-gui.manage-services");
+		/*Drop authorization*/
+		mmgui_polkit_revoke_authorization(svcmanager->polkit, "ru.linuxonly.modem-manager-gui.manage-services");
 	}
 	
 	return TRUE;

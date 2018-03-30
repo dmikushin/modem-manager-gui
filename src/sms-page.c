@@ -1491,7 +1491,7 @@ static gchar *mmgui_main_sms_get_first_number_from_history(mmgui_application_t m
 			/*Most recent number from list*/
 			return mmguiapp->window->smsnumlisthistory->data;
 		} else {
-			/*Hisory linked list doesnt contain numbers*/
+			/*Hisory linked list doesn't contain numbers*/
 			return defnumber;
 		}
 	} else {

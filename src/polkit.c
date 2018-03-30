@@ -347,7 +347,7 @@ gboolean mmgui_polkit_request_password(mmgui_polkit_t polkit, const gchar *actio
 									
 	if (answer == NULL) {
 		if (error != NULL) {
-			g_debug("Unable to request autorization: %s\n", error->message);
+			g_debug("Unable to request authorization: %s\n", error->message);
 			g_error_free(error);
 		}
 		return FALSE;
@@ -359,7 +359,7 @@ gboolean mmgui_polkit_request_password(mmgui_polkit_t polkit, const gchar *actio
 	return authstatus;
 }
 
-gboolean mmgui_polkit_revoke_autorization(mmgui_polkit_t polkit, const gchar *actionname)
+gboolean mmgui_polkit_revoke_authorization(mmgui_polkit_t polkit, const gchar *actionname)
 {
 	GError *error;
 	
@@ -382,7 +382,7 @@ gboolean mmgui_polkit_revoke_autorization(mmgui_polkit_t polkit, const gchar *ac
 							&error);
 									
 	if (error != NULL) {
-		g_debug("Unable to request autorization: %s\n", error->message);
+		g_debug("Unable to request authorization: %s\n", error->message);
 		g_error_free(error);
 		return FALSE;
 	}
