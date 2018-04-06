@@ -221,7 +221,7 @@ msgstr ""
 
 #: ../src/main.c:1159
 msgid ""
-"Network manager does not support Internet connection management functions."
+"Connection manager does not support Internet connection management functions."
 msgstr ""
 
 #: ../src/main.c:1175

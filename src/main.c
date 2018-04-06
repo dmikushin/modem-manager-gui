@@ -1116,7 +1116,7 @@ gboolean mmgui_main_ui_test_device_state(mmgui_application_t mmguiapp, guint set
 			notenabledmessage = _("Modem must be enabled to connect to Internet. Please enable modem.");
 			regmessage = _("Modem must be registered in mobile network to connect to Internet. Please wait...");
 			lockedmessage = _("Modem must be unlocked to connect to Internet. Please enter PIN code.");
-			nonfuncmessage = _("Network manager does not support Internet connection management functions.");
+			nonfuncmessage = _("Connection manager does not support Internet connection management functions.");
 			limfuncmessage = NULL;
 			nonfunctional = FALSE;
 			pagecaps = mmguicore_connections_get_capabilities(mmguiapp->core);

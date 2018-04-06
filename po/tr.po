@@ -225,7 +225,7 @@ msgstr "İnternete bağlanmak için modem kilitsiz olmalıdır.Lütfen Pin kodu 
 
 #: ../src/main.c:1159
 msgid ""
-"Network manager does not support Internet connection management functions."
+"Connection manager does not support Internet connection management functions."
 msgstr "Ağ yöneticisi internet bağlantı yönetim işlevini desteklemiyor."
 
 #: ../src/main.c:1175

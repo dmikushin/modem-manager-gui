@@ -222,7 +222,7 @@ msgstr "Le modem doit être déverrouillé pour se connecter à internet. Veuill
 
 #: ../src/main.c:1159
 msgid ""
-"Network manager does not support Internet connection management functions."
+"Connection manager does not support Internet connection management functions."
 msgstr "Network manager ne supporte pas les fonctions de gestion des connexions internet"
 
 #: ../src/main.c:1175

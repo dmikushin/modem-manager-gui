@@ -222,7 +222,7 @@ msgstr "调制解调器必须解锁才能连接到互联网。 请输入PIN码�
 
 #: ../src/main.c:1159
 msgid ""
-"Network manager does not support Internet connection management functions."
+"Connection manager does not support Internet connection management functions."
 msgstr "网络管理器不支持互联网连接管理功能。"
 
 #: ../src/main.c:1175
