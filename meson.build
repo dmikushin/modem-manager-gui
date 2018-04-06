@@ -1,5 +1,5 @@
 project('Modem Manager GUI', 'c',
-        version: '0.0.19',
+        version: '0.0.19.1',
         license : 'GPL3+',
         meson_version: '>=0.37')
 
