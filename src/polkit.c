@@ -374,7 +374,7 @@ gboolean mmgui_polkit_revoke_authorization(mmgui_polkit_t polkit, const gchar *a
 	/*Send request and receive answer*/
 	error = NULL;
 	g_dbus_proxy_call_sync(polkit->proxy,
-							"RevokeAuthorizationById",
+							"RevokeTemporaryAuthorizationById",
 							g_variant_new("(s)", actionname),
 							G_DBUS_CALL_FLAGS_NONE,
 							-1,

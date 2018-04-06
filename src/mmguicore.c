@@ -1123,9 +1123,9 @@ static gboolean mmguicore_modules_mm_open(mmguicore_t mmguicore, mmguimodule_t m
 			openstatus = mmgui_polkit_request_password(mmguicore->polkit, polkitaction);
 		}
 		g_free(polkitaction);
-		/*Exit if not authenticated*/
+		/*Show warning if not authenticated*/
 		if (!openstatus) {
-			return FALSE;
+			g_debug("User not authenticated for modem manager usage\n");
 		}
 	}
 	/*Dynamic loader*/
@@ -1233,9 +1233,9 @@ static gboolean mmguicore_modules_cm_open(mmguicore_t mmguicore, mmguimodule_t m
 			openstatus = mmgui_polkit_request_password(mmguicore->polkit, polkitaction);
 		}
 		g_free(polkitaction);
-		/*Exit if not authenticated*/
+		/*Show warning if not authenticated*/
 		if (!openstatus) {
-			return FALSE;
+			g_debug("User not authenticated for connection manager usage\n");
 		}
 	}
 	/*Dynamic loader*/
