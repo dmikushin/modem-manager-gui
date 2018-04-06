@@ -222,7 +222,7 @@ msgstr "Модем должен быть разблокирован для со�
 #: ../src/main.c:1159
 msgid ""
 "Connection manager does not support Internet connection management functions."
-msgstr "Менеджер соединений не позваляет управлять соединениями с сетью Интернет."
+msgstr "Менеджер соединений не позволяет управлять соединениями с сетью Интернет."
 
 #: ../src/main.c:1175
 msgid "Modem must be enabled to read and write SMS. Please enable modem."
