@@ -2016,11 +2016,18 @@ static void mmgui_main_tray_icon_exit_signal(GtkMenuItem *menuitem, gpointer dat
 static void mmgui_main_tray_icon_build(mmgui_application_t mmguiapp)
 {
 	gchar *iconfilepath;
+	const gchar *desktop;
 	
 	if (mmguiapp == NULL) return;
 	
+	desktop = getenv("XDG_CURRENT_DESKTOP");
+	
 	/*Indicator*/
-	iconfilepath = g_build_filename(RESOURCE_SYMBOLIC_ICONS_DIR, "modem-manager-gui-symbolic.svg", NULL);
+	if (g_strrstr(desktop, "GNOME") != NULL) {
+		iconfilepath = g_build_filename(RESOURCE_SYMBOLIC_ICONS_DIR, "modem-manager-gui-symbolic.svg", NULL);
+	} else {
+		iconfilepath = g_build_filename(RESOURCE_SYMBOLIC_ICONS_DIR, "modem-manager-gui.svg", NULL);
+	}
 	mmguiapp->window->indicator = app_indicator_new(RESOURCE_LOCALE_DOMAIN, iconfilepath, APP_INDICATOR_CATEGORY_APPLICATION_STATUS);
 	g_free(iconfilepath);
 	/*Indicator menu*/
