@@ -1,46 +1,54 @@
 <page xmlns="http://projectmallard.org/1.0/"
-      xmlns:e="http://projectmallard.org/experimental/"
       type="guide"
       id="usage-modem">
+    
+    <info>
+        <link type="guide" xref="index#usage"/>
+        <revision pkgversion="0.0.19" version="0.1" date="2017-11-11" status="incomplete"/>
+        <desc>
+            Activate your modem devices.
+        </desc>
+        <credit type="author">
+            <name>Mario Blättermann</name>
+            <email>mario.blaettermann@gmail.com</email>
+        </credit>
+        <license>
+            <p>Creative Commons Share Alike 3.0</p>
+        </license>
+    </info>
+    
+    <title>Modems</title>
+    
+    <p>
+    After starting <app>Modem Manager GUI</app>, the following window will be displayed:
+    </p>
 
-  <info>
-    <link type="guide" xref="index#usage"/>
-    <revision pkgversion="0.0.19" version="0.1" date="2017-11-11" status="incomplete"/>
-    <desc>
-      Activate your modem devices.
-    </desc>
-    <credit type="author">
-      <name>Mario Blättermann</name>
-      <email>mario.blaettermann@gmail.com</email>
-    </credit>
-    <license>
-      <p>Creative Commons Share Alike 3.0</p>
-    </license>
-  </info>
-
-   <title>Modems</title>
-   <p>After starting <app>Modem Manager GUI</app>, the following window will be displayed:</p>
-
-   <figure>
-    <media type="image" mime="image/png" src="figures/startup-window.png">
-      The startup window of <app>Modem Manager GUI</app>.
-    </media>
-   </figure>
-   
-   <p>You can see the modem devices available on your system. Click on one of the entries
-     to use that device.</p>
-
-   <p>After clicking on a device, it might be needed to activate it first, if it was not
-     otherwise activated on your system. <app>Modem Manager GUI</app> will ask you for
-     confirmation in that case.</p>
-   
-   <p>Be patient after connecting a removable device such as an USB stick or PCMCIA card.
-     It may take a while until the system detects it.</p>
-   
-   <note style="hint">
-     <p>You cannot use multiple modems at the same time. If you click on another entry in the
-       device list, the previously activated one will be disabled.</p>
-   </note>
-      
-      
+    <figure>
+        <title>The startup window of <app>Modem Manager GUI</app>.</title>
+        <media type="image" mime="image/png" src="figures/startup-window.png"/>
+    </figure>
+    
+    <p>
+    You can see the modem devices available on your system. Click on one of the entries
+    to use that device.
+    </p>
+    
+    <p>
+    After clicking on a device, it might be needed to activate it first, if it was not
+    otherwise activated on your system. <app>Modem Manager GUI</app> will ask you for
+    confirmation in that case.
+    </p>
+    
+    <p>
+    Be patient after connecting a removable device such as an USB stick or PCMCIA card.
+    It may take a while until the system detects it.
+    </p>
+    
+    <note style="hint">
+        <p>
+        You cannot use multiple modems at the same time. If you click on another entry in the
+        device list, the previously activated one will be disabled.
+        </p>
+    </note>
+    
 </page>

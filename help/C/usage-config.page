@@ -1,25 +1,26 @@
 <page xmlns="http://projectmallard.org/1.0/"
-      xmlns:e="http://projectmallard.org/experimental/"
       type="guide"
       id="usage-config">
-
-  <info>
-    <link type="guide" xref="index#usage"/>
-    <revision pkgversion="0.0.19" version="0.1" date="2017-11-11" status="incomplete"/>
-    <desc>
-      Configure the application to match your needs.
-    </desc>
-    <credit type="author">
-      <name>Mario Blättermann</name>
-      <email>mario.blaettermann@gmail.com</email>
-    </credit>
-    <license>
-      <p>Creative Commons Share Alike 3.0</p>
-    </license>
-  </info>
-
-   <title>Configuration</title>
-      <p></p>
-      
-      
+    
+    <info>
+        <link type="guide" xref="index#usage"/>
+        <revision pkgversion="0.0.19" version="0.1" date="2017-11-11" status="incomplete"/>
+        <desc>
+            Configure the application to match your needs.
+        </desc>
+        <credit type="author">
+            <name>Mario Blättermann</name>
+            <email>mario.blaettermann@gmail.com</email>
+        </credit>
+        <license>
+            <p>Creative Commons Share Alike 3.0</p>
+        </license>
+    </info>
+    
+    <title>Configuration</title>
+    
+    <p>
+    
+    </p>
+    
 </page>

@@ -1,50 +1,57 @@
 <page xmlns="http://projectmallard.org/1.0/"
-      xmlns:e="http://projectmallard.org/experimental/"
       type="guide"
       id="usage-traffic">
-
-  <info>
-    <link type="guide" xref="index#usage"/>
-    <revision pkgversion="0.0.19" version="0.1" date="2017-11-11" status="incomplete"/>
-    <desc>
-      Get statistics about network traffic.
-    </desc>
-    <credit type="author">
-      <name>Mario Blättermann</name>
-      <email>mario.blaettermann@gmail.com</email>
-    </credit>
-    <credit type="author">
-      <name>Alex</name>
-      <email>alex@linuxonly.ru</email>
-    </credit>
-    <license>
-      <p>Creative Commons Share Alike 3.0</p>
-    </license>
-  </info>
-
-   <title>Network traffic</title>
-      <p><app>Modem Manager GUI</app> collects mobile broadband traffic statistics and able to disconnect
-       modem when traffic consumption or time of the session exceeds user-defined limit. To use such functions,
-       click on the <gui style="button">Traffic</gui> button in the toolbar.</p>
-
-      <p>Network traffic window has list with session, month and year traffic consumption information on the
-       left and graphical representation of current network connection speed on the right.</p>
-
-      <figure>
-       <media type="image" mime="image/png" src="figures/traffic-window.png">
-         Network traffic window of <app>Modem Manager GUI</app>.
-       </media>
-      </figure>
-
-      <p>Use <gui style="button">Set limit</gui> button to set traffic or time limit for current session,
-       <gui style="button">Connections</gui> button to view list of active network connections and 
-       terminate applications consuming network traffic and <gui style="button">Statistics</gui> button to
-       view daily traffic consumption statistics for selected months.</p>
-      
-      <note style="hint">
-       <p>Traffic statistics are collected only while <app>Modem Manager GUI</app> is running, so result values
-       can be inaccurate and must be treated as reference only. The most accurate traffic statistics are
-       collected by mobile operator.</p>
-      </note>
+    
+    <info>
+        <link type="guide" xref="index#usage"/>
+        <revision pkgversion="0.0.19" version="0.1" date="2017-11-11" status="incomplete"/>
+        <desc>
+            Get statistics about network traffic.
+        </desc>
+        <credit type="author">
+            <name>Mario Blättermann</name>
+            <email>mario.blaettermann@gmail.com</email>
+        </credit>
+        <credit type="author">
+            <name>Alex</name>
+            <email>alex@linuxonly.ru</email>
+        </credit>
+        <license>
+            <p>Creative Commons Share Alike 3.0</p>
+        </license>
+    </info>
+    
+    <title>Network traffic</title>
+    
+    <p>
+    <app>Modem Manager GUI</app> collects mobile broadband traffic statistics and able to disconnect
+    modem when traffic consumption or time of the session exceeds user-defined limit. To use such functions,
+    click on the <gui style="button">Traffic</gui> button in the toolbar.
+    </p>
+    
+    <p>
+    Network traffic window has list with session, month and year traffic consumption information on the
+    left and graphical representation of current network connection speed on the right.
+    </p>
+    
+    <figure>
+        <title>Network traffic window of <app>Modem Manager GUI</app>.</title>
+        <media type="image" mime="image/png" src="figures/traffic-window.png"/>
+    </figure>
+    
+    <p>
+    Use <gui style="button">Set limit</gui> button to set traffic or time limit for current session,
+    <gui style="button">Connections</gui> button to view list of active network connections and 
+    terminate applications consuming network traffic and <gui style="button">Statistics</gui> button to
+    view daily traffic consumption statistics for selected months.
+    </p>
+    
+    <note style="hint">
+        <p>
+        Traffic statistics are collected only while <app>Modem Manager GUI</app> is running, so result values
+        can be inaccurate and must be treated as reference only. The most accurate traffic statistics are
+        collected by mobile operator.
+        </p>
+    </note>
 
 </page>

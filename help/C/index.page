@@ -1,61 +1,63 @@
 <page xmlns="http://projectmallard.org/1.0/"
       type="guide" style="task"
       id="index">
-
-  <info>
-    <desc>Help for Modem Manager GUI.</desc>
-    <title type='link' role="trail"><media type="image" src="figures/gnome-hello-logo.png"/></title>
-    <title type='text'>Modem Manager GUI</title>
-    <revision version="0.1" date="2017-11-11" status="incomplete"/>
-    <credit type="author">
-      <name>Mario Blättermann</name>
-      <email>mario.blaettermann@gmail.com</email>
-    </credit>
-    <credit type="author">
-      <name>Alex</name>
-      <email>alex@linuxonly.ru</email>
-    </credit>
-    <license>
-      <p>Creative Commons Share Alike 3.0</p>
-    </license>
-
-  </info>
-
-  <title><media type="image" src="figures/modem-manager-gui-logo.png">GNOME Hello logo</media>Modem Manager GUI manual</title>
-  
-  <p>
-   <app>Modem Manager GUI</app> is a graphical frontend for the ModemManager daemon
-   which is able to control specific modem functions.
-  </p>
-      <p>
-       You can use <app>Modem Manager GUI</app> for the following tasks:
-      </p>
-      <list>
-       <item>
-        <p>Create and control mobile broadband connections</p>
+    
+    <info>
+        <desc>Help for Modem Manager GUI.</desc>
+        <title type='link' role="trail"><media type="image" src="figures/gnome-hello-logo.png"/></title>
+        <title type='text'>Modem Manager GUI</title>
+        <revision version="0.1" date="2017-11-11" status="incomplete"/>
+        <credit type="author">
+            <name>Mario Blättermann</name>
+            <email>mario.blaettermann@gmail.com</email>
+        </credit>
+        <credit type="author">
+            <name>Alex</name>
+            <email>alex@linuxonly.ru</email>
+        </credit>
+        <license>
+            <p>Creative Commons Share Alike 3.0</p>
+        </license>
+    </info>
+    
+    <title><media type="image" src="figures/modem-manager-gui-logo.png"/>Modem Manager GUI manual</title>
+    
+    <p>
+    <app>Modem Manager GUI</app> is a graphical frontend for the ModemManager daemon
+    which is able to control specific modem functions.
+    </p>
+    
+    <p>
+    You can use <app>Modem Manager GUI</app> for the following tasks:
+    </p>
+    
+    <list>
+        <item>
+            <p>Create and control mobile broadband connections</p>
+        </item>
+        <item>
+            <p>Send and receive SMS messages and store messages in database</p>
        </item>
        <item>
-        <p>Send and receive SMS messages and store messages in database</p>
+            <p>Initiate USSD requests and read answers (also using interactive sessions)</p>
        </item>
        <item>
-        <p>Initiate USSD requests and read answers (also using interactive sessions)</p>
+            <p>View device information: operator name, device mode, IMEI, IMSI, signal level</p>
        </item>
        <item>
-        <p>View device information: operator name, device mode, IMEI, IMSI, signal level</p>
+            <p>Scan available mobile networks</p>
        </item>
        <item>
-        <p>Scan available mobile networks</p>
+            <p>View mobile traffic statistics and set limits</p>
        </item>
-       <item>
-        <p>View mobile traffic statistics and set limits</p>
-       </item>
-      </list>
-
-  <section id="usage" style="2column">
-    <title>Usage</title>
-  </section>
-  
+    </list>
+    
+    <section id="usage" style="2column">
+        <title>Usage</title>
+    </section>
+    
     <section id="contributing">
-    <title>Contribute to the project</title>
-  </section>
+        <title>Contribute to the project</title>
+    </section>
+    
 </page>

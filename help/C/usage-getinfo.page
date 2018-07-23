@@ -1,40 +1,45 @@
 <page xmlns="http://projectmallard.org/1.0/"
-      xmlns:e="http://projectmallard.org/experimental/"
       type="guide"
       id="usage-getinfo">
-
-  <info>
-    <link type="guide" xref="index#usage"/>
-    <revision pkgversion="0.0.19" version="0.1" date="2017-11-11" status="incomplete"/>
-    <desc>
-      Get info about the mobile network.
-    </desc>
-    <credit type="author">
-      <name>Mario Blättermann</name>
-      <email>mario.blaettermann@gmail.com</email>
-    </credit>
-    <license>
-      <p>Creative Commons Share Alike 3.0</p>
-    </license>
-  </info>
-
-   <title>Network info</title>
-      <p>Your network operator provides some info which you can view
-       in <app>Modem Manager GUI</app>. Click on the <gui style="button">Info</gui>
-       button in the toolbar.</p>
-     
-     <p>In the following window you see all available information as provided from
-       your operator:</p>
-
-     <p>
-       <media type="image" mime="image/png" src="figures/network-info.png">
-        Network information window of <app>Modem Manager GUI</app>.
-       </media>
-     </p>
-     
-     <p>The most informations are self-explained and well known from traditional
-       mobile phones or smartphones. Note, the GPS based location detection (in the lower part
-       of the window) won't work in most cases because mobile broadband devices usually 
-       don't have a GPS sensor.</p>
-      
+    
+    <info>
+        <link type="guide" xref="index#usage"/>
+        <revision pkgversion="0.0.19" version="0.1" date="2017-11-11" status="incomplete"/>
+        <desc>
+            Get info about the mobile network.
+        </desc>
+        <credit type="author">
+            <name>Mario Blättermann</name>
+            <email>mario.blaettermann@gmail.com</email>
+        </credit>
+        <license>
+            <p>Creative Commons Share Alike 3.0</p>
+        </license>
+    </info>
+    
+    <title>Network info</title>
+    
+    <p>
+    Your network operator provides some info which you can view
+    in <app>Modem Manager GUI</app>. Click on the <gui style="button">Info</gui>
+    button in the toolbar.
+    </p>
+    
+    <p>
+    In the following window you see all available information as provided from
+    your operator:
+    </p>
+    
+    <figure>
+        <title>Network information window of <app>Modem Manager GUI</app>.</title>
+        <media type="image" mime="image/png" src="figures/network-info.png"/>
+    </figure>
+    
+    <p>
+    The most informations are self-explained and well known from traditional
+    mobile phones or smartphones. Note, the GPS based location detection (in the lower part
+    of the window) won't work in most cases because mobile broadband devices usually 
+    don't have a GPS sensor.
+    </p>
+    
 </page>

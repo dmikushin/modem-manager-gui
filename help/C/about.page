@@ -1,46 +1,48 @@
 <page xmlns="http://projectmallard.org/1.0/"
-      xmlns:e="http://projectmallard.org/experimental/"
       type="topic"
       id="about">
-
-  <info>
-    <link type="seealso" xref="index"/>
-     <revision pkgversion="0.0.19" version="0.1" date="2017-11-11" status="incomplete"/>
-    <desc>
-      Information about <app>Modem Manager GUI</app>.
-    </desc>
-    <credit type="author">
-      <name>Mario Blättermann</name>
-      <email>mario.blaettermann@gmail.com</email>
-    </credit>
-    <credit type="author">
-      <name>Alex</name>
-      <email>alex@linuxonly.ru</email>
-    </credit>
-    <license>
-      <p>Creative Commons Share Alike 3.0</p>
-    </license>    
-  </info>
+    
+    <info>
+        <link type="seealso" xref="index"/>
+        <revision pkgversion="0.0.19" version="0.1" date="2017-11-11" status="incomplete"/>
+        <desc>
+            Information about <app>Modem Manager GUI</app>.
+        </desc>
+        <credit type="author">
+            <name>Mario Blättermann</name>
+            <email>mario.blaettermann@gmail.com</email>
+        </credit>
+        <credit type="author">
+            <name>Alex</name>
+            <email>alex@linuxonly.ru</email>
+        </credit>
+        <license>
+            <p>Creative Commons Share Alike 3.0</p>
+        </license>    
+    </info>
 
     <title>About <app>Modem Manager GUI</app></title>
 
-    <p> <app>Modem Manager GUI</app> was written by
-      <link href="mailto:alex@linuxonly.ru">Alex</link>.
-      To find more information about <app>Modem Manager GUI</app>, please visit the 
-      <link href="https://linuxonly.ru/page/modem-manager-gui"><app>Modem Manager GUI</app> Web
-      page</link>.
-    </p>
     <p>
-      To report a bug or make a suggestion regarding this application or this manual, use 
-      <link href="https://linuxonly.ru/forum/modem-manager-gui/"> <app>Modem Manager GUI</app> 
-      support forum</link>.
+    <app>Modem Manager GUI</app> was written by
+    <link href="mailto:alex@linuxonly.ru">Alex</link>.
+    To find more information about <app>Modem Manager GUI</app>, please visit the 
+    <link href="https://linuxonly.ru/page/modem-manager-gui"><app>Modem Manager GUI</app> Web
+    page</link>.
     </p>
-
-    <p> This program is distributed under the terms of the GNU
-      General Public license version 3, as published by the Free Software
-      Foundation. A copy of this license can be found at this
-      <link href="help:gpl" type="help">link</link>, or in the file
-      COPYING included with the source code of this program.
+    
+    <p>
+    To report a bug or make a suggestion regarding this application or this manual, use 
+    <link href="https://linuxonly.ru/forum/modem-manager-gui/"> <app>Modem Manager GUI</app> 
+    support forum</link>.
+    </p>
+    
+    <p>
+    This program is distributed under the terms of the GNU
+    General Public license version 3, as published by the Free Software
+    Foundation. A copy of this license can be found at this
+    <link href="help:gpl">link</link>, or in the file
+    COPYING included with the source code of this program.
     </p>
     
 </page>

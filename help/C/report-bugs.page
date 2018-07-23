@@ -1,37 +1,43 @@
 <page xmlns="http://projectmallard.org/1.0/"
-      xmlns:e="http://projectmallard.org/experimental/"
       type="guide"
       id="report-bugs">
-
-  <info>
-    <link type="guide" xref="index#contributing"/>
-    <revision pkgversion="0.0.19" version="0.1" date="2017-11-11" status="incomplete"/>
-    <desc>
-      Report bugs and request new features.
-    </desc>
-    <credit type="author">
-      <name>Mario Blättermann</name>
-      <email>mario.blaettermann@gmail.com</email>
-    </credit>
-    <credit type="author">
-      <name>Alex</name>
-      <email>alex@linuxonly.ru</email>
-    </credit>
-    <license>
-      <p>Creative Commons Share Alike 3.0</p>
-    </license>
-  </info>
-
-  <title>Report bugs</title>
-      <p>If you found a bug in <app>Modem Manager GUI</app>, you can use the
-      <link href="https://linuxonly.ru/forum/modem-manager-gui/">support forum</link>.</p>
-      
-      <p>Before filing a new topic, please have a look at <link href="https://linuxonly.ru/forum/modem-manager-gui/">
-      the existing ones</link> first. Maybe someone else has already encountered the
-      same problem? Then you might write your comments there.</p>
     
-      <note style="info">
-      <p>You can also use the support forum for feature requests.</p>
-      </note>
-
+    <info>
+        <link type="guide" xref="index#contributing"/>
+        <revision pkgversion="0.0.19" version="0.1" date="2017-11-11" status="incomplete"/>
+        <desc>
+            Report bugs and request new features.
+        </desc>
+        <credit type="author">
+            <name>Mario Blättermann</name>
+            <email>mario.blaettermann@gmail.com</email>
+        </credit>
+        <credit type="author">
+            <name>Alex</name>
+            <email>alex@linuxonly.ru</email>
+        </credit>
+        <license>
+            <p>Creative Commons Share Alike 3.0</p>
+        </license>
+    </info>
+    
+    <title>Report bugs</title>
+    
+    <p>
+    If you found a bug in <app>Modem Manager GUI</app>, you can use the
+    <link href="https://linuxonly.ru/forum/modem-manager-gui/">support forum</link>.
+    </p>
+    
+    <p>
+    Before filing a new topic, please have a look at <link href="https://linuxonly.ru/forum/modem-manager-gui/">
+    the existing ones</link> first. Maybe someone else has already encountered the
+    same problem? Then you might write your comments there.
+    </p>
+    
+    <note style="info">
+        <p>
+        You can also use the support forum for feature requests.
+        </p>
+    </note>
+    
 </page>

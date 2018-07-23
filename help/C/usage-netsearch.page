@@ -1,40 +1,43 @@
 <page xmlns="http://projectmallard.org/1.0/"
-      xmlns:e="http://projectmallard.org/experimental/"
       type="guide"
       id="usage-netsearch">
-
-  <info>
-    <link type="guide" xref="index#usage"/>
-    <revision pkgversion="0.0.19" version="0.1" date="2017-11-11" status="incomplete"/>
-    <desc>
-      Search for available networks.
-    </desc>
-    <credit type="author">
-      <name>Mario Blättermann</name>
-      <email>mario.blaettermann@gmail.com</email>
-    </credit>
-    <credit type="author">
-      <name>Alex</name>
-      <email>alex@linuxonly.ru</email>
-    </credit>
-    <license>
-      <p>Creative Commons Share Alike 3.0</p>
-    </license>
-  </info>
-
-   <title>Network Search</title>
-      <p><app>Modem Manager GUI</app> can be used to search available mobile networks.
-       Click on the <gui style="button">Scan</gui> button in the toolbar.</p>
-      
-      <figure>
-       <media type="image" mime="image/png" src="figures/scan-window.png">
-         Network search window of <app>Modem Manager GUI</app>.
-       </media>
-      </figure>
-      
-      <p>If one mobile network appears more than once in the list, this mobile
-       network use different broadcasting standards. It is obvioius that you
-       can't scan mobile networks using broadcasting standards that your modem
-       doesn't support.</p>
+    
+    <info>
+        <link type="guide" xref="index#usage"/>
+        <revision pkgversion="0.0.19" version="0.1" date="2017-11-11" status="incomplete"/>
+        <desc>
+            Search for available networks.
+        </desc>
+        <credit type="author">
+            <name>Mario Blättermann</name>
+            <email>mario.blaettermann@gmail.com</email>
+        </credit>
+        <credit type="author">
+            <name>Alex</name>
+            <email>alex@linuxonly.ru</email>
+        </credit>
+        <license>
+            <p>Creative Commons Share Alike 3.0</p>
+        </license>
+    </info>
+    
+    <title>Network Search</title>
+    
+    <p>
+    <app>Modem Manager GUI</app> can be used to search available mobile networks.
+    Click on the <gui style="button">Scan</gui> button in the toolbar.
+    </p>
+    
+    <figure>
+        <title>Network search window of <app>Modem Manager GUI</app>.</title>
+        <media type="image" mime="image/png" src="figures/scan-window.png"/>
+    </figure>
+    
+    <p>
+    If one mobile network appears more than once in the list, this mobile
+    network use different broadcasting standards. It is obvioius that you
+    can't scan mobile networks using broadcasting standards that your modem
+    doesn't support.
+    </p>
       
 </page>
