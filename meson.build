@@ -1,7 +1,7 @@
 project('Modem Manager GUI', 'c',
         version: '0.0.19.1',
         license : 'GPL3+',
-        meson_version: '>=0.37')
+        meson_version: '>=0.38')
 
 glib = dependency('glib-2.0', version: '>=2.32.1')
 gobject = dependency('gobject-2.0', version: '>=2.32.1')
