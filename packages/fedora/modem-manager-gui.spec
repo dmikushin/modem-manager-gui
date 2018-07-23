@@ -1,16 +1,13 @@
+Name:    modem-manager-gui
 Summary: Modem Manager GUI
-Name: modem-manager-gui
 Version: 0.0.19.1
 Release: 1%{dist}
 License: GPLv3
-Group: Applications/Communications
-URL: https://linuxonly.ru/page/modem-manager-gui
-Source:	%{name}-%{version}.tar.gz
-Vendor:	Alex <alex@linuxonly.ru>
-#BuildArch: x86_64
+URL:     https://linuxonly.ru/page/modem-manager-gui
+Source:	 http://download.tuxfamily.org/gsf/source/modem-manager-gui-%{version}.tar.gz
 
-Requires: gtk3 >= 3.4.0, glib2 >= 2.32.1, gdbm >= 1.10, libnotify >= 0.7.5, gtkspell3 >= 3.0.3, libappindicator-gtk3 >= 0.4.92 
-BuildRequires: pkgconfig, po4a, itstool, meson >= 0.37.0, gtk3-devel >= 3.4.0, glib2-devel >= 2.32.1, gdbm-devel >= 1.10, gtkspell3-devel >= 3.0.3, libappindicator-gtk3-devel >= 0.4.92, ofono-devel >= 1.09, desktop-file-utils
+Requires: filesystem, hicolor-icon-theme, mobile-broadband-provider-info >= 1.20120614, yelp >= 3.10
+BuildRequires: gcc, desktop-file-utils, gdbm-devel > 1.10, gettext, glib2-devel > 2.32.1, gtk3-devel >= 3.4.0, gtkspell3-devel >= 3.0.3, itstool, libappindicator-gtk3-devel >= 0.4.92, libappstream-glib, libnotify-devel >= 0.7.5, meson, ofono-devel >= 1.09, pkgconfig, po4a
 
 %description
 Simple graphical interface compatible with Modem manager, Wader and oFono
@@ -24,7 +21,7 @@ Current features:
 - View mobile traffic statistics and set limits
 
 %prep
-%autosetup
+%setup -q
 
 %build
 %meson
@@ -32,15 +29,17 @@ Current features:
 
 %install
 %meson_install
-desktop-file-install --dir %{buildroot}%{_datadir}/applications --delete-original %{buildroot}%{_datadir}/applications/%{name}.desktop
-%find_lang %{name}
+%find_lang %{name} --with-gnome
+
+%check
+appstream-util validate --nonet %{buildroot}/%{_datadir}/metainfo/*.appdata.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %clean
 rm -rf %{buildroot}
 
 %files -f %{name}.lang
-%defattr(-,root,root,-)
-%doc LICENSE
+%license LICENSE
 %doc AUTHORS
 %doc Changelog
 %{_bindir}/%{name}
@@ -53,11 +52,11 @@ rm -rf %{buildroot}
 %{_datadir}/%{name}/pixmaps/*.png
 %{_datadir}/%{name}/sounds/message.ogg
 %{_datadir}/%{name}/ui/%{name}.ui
-%{_datadir}/help/*
 %{_datadir}/metainfo/%{name}.appdata.xml
 %{_datadir}/polkit-1/actions/ru.linuxonly.%{name}.policy
 %{_datadir}/applications/%{name}.desktop
-%{_mandir}/*
+%{_mandir}/man1/%{name}.1.*
+%{_mandir}/*/man1/%{name}.1.*
 
 %changelog
 * Fri Apr 6 2018 Alex <alex@linuxonly.ru> - 0.0.19.1-1.fc27
