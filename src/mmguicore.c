@@ -755,7 +755,8 @@ static GSList *mmguicore_modules_cache_form_list(mmguicore_t mmguicore)
 				continue;
 			}
 			/*Module filename*/
-			strncpy(modparams->filename, groups[i], sizeof(modparams->filename));
+			strncpy(modparams->filename, groups[i], sizeof(modparams->filename)-1);
+			modparams->filename[sizeof(modparams->filename)-1] = '\0';
 			/*Add to list*/
 			modules = g_slist_prepend(modules, modparams);
 		}
@@ -807,7 +808,8 @@ static GSList *mmguicore_modules_dir_form_list(mmguicore_t mmguicore, gboolean u
 						modparams = g_new0(struct _mmguimodule, 1);
 						if (module_init(modparams)) {
 							/*Add module filename*/
-							strncpy(modparams->filename, modname, sizeof(modparams->filename));
+							strncpy(modparams->filename, modname, sizeof(modparams->filename)-1);
+							modparams->filename[sizeof(modparams->filename)-1] = '\0';
 							/*Module successfully initialized and can be used*/
 							modules = g_slist_prepend(modules, modparams);
 							/*Add module to cache if needed*/

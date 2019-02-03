@@ -177,7 +177,7 @@ static void mmgui_module_get_updated_interface_state(mmguicore_t mmguicore, gboo
 				devinterface = g_variant_get_string(devproperty, &strlength);
 				if ((devinterface != NULL) && (devinterface[0] != '\0')) {
 					memset(mmguicore->device->interface, 0, IFNAMSIZ);
-					strncpy(mmguicore->device->interface, devinterface, IFNAMSIZ);
+					strncpy(mmguicore->device->interface, devinterface, IFNAMSIZ-1);
 					mmguicore->device->connected = TRUE;
 				}
 				g_variant_unref(devproperty);
@@ -1183,7 +1183,7 @@ G_MODULE_EXPORT gboolean mmgui_module_device_connection_open(gpointer mmguicore,
 											nmdevinterface = g_variant_get_string(devproperties, &strlength);
 											if ((nmdevinterface != NULL) && (nmdevinterface[0] != '\0')) {
 												memset(mmguicorelc->device->interface, 0, IFNAMSIZ);
-												strncpy(mmguicorelc->device->interface, nmdevinterface, IFNAMSIZ);
+												strncpy(mmguicorelc->device->interface, nmdevinterface, IFNAMSIZ-1);
 												mmguicorelc->device->connected = TRUE;
 											} else {
 												memset(mmguicorelc->device->interface, 0, IFNAMSIZ);

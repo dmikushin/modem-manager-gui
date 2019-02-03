@@ -1219,7 +1219,7 @@ static gboolean mmgui_module_device_connection_initialize_contexts(mmguicore_t m
 																interface = g_variant_get_string(interfacev, &strlength);
 																if ((interface != NULL) && (interface[0] != '\0')) {
 																	memset(mmguicore->device->interface, 0, IFNAMSIZ);
-																	strncpy(mmguicore->device->interface, interface, IFNAMSIZ);
+																	strncpy(mmguicore->device->interface, interface, IFNAMSIZ-1);
 																	mmguicore->device->connected = TRUE;
 																}
 																/*Precache active context path*/
@@ -1282,7 +1282,7 @@ static gboolean mmgui_module_device_connection_initialize_contexts(mmguicore_t m
 								interface = g_variant_get_string(interfacev, &strlength);
 								if ((interface != NULL) && (interface[0] != '\0')) {
 									memset(mmguicore->device->interface, 0, IFNAMSIZ);
-									strncpy(mmguicore->device->interface, interface, IFNAMSIZ);
+									strncpy(mmguicore->device->interface, interface, IFNAMSIZ-1);
 									mmguicore->device->connected = TRUE;
 								}
 								/*Do not precache active context path - we have single connection*/
@@ -1447,7 +1447,7 @@ static void mmgui_module_device_context_property_changed_signal_handler(GDBusPro
 										interface = g_variant_get_string(interfacev, &strsize);
 										if ((interface != NULL) && (interface[0] != '\0')) {
 											memset(mmguicore->device->interface, 0, IFNAMSIZ);
-											strncpy(mmguicore->device->interface, interface, IFNAMSIZ);
+											strncpy(mmguicore->device->interface, interface, IFNAMSIZ-1);
 											mmguicore->device->connected = TRUE;
 										}
 										/*Precache active context path*/
@@ -1561,7 +1561,7 @@ static void mmgui_module_device_cdma_connection_manager_context_signal_handler(G
 										interface = g_variant_get_string(interfacev, &strsize);
 										if ((interface != NULL) && (interface[0] != '\0')) {
 											memset(mmguicore->device->interface, 0, IFNAMSIZ);
-											strncpy(mmguicore->device->interface, interface, IFNAMSIZ);
+											strncpy(mmguicore->device->interface, interface, IFNAMSIZ-1);
 											mmguicore->device->connected = TRUE;
 										}
 										/*Precache active context path*/

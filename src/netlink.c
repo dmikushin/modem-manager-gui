@@ -484,7 +484,8 @@ gboolean mmgui_netlink_read_interface_event(mmgui_netlink_t netlink, gchar *data
 			//Use tags to get additional data
 			while (RTA_OK(rta, msgheader->nlmsg_len)) {
 				if (rta->rta_type == IFLA_IFNAME) {
-					strncpy(event->ifname, (char *)RTA_DATA(rta), sizeof(event->ifname));
+					strncpy(event->ifname, (char *)RTA_DATA(rta), sizeof(event->ifname)-1);
+					event->ifname[sizeof(event->ifname)-1] = '\0';
 					g_debug("Tag: Device name: %s\n", (char *)RTA_DATA(rta));
 				} else if (rta->rta_type == IFLA_STATS) {
 					ifstats = (struct rtnl_link_stats *)RTA_DATA(rta);
