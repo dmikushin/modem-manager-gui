@@ -69,7 +69,7 @@ void mmgui_main_info_update_for_modem(mmgui_application_t mmguiapp)
 		/*Location*/
 		if (locationcaps & MMGUI_LOCATION_CAPS_3GPP) {
 			memset(buffer, 0, sizeof(buffer));
-			g_snprintf(buffer, sizeof(buffer), "%u/%u/%u/%u/%u", device->loc3gppdata[0], device->loc3gppdata[1], device->loc3gppdata[2], (device->loc3gppdata[3] >> 16) & 0x0000ffff, device->loc3gppdata[3] & 0x0000ffff);
+			g_snprintf(buffer, sizeof(buffer), "%u/%u/%u/%u/%u/%u", device->loc3gppdata[0], device->loc3gppdata[1], device->loc3gppdata[2], (device->loc3gppdata[3] >> 16) & 0x0000ffff, device->loc3gppdata[3] & 0x0000ffff, device->loc3gppdata[4]);
 			gtk_label_set_label(GTK_LABEL(mmguiapp->window->info3gpplocvlabel), buffer);
 		} else {
 			gtk_label_set_label(GTK_LABEL(mmguiapp->window->info3gpplocvlabel), _("Not supported"));

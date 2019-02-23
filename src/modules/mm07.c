@@ -1662,7 +1662,7 @@ static gboolean mmgui_module_devices_update_location(gpointer mmguicore, mmguide
 	gchar **fragments;
 	gint i;
 	GError *error;
-	const gint numbases[4] = {10, 10, 16, 16};
+	const gint numbases[5] = {10, 10, 16, 16, 16};
 	
 	if ((mmguicore == NULL) || (device == NULL)) return FALSE;
 	mmguicorelc = (mmguicore_t)mmguicore;
@@ -1687,17 +1687,17 @@ static gboolean mmgui_module_devices_update_location(gpointer mmguicore, mmguide
 			if ((locationtype == MODULE_INT_MODEM_LOCATION_SOURCE_3GPP_LAC_CI) && (locationdata != NULL)) {
 				/*3GPP location*/
 				strlength = 256;
-				fragments = g_strsplit(g_variant_get_string(locationdata, &strlength), ",", 4);
+				fragments = g_strsplit(g_variant_get_string(locationdata, &strlength), ",", 5);
 				if (fragments != NULL) {
 					i = 0;
-					while ((fragments[i] != NULL) && (i < 4)) {
+					while ((fragments[i] != NULL) && (i < 5)) {
 						device->loc3gppdata[i] = (guint)strtoul(fragments[i], NULL, numbases[i]);
 						i++;
 					}
 					g_strfreev(fragments);
 				}
 				g_variant_unref(locationdata);
-				g_debug("3GPP location: %u, %u, %4x, %4x\n", device->loc3gppdata[0], device->loc3gppdata[1], device->loc3gppdata[2], device->loc3gppdata[3]);
+				g_debug("3GPP location: %u, %u, %4x, %4x, %4x\n", device->loc3gppdata[0], device->loc3gppdata[1], device->loc3gppdata[2], device->loc3gppdata[3], device->loc3gppdata[4]);
 			} else if ((locationtype == MODULE_INT_MODEM_LOCATION_SOURCE_GPS_RAW) && (locationdata != NULL)) {
 				/*GPS location*/
 				locationdata = g_variant_lookup_value(data, "latitude", G_VARIANT_TYPE_STRING);

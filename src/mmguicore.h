@@ -404,7 +404,7 @@ struct _mmguidevice {
 	guint siglevel;
 	/*Location*/
 	guint locationcaps;
-	guint loc3gppdata[4]; /*mcc/mnc/lac/ci*/
+	guint loc3gppdata[5]; /*mcc/mnc/lac/ci/tac*/
 	gfloat locgpsdata[4]; /*latitude/longitude/altitude/time*/
 	/*SMS*/
 	guint smscaps;
