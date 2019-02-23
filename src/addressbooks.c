@@ -165,8 +165,7 @@ static gint mmgui_addressbooks_open_kde_socket(void)
 
 	address.sun_family = AF_UNIX;
 	strncpy(address.sun_path, socketpath, sizeof(address.sun_path)-1);
-	address.sun_path[sizeof(address.sun_path)-1] = '\0';
-
+	
 	g_free(socketpath);
 
 	if(connect(socketfd, (struct sockaddr *)&address, sizeof(struct sockaddr_un)) != 0) {
