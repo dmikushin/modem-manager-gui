@@ -1659,8 +1659,11 @@ static gboolean mmgui_module_devices_update_location(gpointer mmguicore, mmguide
 	GVariant *locationdata;
 	gchar *locationstring;
 	gsize strlength;
+	gchar **fragments;
+	gint i;
 	GError *error;
-			
+	const gint numbases[4] = {10, 10, 16, 16};
+	
 	if ((mmguicore == NULL) || (device == NULL)) return FALSE;
 	mmguicorelc = (mmguicore_t)mmguicore;
 	
@@ -1684,12 +1687,15 @@ static gboolean mmgui_module_devices_update_location(gpointer mmguicore, mmguide
 			if ((locationtype == MODULE_INT_MODEM_LOCATION_SOURCE_3GPP_LAC_CI) && (locationdata != NULL)) {
 				/*3GPP location*/
 				strlength = 256;
-				locationstring = g_strdup(g_variant_get_string(locationdata, &strlength));
-				device->loc3gppdata[0] = (guint)strtol(strsep(&locationstring, ","), NULL, 10);
-				device->loc3gppdata[1] = (guint)strtol(strsep(&locationstring, ","), NULL, 10);
-				device->loc3gppdata[2] = (guint)strtol(strsep(&locationstring, ","), NULL, 16);
-				device->loc3gppdata[3] = (guint)strtol(strsep(&locationstring, ","), NULL, 16);
-				g_free(locationstring);
+				fragments = g_strsplit(g_variant_get_string(locationdata, &strlength), ",", 4);
+				if (fragments != NULL) {
+					i = 0;
+					while ((fragments[i] != NULL) && (i < 4)) {
+						device->loc3gppdata[i] = (guint)strtoul(fragments[i], NULL, numbases[i]);
+						i++;
+					}
+					g_strfreev(fragments);
+				}
 				g_variant_unref(locationdata);
 				g_debug("3GPP location: %u, %u, %4x, %4x\n", device->loc3gppdata[0], device->loc3gppdata[1], device->loc3gppdata[2], device->loc3gppdata[3]);
 			} else if ((locationtype == MODULE_INT_MODEM_LOCATION_SOURCE_GPS_RAW) && (locationdata != NULL)) {
