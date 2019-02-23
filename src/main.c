@@ -138,12 +138,14 @@ static void mmgui_main_ui_help_menu_item_activate_signal(GSimpleAction *action, 
 static void mmgui_main_ui_about_menu_item_activate_signal(GSimpleAction *action, GVariant *parameter, gpointer data);
 static void mmgui_main_ui_section_menu_item_activate_signal(GSimpleAction *action, GVariant *parameter, gpointer data);
 /*Tray*/
+#if RESOURCE_INDICATOR_ENABLED
 static gboolean mmgui_main_tray_handle_state_change_from_thread(gpointer data);
 static void mmgui_main_tray_icon_window_show_signal(GtkCheckMenuItem *checkmenuitem, gpointer data);
 static void mmgui_main_tray_icon_new_sms_signal(GtkMenuItem *menuitem, gpointer data);
 static void mmgui_main_tray_icon_exit_signal(GtkMenuItem *menuitem, gpointer data);
 static void mmgui_main_tray_icon_build(mmgui_application_t mmguiapp);
 static void mmgui_main_tray_icon_init(mmgui_application_t mmguiapp);
+#endif
 /*Ayatana*/
 static void mmgui_main_ayatana_event_callback(enum _mmgui_ayatana_event event, gpointer ayatana, gpointer data, gpointer userdata);
 /*Initialization*/
@@ -217,7 +219,9 @@ static void mmgui_main_event_callback(enum _mmgui_event event, gpointer mmguicor
 			mmgui_main_contacts_list_fill(mmguiapp);
 			/*Show network name*/
 			g_idle_add(mmgui_main_ui_update_statusbar_from_thread, mmguiapp);
+			#if RESOURCE_INDICATOR_ENABLED
 			g_idle_add(mmgui_main_tray_handle_state_change_from_thread, mmguiapp);
+			#endif
 			break;
 		case MMGUI_EVENT_DEVICE_CLOSING:
 			mmgui_modem_settings_close(mmguiapp->modemsettings);
@@ -235,21 +239,27 @@ static void mmgui_main_event_callback(enum _mmgui_event event, gpointer mmguicor
 			appdata->mmguiapp = mmguiapp;
 			appdata->data = data;
 			g_idle_add(mmgui_main_device_handle_enabled_status_from_thread, appdata);
+			#if RESOURCE_INDICATOR_ENABLED
 			g_idle_add(mmgui_main_tray_handle_state_change_from_thread, mmguiapp);
+			#endif
 			break;
 		case MMGUI_EVENT_DEVICE_BLOCKED_STATUS:
 			appdata = g_new0(struct _mmgui_application_data, 1);
 			appdata->mmguiapp = mmguiapp;
 			appdata->data = data;
 			g_idle_add(mmgui_main_device_handle_blocked_status_from_thread, appdata);
+			#if RESOURCE_INDICATOR_ENABLED
 			g_idle_add(mmgui_main_tray_handle_state_change_from_thread, mmguiapp);
+			#endif
 			break;
 		case MMGUI_EVENT_DEVICE_PREPARED_STATUS:
 			appdata = g_new0(struct _mmgui_application_data, 1);
 			appdata->mmguiapp = mmguiapp;
 			appdata->data = data;
 			g_idle_add(mmgui_main_device_handle_prepared_status_from_thread, appdata);
+			#if RESOURCE_INDICATOR_ENABLED
 			g_idle_add(mmgui_main_tray_handle_state_change_from_thread, mmguiapp);
+			#endif
 			break;
 		case MMGUI_EVENT_DEVICE_CONNECTION_STATUS:
 			appdata = g_new0(struct _mmgui_application_data, 1);
@@ -272,7 +282,9 @@ static void mmgui_main_event_callback(enum _mmgui_event event, gpointer mmguicor
 			mmgui_main_info_handle_network_registration_change(mmguiapp, device);
 			/*Show new network name*/
 			g_idle_add(mmgui_main_ui_update_statusbar_from_thread, mmguiapp);
+			#if RESOURCE_INDICATOR_ENABLED
 			g_idle_add(mmgui_main_tray_handle_state_change_from_thread, mmguiapp);
+			#endif
 			break;
 		case MMGUI_EVENT_LOCATION_CHANGE:
 			device = (mmguidevice_t)data;

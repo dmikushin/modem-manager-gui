@@ -130,7 +130,7 @@ struct _mmgui_main_window {
 	GtkTreePath *smsnumlistkdepath;
 	GSList *smsnumlisthistory;
 	GtkEntryCompletion *smscompletion;
-    GtkListStore *smscompletionmodel;
+	GtkListStore *smscompletionmodel;
     #if RESOURCE_SPELLCHECKER_ENABLED
         GtkSpellChecker *newsmsspellchecker;
         GtkWidget *newsmslangmenu;
@@ -209,7 +209,7 @@ struct _mmgui_main_window {
 	GtkTextTag *ussdhinttag;
 	GtkTextTag *ussdanswertag;
 	GtkEntryCompletion *ussdcompletion;
-    GtkListStore *ussdcompletionmodel;
+	GtkListStore *ussdcompletionmodel;
 	/*Scan page*/
 	GtkWidget *scanlist;
 	GtkWidget *startscanbutton;
@@ -324,7 +324,9 @@ struct _mmgui_main_window {
 	GClosure *removecontactclosure;
 	GClosure *smstocontactclosure;
 	/*Indicator*/
+    #if RESOURCE_INDICATOR_ENABLED
 	AppIndicator *indicator;
+    #endif
 	GtkWidget *indmenu;
 	GtkWidget *showwin_ind, *sep1_ind, *newsms_ind, *sep2_ind, *quit_ind;
 	gulong traysigid;
