@@ -2706,8 +2706,6 @@ static void mmgui_main_application_terminate(mmgui_application_t mmguiapp)
 static void mmgui_main_application_startup_signal(GtkApplication *application, gpointer data)
 {
 	mmgui_application_t mmguiapp;
-	GtkSettings *gtksettings;
-	gboolean showappmenu, showmenubar;
 	GMenu *menu, *actsection, *prefsection, *helpsection, *quitsection;
 	static GActionEntry app_actions[] = {
 		{ "section", mmgui_main_ui_section_menu_item_activate_signal, "s", "'devices'", NULL },
@@ -2723,68 +2721,37 @@ static void mmgui_main_application_startup_signal(GtkApplication *application, g
 	
 	g_action_map_add_action_entries(G_ACTION_MAP(application), app_actions, G_N_ELEMENTS(app_actions), mmguiapp);
 	
-	showappmenu = FALSE;
-	showmenubar = FALSE;
-	
-	gtksettings = gtk_settings_get_default();
-	g_object_get(G_OBJECT(gtksettings), "gtk-shell-shows-app-menu", &showappmenu, "gtk-shell-shows-menubar", &showmenubar, NULL);
-	
 	/*Main menu*/
 	menu = g_menu_new();
 	
-	if ((showmenubar) || ((!showappmenu) && (!showmenubar))) {
-		/*Classic menubar*/
-		/*Pages - empty section to be filled later*/
-		mmguiapp->window->appsection = g_menu_new();
-		/*Quit*/
-		quitsection = g_menu_new();
-		g_menu_append(quitsection, _("_Quit"), "app.quit");
-		mmgui_add_accelerator(application, "<Primary>q", "app.quit");
-		/*Actions menu*/
-		actsection = g_menu_new();
-		g_menu_append_section(actsection, NULL, G_MENU_MODEL(mmguiapp->window->appsection));
-		g_menu_append_section(actsection, NULL, G_MENU_MODEL(quitsection));
-		g_menu_append_submenu(menu, _("_Actions"), G_MENU_MODEL(actsection));
-		/*Preferences*/
-		prefsection = g_menu_new();
-		g_menu_append(prefsection, _("_Preferences"), "app.preferences");
-		mmgui_add_accelerator(application, "<Primary>p", "app.preferences");
-		/*Edit menu*/
-		g_menu_append_submenu(menu, _("_Edit"), G_MENU_MODEL(prefsection));
-		/*Help*/
-		helpsection = g_menu_new();
-		g_menu_append(helpsection, _("_Help"), "app.help");
-		mmgui_add_accelerator(application, "F1", "app.help");
-		g_menu_append(helpsection, _("_About"), "app.about");
-		/*Help menu*/
-		g_menu_append_submenu(menu, _("_Help"), G_MENU_MODEL(helpsection));
-		/*Set application menubar*/
-		gtk_application_set_menubar(application, G_MENU_MODEL(menu));
-	} else if (showappmenu) {
-		/*GNOME 3 - style appmenu*/
-		/*Toolbar actions - empty section to be filled later*/
-		mmguiapp->window->appsection = g_menu_new();
-		g_menu_append_section(menu, NULL, G_MENU_MODEL(mmguiapp->window->appsection));
-		/*Preferences*/
-		prefsection = g_menu_new();
-		g_menu_append(prefsection, _("Preferences"), "app.preferences");
-		mmgui_add_accelerator(application, "<Primary>p", "app.preferences");
-		g_menu_append_section(menu, NULL, G_MENU_MODEL(prefsection));
-		/*Help*/
-		helpsection = g_menu_new();
-		g_menu_append(helpsection, _("Help"), "app.help");
-		mmgui_add_accelerator(application, "F1", "app.help");
-		g_menu_append(helpsection, _("About"), "app.about");
-		g_menu_append_section(menu, NULL, G_MENU_MODEL(helpsection));
-		/*Quit*/
-		quitsection = g_menu_new();
-		g_menu_append(quitsection, _("Quit"), "app.quit");
-		mmgui_add_accelerator(application, "<Primary>q", "app.quit");
-		g_menu_append_section(menu, NULL, G_MENU_MODEL(quitsection));
-		/*Set application menu*/
-		gtk_application_set_app_menu(application, G_MENU_MODEL(menu));
-	}
-	
+	/*Classic menubar*/
+	/*Pages - empty section to be filled later*/
+	mmguiapp->window->appsection = g_menu_new();
+	/*Quit*/
+	quitsection = g_menu_new();
+	g_menu_append(quitsection, _("_Quit"), "app.quit");
+	mmgui_add_accelerator(application, "<Primary>q", "app.quit");
+	/*Actions menu*/
+	actsection = g_menu_new();
+	g_menu_append_section(actsection, NULL, G_MENU_MODEL(mmguiapp->window->appsection));
+	g_menu_append_section(actsection, NULL, G_MENU_MODEL(quitsection));
+	g_menu_append_submenu(menu, _("_Actions"), G_MENU_MODEL(actsection));
+	/*Preferences*/
+	prefsection = g_menu_new();
+	g_menu_append(prefsection, _("_Preferences"), "app.preferences");
+	mmgui_add_accelerator(application, "<Primary>p", "app.preferences");
+	/*Edit menu*/
+	g_menu_append_submenu(menu, _("_Edit"), G_MENU_MODEL(prefsection));
+	/*Help*/
+	helpsection = g_menu_new();
+	g_menu_append(helpsection, _("_Help"), "app.help");
+	mmgui_add_accelerator(application, "F1", "app.help");
+	g_menu_append(helpsection, _("_About"), "app.about");
+	/*Help menu*/
+	g_menu_append_submenu(menu, _("_Help"), G_MENU_MODEL(helpsection));
+	/*Set application menubar*/
+	gtk_application_set_menubar(application, G_MENU_MODEL(menu));
+		
 	g_object_unref(menu);
 }
 
