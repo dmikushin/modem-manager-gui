@@ -177,7 +177,7 @@ gchar *mmgui_str_format_sms_time(time_t timestamp, gchar *buffer, gsize bufsize)
 	todaytime = mktime(ftime);
 	/*Calculate time interval*/
 	delta = difftime(todaytime, timestamp);
-	/*Prepare mssage time structure*/
+	/*Prepare message time structure*/
 	ftime = localtime(&timestamp);
 		
 	memset(buffer, 0, bufsize);
