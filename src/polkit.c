@@ -39,10 +39,10 @@ static guint64 mmgui_polkit_get_process_start_time(void)
 	gchar *statfilecontptr;
 	gsize statfilelen;
 	GError *error;
-	gchar *statfiletoken;
-	gint statfiletokenid;
 	gchar *valueendptr;
-	
+	gchar **statfiletokens;
+	gint statfiletokennum;
+		
 	starttime = 0;
 	statfilecont = NULL;
 	/*Current process PID*/
@@ -65,21 +65,18 @@ static guint64 mmgui_polkit_get_process_start_time(void)
 	
 	g_free(statfilepath);
 	
-	/*Procfs file contents parser*/
-	statfiletokenid = 0;
-	statfilecontptr = statfilecont;
-	
-	while ((statfiletoken = strsep(&statfilecontptr, " ")) != NULL) {
-		if (statfiletokenid == 0) {
-			if (curpid != strtoul(statfiletoken, &valueendptr, 10)) {
-				g_debug("Wrong PID in procfs file");
-				break;
-			}
-		} else if (statfiletokenid == 21) {
-			starttime = strtoull(statfiletoken, &valueendptr, 10);
-			break;
+	statfiletokens = g_strsplit (statfilecont, " ", -1);
+	if (statfiletokens != NULL) {
+		statfiletokennum = 0;
+		while (statfiletokens[statfiletokennum] != NULL) {
+			statfiletokennum++;
 		}
-		statfiletokenid++;
+		if (statfiletokennum >= 51) {
+			if (curpid == strtoul(statfiletokens[0], &valueendptr, 10)) {
+				starttime = strtoull(statfiletokens[statfiletokennum - 31], &valueendptr, 10);	
+			}
+		}
+		g_strfreev(statfiletokens);
 	}
 	
 	g_free(statfilecont);
