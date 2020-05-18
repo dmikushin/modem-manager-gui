@@ -22,11 +22,7 @@
 
 GRand *mmgui_uuid_init(void)
 {
-	GTimeVal timeval;
-	
-	g_get_current_time(&timeval);
-	
-	return g_rand_new_with_seed((timeval.tv_sec * 1000) + (timeval.tv_usec / 1000));
+	return g_rand_new_with_seed(g_get_real_time() / 1000);
 }
 
 gchar *mmgui_uuid_generate(GRand *rng)
