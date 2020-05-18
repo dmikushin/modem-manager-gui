@@ -7,7 +7,7 @@ URL:     https://linuxonly.ru/page/modem-manager-gui
 Source:	 http://download.tuxfamily.org/gsf/source/modem-manager-gui-%{version}.tar.gz
 
 Requires: filesystem, hicolor-icon-theme, mobile-broadband-provider-info >= 1.20120614, yelp >= 3.10
-BuildRequires: gcc, desktop-file-utils, gdbm-devel > 1.10, gettext, glib2-devel > 2.32.1, gtk3-devel >= 3.4.0, gtkspell3-devel >= 3.0.3, itstool, libappindicator-gtk3-devel >= 0.4.92, libappstream-glib, libnotify-devel >= 0.7.5, meson, ofono-devel >= 1.09, pkgconfig, po4a
+BuildRequires: gcc, desktop-file-utils, gdbm-devel > 1.10, gettext, glib2-devel > 2.32.1, gtk3-devel >= 3.4.0, gtkspell3-devel >= 3.0.3, itstool, libappstream-glib, libnotify-devel >= 0.7.5, meson, pkgconfig, po4a
 
 %description
 Simple graphical interface compatible with Modem manager, Wader and oFono
