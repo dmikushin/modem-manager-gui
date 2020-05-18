@@ -35,7 +35,7 @@
 #endif
 
 #if RESOURCE_INDICATOR_ENABLED
-	#include <libappindicator/app-indicator.h>
+	#include <libayatana-appindicator/app-indicator.h>
 #endif
 
 #define MMGUI_MAIN_DEFAULT_DEVICE_IDENTIFIER  "00000000000000000000000"

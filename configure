@@ -99,14 +99,14 @@ else
 	fi	
 fi
 
-if ! pkg-config --exists 'appindicator3-0.1 >= 0.4.92'; then
-	echo "WARNING: Indicator won't be supported. Please install appindicator library version 0.4.92 or later with development headers if you want to use it."
+if ! pkg-config --exists 'ayatana-appindicator3-0.1 >= 0.4.92'; then
+	echo "WARNING: Indicator won't be supported. Please install ayatana-appindicator library version 0.4.92 or later with development headers if you want to use it."
 	indicator=0
 else
 	if [ -z "$addlibsnames" ]; then
- 		addlibsnames="appindicator3-0.1"
+ 		addlibsnames="ayatana-appindicator3-0.1"
 	else
-		addlibsnames="${addlibsnames} appindicator3-0.1"
+		addlibsnames="${addlibsnames} ayatana-appindicator3-0.1"
 	fi	
 fi
 
