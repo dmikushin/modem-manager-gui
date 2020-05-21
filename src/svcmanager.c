@@ -169,8 +169,8 @@ static gboolean mmgui_svcmanager_open_systemd_manager_interface(mmgui_svcmanager
 	}
 
 	/*Create systemd proxy object*/
-    error = NULL;
-    svcmanager->managerproxy = g_dbus_proxy_new_sync(svcmanager->connection,
+	error = NULL;
+	svcmanager->managerproxy = g_dbus_proxy_new_sync(svcmanager->connection,
 													G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
 													NULL,
 													"org.freedesktop.systemd1",
@@ -282,8 +282,8 @@ static gboolean mmgui_svcmanager_open_dbus_activation_interface(mmgui_svcmanager
 	if (svcmanager == NULL) return FALSE;
 	
 	/*Create DBus proxy object*/
-    error = NULL;
-    svcmanager->dbusproxy = g_dbus_proxy_new_sync(svcmanager->connection,
+	error = NULL;
+	svcmanager->dbusproxy = g_dbus_proxy_new_sync(svcmanager->connection,
 													G_DBUS_PROXY_FLAGS_DO_NOT_LOAD_PROPERTIES,
 													NULL,
 													"org.freedesktop.DBus",
@@ -582,8 +582,8 @@ static gboolean mmgui_svcmanager_services_enable(mmgui_svcmanager_t svcmanager, 
 {
 	gchar **services;
 	GVariant *request;
-    GVariant *answer;
-    GError *error;
+	GVariant *answer;
+	GError *error;
 	
 	if ((svcmanager == NULL) || (transition == NULL)) return FALSE;
 	if ((!svcmanager->systemdtech) || (transition->type != MMGUI_SVCMANGER_TYPE_SERVICE) || (!transition->enable)) return FALSE;
@@ -781,7 +781,7 @@ static gboolean mmgui_svcmanager_services_activation_chain(mmgui_svcmanager_t sv
 {
 	mmgui_svcmanager_transition_t transition;
 	GVariant *answer;
-    GError *error;
+	GError *error;
 	
 	transition = g_queue_peek_head(svcmanager->transqueue);
 	
@@ -878,6 +878,8 @@ static gboolean mmgui_svcmanager_services_activation_chain(mmgui_svcmanager_t sv
 gboolean mmgui_svcmanager_start_services_activation(mmgui_svcmanager_t svcmanager)
 {
 	GError *error;
+	gboolean canmanagesvcs;
+	gboolean actchainres;
 	    	
 	if (svcmanager == NULL) return FALSE;
 	
@@ -890,16 +892,20 @@ gboolean mmgui_svcmanager_start_services_activation(mmgui_svcmanager_t svcmanage
 		return TRUE;
 	}
 	
+	canmanagesvcs = mmgui_polkit_is_authorized(svcmanager->polkit, "ru.linuxonly.modem-manager-gui.manage-services");
+	
 	/*Request password for Systemd units activation*/
 	if (svcmanager->svcsinqueue) {
-		if (!mmgui_polkit_request_password(svcmanager->polkit, "ru.linuxonly.modem-manager-gui.manage-services")) {
-			g_debug("Wrong credentials - unable to continue with services activation\n");
-			if (svcmanager->callback != NULL) {
-				(svcmanager->callback)(svcmanager, MMGUI_SVCMANGER_EVENT_AUTH_ERROR, NULL, svcmanager->userdata);
+		if (canmanagesvcs) {
+			if (!mmgui_polkit_request_password(svcmanager->polkit, "ru.linuxonly.modem-manager-gui.manage-services")) {
+				g_debug("Wrong credentials - unable to continue with services activation\n");
+				if (svcmanager->callback != NULL) {
+					(svcmanager->callback)(svcmanager, MMGUI_SVCMANGER_EVENT_AUTH_ERROR, NULL, svcmanager->userdata);
+				}
+				return FALSE;
 			}
-			return FALSE;
 		}
-		/*OK, authorization was successfull, now subscribe to signals*/
+		/*If authorization was successfull or there's no way to use our cap subscribe to signals*/
 		error = NULL;
 		g_dbus_proxy_call_sync(svcmanager->managerproxy,
 								"Subscribe",
@@ -922,15 +928,30 @@ gboolean mmgui_svcmanager_start_services_activation(mmgui_svcmanager_t svcmanage
 		g_signal_connect(svcmanager->managerproxy, "g-signal", G_CALLBACK(mmgui_svcmanager_services_activation_service_handler), svcmanager);
 	}
 	
-	/*Signal start services activation process*/
-	if (svcmanager->callback != NULL) {
-		(svcmanager->callback)(svcmanager, MMGUI_SVCMANGER_EVENT_STARTED, NULL, svcmanager->userdata);
+	/*Signal start services activation process with custom action*/
+	if (canmanagesvcs) {
+		if (svcmanager->callback != NULL) {
+			(svcmanager->callback)(svcmanager, MMGUI_SVCMANGER_EVENT_STARTED, NULL, svcmanager->userdata);
+		}
 	}
 	
 	/*And start activation*/
-	mmgui_svcmanager_services_activation_chain(svcmanager);
+	actchainres = mmgui_svcmanager_services_activation_chain(svcmanager);
+	if ((!actchainres) && (!canmanagesvcs)) {
+		if (svcmanager->callback != NULL) {
+			(svcmanager->callback)(svcmanager, MMGUI_SVCMANGER_EVENT_AUTH_ERROR, NULL, svcmanager->userdata);
+		}
+		return FALSE;
+	}
 	
-	if (svcmanager->svcsinqueue) {
+	/*Signal start services activation process without custom action*/
+	if (!canmanagesvcs) {
+		if (svcmanager->callback != NULL) {
+			(svcmanager->callback)(svcmanager, MMGUI_SVCMANGER_EVENT_STARTED, NULL, svcmanager->userdata);
+		}
+	}
+	
+	if ((svcmanager->svcsinqueue) && (canmanagesvcs)) {
 		/*Drop authorization*/
 		mmgui_polkit_revoke_authorization(svcmanager->polkit, "ru.linuxonly.modem-manager-gui.manage-services");
 	}

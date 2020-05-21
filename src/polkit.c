@@ -292,15 +292,36 @@ gboolean mmgui_polkit_action_needed(mmgui_polkit_t polkit, const gchar *actionna
 	return res;
 }
 
+gboolean mmgui_polkit_is_authorized(mmgui_polkit_t polkit, const gchar *actionname)
+{
+	mmgui_polkit_action_t action;
+	
+	if ((polkit == NULL) || (actionname == NULL)) return FALSE;
+	
+	if (polkit->actions == NULL) {
+		g_debug("Polkit actions table is empty");
+		return FALSE;
+	}
+	
+	action = g_hash_table_lookup(polkit->actions, actionname);
+	
+	if (action == NULL) {
+		g_debug("No such action in polkit actions table");
+		return FALSE;
+	}
+	
+	return (action->activeauth == MMGUI_POLKIT_ADMINISTRATOR_AUTHENTICATION_REQUIRED_RETAINED);
+}
+
 gboolean mmgui_polkit_request_password(mmgui_polkit_t polkit, const gchar *actionname)
 {
 	GVariantBuilder builder;
 	GVariant *variant;
 	guint32 curpid;
 	GVariant *requestsubject;
-    GVariant *requestdetails;
-    GVariant *request;
-    GVariant *answer;
+	GVariant *requestdetails;
+	GVariant *request;
+	GVariant *answer;
 	GError *error;
 	gboolean authstatus;
 	
@@ -379,7 +400,7 @@ gboolean mmgui_polkit_revoke_authorization(mmgui_polkit_t polkit, const gchar *a
 							&error);
 									
 	if (error != NULL) {
-		g_debug("Unable to request authorization: %s\n", error->message);
+		g_debug("Unable to revoke authorization: %s\n", error->message);
 		g_error_free(error);
 		return FALSE;
 	}

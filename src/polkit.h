@@ -54,6 +54,7 @@ typedef struct _mmgui_polkit *mmgui_polkit_t;
 mmgui_polkit_t mmgui_polkit_open(void);
 void mmgui_polkit_close(mmgui_polkit_t polkit);
 gboolean mmgui_polkit_action_needed(mmgui_polkit_t polkit, const gchar *actionname, gboolean strict);
+gboolean mmgui_polkit_is_authorized(mmgui_polkit_t polkit, const gchar *actionname);
 gboolean mmgui_polkit_request_password(mmgui_polkit_t polkit, const gchar *actionname);
 gboolean mmgui_polkit_revoke_authorization(mmgui_polkit_t polkit, const gchar *actionname);
 
