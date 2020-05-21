@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Modem Manager GUI\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-31 20:07+0300\n"
-"PO-Revision-Date: 2018-01-24 18:54+0000\n"
+"PO-Revision-Date: 2018-04-06 15:24+0000\n"
 "Last-Translator: Alex <alex@linuxonly.ru>\n"
 "Language-Team: Hungarian (http://www.transifex.com/ethereal/modem-manager-gui/language/hu/)\n"
 "MIME-Version: 1.0\n"
@@ -221,7 +221,8 @@ msgstr ""
 
 #: ../src/main.c:1159
 msgid ""
-"Connection manager does not support Internet connection management functions."
+"Connection manager does not support Internet connection management "
+"functions."
 msgstr ""
 
 #: ../src/main.c:1175

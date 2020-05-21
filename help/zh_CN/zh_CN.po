@@ -1,7 +1,7 @@
 # 
 # Translators:
-# 周磊 <mfk530@gmail.com>, 2017
-# 周磊 <mfk530@gmail.com>, 2017
+# Lei Zhou <mfk530@gmail.com>, 2017
+# Lei Zhou <mfk530@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Modem Manager GUI\n"

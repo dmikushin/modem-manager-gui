@@ -4,13 +4,13 @@
 # 
 # Translators:
 # Md. Emruz Hossain <hossainemruz@gmail.com>, 2016
-# Reazul Iqbal <reazuliqbal@yahoo.com>, 2016
+# Reazul Iqbal <reazuliqbal@yahoo.com>, 2016,2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Modem Manager GUI\n"
 "POT-Creation-Date: 2017-11-04 23:05+0300\n"
-"PO-Revision-Date: 2018-01-24 18:34+0000\n"
-"Last-Translator: Alex <alex@linuxonly.ru>\n"
+"PO-Revision-Date: 2018-06-23 16:12+0000\n"
+"Last-Translator: Reazul Iqbal <reazuliqbal@yahoo.com>\n"
 "Language-Team: Bengali (Bangladesh) (http://www.transifex.com/ethereal/modem-manager-gui/language/bn_BD/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,13 +28,13 @@ msgstr "মডেম-ম্যানেজার-গুই"
 #: modem-manager-gui.1:1
 #, no-wrap
 msgid "Nov 2017"
-msgstr ""
+msgstr "নভেম্বর ২০১৭"
 
 #. type: TH
 #: modem-manager-gui.1:1
 #, no-wrap
 msgid "Modem Manager GUI v0.0.19"
-msgstr ""
+msgstr "মডেম ম্যানেজার গুই ভার্সন ০.০.১৯"
 
 #. type: TH
 #: modem-manager-gui.1:1
@@ -144,7 +144,7 @@ msgstr "ত্রুটি ধরিয়ে দেওয়া হচ্ছে"
 msgid ""
 "Report bugs to E<lt>alex@linuxonly.ruE<gt>, or to the support forum section "
 "at E<lt>https://linuxonly.ru/forum/modem-manager-gui/E<gt>."
-msgstr ""
+msgstr "ত্রুটি সমূহ ইমেইল করুন এখানে E<lt>alex@linuxonly.ruE<gt>, অথবা E<lt>https://linuxonly.ru/forum/modem-manager-gui/E<gt> সাইটের সাপোর্ট ফোরামে লিখুন।"
 
 #. type: SH
 #: modem-manager-gui.1:28
@@ -155,7 +155,7 @@ msgstr "লেখস্বত্ব"
 #. type: Plain text
 #: modem-manager-gui.1:30
 msgid "Copyright \\(co 2012-2017 Alex"
-msgstr ""
+msgstr "লেখস্বত্ব \\(co 2012-2017 Alex"
 
 #. type: Plain text
 #: modem-manager-gui.1:33
