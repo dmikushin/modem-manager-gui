@@ -318,6 +318,7 @@ gboolean mmgui_polkit_request_password(mmgui_polkit_t polkit, const gchar *actio
 	GVariantBuilder builder;
 	GVariant *variant;
 	guint32 curpid;
+	guint32 curuid;
 	GVariant *requestsubject;
 	GVariant *requestdetails;
 	GVariant *request;
@@ -341,6 +342,9 @@ gboolean mmgui_polkit_request_password(mmgui_polkit_t polkit, const gchar *actio
 	/*Process start time*/
 	variant = g_variant_new("t", polkit->starttime);
 	g_variant_builder_add(&builder, "{sv}", "start-time", variant);
+	curuid = (guint32)getuid();
+	variant = g_variant_new("u", curuid);
+	g_variant_builder_add(&builder, "{sv}", "uid", variant);
 	/*Polkit request subject*/
 	requestsubject = g_variant_new("(sa{sv})", "unix-process", &builder);
 	g_variant_builder_init(&builder, G_VARIANT_TYPE ("a{ss}"));
