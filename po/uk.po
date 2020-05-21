@@ -3,6 +3,7 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
+# Sergiy Stupar <owner@sestolab.pp.ua>, 2019
 # Yarema aka Knedlyk <yupadmin@gmail.com>, 2014-2015,2017
 # Игорь Гриценко <xenomorphlp@gmail.com>, 2012
 # Роман Лепіш <rlepish@yandex.ru>, 2012
@@ -11,14 +12,14 @@ msgstr ""
 "Project-Id-Version: Modem Manager GUI\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-31 20:07+0300\n"
-"PO-Revision-Date: 2018-01-24 18:54+0000\n"
-"Last-Translator: Alex <alex@linuxonly.ru>\n"
+"PO-Revision-Date: 2019-07-16 11:39+0000\n"
+"Last-Translator: Sergiy Stupar <owner@sestolab.pp.ua>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/ethereal/modem-manager-gui/language/uk/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Language: uk\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != 11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % 100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || (n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
 
 #: ../src/ayatana.c:129
 msgid "Unread SMS"
@@ -192,7 +193,7 @@ msgstr "_Стоп"
 
 #: ../src/main.c:780
 msgid "Unlocking device..."
-msgstr ""
+msgstr "Розблокування пристрою..."
 
 #: ../src/main.c:796
 msgid "Enabling device..."
@@ -209,22 +210,23 @@ msgstr "Модем не готовий для операції. Будь лас�
 
 #: ../src/main.c:1156
 msgid "Modem must be enabled to connect to Internet. Please enable modem."
-msgstr ""
+msgstr "Для підключення до Інтернету модем має бути увімкнено. Будь ласка, увімкніть модем."
 
 #: ../src/main.c:1157
 msgid ""
 "Modem must be registered in mobile network to connect to Internet. Please "
 "wait..."
-msgstr ""
+msgstr "Модем повинен бути зареєстрований у мережі мобільного зв'язку для підключення до Інтернету. Зачекайте, будь ласка..."
 
 #: ../src/main.c:1158
 msgid "Modem must be unlocked to connect to Internet. Please enter PIN code."
-msgstr ""
+msgstr "Для підключення до Інтернету потрібно розблокувати модем. Введіть PIN-код, будь ласка."
 
 #: ../src/main.c:1159
 msgid ""
-"Connection manager does not support Internet connection management functions."
-msgstr ""
+"Connection manager does not support Internet connection management "
+"functions."
+msgstr "Менеджер з'єднань не підтримує функції керування підключенням до Інтернету."
 
 #: ../src/main.c:1175
 msgid "Modem must be enabled to read and write SMS. Please enable modem."
@@ -303,23 +305,23 @@ msgstr "Менеджер модемів не підтримує функції �
 
 #: ../src/main.c:1304
 msgid "Enter PIN"
-msgstr ""
+msgstr "Введіть PIN-код"
 
 #: ../src/main.c:1306
 msgid ""
 "SIM card is locked with PUK code. Please contact your mobile operator for "
 "further instructions."
-msgstr ""
+msgstr "SIM-карта заблокована PUK-кодом. Будь ласка, зверніться до свого мобільного оператора для отримання додаткових інструкцій."
 
 #: ../src/main.c:1309
 msgid ""
 "SIM card seems non-functional. Please contact your mobile operator for "
 "further instructions."
-msgstr ""
+msgstr "SIM-карта не працює. Будь ласка, зверніться до свого мобільного оператора для отримання додаткових інструкцій."
 
 #: ../src/main.c:1322
 msgid "Enable"
-msgstr ""
+msgstr "Увімкнути"
 
 #: ../src/main.c:1581
 msgid "_Devices"
@@ -848,7 +850,7 @@ msgstr "Невідома помилка"
 
 #: ../src/svcmanager.c:768
 msgid "Unknown activation status"
-msgstr ""
+msgstr "Невідомий статус активації"
 
 #: ../src/svcmanager.c:839
 msgid "Unknown entity type"
@@ -1225,11 +1227,11 @@ msgstr "Редагувати"
 
 #: ../resources/ui/modem-manager-gui.ui:584
 msgid "Open connection editor <b>CTRL+E</b>"
-msgstr ""
+msgstr "Відкрити редактор підключень <b>CTRL+E</b>"
 
 #: ../resources/ui/modem-manager-gui.ui:599
 msgid "Activate or deactivate connection <b>CTRL+A</b>"
-msgstr ""
+msgstr "Активувати або деактивувати з'єднання <b>CTRL+A</b>"
 
 #: ../resources/ui/modem-manager-gui.ui:664
 msgid "Send new SMS message <b>CTRL+N</b>"
@@ -1315,7 +1317,7 @@ msgstr "3GPP розташування\n<small>MCC/MNC/LAC/RNC/CID</small>"
 msgid ""
 "GPS location\n"
 "<small>Longitude/Latitude</small>"
-msgstr ""
+msgstr "GPS розташування\n<small>Довгота/Широта</small>"
 
 #: ../resources/ui/modem-manager-gui.ui:1299
 msgid "<b>Location</b>"
@@ -1453,7 +1455,7 @@ msgstr "ID мережі"
 
 #: ../resources/ui/modem-manager-gui.ui:2131
 msgid "Enable roaming"
-msgstr ""
+msgstr "Увімкнути роумінг"
 
 #: ../resources/ui/modem-manager-gui.ui:2199
 msgid "Access number"
@@ -1521,11 +1523,11 @@ msgstr "Номер"
 
 #: ../resources/ui/modem-manager-gui.ui:3100
 msgid "Please enter PIN code to unlock modem"
-msgstr ""
+msgstr "Будь ласка, введіть PIN-код, щоб розблокувати модем"
 
 #: ../resources/ui/modem-manager-gui.ui:3131
 msgid "PIN"
-msgstr ""
+msgstr "PIN"
 
 #: ../resources/ui/modem-manager-gui.ui:3249
 msgid "Use sounds for events"
@@ -1583,11 +1585,11 @@ msgstr "<b>Параметри повідомлення</b>"
 msgid ""
 "<i><small>Use <b>%n</b> for message sender number and <b>%t</b> for it's "
 "text (eg. <b>zenity --info --title=%n --text=%t</b>).</small></i>"
-msgstr ""
+msgstr "<i><small>Використовуйте <b>%n</b> для номера відправника повідомлення та <b>%t</b> для його тексту (напр. <b>zenity --info --title=%n --text=%t</b>).</small></i>"
 
 #: ../resources/ui/modem-manager-gui.ui:3559
 msgid "<b>Custom command</b>"
-msgstr ""
+msgstr "<b>Користувальницька команда</b>"
 
 #: ../resources/ui/modem-manager-gui.ui:3632
 msgid "RX Speed graph color"
@@ -1599,7 +1601,7 @@ msgstr "Швидкість передачі"
 
 #: ../resources/ui/modem-manager-gui.ui:3656
 msgid "Movement direction"
-msgstr ""
+msgstr "Напрямок руху"
 
 #: ../resources/ui/modem-manager-gui.ui:3670
 msgid "Left to right"
@@ -1639,7 +1641,7 @@ msgstr "Сканувати мережі"
 
 #: ../resources/ui/modem-manager-gui.ui:3937
 msgid "<b>Operations timeouts</b>"
-msgstr ""
+msgstr "<b>Час очікування операцій</b>"
 
 #: ../resources/ui/modem-manager-gui.ui:3957
 msgid "Modules"
@@ -1663,7 +1665,7 @@ msgstr "Обмеження"
 
 #: ../resources/ui/modem-manager-gui.ui:4233
 msgid "Enable traffic limit"
-msgstr ""
+msgstr "Увімкнути обмеження трафіку"
 
 #: ../resources/ui/modem-manager-gui.ui:4248
 msgid "Enable time limit"

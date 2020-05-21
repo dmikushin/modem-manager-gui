@@ -3,20 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Lei Zhou <mfk530@gmail.com>, 2017
-# Lei Zhou <mfk530@gmail.com>, 2017,2019
+# José Rodríguez <jramon2566@gmail.com>, 2020
+# Miguel Á. Ávila González <miguelangelavilagonzalez967@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Modem Manager GUI\n"
 "POT-Creation-Date: 2017-11-04 23:05+0300\n"
-"PO-Revision-Date: 2019-01-24 14:14+0000\n"
-"Last-Translator: Lei Zhou <mfk530@gmail.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/ethereal/modem-manager-gui/language/zh_CN/)\n"
+"PO-Revision-Date: 2020-04-19 16:41+0000\n"
+"Last-Translator: Miguel Á. Ávila González <miguelangelavilagonzalez967@gmail.com>\n"
+"Language-Team: Spanish (http://www.transifex.com/ethereal/modem-manager-gui/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: zh_CN\n"
-"Plural-Forms: nplurals=1; plural=0;\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. type: TH
 #: modem-manager-gui.1:1
@@ -28,7 +28,7 @@ msgstr "modem-manager-gui"
 #: modem-manager-gui.1:1
 #, no-wrap
 msgid "Nov 2017"
-msgstr "2017年11月"
+msgstr "Noviembre 2017"
 
 #. type: TH
 #: modem-manager-gui.1:1
@@ -40,25 +40,25 @@ msgstr "Modem Manager GUI v0.0.19"
 #: modem-manager-gui.1:1
 #, no-wrap
 msgid "User Commands"
-msgstr "用户命令"
+msgstr "Comandos de Usuario"
 
 #. type: SH
 #: modem-manager-gui.1:2
 #, no-wrap
 msgid "NAME"
-msgstr "名称"
+msgstr "NOMBRE"
 
 #. type: Plain text
 #: modem-manager-gui.1:4
 msgid ""
 "modem-manager-gui - simple graphical interface for Modem Manager daemon."
-msgstr "modem-manager-gui  -用于Modem Manager守护程序的简单图形界面。"
+msgstr "Interfaz gráfica simple para el Modem Manager daemon."
 
 #. type: SH
 #: modem-manager-gui.1:4
 #, no-wrap
 msgid "SYNOPSIS"
-msgstr "简介"
+msgstr "SINOPSIS"
 
 #. type: Plain text
 #: modem-manager-gui.1:7
@@ -69,14 +69,14 @@ msgstr "B<modem-manager-gui> [ -i ] [ -m module ] [ -c module ] [ -l ]..."
 #: modem-manager-gui.1:7
 #, no-wrap
 msgid "DESCRIPTION"
-msgstr "描述"
+msgstr "DESCRIPCIÓN"
 
 #. type: Plain text
 #: modem-manager-gui.1:11
 msgid ""
 "This program is simple graphical interface for Modem Manager 0.6/0.7, Wader "
 "and oFono daemons using dbus interface."
-msgstr "该程序使用dbus接口，是Modem Manager 0.6 / 0.7，Wader和oFono守护进程的简单图形界面。"
+msgstr "Este programa es una interfaz gráfica simple para los demonios Modem Manager 0.6/0.7, Wader y oFono usando la interfaz dbus."
 
 #. type: TP
 #: modem-manager-gui.1:11
@@ -87,7 +87,7 @@ msgstr "B<-i, --invisible>"
 #. type: Plain text
 #: modem-manager-gui.1:14
 msgid "Do not show window on start"
-msgstr "启动时不显示窗口"
+msgstr "No mostrar la ventana al iniciar"
 
 #. type: TP
 #: modem-manager-gui.1:14
@@ -98,7 +98,7 @@ msgstr "B<-m, --mmmodule>"
 #. type: Plain text
 #: modem-manager-gui.1:17
 msgid "Use specified modem management module"
-msgstr "使用指定的调制解调器管理模块"
+msgstr "Usar módulo de administración de módem especificado"
 
 #. type: TP
 #: modem-manager-gui.1:17
@@ -109,7 +109,7 @@ msgstr "B<-c, --cmmodule>"
 #. type: Plain text
 #: modem-manager-gui.1:20
 msgid "Use specified connection management module"
-msgstr "使用指定的连接管理模块"
+msgstr "Usar módulo de administración de la conexión especificado"
 
 #. type: TP
 #: modem-manager-gui.1:20
@@ -120,42 +120,42 @@ msgstr "B<-l, --listmodules>"
 #. type: Plain text
 #: modem-manager-gui.1:23
 msgid "List all available modules and exit"
-msgstr "列出所有可用的模块并退出"
+msgstr "Enlistar todos los módulos disponibles y salir"
 
 #. type: SH
 #: modem-manager-gui.1:23
 #, no-wrap
 msgid "AUTHOR"
-msgstr "作者"
+msgstr "AUTOR"
 
 #. type: Plain text
 #: modem-manager-gui.1:25
 msgid "Written by Alex. See the about dialog for all contributors."
-msgstr "作者是Alex。查看所有贡献者请打开关于对话框。"
+msgstr "Escrito por Alex. Vea el diálogo Acerca de para todas las y los contribuyentes."
 
 #. type: SH
 #: modem-manager-gui.1:25
 #, no-wrap
 msgid "REPORTING BUGS"
-msgstr "报告BUGS"
+msgstr "REPORTANDO BUGS"
 
 #. type: Plain text
 #: modem-manager-gui.1:28
 msgid ""
 "Report bugs to E<lt>alex@linuxonly.ruE<gt>, or to the support forum section "
 "at E<lt>https://linuxonly.ru/forum/modem-manager-gui/E<gt>."
-msgstr "Report bugs to E<lt>alex@linuxonly.ruE<gt>, or to the support forum section at E<lt>https://linuxonly.ru/forum/modem-manager-gui/E<gt>."
+msgstr "Report bugs to E<lt>alex@linuxonly.ruE<gt>, o a la sección de soporte del foro en E<lt>https://linuxonly.ru/forum/modem-manager-gui/E<gt>."
 
 #. type: SH
 #: modem-manager-gui.1:28
 #, no-wrap
 msgid "COPYRIGHT"
-msgstr "COPYRIGHT"
+msgstr "DERECHOS DE AUTOR"
 
 #. type: Plain text
 #: modem-manager-gui.1:30
 msgid "Copyright \\(co 2012-2017 Alex"
-msgstr "Copyright \\(co 2012-2017 Alex"
+msgstr "Derechos de autor \\(co 2012-2017 Alex"
 
 #. type: Plain text
 #: modem-manager-gui.1:33
@@ -163,13 +163,13 @@ msgid ""
 "This is free software.  You may redistribute copies of it under the terms of"
 " the GNU General Public License "
 "E<lt>http://www.gnu.org/licenses/gpl.htmlE<gt>."
-msgstr "This is free software.  You may redistribute copies of it under the terms of the GNU General Public License E<lt>http://www.gnu.org/licenses/gpl.htmlE<gt>."
+msgstr "Esto es software libre. Puede redistribuir copias de él bajo los términos de la Licencia Pública General de GNU E<lt>http://www.gnu.org/licenses/gpl.htmlE<gt>."
 
 #. type: SH
 #: modem-manager-gui.1:33
 #, no-wrap
 msgid "SEE ALSO"
-msgstr "SEE ALSO"
+msgstr "VER TAMBIÉN"
 
 #. type: Plain text
 #: modem-manager-gui.1:34

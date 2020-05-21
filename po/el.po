@@ -3,907 +3,907 @@
 # This file is distributed under the same license as the PACKAGE package.
 # 
 # Translators:
-# Jozef Gaal <preklady@mayday.sk>, 2018
+# Maria Barla <mariabpa89@gmail.com>, 2018
 msgid ""
 msgstr ""
 "Project-Id-Version: Modem Manager GUI\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-31 20:07+0300\n"
-"PO-Revision-Date: 2018-10-18 07:38+0000\n"
-"Last-Translator: Jozef Gaal <preklady@mayday.sk>\n"
-"Language-Team: Slovak (Slovakia) (http://www.transifex.com/ethereal/modem-manager-gui/language/sk_SK/)\n"
+"PO-Revision-Date: 2018-04-06 15:24+0000\n"
+"Last-Translator: Alex <alex@linuxonly.ru>\n"
+"Language-Team: Greek (http://www.transifex.com/ethereal/modem-manager-gui/language/el/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: sk_SK\n"
-"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n == 1 ? 0 : n % 1 == 0 && n >= 2 && n <= 4 ? 1 : n % 1 != 0 ? 2: 3);\n"
+"Language: el\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../src/ayatana.c:129
 msgid "Unread SMS"
-msgstr "Neprečítané SMS"
+msgstr "Μη αναγνωσμένα μηνύματα SMS"
 
 #: ../src/ayatana.c:303
 msgid "Unread messages"
-msgstr "Neprečítané správy"
+msgstr "Μη αναγνωσμένα μηνύματα"
 
 #: ../src/connection-editor-window.c:336
 #, c-format
 msgid ""
 "<b>%s is not valid</b>\n"
 "<small>It won't be saved and used on connection initialization</small>"
-msgstr "<b>%s nie je platné</b>\n<small>Nebude uložené a použité na prípravu pripojenia</small>"
+msgstr ""
 
 #: ../src/connection-editor-window.c:400 ../src/connection-editor-window.c:410
 #: ../src/connection-editor-window.c:734 ../src/connection-editor-window.c:956
 #: ../src/connection-editor-window.c:1007
 msgid "Unnamed connection"
-msgstr "Pripojenie bez názvu"
+msgstr ""
 
 #: ../src/connection-editor-window.c:438
 msgid "APN name"
-msgstr "Názov APN"
+msgstr ""
 
 #: ../src/connection-editor-window.c:577
 msgid "First DNS server IP address"
-msgstr "IP adresa prvého DNS servera"
+msgstr ""
 
 #: ../src/connection-editor-window.c:588
 msgid "Second DNS server IP address"
-msgstr "IP adresa druhého DNS servera"
+msgstr ""
 
 #: ../src/connection-editor-window.c:1433
 #: ../resources/ui/modem-manager-gui.ui:559
 msgid "Connection"
-msgstr "Pripojenie"
+msgstr ""
 
 #: ../src/contacts-page.c:353
 msgid "<b>Error adding contact</b>"
-msgstr "<b>Chyba pridania kontaktu</b>"
+msgstr ""
 
 #: ../src/contacts-page.c:389
 msgid "<b>Remove contact</b>"
-msgstr "<b>Odstrániť kontakt</b>"
+msgstr ""
 
 #: ../src/contacts-page.c:389
 msgid "Really want to remove contact?"
-msgstr "Naozaj chcete odstrániť kontakt?"
+msgstr ""
 
 #: ../src/contacts-page.c:393 ../src/contacts-page.c:398
 msgid "<b>Error removing contact</b>"
-msgstr "<b>Chyba odstránenia kontaktu</b>"
+msgstr ""
 
 #: ../src/contacts-page.c:393
 msgid "Contact not removed from device"
-msgstr "Kontakt nebol odstránený zo zariadenia"
+msgstr ""
 
 #: ../src/contacts-page.c:398
 msgid "Contact not selected"
-msgstr "Kontakt nebol vybraný"
+msgstr ""
 
 #: ../src/contacts-page.c:432 ../src/sms-page.c:1650
 msgid "<b>Modem contacts</b>"
-msgstr "<b>Kontakty modemu</b>"
+msgstr ""
 
 #: ../src/contacts-page.c:528 ../src/sms-page.c:1615
 msgid "<b>GNOME contacts</b>"
-msgstr "<b>GNOME kontakty</b>"
+msgstr ""
 
 #: ../src/contacts-page.c:535 ../src/sms-page.c:1632
 msgid "<b>KDE contacts</b>"
-msgstr "<b>KDE kontakty</b>"
+msgstr ""
 
 #: ../src/contacts-page.c:551 ../resources/ui/modem-manager-gui.ui:2764
 msgid "First name"
-msgstr "Krstné meno"
+msgstr ""
 
 #: ../src/contacts-page.c:555 ../resources/ui/modem-manager-gui.ui:2776
 msgid "First number"
-msgstr "Hlavné číslo"
+msgstr ""
 
 #: ../src/contacts-page.c:559 ../resources/ui/modem-manager-gui.ui:2788
 msgid "EMail"
-msgstr "Email"
+msgstr ""
 
 #: ../src/contacts-page.c:563 ../resources/ui/modem-manager-gui.ui:2800
 msgid "Group"
-msgstr "Skupina"
+msgstr ""
 
 #: ../src/contacts-page.c:567 ../resources/ui/modem-manager-gui.ui:2812
 msgid "Second name"
-msgstr "Priezvisko"
+msgstr ""
 
 #: ../src/contacts-page.c:571 ../resources/ui/modem-manager-gui.ui:2824
 msgid "Second number"
-msgstr "Druhé číslo"
+msgstr ""
 
 #: ../src/devices-page.c:292 ../src/devices-page.c:345
 msgid "<b>Error opening device</b>"
-msgstr "<b>Chyba otvárania zariadenia</b>"
+msgstr ""
 
 #: ../src/devices-page.c:404
 #, c-format
 msgid ""
 "<b>%s %s</b>\n"
 "Version:%s Port:%s Type:%s"
-msgstr "<b>%s %s</b>\nVerzia: %s Port: %s Typ: %s"
+msgstr ""
 
 #: ../src/devices-page.c:454
 msgid "Selected"
-msgstr "Vybrané"
+msgstr ""
 
 #: ../src/devices-page.c:460 ../resources/ui/modem-manager-gui.ui:943
 msgid "Device"
-msgstr "Zariadenie"
+msgstr ""
 
 #: ../src/devices-page.c:736 ../src/devices-page.c:768
 #: ../resources/ui/modem-manager-gui.ui:595
 msgid "Activate"
-msgstr "Aktivovať"
+msgstr ""
 
 #: ../src/devices-page.c:761
 msgid "Deactivate"
-msgstr "Deaktivovať"
+msgstr ""
 
 #: ../src/devices-page.c:800
 #, c-format
 msgid "Connecting to %s..."
-msgstr "Pripájanie na %s..."
+msgstr ""
 
 #: ../src/devices-page.c:811
 #, c-format
 msgid "Disconnecting from %s..."
-msgstr "Odpájanie zo %s..."
+msgstr ""
 
 #: ../src/info-page.c:75 ../src/info-page.c:82 ../src/info-page.c:135
 #: ../src/info-page.c:143
 msgid "Not supported"
-msgstr "Nepodporované"
+msgstr ""
 
 #: ../src/main.c:392 ../src/main.c:395 ../src/main.c:398 ../src/main.c:2809
 #: ../src/main.c:2820
 msgid "Error while initialization"
-msgstr "Chyba počas inicializácie"
+msgstr ""
 
 #: ../src/main.c:392
 msgid "Unable to start needed system services without correct credentials"
-msgstr "Nemožno spustiť potrebné systémové služby bez platných poverení"
+msgstr ""
 
 #: ../src/main.c:395
 msgid "Unable to communicate with available system services"
-msgstr "Nemožno komunikovať s dostupnými systémovými službami"
+msgstr ""
 
 #: ../src/main.c:506
 msgid "Success"
-msgstr "Úspešné"
+msgstr "Επιτυχία"
 
 #: ../src/main.c:511
 msgid "Failed"
-msgstr "Zlyhalo"
+msgstr "Απέτυχε"
 
 #: ../src/main.c:516 ../src/svcmanager.c:640
 msgid "Timeout"
-msgstr "Čas vypršal"
+msgstr ""
 
 #: ../src/main.c:653 ../resources/ui/modem-manager-gui.ui:465
 msgid "_Stop"
-msgstr "_Stop"
+msgstr ""
 
 #: ../src/main.c:780
 msgid "Unlocking device..."
-msgstr "Odomykanie zariadenia..."
+msgstr ""
 
 #: ../src/main.c:796
 msgid "Enabling device..."
-msgstr "Zapínanie zariadenia..."
+msgstr ""
 
 #: ../src/main.c:1128
 msgid "No devices found in system"
-msgstr "Žiadne zariadenia neboli nájdené v systéme"
+msgstr ""
 
 #: ../src/main.c:1142
 msgid ""
 "Modem is not ready for operation. Please wait while modem being prepared..."
-msgstr "Modem nie je pripravený na prevádzku. Počkajte, kým sa modem pripraví..."
+msgstr ""
 
 #: ../src/main.c:1156
 msgid "Modem must be enabled to connect to Internet. Please enable modem."
-msgstr "Modem musí byť zapnutý na pripojenie k internetu. Prosím zapnite modem."
+msgstr ""
 
 #: ../src/main.c:1157
 msgid ""
 "Modem must be registered in mobile network to connect to Internet. Please "
 "wait..."
-msgstr "Modem musí byť zaregistrovaný do mobilnej siete pre pripojenie na internet. Prosím čakajte..."
+msgstr ""
 
 #: ../src/main.c:1158
 msgid "Modem must be unlocked to connect to Internet. Please enter PIN code."
-msgstr "Modem musí byť odomknutý pre pripojenie na internet. Prosím vložte PIN kód."
+msgstr ""
 
 #: ../src/main.c:1159
 msgid ""
 "Connection manager does not support Internet connection management "
 "functions."
-msgstr "Správca pripojenia nepodporuje funkcie správy internetového pripojenia"
+msgstr ""
 
 #: ../src/main.c:1175
 msgid "Modem must be enabled to read and write SMS. Please enable modem."
-msgstr "Modem musí byť zapnutý pre čítanie a písanie SMS. Prosím zapnite modem."
+msgstr ""
 
 #: ../src/main.c:1176
 msgid ""
 "Modem must be registered in mobile network to receive and send SMS. Please "
 "wait..."
-msgstr "Modem musí byť zaregistrovaný do mobilnej siete pre prijatie a odosielanie SMS. Prosím čakajte..."
+msgstr ""
 
 #: ../src/main.c:1177
 msgid "Modem must be unlocked to receive and send SMS. Please enter PIN code."
-msgstr "Modem musí byť odomknutý pre prijatie a odoslanie SMS. Prosím vložte PIN kód."
+msgstr ""
 
 #: ../src/main.c:1178
 msgid "Modem manager does not support SMS manipulation functions."
-msgstr "Modem manažér nepodporuje funkcie SMS"
+msgstr ""
 
 #: ../src/main.c:1179
 msgid "Modem manager does not support sending of SMS messages."
-msgstr "Modem manažér nepodporuje posielanie SMS správ"
+msgstr ""
 
 #: ../src/main.c:1197
 msgid "Modem must be enabled to send USSD. Please enable modem."
-msgstr "Modem musí byť zapnutý pre posielanie USSD. Prosím zapnite modem."
+msgstr ""
 
 #: ../src/main.c:1198
 msgid ""
 "Modem must be registered in mobile network to send USSD. Please wait..."
-msgstr "Modem musí byť zaregistrovaný do mobilnej siete pre odosielanie USSD. Prosím čakajte..."
+msgstr ""
 
 #: ../src/main.c:1199
 msgid "Modem must be unlocked to send USSD. Please enter PIN code."
-msgstr "Modem musí byť odomknutý pre posielanie USSD. Prosím vložte PIN kód."
+msgstr ""
 
 #: ../src/main.c:1200
 msgid "Modem manager does not support sending of USSD requests."
-msgstr "Modem manažér nepodporuje odosielanie USSD žiadostí."
+msgstr ""
 
 #: ../src/main.c:1227
 msgid ""
 "Modem must be enabled to scan for available networks. Please enable modem."
-msgstr "Modem musí byť zapnutý pre vyhľadanie dostupných sietí. Prosím zapnite modem."
+msgstr ""
 
 #: ../src/main.c:1229
 msgid ""
 "Modem must be unlocked to scan for available networks. Please enter PIN "
 "code."
-msgstr "Modem musí byť odomknutý pre vyhľadanie dostupných sietí. Prosím vložte PIN kód."
+msgstr ""
 
 #: ../src/main.c:1230
 msgid "Modem manager does not support scanning for available mobile networks."
-msgstr "Modem manažér nepodporuje vyhľadávanie dostupných mobilných sietí."
+msgstr ""
 
 #: ../src/main.c:1231
 msgid "Modem is connected now. Please disconnect to scan."
-msgstr "Modem je teraz pripojený. Prosím odpojte ho pre vyhľadávanie."
+msgstr ""
 
 #: ../src/main.c:1262
 msgid "Modem must be enabled to export contacts from it. Please enable modem."
-msgstr "Modem musí byť zapnutý pre exportovanie kontaktov. Prosím zapnite modem."
+msgstr ""
 
 #: ../src/main.c:1264
 msgid ""
 "Modem must be unlocked to export contacts from it. Please enter PIN code."
-msgstr "Modem musí byť odomknutý pre exportovanie kontaktov. Prosím vložte PIN kód."
+msgstr ""
 
 #: ../src/main.c:1265
 msgid "Modem manager does not support modem contacts manipulation functions."
-msgstr "Modem manažér nepodporuje funkcie manipulácie s kontaktmi."
+msgstr ""
 
 #: ../src/main.c:1266
 msgid "Modem manager does not support modem contacts edition functions."
-msgstr "Modem manažér nepodporuje funkcie úprav kontaktov."
+msgstr ""
 
 #: ../src/main.c:1304
 msgid "Enter PIN"
-msgstr "Vložte PIN"
+msgstr ""
 
 #: ../src/main.c:1306
 msgid ""
 "SIM card is locked with PUK code. Please contact your mobile operator for "
 "further instructions."
-msgstr "SIM karta je uzamknutá kódom PUK. Podrobnejšie pokyny získate od svojho mobilného operátora."
+msgstr ""
 
 #: ../src/main.c:1309
 msgid ""
 "SIM card seems non-functional. Please contact your mobile operator for "
 "further instructions."
-msgstr "SIM karta sa zdá byť nefunkčná. Podrobnejšie pokyny získate od svojho mobilného operátora."
+msgstr ""
 
 #: ../src/main.c:1322
 msgid "Enable"
-msgstr "Zapnúť"
+msgstr ""
 
 #: ../src/main.c:1581
 msgid "_Devices"
-msgstr "_Zariadenia"
+msgstr ""
 
 #: ../src/main.c:1585
 msgid "_SMS"
-msgstr "_SMS"
+msgstr ""
 
 #: ../src/main.c:1590
 msgid "_USSD"
-msgstr "_USSD"
+msgstr ""
 
 #: ../src/main.c:1595
 msgid "_Info"
-msgstr "_Info"
+msgstr ""
 
 #: ../src/main.c:1600
 msgid "S_can"
-msgstr "Sk_enovať"
+msgstr ""
 
 #: ../src/main.c:1605
 msgid "_Traffic"
-msgstr "_Prenosy"
+msgstr ""
 
 #: ../src/main.c:1610
 msgid "C_ontacts"
-msgstr "_Kontakty"
+msgstr ""
 
 #: ../src/main.c:1698 ../src/main.c:1729
 msgid "Modem Manager GUI window hidden"
-msgstr "Skryté okno Modem manažéra GUI"
+msgstr ""
 
 #: ../src/main.c:1698 ../src/main.c:1729
 msgid "Use tray icon or messaging menu to show window again"
-msgstr "Použite stavovú ikonu alebo ponuku správ na znovuzobrazenie okna "
+msgstr ""
 
 #: ../src/main.c:1793
 msgid "Error while displaying the help contents"
-msgstr "Chyba pri zobrazovaní obsahu pomoci"
+msgstr ""
 
 #: ../src/main.c:1919
 #, c-format
 msgid "%s disconnected"
-msgstr "%s odpojené"
+msgstr "%sαποσυνδέθηκε"
 
 #: ../src/main.c:2056
 msgid "Show window"
-msgstr "Zobraziť okno"
+msgstr ""
 
 #: ../src/main.c:2062
 msgid "New SMS"
-msgstr "Nová SMS"
+msgstr "Νέο μήνυμα"
 
 #: ../src/main.c:2068 ../src/main.c:2720
 msgid "Quit"
-msgstr "Koniec"
+msgstr ""
 
 #: ../src/main.c:2680
 msgid "_Quit"
-msgstr "K_oniec"
+msgstr ""
 
 #: ../src/main.c:2686
 msgid "_Actions"
-msgstr "_Akcie"
+msgstr ""
 
 #: ../src/main.c:2689
 msgid "_Preferences"
-msgstr "_Nastavenia"
+msgstr ""
 
 #: ../src/main.c:2692
 msgid "_Edit"
-msgstr "_Upraviť"
+msgstr ""
 
 #: ../src/main.c:2695 ../src/main.c:2699
 msgid "_Help"
-msgstr "_Pomoc"
+msgstr ""
 
 #: ../src/main.c:2697
 msgid "_About"
-msgstr "O p_rograme"
+msgstr ""
 
 #: ../src/main.c:2709 ../resources/ui/modem-manager-gui.ui:3172
 msgid "Preferences"
-msgstr "Nastavenia"
+msgstr ""
 
 #: ../src/main.c:2714
 msgid "Help"
-msgstr "Pomoc"
+msgstr ""
 
 #: ../src/main.c:2716 ../resources/ui/modem-manager-gui.ui:1719
 msgid "About"
-msgstr "O programe"
+msgstr ""
 
 #: ../src/main.c:2809 ../src/main.c:2864
 msgid ""
 "Unable to find MMGUI modules. Please check if application installed "
 "correctly"
-msgstr "Nepodarilo sa nájsť moduly MMGUI. Skontrolujte, či je aplikácia správne nainštalovaná"
+msgstr ""
 
 #: ../src/main.c:2820
 msgid "Interface building error"
-msgstr "Chyba pri vytváraní rozhrania"
+msgstr ""
 
 #: ../src/main.c:2876
 msgid "Modem management modules:\n"
-msgstr "Moduly riadenia modemu:\n"
+msgstr ""
 
 #: ../src/main.c:2877 ../src/main.c:2881
 msgid "Module"
-msgstr "Modul"
+msgstr ""
 
 #: ../src/main.c:2877 ../src/main.c:2881 ../src/ussd-page.c:544
 msgid "Description"
-msgstr "Popis"
+msgstr "Περιγραφή"
 
 #: ../src/main.c:2880
 msgid "Connection management modules:\n"
-msgstr "Moduly správy pripojenia:\n"
+msgstr ""
 
 #: ../src/main.c:2919
 #, c-format
 msgid "Segmentation fault at address: %p\n"
-msgstr "Chyba segmentácie na adrese: %p\n"
+msgstr ""
 
 #: ../src/main.c:2922
 msgid "Stack trace:\n"
-msgstr "Trasovanie zásobníka:\n"
+msgstr ""
 
 #: ../src/main.c:2988
 msgid "Do not show window on start"
-msgstr "Nezobrazovať okno pri štarte"
+msgstr ""
 
 #: ../src/main.c:2989
 msgid "Use specified modem management module"
-msgstr "Použite špecifikovaný modul správy modemu"
+msgstr ""
 
 #: ../src/main.c:2990
 msgid "Use specified connection management module"
-msgstr "Použite špecifikovaný modul správy pripojenia"
+msgstr ""
 
 #: ../src/main.c:2991
 msgid "List all available modules and exit"
-msgstr "Zobraziť všetky dostupné moduly a ukončiť"
+msgstr ""
 
 #: ../src/main.c:3028
 msgid "- tool for EDGE/3G/4G modem specific functions control"
-msgstr "- nástroj pre ovládanie špecifických funkcií EDGE/3G/4G modemu"
+msgstr ""
 
 #: ../src/main.c:3035
 #, c-format
 msgid "Command line option parsing failed: %s\n"
-msgstr "Príprava voľby príkazového riadka zlyhala: %s\n"
+msgstr ""
 
 #: ../src/preferences-window.c:111 ../src/strformat.c:352
 #: ../src/welcome-window.c:197
 msgid "Undefined"
-msgstr "Nedefinované"
+msgstr ""
 
 #: ../src/scan-page.c:44
 msgid "Scanning networks..."
-msgstr "Vyhľadávam siete"
+msgstr ""
 
 #: ../src/scan-page.c:46
 msgid "Device error"
-msgstr "Chyba zariadenia"
+msgstr ""
 
 #: ../src/scan-page.c:97
 #, c-format
 msgid ""
 "<b>%s</b>\n"
 "<small>%s ID: %u Availability: %s Access tech: %s</small>"
-msgstr "<b>%s</b>\n<small>%s ID: %u Dostupnosť: %s Pristupová tech: %s</small>"
+msgstr ""
 
 #: ../src/scan-page.c:135
 msgid "<b>Error scanning networks</b>"
-msgstr "<b>Chyba vyhľadávania siete</b>"
+msgstr ""
 
 #: ../src/scan-page.c:149 ../resources/ui/modem-manager-gui.ui:1066
 msgid "Operator"
-msgstr "Operátor"
+msgstr ""
 
 #: ../src/sms-page.c:343
 #, c-format
 msgid "Received %u new SMS messages"
-msgstr "Prijatých %u nových SMS správ"
+msgstr ""
 
 #: ../src/sms-page.c:345 ../src/sms-page.c:423
 msgid "Received new SMS message"
-msgstr "Prijatá nová SMS správa"
+msgstr ""
 
 #: ../src/sms-page.c:357
 msgid "Message senders: "
-msgstr "Odosielatelia správy:"
+msgstr ""
 
 #: ../src/sms-page.c:494 ../src/sms-page.c:1163
 #, c-format
 msgid ""
 "<b>%s</b>\n"
 "<small>%s</small>"
-msgstr "<b>%s</b>\n<small>%s</small>"
+msgstr ""
 
 #: ../src/sms-page.c:548
 msgid ""
 "<b>SMS number is not valid</b>\n"
 "<small>Only numbers from 2 to 20 digits without\n"
 "letters and symbols can be used</small>"
-msgstr "<b>Číslo SMS nie je platné</b>\n<small>Iba čísla od 2 do 20 bez\npísmen a symbolov môžu byť použité</small>"
+msgstr ""
 
 #: ../src/sms-page.c:550
 msgid ""
 "<b>SMS text is not valid</b>\n"
 "<small>Please write some text to send</small>"
-msgstr "<b>Text SMS nie je platný</b>\n<small>Napíšte nejaký text na odoslanie, prosím</small>"
+msgstr ""
 
 #: ../src/sms-page.c:675
 #, c-format
 msgid "Sending SMS to number \"%s\"..."
-msgstr "Odosielanie SMS na číslo \"%s\"..."
+msgstr ""
 
 #: ../src/sms-page.c:697
 msgid "Wrong number or device not ready"
-msgstr "Nesprávne číslo alebo zariadenie nie je pripravené"
+msgstr ""
 
 #: ../src/sms-page.c:703
 msgid "Saving SMS..."
-msgstr "Ukladanie SMS..."
+msgstr ""
 
 #: ../src/sms-page.c:774
 #, c-format
 msgid "Really want to remove messages (%u) ?"
-msgstr "Naozaj chcete odstrániť správy (%u) ?"
+msgstr ""
 
 #: ../src/sms-page.c:775
 msgid "<b>Remove messages</b>"
-msgstr "<b>Odstrániť správy</b>"
+msgstr ""
 
 #: ../src/sms-page.c:797
 #, c-format
 msgid "Some messages weren't removed (%u)"
-msgstr "Niektoré správy neboli odstránené (%u)"
+msgstr ""
 
 #: ../src/sms-page.c:1087
 msgid "Incoming"
-msgstr "Doručené"
+msgstr "Εισερχόμενα"
 
 #: ../src/sms-page.c:1092
 msgid ""
 "This is folder for your incoming SMS messages.\n"
 "You can answer selected message using 'Answer' button."
-msgstr "Tento priečinok je pre vaše doručené SMS správy.\nOdpovedať na vybranú správu môžete použitím tlačidla 'Odpovedať'."
+msgstr ""
 
 #: ../src/sms-page.c:1097
 msgid "Sent"
-msgstr "Odoslané"
+msgstr ""
 
 #: ../src/sms-page.c:1102
 msgid "This is folder for your sent SMS messages."
-msgstr "Tento priečinok je pre vaše odoslané SMS správy."
+msgstr ""
 
 #: ../src/sms-page.c:1107
 msgid "Drafts"
-msgstr "Koncepty"
+msgstr ""
 
 #: ../src/sms-page.c:1112
 msgid ""
 "This is folder for your SMS message drafts.\n"
 "Select message and click 'Answer' button to start editing."
-msgstr "Tento priečinok je pre vaše koncepty SMS správ.\nVyberte správu a kliknite na tlačidlo 'Odpovedať' pre úpravu správy."
+msgstr ""
 
 #: ../src/sms-page.c:1219
 msgid ""
 "<b>Incoming</b>\n"
 "<small>Incoming messages</small>"
-msgstr "<b>Doručené</b>\n<small>Doručené správy</small>"
+msgstr ""
 
 #: ../src/sms-page.c:1220
 msgid ""
 "<b>Sent</b>\n"
 "<small>Sent messages</small>"
-msgstr "<b>Odoslané</b>\n<small>Odoslané správy</small>"
+msgstr ""
 
 #: ../src/sms-page.c:1221
 msgid ""
 "<b>Drafts</b>\n"
 "<small>Message drafts</small>"
-msgstr "<b>Koncepty</b>\n<small>Koncepty správ</small>"
+msgstr ""
 
 #: ../src/sms-page.c:1749 ../resources/ui/modem-manager-gui.ui:2932
 msgid "Disabled"
-msgstr "Vypnuté"
+msgstr ""
 
 #: ../src/sms-page.c:1903 ../resources/ui/modem-manager-gui.ui:355
 #: ../resources/ui/modem-manager-gui.ui:778
 #: ../resources/ui/modem-manager-gui.ui:3580
 #: ../resources/ui/modem-manager-gui.ui:3999
 msgid "SMS"
-msgstr "SMS"
+msgstr ""
 
 #: ../src/strformat.c:39
 #, c-format
 msgid "<small><b>%.3f kbps</b></small>"
-msgstr "<small><b>%.3f kbps</b></small>"
+msgstr ""
 
 #: ../src/strformat.c:41
 #, c-format
 msgid "%.3f kbps"
-msgstr "%.3f kbps"
+msgstr ""
 
 #: ../src/strformat.c:46
 #, c-format
 msgid "<small><b>%.3g Mbps</b></small>"
-msgstr "<small><b>%.3g Mbps</b></small>"
+msgstr ""
 
 #: ../src/strformat.c:48
 #, c-format
 msgid "%.3g Mbps"
-msgstr "%.3g Mbps"
+msgstr ""
 
 #: ../src/strformat.c:53
 #, c-format
 msgid "<small><b>%.3g Gbps</b></small>"
-msgstr "<small><b>%.3g Gbps</b></small>"
+msgstr ""
 
 #: ../src/strformat.c:55
 #, c-format
 msgid "%.3g Gbps"
-msgstr "%.3g Gbps"
+msgstr ""
 
 #: ../src/strformat.c:87
 #, c-format
 msgid "<small><b>%u sec</b></small>"
-msgstr "<small><b>%u sek</b></small>"
+msgstr ""
 
 #: ../src/strformat.c:89
 #, c-format
 msgid "%u sec"
-msgstr "%u sek"
+msgstr ""
 
 #: ../src/strformat.c:93
 #, c-format
 msgid "<small><b>%s:%s</b></small>"
-msgstr "<small><b>%s:%s</b></small>"
+msgstr ""
 
 #: ../src/strformat.c:95
 #, c-format
 msgid "%s:%s"
-msgstr "%s:%s"
+msgstr ""
 
 #: ../src/strformat.c:99
 #, c-format
 msgid "<small><b>%s:%s:%s</b></small>"
-msgstr "<small><b>%s:%s:%s</b></small>"
+msgstr ""
 
 #: ../src/strformat.c:101
 #, c-format
 msgid "%s:%s:%s"
-msgstr "%s:%s:%s"
+msgstr ""
 
 #: ../src/strformat.c:105
 msgid "<small><b>%"
-msgstr "<small><b>%"
+msgstr ""
 
 #: ../src/strformat.c:107
 msgid "%"
-msgstr "%"
+msgstr ""
 
 #: ../src/strformat.c:124
 #, c-format
 msgid "<small><b>%u</b></small>"
-msgstr "<small><b>%u</b></small>"
+msgstr ""
 
 #: ../src/strformat.c:126
 #, c-format
 msgid "%u"
-msgstr "%u"
+msgstr ""
 
 #: ../src/strformat.c:131
 #, c-format
 msgid "<small><b>%.3g Kb</b></small>"
-msgstr "<small><b>%.3g Kb</b></small>"
+msgstr ""
 
 #: ../src/strformat.c:133
 #, c-format
 msgid "%.3g Kb"
-msgstr "%.3g Kb"
+msgstr ""
 
 #: ../src/strformat.c:138
 #, c-format
 msgid "<small><b>%.3g Mb</b></small>"
-msgstr "<small><b>%.3g Mb</b></small>"
+msgstr ""
 
 #: ../src/strformat.c:140
 #, c-format
 msgid "%.3g Mb"
-msgstr "%.3g Mb"
+msgstr ""
 
 #: ../src/strformat.c:145
 #, c-format
 msgid "<small><b>%.3g Gb</b></small>"
-msgstr "<small><b>%.3g Gb</b></small>"
+msgstr ""
 
 #: ../src/strformat.c:147
 #, c-format
 msgid "%.3g Gb"
-msgstr "%.3g Gb"
+msgstr ""
 
 #: ../src/strformat.c:152
 #, c-format
 msgid "<small><b>%.3g Tb</b></small>"
-msgstr "<small><b>%.3g Tb</b></small>"
+msgstr ""
 
 #: ../src/strformat.c:154
 #, c-format
 msgid "%.3g Tb"
-msgstr "%.3g Tb"
+msgstr ""
 
 #: ../src/strformat.c:186
 msgid "Today, %T"
-msgstr "Dnes, %D"
+msgstr ""
 
 #: ../src/strformat.c:187 ../src/strformat.c:191 ../src/strformat.c:195
 #: ../src/strformat.c:206 ../src/strformat.c:236 ../src/strformat.c:244
 #: ../src/strformat.c:252 ../src/strformat.c:323 ../src/traffic-page.c:134
 #, c-format
 msgid "Unknown"
-msgstr "Neznáme"
+msgstr "Άγνωστο"
 
 #: ../src/strformat.c:190
 msgid "Yesterday, %T"
-msgstr "Včera, %V"
+msgstr ""
 
 #: ../src/strformat.c:194
 msgid "%d %B %Y, %T"
-msgstr "%d %B %V, %D"
+msgstr ""
 
 #: ../src/strformat.c:246
 msgid "Available"
-msgstr "Dostupné"
+msgstr ""
 
 #: ../src/strformat.c:248
 msgid "Current"
-msgstr "Aktuálne"
+msgstr ""
 
 #: ../src/strformat.c:250
 msgid "Forbidden"
-msgstr "Zakázané"
+msgstr ""
 
 #: ../src/strformat.c:286
 msgid "Not registered"
-msgstr "Neregistrované"
+msgstr ""
 
 #: ../src/strformat.c:288
 msgid "Home network"
-msgstr "Domáca sieť"
+msgstr ""
 
 #: ../src/strformat.c:290
 msgid "Searching"
-msgstr "Hľadanie"
+msgstr ""
 
 #: ../src/strformat.c:292
 msgid "Registration denied"
-msgstr "Registrácia zamietnutá"
+msgstr ""
 
 #: ../src/strformat.c:294 ../src/strformat.c:298
 msgid "Unknown status"
-msgstr "Stav neznámy"
+msgstr ""
 
 #: ../src/strformat.c:296
 msgid "Roaming network"
-msgstr "Roamingová sieť"
+msgstr ""
 
 #: ../src/strformat.c:337
 #, c-format
 msgid "%3.0f minutes"
-msgstr "%3.0f minút"
+msgstr "%3.0fλεπτά"
 
 #: ../src/strformat.c:341
 #, c-format
 msgid "%3.1f hours"
-msgstr "%3.1f hodín"
+msgstr "%3.1fώρες"
 
 #: ../src/strformat.c:345
 #, c-format
 msgid "%2.0f days"
-msgstr "%2.0f dní"
+msgstr "%2.0fμέρες"
 
 #: ../src/strformat.c:349
 #, c-format
 msgid "%2.0f weeks"
-msgstr "%2.0f týždňov"
+msgstr "%2.0fεβδομάδες"
 
 #: ../src/strformat.c:364
 #, c-format
 msgid "%2.0f sec"
-msgstr "%2.0f sek"
+msgstr ""
 
 #: ../src/strformat.c:367
 #, c-format
 msgid "%u min, %u sec"
-msgstr "%u min, %u sek"
+msgstr ""
 
 #: ../src/svcmanager.c:693
 msgid "Job canceled"
-msgstr "Úloha bola zrušená"
+msgstr "Η εργασία ακυρώθηκε"
 
 #: ../src/svcmanager.c:695
 msgid "Systemd timeout reached"
-msgstr "Dosiahnutý časový limit systemd"
+msgstr ""
 
 #: ../src/svcmanager.c:697
 msgid "Service activation failed"
-msgstr "Zlyhala aktivácia služby"
+msgstr ""
 
 #: ../src/svcmanager.c:699
 msgid "Service depends on already failed service"
-msgstr "Služba závisí od už zlyhanej služby"
+msgstr ""
 
 #: ../src/svcmanager.c:701
 msgid "Service skipped"
-msgstr "Služba preskočená"
+msgstr ""
 
 #: ../src/svcmanager.c:703
 msgid "Unknown error"
-msgstr "Neznáma chyba"
+msgstr ""
 
 #: ../src/svcmanager.c:768
 msgid "Unknown activation status"
-msgstr "Neznámy stav aktivácie"
+msgstr ""
 
 #: ../src/svcmanager.c:839
 msgid "Unknown entity type"
-msgstr "Neznámy typ entity"
+msgstr ""
 
 #: ../src/traffic-page.c:246
 msgid "Day"
-msgstr "Deň"
+msgstr ""
 
 #: ../src/traffic-page.c:250
 msgid "Received data"
-msgstr "Prijaté údaje"
+msgstr ""
 
 #: ../src/traffic-page.c:254
 msgid "Transmitted data"
-msgstr "Prenesené údaje"
+msgstr ""
 
 #: ../src/traffic-page.c:258
 msgid "Session time"
-msgstr "Čas relácie"
+msgstr ""
 
 #: ../src/traffic-page.c:482
 msgid "Application"
-msgstr "Aplikácia"
+msgstr ""
 
 #: ../src/traffic-page.c:486
 msgid "PID"
-msgstr "PID"
+msgstr ""
 
 #: ../src/traffic-page.c:490
 msgid "Protocol"
-msgstr "Protokol"
+msgstr ""
 
 #: ../src/traffic-page.c:494 ../src/welcome-window.c:269
 msgid "State"
-msgstr "Stav"
+msgstr ""
 
 #: ../src/traffic-page.c:498
 msgid "Buffer"
-msgstr "Buffer"
+msgstr ""
 
 #: ../src/traffic-page.c:502
 msgid "Port"
-msgstr "Port"
+msgstr ""
 
 #: ../src/traffic-page.c:506
 msgid "Destination"
-msgstr "Cieľ"
+msgstr ""
 
 #: ../src/traffic-page.c:532
 msgid "Traffic limit exceeded"
-msgstr "Dosiahnutý limit prenosu"
+msgstr ""
 
 #: ../src/traffic-page.c:536
 msgid "Time limit exceeded"
-msgstr "Dosiahnutý časový limit"
+msgstr ""
 
 #: ../src/traffic-page.c:723
 #, c-format
@@ -911,889 +911,889 @@ msgid ""
 "Traffic: %s, limit set to: %s\n"
 "Time: %s, limit set to: %s\n"
 "Please check entered values and try once more"
-msgstr "Prenos: %s, limit nastavený na: %s\nČas: %s, limit nastavený na: %s\nSkontrolujte zadané hodnoty a skúste to ešte raz"
+msgstr ""
 
 #: ../src/traffic-page.c:728
 msgid "Wrong traffic and time limit values"
-msgstr "Nesprávne hodnoty prenosových a časové limitov"
+msgstr ""
 
 #: ../src/traffic-page.c:731
 #, c-format
 msgid ""
 "Traffic: %s, limit set to: %s\n"
 "Please check entered values and try once more"
-msgstr "Prenos: %s, limit nastavený na: %s\nSkontrolujte prosím vložené hodnoty a skúste znova"
+msgstr ""
 
 #: ../src/traffic-page.c:734
 msgid "Wrong traffic limit value"
-msgstr "Nesprávna hodnota limitu prenosu"
+msgstr ""
 
 #: ../src/traffic-page.c:737
 #, c-format
 msgid ""
 "Time: %s, limit set to: %s\n"
 "Please check entered values and try once more"
-msgstr "Čas: %s, limit nastavený na: %s\nProsím skontrolujte vložené hodnoty a skúste to znova"
+msgstr ""
 
 #: ../src/traffic-page.c:740
 msgid "Wrong time limit value"
-msgstr "Nesprávna časová hodnota"
+msgstr ""
 
 #: ../src/traffic-page.c:834 ../src/traffic-page.c:858
 #: ../src/traffic-page.c:882
 msgid "<small><b>Disconnected</b></small>"
-msgstr "<small><b>Odpojené</b></small>"
+msgstr ""
 
 #: ../src/traffic-page.c:846 ../src/traffic-page.c:852
 #: ../src/traffic-page.c:870 ../src/traffic-page.c:876
 msgid "<small><b>Limit</b></small>"
-msgstr "<small><b>Limit</b></small>"
+msgstr ""
 
 #: ../src/traffic-page.c:849 ../src/traffic-page.c:855
 #: ../src/traffic-page.c:873 ../src/traffic-page.c:879
 msgid "<small><b>Disabled</b></small>"
-msgstr "<small><b>Vypnuté</b></small>"
+msgstr ""
 
 #: ../src/traffic-page.c:1022
 msgid "kbps"
-msgstr "kbps"
+msgstr ""
 
 #: ../src/traffic-page.c:1036
 msgid "sec"
-msgstr "sek"
+msgstr ""
 
 #: ../src/traffic-page.c:1120
 msgid "RX speed"
-msgstr "Rýchlosť RX"
+msgstr ""
 
 #: ../src/traffic-page.c:1139
 msgid "TX speed"
-msgstr "Rýchlosť TX"
+msgstr ""
 
 #: ../src/traffic-page.c:1155
 msgid "Parameter"
-msgstr "Parameter"
+msgstr ""
 
 #: ../src/traffic-page.c:1160
 msgid "Value"
-msgstr "Hodnota"
+msgstr ""
 
 #: ../src/traffic-page.c:1166
 msgid "<small><b>Session</b></small>"
-msgstr "<small><b>Relácia</b></small>"
+msgstr ""
 
 #: ../src/traffic-page.c:1169 ../src/traffic-page.c:1193
 #: ../src/traffic-page.c:1205
 msgid "<small><b>Received data</b></small>"
-msgstr "<small><b>Prijaté údaje</b></small>"
+msgstr ""
 
 #: ../src/traffic-page.c:1172 ../src/traffic-page.c:1196
 #: ../src/traffic-page.c:1208
 msgid "<small><b>Transmitted data</b></small>"
-msgstr "<small><b>Prenesené údaje</b></small>"
+msgstr ""
 
 #: ../src/traffic-page.c:1175
 msgid "<small><b>Receive speed</b></small>"
-msgstr "<small><b>Rýchlosť prijímania</b></small>"
+msgstr ""
 
 #: ../src/traffic-page.c:1178
 msgid "<small><b>Transmit speed</b></small>"
-msgstr "<small><b>Prenosová rýchlosť</b></small>"
+msgstr ""
 
 #: ../src/traffic-page.c:1181
 msgid "<small><b>Session time</b></small>"
-msgstr "<small><b>Čas relácie</b></small>"
+msgstr ""
 
 #: ../src/traffic-page.c:1184
 msgid "<small><b>Traffic left</b></small>"
-msgstr "<small><b>Zostávajúce prenosy</b></small>"
+msgstr ""
 
 #: ../src/traffic-page.c:1187
 msgid "<small><b>Time left</b></small>"
-msgstr "<small><b>Zostávajúce čas</b></small>"
+msgstr ""
 
 #: ../src/traffic-page.c:1190
 msgid "<small><b>Month</b></small>"
-msgstr "<small><b>Mesiac</b></small>"
+msgstr ""
 
 #: ../src/traffic-page.c:1199 ../src/traffic-page.c:1211
 msgid "<small><b>Total time</b></small>"
-msgstr "<small><b>Celkový čas</b></small>"
+msgstr ""
 
 #: ../src/traffic-page.c:1202
 msgid "<small><b>Year</b></small>"
-msgstr "<small><b>Rok</b></small>"
+msgstr ""
 
 #: ../src/traffic-page.c:1236
 msgid "Traffic limit exceeded... It's time to take rest \\(^_^)/"
-msgstr "Dosiahnuté obmedzenie prenosov... Je čas dať si pauzu \\(^_^)/"
+msgstr ""
 
 #: ../src/traffic-page.c:1261
 msgid "Time limit exceeded... Go sleep and have nice dreams -_-"
-msgstr "Dosiahnuté obmedzenie času...Dobrú noc a pekné sny -_-"
+msgstr ""
 
 #: ../src/ussd-page.c:68
 msgid "Sample command"
-msgstr "Vzorový príkaz"
+msgstr ""
 
 #: ../src/ussd-page.c:290 ../src/ussd-page.c:311
 msgid ""
 "<b>USSD request is not valid</b>\n"
 "<small>Request must be 160 symbols long\n"
 "started with '*' and ended with '#'</small>"
-msgstr "<b>USSD žiadosť nie je platná</b>\n<small>Žiadosť musí byť dlhá 160 znakov\nzačínajúca s '*' a ukončená s '#'</small>"
+msgstr ""
 
 #: ../src/ussd-page.c:395
 #, c-format
 msgid "Sending USSD request %s..."
-msgstr "Posielam USSD žiadosť %s..."
+msgstr ""
 
 #: ../src/ussd-page.c:402
 #, c-format
 msgid "Sending USSD response %s..."
-msgstr "Posielam USSD odpoveď %s..."
+msgstr ""
 
 #: ../src/ussd-page.c:413 ../src/ussd-page.c:416 ../src/ussd-page.c:419
 msgid "<b>Error sending USSD</b>"
-msgstr "<b>Chyba posielania USSD</b>"
+msgstr ""
 
 #: ../src/ussd-page.c:413
 msgid "Wrong USSD request or device not ready"
-msgstr "Nesprávna požiadavka USSD alebo zariadenie nie je pripravené"
+msgstr ""
 
 #: ../src/ussd-page.c:416
 msgid "USSD session terminated. You can send new request"
-msgstr "USSD relácia ukončená. Môžete poslať novú žiadosť"
+msgstr ""
 
 #: ../src/ussd-page.c:419
 msgid "Wrong USSD request"
-msgstr "Neplatná USSD žiadosť"
+msgstr ""
 
 #: ../src/ussd-page.c:442
 msgid ""
 "\n"
 "USSD session is active. Waiting for your input...\n"
-msgstr "\nUSSD relácia aktívna. Čaká sa na váš vstup...\n"
+msgstr ""
 
 #: ../src/ussd-page.c:455
 msgid ""
 "\n"
 "No answer received..."
-msgstr "\nŽiadna odpoveď neprijatá..."
+msgstr ""
 
 #: ../src/ussd-page.c:538 ../resources/ui/modem-manager-gui.ui:3517
 msgid "Command"
-msgstr "Príkaz"
+msgstr "Εντολή"
 
 #: ../src/welcome-window.c:246 ../resources/ui/modem-manager-gui.ui:289
 msgid "_Let's Start!"
-msgstr "_Začnime!"
+msgstr ""
 
 #: ../src/welcome-window.c:265
 msgid "Service"
-msgstr "Služba"
+msgstr ""
 
 #: ../src/welcome-window.c:280
 msgid "_Close"
-msgstr "_Zavrieť"
+msgstr ""
 
 #: ../src/welcome-window.c:310
 msgid "Activation..."
-msgstr "Aktivácia..."
+msgstr ""
 
 #: ../src/welcome-window.c:330
 msgid "<span foreground=\"green\">Success</span>"
-msgstr "<span foreground=\"green\">Úspech</span>"
+msgstr ""
 
 #: ../src/welcome-window.c:333
 #, c-format
 msgid "<span foreground=\"red\">%s</span>"
-msgstr "<span foreground=\"red\">%s</span>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:62
 msgid "Welcome"
-msgstr "Vitajte"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:111
 msgid ""
 "Despite of it's name, Modem Manager GUI supports different backends. Please "
 "select backends you plan to use. If not sure, just do not change anything."
-msgstr "Napriek svojmu menu Modem Manažér GUI podporuje rôzne funkcie. Vyberte záložky, ktoré plánujete použiť. Ak ste si nie istí, nič nemeňte."
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:125
 #: ../resources/ui/modem-manager-gui.ui:3735
 msgid "Modem manager"
-msgstr "Modem manažér"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:140
 #: ../resources/ui/modem-manager-gui.ui:3747
 msgid "Connection manager"
-msgstr "Správca pripojenia"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:175
 msgid "Welcome to Modem Manager GUI"
-msgstr "Vitajte v Modem Manažér GUI"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:189
 msgid "Enable services after activation"
-msgstr "Zapnúť služby po aktivácii"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:217
 msgid "Services activation"
-msgstr "Aktivácia služieb"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:233
 msgid ""
 "Modem Manager GUI uses special system services to communicate with modems "
 "and network stack. Please wait until all needed services being activated."
-msgstr "Modem Manažér GUI používa špeciálne systémové služby na komunikáciu s modemami a sieťovým zásobníkom. Počkajte, kým nebudú aktivované všetky potrebné služby."
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:317
 msgid "Modem Manager GUI"
-msgstr "Modem Manažér GUI"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:337
 msgid "View and select available devices <b>CTRL+F1</b>"
-msgstr "Zobraziť a vybrať dostupné zariadenia <b>CTRL+F1</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:339
 #: ../resources/ui/modem-manager-gui.ui:644
 #: ../resources/ui/modem-manager-gui.ui:3983
 msgid "Devices"
-msgstr "Zariadenia"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:353
 msgid "Send and receive SMS messages <b>CTRL+F2</b>"
-msgstr "Posielanie a prijímatnie SMS správ <b>CTRL+F2</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:369
 msgid "Send USSD requests <b>CTRL+F3</b>"
-msgstr "Posielanie USSD žiadostí <b>CTRL+F3</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:371
 #: ../resources/ui/modem-manager-gui.ui:895
 #: ../resources/ui/modem-manager-gui.ui:4013
 msgid "USSD"
-msgstr "USSD"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:385
 msgid "View active device information <b>CTRL+F4</b>"
-msgstr "Zobraziť informácie o aktívnom zariadení <b>CTRL+F4</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:387
 #: ../resources/ui/modem-manager-gui.ui:1318
 #: ../resources/ui/modem-manager-gui.ui:4027
 msgid "Info"
-msgstr "Info"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:401
 msgid "Scan existing mobile networks <b>CTRL+F5</b>"
-msgstr "Prehľadávať existujúce mobilné siete <b>CTRL+F5</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:403
 #: ../resources/ui/modem-manager-gui.ui:1414
 #: ../resources/ui/modem-manager-gui.ui:4041
 msgid "Scan"
-msgstr "Vyhľadávať"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:417
 msgid "Monitor network traffic <b>CTRL+F6</b>"
-msgstr "Sledovať prenosy siete <b>CTRL+F6</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:419
 #: ../resources/ui/modem-manager-gui.ui:1560
 #: ../resources/ui/modem-manager-gui.ui:4055
 #: ../resources/ui/modem-manager-gui.ui:4265
 msgid "Traffic"
-msgstr "Prenosy"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:433
 msgid "View system and modem addressbooks <b>CTRL+F7</b>"
-msgstr "Zobraziť systémové a modemové adresáre <b>CTRL+F7</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:435
 #: ../resources/ui/modem-manager-gui.ui:1671
 #: ../resources/ui/modem-manager-gui.ui:4069
 msgid "Contacts"
-msgstr "Kontakty"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:580
 #: ../resources/ui/modem-manager-gui.ui:846
 msgid "Edit"
-msgstr "Upraviť"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:584
 msgid "Open connection editor <b>CTRL+E</b>"
-msgstr "Otvoriť editor pripojení <b>CTRL+E</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:599
 msgid "Activate or deactivate connection <b>CTRL+A</b>"
-msgstr "Aktivovať alebo deaktivovať pripojenie <b>CTRL+A</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:664
 msgid "Send new SMS message <b>CTRL+N</b>"
-msgstr "Odoslať novú SMS správu <b>CTRL+N</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:666
 msgid "New"
-msgstr "Nová"
+msgstr "Νέο"
 
 #: ../resources/ui/modem-manager-gui.ui:680
 msgid "Remove selected message <b>CTRL+D</b>"
-msgstr "Odstrániť vybranú správu <b>CTRL+D</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:682
 msgid "Remove"
-msgstr "Odstrániť"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:696
 msgid "Answer selected message <b>CTRL+A</b>"
-msgstr "Odpovedať na vybranú správu <b>CTRL+A</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:698
 msgid "Answer"
-msgstr "Odpovedať"
+msgstr "Απάντηση"
 
 #: ../resources/ui/modem-manager-gui.ui:797
 msgid "Request"
-msgstr "Vyžiadať"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:828
 #: ../resources/ui/modem-manager-gui.ui:2901
 msgid "Send"
-msgstr "Odoslať"
+msgstr "Αποστολή"
 
 #: ../resources/ui/modem-manager-gui.ui:832
 msgid "Send ussd request <b>CTRL+S</b>"
-msgstr "Poslať USSD žiadosť <b>CTRL+S</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:850
 msgid "Edit USSD commands list <b>CTRL+E</b>"
-msgstr "Upraviť zoznam príkazov USSD <b>CTRL+E</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:968
 msgid "IMEI"
-msgstr "IMEI"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:993
 msgid "IMSI/ESN"
-msgstr "IMSI/ESN"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1022
 msgid "<b>Equipment</b>"
-msgstr "<b>Zariadenie</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1091
 msgid "Mode"
-msgstr "Režim"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1116
 msgid "Signal level"
-msgstr "Sila signálu"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1128
 msgid "Operator code"
-msgstr "Kód operátora"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1153
 msgid "Registration"
-msgstr "Registrácia"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1197
 #: ../resources/ui/modem-manager-gui.ui:2166
 msgid "<b>Network</b>"
-msgstr "<b>Sieť</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1241
 msgid ""
 "3GPP Location\n"
 "<small>MCC/MNC/LAC/RNC/CID</small>"
-msgstr "3GPP poloha\n<small>MCC/MNC/LAC/RNC/CID</small>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1255
 msgid ""
 "GPS location\n"
 "<small>Longitude/Latitude</small>"
-msgstr "GPS poloha\n<small>Zemepisná dĺžka/šírka</small>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1299
 msgid "<b>Location</b>"
-msgstr "<b>Poloha</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1362
 msgid "Scan available mobile networks <b>CTRL+S</b>"
-msgstr "Prehľadať dostupné mobilné siete <b>CTRL+S</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1364
 msgid "Start scan"
-msgstr "Spustiť vyhľadávanie"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1388
 msgid "Create connection"
-msgstr "Vytvoriť pripojenie"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1434
 msgid "Set traffic amount or time limit for disconnect <b>CTRL+L</b>"
-msgstr "Nastaviť množstvo prenosov alebo časový limit pre odpojenie <b>CTRL+L</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1436
 msgid "Set limit"
-msgstr "Nastaviť obmedzenie"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1450
 msgid "View list of active network connections <b>CTRL+C</b>"
-msgstr "Zobraziť zoznam aktívnych sieťových pripojení <b>CTRL+C</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1452
 #: ../resources/ui/modem-manager-gui.ui:1883
 msgid "Connections"
-msgstr "Pripojenia"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1466
 msgid "View daily traffic statistics <b>CTRL+S</b>"
-msgstr "Zobraziť štatistiku denných prenosov <b>CTRL+S</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1468
 msgid "Statistics"
-msgstr "Štatistiky"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1519
 msgid "Transmission speed"
-msgstr "Rýchlosť prenosu"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1580
 msgid "Add new contact to modem addressbook <b>CTRL+N</b>"
-msgstr "Pridať nový kontakt do modemového adresára <b>CTRL+N</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1582
 #: ../resources/ui/modem-manager-gui.ui:2637
 msgid "New contact"
-msgstr "Nový kontakt"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1596
 msgid "Remove contact from modem addressbook <b>CTRL+D</b>"
-msgstr "Odobrať kontakt z modemového adresára <b>CTRL+D</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1598
 msgid "Remove contact"
-msgstr "Odstrániť kontakt"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1622
 msgid "Send SMS message to selected contact <b>CTRL+S</b>"
-msgstr "Poslať SMS správu vybranému kontaktu <b>CTRL+S</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1624
 msgid "Send SMS"
-msgstr "Poslať SMS"
+msgstr "Αποστολή μηνύματος"
 
 #: ../resources/ui/modem-manager-gui.ui:1729
 msgid "Copyright 2012-2017 Alex"
-msgstr "Copyright 2012-2017 Alex"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1730
 msgid "Tool for EDGE/3G/4G modem specific functions control"
-msgstr "Nástroj pre kontrolu funkcií EDGE/3G/4G modemu"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1732
 msgid "Homepage"
-msgstr "Domovská stránka"
+msgstr "Αρχική σελίδα"
 
 #: ../resources/ui/modem-manager-gui.ui:1733
 msgid "GPL3"
-msgstr "GPL3"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1735
 msgid "English: Alex <alex@linuxonly.ru>"
-msgstr "Slovenčina: Jozef Gaál <preklady@mayday.sk>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1771
 msgid "Active connections"
-msgstr "Aktívne pripojenia"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1824
 msgid "Terminate selected application using SIGTERM signal <b>CTRL+T</b>"
-msgstr "Ukončiť vybranú aplikáciu použitím SIGTERM signálu <b>CTRL+T</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1826
 msgid "Terminate application"
-msgstr "Ukončiť aplikáciu"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1947
 msgid "Add new broadband connection"
-msgstr "Pridať nové širokopásmové pripojenie"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1949
 msgid "Add connection"
-msgstr "Pridať pripojenie"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1964
 msgid "Remove selected connection"
-msgstr "Odstrániť vybrané pripojenie"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:1966
 msgid "Remove connection"
-msgstr "Odstrániť pripojenie"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:2048
 msgid "Name"
-msgstr "Názov"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:2060
 msgid "APN"
-msgstr "APN"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:2087
 msgid "<b>Connection</b>"
-msgstr "<b>Pripojenie</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:2121
 msgid "Network ID"
-msgstr "ID siete"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:2131
 msgid "Enable roaming"
-msgstr "Zapnúť roaming"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:2199
 msgid "Access number"
-msgstr "Prístupové číslo"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:2211
 msgid "User name"
-msgstr "Používateľské meno"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:2223
 msgid "Password"
-msgstr "Heslo"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:2278
 msgid "<b>Authentication</b>"
-msgstr "<b>Overenie</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:2311
 msgid "DNS 1"
-msgstr "DNS 1"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:2323
 msgid "DNS 2"
-msgstr "DNS 2"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:2367
 msgid "<b>DNS</b>"
-msgstr "<b>DNS</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:2423
 msgid "Error"
-msgstr "Chyba"
+msgstr "Σφάλμα"
 
 #: ../resources/ui/modem-manager-gui.ui:2534
 msgid "Ask me again"
-msgstr "Opýtať sa ma znova"
+msgstr "Ρώτησέ με ξανά"
 
 #: ../resources/ui/modem-manager-gui.ui:2552
 msgid "<b>Quit or minimize?</b>"
-msgstr "<b>Ukončiť alebo minimalizovať?</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:2564
 msgid "What do you want application to do on window close?"
-msgstr "Čo chcete, aby aplikácia urobila pri zatvorení okna?"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:2573
 msgid "Just quit"
-msgstr "Iba ukončiť"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:2588
 msgid "Minimize to tray or messaging menu"
-msgstr "Minimalizovať do systémovej lišty alebo do menu správ"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:2852
 msgid "New SMS message"
-msgstr "Nová SMS správa"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:2916
 msgid "Save"
-msgstr "Uložiť"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:2968
 msgid "Number"
-msgstr "Číslo"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3100
 msgid "Please enter PIN code to unlock modem"
-msgstr "Prosím vložte PIN kód pre odomknutie modemu"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3131
 msgid "PIN"
-msgstr "PIN"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3249
 msgid "Use sounds for events"
-msgstr "Použiť zvuky pre udalosti"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3264
 msgid "Hide window to tray on close"
-msgstr "Skryť okno do systémovej lišty po zatvorení"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3279
 msgid "Save window geometry and placement"
-msgstr "Uložiť geometriu okna a umiestnenie"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3294
 msgid "Add program to autostart list"
-msgstr "Pridať program do zoznamu autostartu"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3315
 msgid "<b>Behaviour</b>"
-msgstr "<b>Správanie</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3325
 msgid "Behaviour"
-msgstr "Správanie"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3356
 msgid "Concatenate messages"
-msgstr "Zreťazenie správ"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3371
 msgid "Expand folders"
-msgstr "Rozbaliť priečinky"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3386
 msgid "Place old messages on top"
-msgstr "Umiestnite staré správy navrch"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3407
 msgid "<b>Presentation</b>"
-msgstr "<b>Prezentácia</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3437
 msgid "Validity period"
-msgstr "Doba platnosti"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3446
 msgid "Send delivery report if possible"
-msgstr "Poslať správu o doručení ak je to možné"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3484
 msgid "<b>Message parameters</b>"
-msgstr "<b>Parametre správ</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3540
 msgid ""
 "<i><small>Use <b>%n</b> for message sender number and <b>%t</b> for it's "
 "text (eg. <b>zenity --info --title=%n --text=%t</b>).</small></i>"
-msgstr "<i><small>Použite <b>%n</b> pre číslo odosielateľa správy a <b>%t</b> pre jeho text (napr. <b>zenity --info --title=%n --text=%t</b>).</small></i>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3559
 msgid "<b>Custom command</b>"
-msgstr "<b>Vlastný príkaz</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3632
 msgid "RX Speed graph color"
-msgstr "Farba grafu RX rýchlosti"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3644
 msgid "TX Speed graph color"
-msgstr "Farba grafu TX rýchlosti"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3656
 msgid "Movement direction"
-msgstr "Smer pohybu"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3670
 msgid "Left to right"
-msgstr "Zľava do prava"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3671
 msgid "Right to left"
-msgstr "Zprava do ľava"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3687
 msgid "<b>Traffic</b>"
-msgstr "<b>Prenosy</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3700
 msgid "Graphs"
-msgstr "Grafy"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3789
 msgid "<b>Preferred backends</b>"
-msgstr "<b>Preferované backendy</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3821
 msgid "Enable device"
-msgstr "Zapnúť zariadenie"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3833
 msgid "Send SMS message"
-msgstr "Poslať SMS správu"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3845
 msgid "Send USSD request"
-msgstr "Poslať USSD žiadosť"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3857
 msgid "Scan networks"
-msgstr "Vyhľadať siete"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3937
 msgid "<b>Operations timeouts</b>"
-msgstr "<b>Prerušenia prevádzky</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:3957
 msgid "Modules"
-msgstr "Moduly"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:4089
 msgid "<b>Active pages</b>"
-msgstr "<b>Aktívne stránky</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:4102
 msgid "Pages"
-msgstr "Stránky"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:4135
 msgid "Question"
-msgstr "Otázka"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:4171
 msgid "Traffic limits"
-msgstr "Limity prenosov"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:4233
 msgid "Enable traffic limit"
-msgstr "Zapnúť obmedzenie prenosov"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:4248
 msgid "Enable time limit"
-msgstr "Zapnúť obmedzenie času"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:4291
 msgid "Mb"
-msgstr "Mb"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:4292
 msgid "Gb"
-msgstr "Gb"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:4293
 msgid "Tb"
-msgstr "Tb"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:4305
 #: ../resources/ui/modem-manager-gui.ui:4396
 msgid "Message"
-msgstr "Správa"
+msgstr "Μήνυμα"
 
 #: ../resources/ui/modem-manager-gui.ui:4329
 #: ../resources/ui/modem-manager-gui.ui:4420
 msgid "Action"
-msgstr "Akcia"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:4343
 #: ../resources/ui/modem-manager-gui.ui:4434
 msgid "Show message"
-msgstr "Zobraziť správu"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:4344
 #: ../resources/ui/modem-manager-gui.ui:4435
 msgid "Disconnect"
-msgstr "Odpojiť"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:4357
 msgid "Time"
-msgstr "Čas"
+msgstr "Χρόνος"
 
 #: ../resources/ui/modem-manager-gui.ui:4383
 msgid "Minutes"
-msgstr "Minúty"
+msgstr "Λεπτά"
 
 #: ../resources/ui/modem-manager-gui.ui:4384
 msgid "Hours"
-msgstr "Hodiny"
+msgstr "Ώρες"
 
 #: ../resources/ui/modem-manager-gui.ui:4464
 msgid "Traffic statistics"
-msgstr "Štatistika prenosov"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:4518
 msgid "Selected statistics period"
-msgstr "Vybrané štatistické obdobie"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:4559
 msgid "January"
-msgstr "Január"
+msgstr "Ιανουάριος"
 
 #: ../resources/ui/modem-manager-gui.ui:4560
 msgid "February"
-msgstr "Február"
+msgstr "Φεβρουάριος"
 
 #: ../resources/ui/modem-manager-gui.ui:4561
 msgid "March"
-msgstr "Marec"
+msgstr "Μάρτιος"
 
 #: ../resources/ui/modem-manager-gui.ui:4562
 msgid "April"
-msgstr "Apríl"
+msgstr "Απρίλιος"
 
 #: ../resources/ui/modem-manager-gui.ui:4563
 msgid "May"
-msgstr "Máj"
+msgstr "Μάιος"
 
 #: ../resources/ui/modem-manager-gui.ui:4564
 msgid "June"
-msgstr "Jún"
+msgstr "Ιούνιος"
 
 #: ../resources/ui/modem-manager-gui.ui:4565
 msgid "July"
-msgstr "Júl"
+msgstr "Ιούλιος"
 
 #: ../resources/ui/modem-manager-gui.ui:4566
 msgid "August"
-msgstr "August"
+msgstr "Αύγουστος"
 
 #: ../resources/ui/modem-manager-gui.ui:4567
 msgid "September"
-msgstr "September"
+msgstr "Σεπτέμβριος"
 
 #: ../resources/ui/modem-manager-gui.ui:4568
 msgid "October"
-msgstr "Október"
+msgstr "Οκτώβριος"
 
 #: ../resources/ui/modem-manager-gui.ui:4569
 msgid "November"
-msgstr "November"
+msgstr "Νοέμβριος"
 
 #: ../resources/ui/modem-manager-gui.ui:4570
 msgid "December"
-msgstr "December"
+msgstr "Δεκέμβριος"
 
 #: ../resources/ui/modem-manager-gui.ui:4627
 msgid "USSD commands"
-msgstr "USSD príkazy"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:4680
 msgid "Add new USSD command <b>CTRL+N</b>"
-msgstr "Pridať nový USSD príkaz <b>CTRL+N</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:4682
 msgid "Add"
-msgstr "Pridať"
+msgstr "Προσθήκη"
 
 #: ../resources/ui/modem-manager-gui.ui:4696
 msgid "Remove selected USSD command <b>CTRL+D</b>"
-msgstr "Odstrániť vybraný USSD príkaz <b>CTRL+D</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:4698
 msgid "Delete"
-msgstr "Vymazať"
+msgstr "Διαγραφή"
 
 #: ../resources/ui/modem-manager-gui.ui:4722
 msgid ""
 "Force USSD answer encoding change from GSM7 to UCS2 (useful for Huawei "
 "modems) <b>CTRL+E</b>"
-msgstr "Vynútiť zmenu kódovania odpovedí USSD z GSM7 na UCS2 (užitočné pre moduly Huawei) <b>CTRL+E</b>"
+msgstr ""
 
 #: ../resources/ui/modem-manager-gui.ui:4724
 msgid "Change message encoding"
-msgstr "Zmeniť kódovanie správy"
+msgstr ""

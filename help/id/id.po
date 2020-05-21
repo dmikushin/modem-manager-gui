@@ -1,17 +1,18 @@
 # 
 # Translators:
+# Al Cholis <roadxplor@gmail.com>, 2018
 # Alex <alex@linuxonly.ru>, 2015
 # Arif Budiman <arifpedia@gmail.com>, 2014
 # Muhammad Ridwan <muhammad.ridhwan.21@gmail.com>, 2017
 # Rendiyono Wahyu Saputro <rendi.7936@gmail.com>, 2015
-# windi anto <bo.observer.2@gmail.com>, 2017
+# much_doge <bo.observer.2@gmail.com>, 2017
 # Rendiyono Wahyu Saputro <rendi.7936@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Modem Manager GUI\n"
 "POT-Creation-Date: 2017-11-11 00:57+0300\n"
-"PO-Revision-Date: 2018-01-24 18:19+0000\n"
-"Last-Translator: Muhammad Ridwan <muhammad.ridhwan.21@gmail.com>\n"
+"PO-Revision-Date: 2018-10-20 14:25+0000\n"
+"Last-Translator: Al Cholis <roadxplor@gmail.com>\n"
 "Language-Team: Indonesian (http://www.transifex.com/ethereal/modem-manager-gui/language/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +23,7 @@ msgstr ""
 #. Put one translator per line, in the form NAME <EMAIL>, YEAR1, YEAR2
 msgctxt "_"
 msgid "translator-credits"
-msgstr "Arif Budiman <me@kangarif.com>, 2014"
+msgstr "Arif Budiman <me@kangarif.com>, 2014\nAl Cholis <roadxplor@gmail.com>, 2018"
 
 #. (itstool) path: info/desc
 #: C/about.page:9
@@ -75,7 +76,7 @@ msgid ""
 "To report a bug or make a suggestion regarding this application or this "
 "manual, use <link href=\"https://linuxonly.ru/forum/modem-manager-gui/\"> "
 "<app>Modem Manager GUI</app> support forum</link>."
-msgstr "Untuk melaporkan kutu atau memberi sugesti mengenai aplikasi atau manual ini, gunakan <link href=\"https://linuxonly.ru/forum/modem-manager-gui/\">Forum dukungan <app> Manajer Modem GUI</app></link>"
+msgstr "Untuk melaporkan kutu atau memberi saran mengenai aplikasi atau manual ini, gunakan <link href=\"https://linuxonly.ru/forum/modem-manager-gui/\">Forum dukungan <app> Manajer Modem GUI</app></link>"
 
 #. (itstool) path: page/p
 #: C/about.page:39
@@ -102,7 +103,7 @@ msgstr "Menyediakan kode"
 msgid ""
 "<app>Modem Manager GUI</app> has a version control system at Bitbucket.com. "
 "You can clone the repository with the following command:"
-msgstr "<app>Manajer Modem GUI</app> memiliki kontrol versi di Bitbucket.com. Anda bisa menggandakan repositori menggunakan command berikut: "
+msgstr "<app>Manajer Modem GUI</app> memiliki kontrol versi pada Bitbucket.com. Anda bisa menggandakan repositori menggunakan command berikut: "
 
 #. (itstool) path: page/p
 #: C/contrib-code.page:29
@@ -232,25 +233,25 @@ msgstr "Kamu dapat menggunakan <app>Modem Manager GUI</app> untuk tugas berikut:
 #. (itstool) path: item/p
 #: C/index.page:35
 msgid "Create and control mobile broadband connections"
-msgstr ""
+msgstr "Buat dan kelola sambungan data seluler"
 
 #. (itstool) path: item/p
 #: C/index.page:38
 msgid "Send and receive SMS messages and store messages in database"
-msgstr ""
+msgstr "Kirim dan terima pesan SMS dan menyimpannya ke basis data"
 
 #. (itstool) path: item/p
 #: C/index.page:41
 msgid ""
 "Initiate USSD requests and read answers (also using interactive sessions)"
-msgstr ""
+msgstr "Inisiasi permintaan USSD dan membaca jawaban (juga menggunakan sesi interaktif)"
 
 #. (itstool) path: item/p
 #: C/index.page:44
 msgid ""
 "View device information: operator name, device mode, IMEI, IMSI, signal "
 "level"
-msgstr ""
+msgstr "Lihat informasi perangkat: nama operator, mode perangkat, IMEI, IMSI, level sinyal"
 
 #. (itstool) path: item/p
 #: C/index.page:47
@@ -260,7 +261,7 @@ msgstr "Pindai jaringan seluler yang tersedia"
 #. (itstool) path: item/p
 #: C/index.page:50
 msgid "View mobile traffic statistics and set limits"
-msgstr ""
+msgstr "Lihat statistik penggunaan data seluler dan atur batas"
 
 #. (itstool) path: section/title
 #: C/index.page:55
@@ -368,7 +369,7 @@ msgstr "Laporkan bug"
 msgid ""
 "If you found a bug in <app>Modem Manager GUI</app>, you can use the <link "
 "href=\"https://linuxonly.ru/forum/modem-manager-gui/\">support forum</link>."
-msgstr ""
+msgstr "Jika anda menemukan bug dalam  <app>Modem Manager GUI</app>, anda dapat menggunakan <link href=\"https://linuxonly.ru/forum/modem-manager-gui/\">dukungan forum</link>."
 
 #. (itstool) path: page/p
 #: C/report-bugs.page:29
@@ -377,12 +378,12 @@ msgid ""
 "href=\"https://linuxonly.ru/forum/modem-manager-gui/\"> the existing "
 "ones</link> first. Maybe someone else has already encountered the same "
 "problem? Then you might write your comments there."
-msgstr ""
+msgstr "Sebelum mengajukan topik baru, silahkan lihat pada <link href=\"https://linuxonly.ru/forum/modem-manager-gui/\"> yang sudah ada</link> terlebih dahulu. Mungkin seseorang telah mengalami masalah yang sama? Kemudian anda mungkin menulis komentar anda di sana."
 
 #. (itstool) path: note/p
 #: C/report-bugs.page:34
 msgid "You can also use the support forum for feature requests."
-msgstr ""
+msgstr "Anda juga dapat menggunakan dukungan forum untuk meminta fitur"
 
 #. (itstool) path: info/desc
 #: C/usage-config.page:9
@@ -443,7 +444,7 @@ msgid ""
 "storage and <gui style=\"button\">Send SMS</gui> button to compose and send "
 "SMS message to selected contact (either from SIM card or modem, or exported "
 "from system contacts storage)."
-msgstr ""
+msgstr "Gunakan tombol <gui style=\"button\">Kontak baru</gui> untuk mengisi form dan menambahkan kontak baru ke kartu SIM atau modem, <gui style=\"button\">Hapus kontak</gui> untuk menghapus kontak yang dipilih dari kartu SIM atau modem dan <gui style=\"button\">Kirim SMS</gui> untuk membuat dan mengirim pesan SMS ke kontak yang dipilih (dari kartu SIM ataupun modem, atau diekspor dari penyimpanan kontak di sistem)"
 
 #. (itstool) path: note/p
 #: C/usage-contacts.page:44
@@ -452,7 +453,7 @@ msgid ""
 "example, ModemManager doesn't work with contacts from SIM card and modem "
 "memory at all (this functionality isn't implemented yet), and oFono can only"
 " export contacts from SIM card (this is developer's decision)."
-msgstr ""
+msgstr "Beberapa backend tidak mendukung fungsi manipulasi kontak modem. Misalnya, ModemManager tidak bekerja dengan kontak dari kartu SIM dan memori modem sama sekali (fungsi ini belum diimplementasikan), dan oFono hanya dapat mengekspor kontak dari kartu SIM (ini adalah keputusan pengembang)."
 
 #. (itstool) path: info/desc
 #: C/usage-getinfo.page:9

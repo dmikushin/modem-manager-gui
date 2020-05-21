@@ -4,13 +4,14 @@
 # 
 # Translators:
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2013,2015
+# Who Cares <transifex@redneptun.net>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Modem Manager GUI\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-12-31 20:07+0300\n"
-"PO-Revision-Date: 2018-01-24 18:54+0000\n"
-"Last-Translator: Alex <alex@linuxonly.ru>\n"
+"PO-Revision-Date: 2020-01-19 00:27+0000\n"
+"Last-Translator: Who Cares <transifex@redneptun.net>\n"
 "Language-Team: German (http://www.transifex.com/ethereal/modem-manager-gui/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -31,25 +32,25 @@ msgstr "Ungelesene Nachrichten"
 msgid ""
 "<b>%s is not valid</b>\n"
 "<small>It won't be saved and used on connection initialization</small>"
-msgstr ""
+msgstr "<b>%s ist ungültig </b>\n<small>Sie wird nicht gespeichert und bei der Verbindungsinitialisierung verwendet</small>"
 
 #: ../src/connection-editor-window.c:400 ../src/connection-editor-window.c:410
 #: ../src/connection-editor-window.c:734 ../src/connection-editor-window.c:956
 #: ../src/connection-editor-window.c:1007
 msgid "Unnamed connection"
-msgstr ""
+msgstr "Unbenannte Verbindung"
 
 #: ../src/connection-editor-window.c:438
 msgid "APN name"
-msgstr ""
+msgstr "APN-Name"
 
 #: ../src/connection-editor-window.c:577
 msgid "First DNS server IP address"
-msgstr ""
+msgstr "Erste DNS-Server IP-Adresse"
 
 #: ../src/connection-editor-window.c:588
 msgid "Second DNS server IP address"
-msgstr ""
+msgstr "Zweite DNS-Server IP-Adresse"
 
 #: ../src/connection-editor-window.c:1433
 #: ../resources/ui/modem-manager-gui.ui:559
@@ -142,17 +143,17 @@ msgstr "Aktivieren"
 
 #: ../src/devices-page.c:761
 msgid "Deactivate"
-msgstr ""
+msgstr "Deaktivieren"
 
 #: ../src/devices-page.c:800
 #, c-format
 msgid "Connecting to %s..."
-msgstr ""
+msgstr "Verbinde zu %s..."
 
 #: ../src/devices-page.c:811
 #, c-format
 msgid "Disconnecting from %s..."
-msgstr ""
+msgstr "Trenne von %s..."
 
 #: ../src/info-page.c:75 ../src/info-page.c:82 ../src/info-page.c:135
 #: ../src/info-page.c:143
@@ -190,7 +191,7 @@ msgstr "_Stoppen"
 
 #: ../src/main.c:780
 msgid "Unlocking device..."
-msgstr ""
+msgstr "Entsperre Gerät..."
 
 #: ../src/main.c:796
 msgid "Enabling device..."
@@ -207,22 +208,23 @@ msgstr "Das Modem ist nicht betriebsbereit. Bitte warten Sie, während das Modem
 
 #: ../src/main.c:1156
 msgid "Modem must be enabled to connect to Internet. Please enable modem."
-msgstr ""
+msgstr "Modem muss aktiviert sein, um sich mit dem Internet zu verbinden. Bitte aktivieren Sie das Modem."
 
 #: ../src/main.c:1157
 msgid ""
 "Modem must be registered in mobile network to connect to Internet. Please "
 "wait..."
-msgstr ""
+msgstr "Modem muss in Mobilfunknetzwerk registriert sein, um sich mit dem Internet zu verbinden. Bitte warten Sie..."
 
 #: ../src/main.c:1158
 msgid "Modem must be unlocked to connect to Internet. Please enter PIN code."
-msgstr ""
+msgstr "Modem muss entsperrt sein, um sich mit dem Internet zu verbinden. Bitte geben Sie den PIN ein."
 
 #: ../src/main.c:1159
 msgid ""
-"Connection manager does not support Internet connection management functions."
-msgstr ""
+"Connection manager does not support Internet connection management "
+"functions."
+msgstr "Der Verbindungsmanager unterstützt nicht Internetverbindungsverwaltungsfunktionen."
 
 #: ../src/main.c:1175
 msgid "Modem must be enabled to read and write SMS. Please enable modem."
@@ -301,23 +303,23 @@ msgstr "ModemManager unterstützt die Bearbeitung von Modem-Kontakten nicht."
 
 #: ../src/main.c:1304
 msgid "Enter PIN"
-msgstr ""
+msgstr "PIN eingeben"
 
 #: ../src/main.c:1306
 msgid ""
 "SIM card is locked with PUK code. Please contact your mobile operator for "
 "further instructions."
-msgstr ""
+msgstr "Die SIM-Karte ist gesperrt und mit einem PUK-Code gesperrt. Bitte kontaktieren Sie Ihren Mobilfunkanbieter für weitere Anweisungen."
 
 #: ../src/main.c:1309
 msgid ""
 "SIM card seems non-functional. Please contact your mobile operator for "
 "further instructions."
-msgstr ""
+msgstr "SIM-Karte scheint nicht funktional zu sein. Bitte kontaktieren Sie Ihren Mobilfunkanbieter für weitere Anweisungen."
 
 #: ../src/main.c:1322
 msgid "Enable"
-msgstr ""
+msgstr "Aktivieren"
 
 #: ../src/main.c:1581
 msgid "_Devices"
@@ -846,7 +848,7 @@ msgstr "Unbekannter Fehler"
 
 #: ../src/svcmanager.c:768
 msgid "Unknown activation status"
-msgstr ""
+msgstr "Unbekannter Aktivierungsstatus"
 
 #: ../src/svcmanager.c:839
 msgid "Unknown entity type"
@@ -1223,11 +1225,11 @@ msgstr "Bearbeiten"
 
 #: ../resources/ui/modem-manager-gui.ui:584
 msgid "Open connection editor <b>CTRL+E</b>"
-msgstr ""
+msgstr "Verbindungseditor öffnen <b>STRG+E</b>"
 
 #: ../resources/ui/modem-manager-gui.ui:599
 msgid "Activate or deactivate connection <b>CTRL+A</b>"
-msgstr ""
+msgstr "Verbindung aktivieren oder deaktivieren <b>STRG+A</b>"
 
 #: ../resources/ui/modem-manager-gui.ui:664
 msgid "Send new SMS message <b>CTRL+N</b>"
@@ -1313,7 +1315,7 @@ msgstr "3GPP-Ortung\n<small>MCC/MNC/LAC/RNC/CID</small>"
 msgid ""
 "GPS location\n"
 "<small>Longitude/Latitude</small>"
-msgstr ""
+msgstr "GPS Standort\n<small>Längengrad/Breitengrad</small>"
 
 #: ../resources/ui/modem-manager-gui.ui:1299
 msgid "<b>Location</b>"
@@ -1387,7 +1389,7 @@ msgstr "SMS verschicken"
 
 #: ../resources/ui/modem-manager-gui.ui:1729
 msgid "Copyright 2012-2017 Alex"
-msgstr ""
+msgstr "Copyright 2012-2017 Alex"
 
 #: ../resources/ui/modem-manager-gui.ui:1730
 msgid "Tool for EDGE/3G/4G modem specific functions control"
@@ -1423,7 +1425,7 @@ msgstr "Neue Breitbandverbindung hinzufügen"
 
 #: ../resources/ui/modem-manager-gui.ui:1949
 msgid "Add connection"
-msgstr ""
+msgstr "Verbindung hinzufügen"
 
 #: ../resources/ui/modem-manager-gui.ui:1964
 msgid "Remove selected connection"
@@ -1431,7 +1433,7 @@ msgstr "Ausgewählte Verbindung entfernen"
 
 #: ../resources/ui/modem-manager-gui.ui:1966
 msgid "Remove connection"
-msgstr ""
+msgstr "Verbindung entfernen"
 
 #: ../resources/ui/modem-manager-gui.ui:2048
 msgid "Name"
@@ -1451,7 +1453,7 @@ msgstr "Netzwerk-ID"
 
 #: ../resources/ui/modem-manager-gui.ui:2131
 msgid "Enable roaming"
-msgstr ""
+msgstr "Roaming aktivieren"
 
 #: ../resources/ui/modem-manager-gui.ui:2199
 msgid "Access number"
@@ -1519,11 +1521,11 @@ msgstr "Nummer"
 
 #: ../resources/ui/modem-manager-gui.ui:3100
 msgid "Please enter PIN code to unlock modem"
-msgstr ""
+msgstr "Bitte die PIN eingeben, um das Modem zu entsperren"
 
 #: ../resources/ui/modem-manager-gui.ui:3131
 msgid "PIN"
-msgstr ""
+msgstr "PIN"
 
 #: ../resources/ui/modem-manager-gui.ui:3249
 msgid "Use sounds for events"
@@ -1581,11 +1583,11 @@ msgstr "<b>Nachrichtenparameter</b>"
 msgid ""
 "<i><small>Use <b>%n</b> for message sender number and <b>%t</b> for it's "
 "text (eg. <b>zenity --info --title=%n --text=%t</b>).</small></i>"
-msgstr ""
+msgstr "<i><small>Nutze <b>%n</b> als Nachrichtenabsendernummer und <b>%t</b> als Text (z.B.: <b>zenity --info --title=%n --text=%t</b>).</small></i>"
 
 #: ../resources/ui/modem-manager-gui.ui:3559
 msgid "<b>Custom command</b>"
-msgstr ""
+msgstr "<b>Benutzerdefinierte Anweisung</b>"
 
 #: ../resources/ui/modem-manager-gui.ui:3632
 msgid "RX Speed graph color"
@@ -1597,15 +1599,15 @@ msgstr "Graph-Farbe für TX-Geschwindigkeit"
 
 #: ../resources/ui/modem-manager-gui.ui:3656
 msgid "Movement direction"
-msgstr ""
+msgstr "Bewegungsrichtung"
 
 #: ../resources/ui/modem-manager-gui.ui:3670
 msgid "Left to right"
-msgstr ""
+msgstr "Links nach rechts"
 
 #: ../resources/ui/modem-manager-gui.ui:3671
 msgid "Right to left"
-msgstr ""
+msgstr "Rechts nach links"
 
 #: ../resources/ui/modem-manager-gui.ui:3687
 msgid "<b>Traffic</b>"
@@ -1637,7 +1639,7 @@ msgstr "Netzwerke suchen"
 
 #: ../resources/ui/modem-manager-gui.ui:3937
 msgid "<b>Operations timeouts</b>"
-msgstr ""
+msgstr "<b>Operationstimeouts</b>"
 
 #: ../resources/ui/modem-manager-gui.ui:3957
 msgid "Modules"
@@ -1645,11 +1647,11 @@ msgstr "Module"
 
 #: ../resources/ui/modem-manager-gui.ui:4089
 msgid "<b>Active pages</b>"
-msgstr ""
+msgstr "<b>Aktive Seiten</b>"
 
 #: ../resources/ui/modem-manager-gui.ui:4102
 msgid "Pages"
-msgstr ""
+msgstr "Seiten"
 
 #: ../resources/ui/modem-manager-gui.ui:4135
 msgid "Question"
@@ -1661,7 +1663,7 @@ msgstr "Volumenbegrenzungen"
 
 #: ../resources/ui/modem-manager-gui.ui:4233
 msgid "Enable traffic limit"
-msgstr ""
+msgstr "Datenverkehrbegrenzung aktivieren"
 
 #: ../resources/ui/modem-manager-gui.ui:4248
 msgid "Enable time limit"

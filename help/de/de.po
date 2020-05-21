@@ -1,12 +1,13 @@
 # 
 # Translators:
 # Mario Blättermann <mario.blaettermann@gmail.com>, 2013-2015
+# Who Cares <transifex@redneptun.net>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Modem Manager GUI\n"
 "POT-Creation-Date: 2017-11-11 00:57+0300\n"
-"PO-Revision-Date: 2018-01-24 18:19+0000\n"
-"Last-Translator: Alex <alex@linuxonly.ru>\n"
+"PO-Revision-Date: 2020-01-18 23:55+0000\n"
+"Last-Translator: Who Cares <transifex@redneptun.net>\n"
 "Language-Team: German (http://www.transifex.com/ethereal/modem-manager-gui/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -62,7 +63,7 @@ msgid ""
 "about <app>Modem Manager GUI</app>, please visit the <link "
 "href=\"https://linuxonly.ru/page/modem-manager-gui\"><app>Modem Manager "
 "GUI</app> Web page</link>."
-msgstr ""
+msgstr "<app>Modem Manager GUI</app> wurde von <link href=\"mailto:alex@linuxonly.ru\">Alex</link> entwickelt. Um mehr über <app>Modem Manager GUI</app> zu erfahren, besuchen Sie bitte die <link href=\"https://linuxonly.ru/page/modem-manager-gui\"><app>Modem Manager GUI</app>-Webseite</link>."
 
 #. (itstool) path: page/p
 #: C/about.page:33
@@ -70,7 +71,7 @@ msgid ""
 "To report a bug or make a suggestion regarding this application or this "
 "manual, use <link href=\"https://linuxonly.ru/forum/modem-manager-gui/\"> "
 "<app>Modem Manager GUI</app> support forum</link>."
-msgstr ""
+msgstr "Um einen Fehler zu melden oder einen Vorschlag für die Anwendung oder diese Anleitung zu machen, nutzen Sie bitte das <link href=\"https://linuxonly.ru/forum/modem-manager-gui/\"><app>Modem Manager GUI</app>-Supportforum</link>."
 
 #. (itstool) path: page/p
 #: C/about.page:39
@@ -97,14 +98,14 @@ msgstr "Code beisteuern"
 msgid ""
 "<app>Modem Manager GUI</app> has a version control system at Bitbucket.com. "
 "You can clone the repository with the following command:"
-msgstr ""
+msgstr "<app>Modem Manager GUI</app> verfügt über ein Versionskontrollsystem auf Bitbucket.com. Sie können das Quellcode-Repository mit folgendem Befehl clonen: "
 
 #. (itstool) path: page/p
 #: C/contrib-code.page:29
 msgid ""
 "<cmd>hg clone https://linuxonly@bitbucket.org/linuxonly/modem-manager-"
 "gui</cmd>"
-msgstr ""
+msgstr "<cmd>hg clone https://linuxonly@bitbucket.org/linuxonly/modem-manager-gui</cmd>"
 
 #. (itstool) path: page/p
 #: C/contrib-code.page:31
@@ -118,7 +119,7 @@ msgid ""
 "For general help on how Bitbucket works, see the <link "
 "href=\"https://confluence.atlassian.com/display/BITBUCKET/Bitbucket+Cloud+documentation\">Bitbucket"
 " documentation</link>."
-msgstr ""
+msgstr "Für grundsätzliche Hilfe zur Funktionsweise von Bitbucket, schauen Sie bitte in die <link href=\"https://confluence.atlassian.com/display/BITBUCKET/Bitbucket+Cloud+documentation\">Bitbucket-Dokumentation</link>."
 
 #. (itstool) path: page/p
 #: C/contrib-code.page:36
@@ -127,7 +128,7 @@ msgid ""
 "repository, so you don't have to read Git tutorials; just make sure you know"
 " basic Mercurial commands and able to make pull requests on Bitbucket "
 "platform."
-msgstr ""
+msgstr "Der Quellcode von <app>Modem Manager GUI</app> befindet sich in einem Mercurial-Repository, daher brauchen Sie keine Git-Tutorials zu lesen; stellen Sie einfach sicher, dass Sie die grundlegenden Mercurial-Befehle kennen und in der Lage sind, Pull-Requests auf der Bitbucket-Plattform durchzuführen. "
 
 #. (itstool) path: info/desc
 #: C/contrib-translations.page:9
@@ -227,25 +228,25 @@ msgstr "Sie können mit <app>Modem Manager GUI</app> folgende Aufgaben ausführe
 #. (itstool) path: item/p
 #: C/index.page:35
 msgid "Create and control mobile broadband connections"
-msgstr ""
+msgstr "Mobile Breitbandverbindungen erstellen und verwalten"
 
 #. (itstool) path: item/p
 #: C/index.page:38
 msgid "Send and receive SMS messages and store messages in database"
-msgstr ""
+msgstr "SMS-Nachrichten senden, empfangen und Nachrichten in einer Datenbank speichern"
 
 #. (itstool) path: item/p
 #: C/index.page:41
 msgid ""
 "Initiate USSD requests and read answers (also using interactive sessions)"
-msgstr ""
+msgstr "USSD-Anfragen starten und Rückmeldungen lesen (ebenfalls in interaktiven Sitzungen)"
 
 #. (itstool) path: item/p
 #: C/index.page:44
 msgid ""
 "View device information: operator name, device mode, IMEI, IMSI, signal "
 "level"
-msgstr ""
+msgstr "Geräteinformationen anzeigen: Anbietername, Gerätemodell, IMEI, IMSI, Signalstärke"
 
 #. (itstool) path: item/p
 #: C/index.page:47
@@ -255,7 +256,7 @@ msgstr "Verfügbare Mobilfunknetze suchen"
 #. (itstool) path: item/p
 #: C/index.page:50
 msgid "View mobile traffic statistics and set limits"
-msgstr ""
+msgstr "Mobildatenverkehrstatistiken anzeigen und Grenzwerte festlegen"
 
 #. (itstool) path: section/title
 #: C/index.page:55
@@ -363,7 +364,7 @@ msgstr "Fehler melden"
 msgid ""
 "If you found a bug in <app>Modem Manager GUI</app>, you can use the <link "
 "href=\"https://linuxonly.ru/forum/modem-manager-gui/\">support forum</link>."
-msgstr ""
+msgstr "Sollten Sie einen Fehler in <app>Modem Manager GUI</app>finden, können Sie das <link href=\"https://linuxonly.ru/forum/modem-manager-gui/\">Supportforum</link> nutzen."
 
 #. (itstool) path: page/p
 #: C/report-bugs.page:29
@@ -372,12 +373,12 @@ msgid ""
 "href=\"https://linuxonly.ru/forum/modem-manager-gui/\"> the existing "
 "ones</link> first. Maybe someone else has already encountered the same "
 "problem? Then you might write your comments there."
-msgstr ""
+msgstr "Bevor Sie ein neues Thema eröffnen, prüfen Sie bitte zuerst <link href=\"https://linuxonly.ru/forum/modem-manager-gui/\">die bereits bestehenden</link>. Vielleicht ist jemand bereits auf dasselbe Problem gestoßen? Dann könnten Sie Ihre Kommentare dort hinterlassen."
 
 #. (itstool) path: note/p
 #: C/report-bugs.page:34
 msgid "You can also use the support forum for feature requests."
-msgstr ""
+msgstr "Sie können das Supportforum nutzen, um neue Programmfeatures vorzuschlagen."
 
 #. (itstool) path: info/desc
 #: C/usage-config.page:9
@@ -438,7 +439,7 @@ msgid ""
 "storage and <gui style=\"button\">Send SMS</gui> button to compose and send "
 "SMS message to selected contact (either from SIM card or modem, or exported "
 "from system contacts storage)."
-msgstr ""
+msgstr "Nutzen Sie die <gui style=\"button\">Neuer Kontakt</gui>-Schaltfläche um ein Formular auszufüllen und einen neuen Kontakt im SIM-Karten- oder Modemspeicher anzulegen. Nutzen Sie die <gui style=\"button\">Kontakt entfernen</gui>-Schaltfläche, um den gewählten Kontakt aus dem SIM-Karten- oder Modemspeicher zu löschen. Nutzen Sie die <gui style=\"button\">SMS senden</gui>-Schaltfläche um SMS zu verfassen und an den gewählten Kontakt (entweder aus dem SIM-Karten- oder Modemspeicher, oder aus einem Systemkontakte-Export stammend) zu senden."
 
 #. (itstool) path: note/p
 #: C/usage-contacts.page:44
@@ -447,7 +448,7 @@ msgid ""
 "example, ModemManager doesn't work with contacts from SIM card and modem "
 "memory at all (this functionality isn't implemented yet), and oFono can only"
 " export contacts from SIM card (this is developer's decision)."
-msgstr ""
+msgstr "Manche Backends unterstützen die Manipulation von Modemkontakten nicht. Zum Beispiel funktioniert ModemManager überhaupt nicht mit Kontakten aus dem SIM-Karten oder Modemspeicher (diese Funktionalität wurde bisher noch nicht implementiert) und oFono kann nur Kontakte von der SIM-Karte exportieren (hierbei handelt sich dabei um eine Entwicklerentscheidung)."
 
 #. (itstool) path: info/desc
 #: C/usage-getinfo.page:9
