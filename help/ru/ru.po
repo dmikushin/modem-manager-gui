@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Modem Manager GUI\n"
 "POT-Creation-Date: 2020-06-26 00:55+0300\n"
-"PO-Revision-Date: 2020-06-25 22:24+0000\n"
+"PO-Revision-Date: 2020-06-25 22:35+0000\n"
 "Last-Translator: Alex <alex@linuxonly.ru>\n"
 "Language-Team: Russian (http://www.transifex.com/ethereal/modem-manager-gui/language/ru/)\n"
 "MIME-Version: 1.0\n"
@@ -125,7 +125,7 @@ msgid ""
 "<app>Modem Manager GUI</app> source code is stored inside Mercurial "
 "repository, so you don't have to read Git tutorials; just make sure you know"
 " basic Mercurial commands and able to work on SourceForge platform."
-msgstr "Исходный код <app>Modem Manager GUI</app> хранится в репозитории Mercurial, поэтому вам едва ли пригодятся руководства по работе с Git tutorials; вам придется узнать основные команды Mercurial и научиться работать с платформой SourceForge."
+msgstr "Исходный код <app>Modem Manager GUI</app> хранится в репозитории Mercurial, поэтому вам едва ли пригодятся руководства по работе с Git; вам придется узнать основные команды Mercurial и научиться работать с платформой SourceForge."
 
 #. (itstool) path: info/desc
 #: C/contrib-translations.page:8
