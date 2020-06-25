@@ -4,9 +4,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Modem Manager GUI\n"
-"POT-Creation-Date: 2017-11-11 00:57+0300\n"
-"PO-Revision-Date: 2020-03-19 19:05+0000\n"
-"Last-Translator: Jozef Gaal <preklady@mayday.sk>\n"
+"POT-Creation-Date: 2020-06-26 00:55+0300\n"
+"PO-Revision-Date: 2020-06-25 22:01+0000\n"
+"Last-Translator: Alex <alex@linuxonly.ru>\n"
 "Language-Team: Slovak (Slovakia) (http://www.transifex.com/ethereal/modem-manager-gui/language/sk_SK/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -20,42 +20,42 @@ msgid "translator-credits"
 msgstr "Jozef Gaál <preklady@mayday.sk>"
 
 #. (itstool) path: info/desc
-#: C/about.page:9
+#: C/about.page:8
 msgid "Information about <app>Modem Manager GUI</app>."
 msgstr "Informácie o <app>Modem Manager GUI</app>."
 
 #. (itstool) path: credit/name
-#: C/about.page:13 C/contrib-code.page:13 C/contrib-translations.page:13
-#: C/index.page:11 C/report-bugs.page:13 C/usage-config.page:13
-#: C/usage-contacts.page:13 C/usage-getinfo.page:13 C/usage-modem.page:13
-#: C/usage-netsearch.page:13 C/usage-sms.page:14 C/usage-traffic.page:13
-#: C/usage-ussd.page:13
+#: C/about.page:12 C/contrib-code.page:12 C/contrib-translations.page:12
+#: C/index.page:11 C/report-bugs.page:12 C/usage-config.page:12
+#: C/usage-contacts.page:12 C/usage-getinfo.page:12 C/usage-modem.page:12
+#: C/usage-netsearch.page:12 C/usage-sms.page:13 C/usage-traffic.page:12
+#: C/usage-ussd.page:12
 msgid "Mario Blättermann"
 msgstr "Mario Blättermann"
 
 #. (itstool) path: credit/name
-#: C/about.page:17 C/contrib-code.page:17 C/index.page:15
-#: C/report-bugs.page:17 C/usage-contacts.page:17 C/usage-netsearch.page:17
-#: C/usage-sms.page:18 C/usage-traffic.page:17 C/usage-ussd.page:17
+#: C/about.page:16 C/contrib-code.page:16 C/index.page:15
+#: C/report-bugs.page:16 C/usage-contacts.page:16 C/usage-netsearch.page:16
+#: C/usage-sms.page:17 C/usage-traffic.page:16 C/usage-ussd.page:16
 msgid "Alex"
 msgstr "Alex"
 
 #. (itstool) path: license/p
-#: C/about.page:21 C/contrib-code.page:21 C/contrib-translations.page:17
-#: C/index.page:19 C/report-bugs.page:21 C/usage-config.page:17
-#: C/usage-contacts.page:21 C/usage-getinfo.page:17 C/usage-modem.page:17
-#: C/usage-netsearch.page:21 C/usage-sms.page:22 C/usage-traffic.page:21
-#: C/usage-ussd.page:21
+#: C/about.page:20 C/contrib-code.page:20 C/contrib-translations.page:16
+#: C/index.page:19 C/report-bugs.page:20 C/usage-config.page:16
+#: C/usage-contacts.page:20 C/usage-getinfo.page:16 C/usage-modem.page:16
+#: C/usage-netsearch.page:20 C/usage-sms.page:21 C/usage-traffic.page:20
+#: C/usage-ussd.page:20
 msgid "Creative Commons Share Alike 3.0"
 msgstr "Creative Commons Share Alike 3.0"
 
 #. (itstool) path: page/title
-#: C/about.page:25
+#: C/about.page:24
 msgid "About <app>Modem Manager GUI</app>"
 msgstr "O programe <app>Modem Manager GUI</app>"
 
 #. (itstool) path: page/p
-#: C/about.page:27
+#: C/about.page:26
 msgid ""
 "<app>Modem Manager GUI</app> was written by <link "
 "href=\"mailto:alex@linuxonly.ru\">Alex</link>. To find more information "
@@ -65,7 +65,7 @@ msgid ""
 msgstr "<app>Modem Manager GUI</app> napísal <link href=\"mailto:alex@linuxonly.ru\">Alex</link>. Viac informácié o <app>Modem Manager GUI</app> nájdete na <link href=\"https://linuxonly.ru/page/modem-manager-gui\"><app>Modem Manager GUI</app> webovej stránke</link>."
 
 #. (itstool) path: page/p
-#: C/about.page:33
+#: C/about.page:34
 msgid ""
 "To report a bug or make a suggestion regarding this application or this "
 "manual, use <link href=\"https://linuxonly.ru/forum/modem-manager-gui/\"> "
@@ -73,69 +73,67 @@ msgid ""
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/about.page:39
+#: C/about.page:40
 msgid ""
 "This program is distributed under the terms of the GNU General Public "
 "license version 3, as published by the Free Software Foundation. A copy of "
-"this license can be found at this <link href=\"help:gpl\" "
-"type=\"help\">link</link>, or in the file COPYING included with the source "
-"code of this program."
+"this license can be found at this <link href=\"help:gpl\">link</link>, or in"
+" the file COPYING included with the source code of this program."
 msgstr ""
 
 #. (itstool) path: info/desc
-#: C/contrib-code.page:9
-msgid "How you can help make <app>Modem Manager GUI </app> better."
-msgstr "Ako môžete zlepšiť <app>Modem Manager GUI </app>."
+#: C/contrib-code.page:8
+msgid "How you can help make <app>Modem Manager GUI</app> better."
+msgstr ""
 
 #. (itstool) path: page/title
-#: C/contrib-code.page:25
+#: C/contrib-code.page:24
 msgid "Provide code"
 msgstr ""
 
 #. (itstool) path: page/p
 #: C/contrib-code.page:26
 msgid ""
-"<app>Modem Manager GUI</app> has a version control system at Bitbucket.com. "
-"You can clone the repository with the following command:"
+"<app>Modem Manager GUI</app> has a version control system at "
+"SourceForge.net. You can clone the repository with the following command:"
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/contrib-code.page:29
+#: C/contrib-code.page:31
 msgid ""
-"<cmd>hg clone https://linuxonly@bitbucket.org/linuxonly/modem-manager-"
-"gui</cmd>"
-msgstr "<cmd>hg clone https://linuxonly@bitbucket.org/linuxonly/modem-manager-gui</cmd>"
+"<cmd>hg clone http://hg.code.sf.net/p/modem-manager-gui/code modem-manager-"
+"gui-code</cmd>"
+msgstr ""
 
 #. (itstool) path: page/p
-#: C/contrib-code.page:31
+#: C/contrib-code.page:35
 msgid ""
 "Note, this clone command doesn't give you write access to the repository."
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/contrib-code.page:33
+#: C/contrib-code.page:39
 msgid ""
-"For general help on how Bitbucket works, see the <link "
-"href=\"https://confluence.atlassian.com/display/BITBUCKET/Bitbucket+Cloud+documentation\">Bitbucket"
-" documentation</link>."
+"For general help on how SourceForge works, see the <link "
+"href=\"https://sourceforge.net/p/forge/documentation/ToC/\">SourceForge "
+"documentation</link>."
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/contrib-code.page:36
+#: C/contrib-code.page:44
 msgid ""
 "<app>Modem Manager GUI</app> source code is stored inside Mercurial "
 "repository, so you don't have to read Git tutorials; just make sure you know"
-" basic Mercurial commands and able to make pull requests on Bitbucket "
-"platform."
+" basic Mercurial commands and able to work on SourceForge platform."
 msgstr ""
 
 #. (itstool) path: info/desc
-#: C/contrib-translations.page:9
+#: C/contrib-translations.page:8
 msgid "Translate <app>Modem Manager GUI</app> into your native language."
 msgstr ""
 
 #. (itstool) path: page/title
-#: C/contrib-translations.page:21
+#: C/contrib-translations.page:20
 msgid "Translations"
 msgstr "Preklady"
 
@@ -148,7 +146,7 @@ msgid ""
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/contrib-translations.page:25
+#: C/contrib-translations.page:27
 msgid ""
 "There is a <link href=\"https://www.transifex.com/projects/p/modem-manager-"
 "gui/\"> project page on Transifex</link> where existing translations are "
@@ -156,14 +154,14 @@ msgid ""
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/contrib-translations.page:31
+#: C/contrib-translations.page:33
 msgid ""
 "For general help on how Transifex works, see the <link "
 "href=\"http://support.transifex.com/\">Transifex Help Desk</link>."
 msgstr ""
 
 #. (itstool) path: note/p
-#: C/contrib-translations.page:35
+#: C/contrib-translations.page:39
 msgid ""
 "For your work you should have a look at the rules and dictionaries of the "
 "local <link href=\"https://l10n.gnome.org/teams/\">Gnome translation teams "
@@ -198,22 +196,22 @@ msgstr "Modem Manager GUI"
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/index.page:24
+#: C/index.page:23
 msgctxt "_"
 msgid ""
 "external ref='figures/modem-manager-gui-logo.png' "
-"md5='a5ab22246356ef7c194bb09f1ec8e432'"
-msgstr "external ref='figures/modem-manager-gui-logo.png' md5='a5ab22246356ef7c194bb09f1ec8e432'"
+"md5='ab42d66239c7ef08904a9a921834cea2'"
+msgstr ""
 
 #. (itstool) path: page/title
-#: C/index.page:24
+#: C/index.page:23
 msgid ""
-"<media type=\"image\" src=\"figures/modem-manager-gui-logo.png\">GNOME Hello"
-" logo</media>Modem Manager GUI manual"
-msgstr "<media type=\"image\" src=\"figures/modem-manager-gui-logo.png\">GNOME Hello logo</media>Modem Manager GUI manuál"
+"<media type=\"image\" src=\"figures/modem-manager-gui-logo.png\"/>Modem "
+"Manager GUI manual"
+msgstr ""
 
 #. (itstool) path: page/p
-#: C/index.page:26
+#: C/index.page:25
 msgid ""
 "<app>Modem Manager GUI</app> is a graphical frontend for the ModemManager "
 "daemon which is able to control specific modem functions."
@@ -225,45 +223,45 @@ msgid "You can use <app>Modem Manager GUI</app> for the following tasks:"
 msgstr "Môžete použiť <app>Modem Manager GUI</app> pre nasledujúce úlohy:"
 
 #. (itstool) path: item/p
-#: C/index.page:35
+#: C/index.page:36
 msgid "Create and control mobile broadband connections"
 msgstr "Vytvárať a ovládať mobilné širokopásmové pripojenie"
 
 #. (itstool) path: item/p
-#: C/index.page:38
+#: C/index.page:39
 msgid "Send and receive SMS messages and store messages in database"
 msgstr "Posielať a prijímať SMS správy a ukladať ich do databázy"
 
 #. (itstool) path: item/p
-#: C/index.page:41
+#: C/index.page:42
 msgid ""
 "Initiate USSD requests and read answers (also using interactive sessions)"
 msgstr ""
 
 #. (itstool) path: item/p
-#: C/index.page:44
+#: C/index.page:45
 msgid ""
 "View device information: operator name, device mode, IMEI, IMSI, signal "
 "level"
 msgstr ""
 
 #. (itstool) path: item/p
-#: C/index.page:47
+#: C/index.page:48
 msgid "Scan available mobile networks"
 msgstr ""
 
 #. (itstool) path: item/p
-#: C/index.page:50
+#: C/index.page:51
 msgid "View mobile traffic statistics and set limits"
 msgstr ""
 
 #. (itstool) path: section/title
-#: C/index.page:55
+#: C/index.page:56
 msgid "Usage"
 msgstr "Použitie"
 
 #. (itstool) path: section/title
-#: C/index.page:59
+#: C/index.page:60
 msgid "Contribute to the project"
 msgstr "Prispejte k projektu"
 
@@ -278,49 +276,49 @@ msgid "License"
 msgstr "Licencia"
 
 #. (itstool) path: page/p
-#: C/license.page:12
+#: C/license.page:13
 msgid ""
 "This work is distributed under a CreativeCommons Attribution-Share Alike 3.0"
 " Unported license."
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/license.page:20
+#: C/license.page:22
 msgid "You are free:"
 msgstr ""
 
 #. (itstool) path: item/title
-#: C/license.page:25
+#: C/license.page:28
 msgid "<em>To share</em>"
 msgstr ""
 
 #. (itstool) path: item/p
-#: C/license.page:26
+#: C/license.page:29
 msgid "To copy, distribute and transmit the work."
 msgstr ""
 
 #. (itstool) path: item/title
-#: C/license.page:29
+#: C/license.page:32
 msgid "<em>To remix</em>"
 msgstr ""
 
 #. (itstool) path: item/p
-#: C/license.page:30
+#: C/license.page:33
 msgid "To adapt the work."
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/license.page:33
+#: C/license.page:37
 msgid "Under the following conditions:"
 msgstr ""
 
 #. (itstool) path: item/title
-#: C/license.page:38
+#: C/license.page:43
 msgid "<em>Attribution</em>"
 msgstr ""
 
 #. (itstool) path: item/p
-#: C/license.page:39
+#: C/license.page:44
 msgid ""
 "You must attribute the work in the manner specified by the author or "
 "licensor (but not in any way that suggests that they endorse you or your use"
@@ -328,19 +326,19 @@ msgid ""
 msgstr ""
 
 #. (itstool) path: item/title
-#: C/license.page:46
+#: C/license.page:51
 msgid "<em>Share Alike</em>"
 msgstr ""
 
 #. (itstool) path: item/p
-#: C/license.page:47
+#: C/license.page:52
 msgid ""
 "If you alter, transform, or build upon this work, you may distribute the "
 "resulting work only under the same, similar or a compatible license."
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/license.page:53
+#: C/license.page:59
 msgid ""
 "For the full text of the license, see the <link "
 "href=\"http://creativecommons.org/licenses/by-"
@@ -349,12 +347,12 @@ msgid ""
 msgstr ""
 
 #. (itstool) path: info/desc
-#: C/report-bugs.page:9
+#: C/report-bugs.page:8
 msgid "Report bugs and request new features."
 msgstr ""
 
 #. (itstool) path: page/title
-#: C/report-bugs.page:25
+#: C/report-bugs.page:24
 msgid "Report bugs"
 msgstr "Nahlásenie chýb"
 
@@ -366,7 +364,7 @@ msgid ""
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/report-bugs.page:29
+#: C/report-bugs.page:31
 msgid ""
 "Before filing a new topic, please have a look at <link "
 "href=\"https://linuxonly.ru/forum/modem-manager-gui/\"> the existing "
@@ -375,27 +373,27 @@ msgid ""
 msgstr ""
 
 #. (itstool) path: note/p
-#: C/report-bugs.page:34
+#: C/report-bugs.page:38
 msgid "You can also use the support forum for feature requests."
 msgstr ""
 
 #. (itstool) path: info/desc
-#: C/usage-config.page:9
+#: C/usage-config.page:8
 msgid "Configure the application to match your needs."
 msgstr ""
 
 #. (itstool) path: page/title
-#: C/usage-config.page:21
+#: C/usage-config.page:20
 msgid "Configuration"
 msgstr "Konfigurácia"
 
 #. (itstool) path: info/desc
-#: C/usage-contacts.page:9
+#: C/usage-contacts.page:8
 msgid "Use your contact lists."
 msgstr ""
 
 #. (itstool) path: page/title
-#: C/usage-contacts.page:25
+#: C/usage-contacts.page:24
 msgid "Contact lists"
 msgstr "Zoznamy kontaktov"
 
@@ -410,12 +408,17 @@ msgid ""
 "server used by KDE applications (KDE contacts section)."
 msgstr ""
 
-#. (itstool) path: p/media
+#. (itstool) path: figure/title
+#: C/usage-contacts.page:35
+msgid "Contacts window of <app>Modem Manager GUI</app>."
+msgstr ""
+
+#. (itstool) path: figure/media
 #. This is a reference to an external file such as an image or video. When
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/usage-contacts.page:33
+#: C/usage-contacts.page:36
 msgctxt "_"
 msgid ""
 "external ref='figures/contacts-window.png' "
@@ -423,14 +426,7 @@ msgid ""
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/usage-contacts.page:32
-msgid ""
-"<media type=\"image\" mime=\"image/png\" src=\"figures/contacts-"
-"window.png\"> Contacts window of <app>Modem Manager GUI</app>. </media>"
-msgstr ""
-
-#. (itstool) path: page/p
-#: C/usage-contacts.page:38
+#: C/usage-contacts.page:39
 msgid ""
 "Use <gui style=\"button\">New contact</gui> button to fill form and add new "
 "contact to SIM card or modem storage, <gui style=\"button\">Remove "
@@ -441,7 +437,7 @@ msgid ""
 msgstr ""
 
 #. (itstool) path: note/p
-#: C/usage-contacts.page:44
+#: C/usage-contacts.page:47
 msgid ""
 "Some backends don't support modem contacts manipulation functions. For "
 "example, ModemManager doesn't work with contacts from SIM card and modem "
@@ -450,12 +446,12 @@ msgid ""
 msgstr ""
 
 #. (itstool) path: info/desc
-#: C/usage-getinfo.page:9
+#: C/usage-getinfo.page:8
 msgid "Get info about the mobile network."
 msgstr ""
 
 #. (itstool) path: page/title
-#: C/usage-getinfo.page:21
+#: C/usage-getinfo.page:20
 msgid "Network info"
 msgstr ""
 
@@ -468,18 +464,23 @@ msgid ""
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/usage-getinfo.page:26
+#: C/usage-getinfo.page:28
 msgid ""
 "In the following window you see all available information as provided from "
 "your operator:"
 msgstr ""
 
-#. (itstool) path: p/media
+#. (itstool) path: figure/title
+#: C/usage-getinfo.page:34
+msgid "Network information window of <app>Modem Manager GUI</app>."
+msgstr ""
+
+#. (itstool) path: figure/media
 #. This is a reference to an external file such as an image or video. When
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/usage-getinfo.page:30
+#: C/usage-getinfo.page:35
 msgctxt "_"
 msgid ""
 "external ref='figures/network-info.png' "
@@ -487,14 +488,7 @@ msgid ""
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/usage-getinfo.page:29
-msgid ""
-"<media type=\"image\" mime=\"image/png\" src=\"figures/network-info.png\"> "
-"Network information window of <app>Modem Manager GUI</app>. </media>"
-msgstr ""
-
-#. (itstool) path: page/p
-#: C/usage-getinfo.page:35
+#: C/usage-getinfo.page:38
 msgid ""
 "The most informations are self-explained and well known from traditional "
 "mobile phones or smartphones. Note, the GPS based location detection (in the"
@@ -503,12 +497,12 @@ msgid ""
 msgstr ""
 
 #. (itstool) path: info/desc
-#: C/usage-modem.page:9
+#: C/usage-modem.page:8
 msgid "Activate your modem devices."
 msgstr ""
 
 #. (itstool) path: page/title
-#: C/usage-modem.page:21
+#: C/usage-modem.page:20
 msgid "Modems"
 msgstr "Modemy"
 
@@ -519,38 +513,32 @@ msgid ""
 "displayed:"
 msgstr ""
 
+#. (itstool) path: figure/title
+#: C/usage-modem.page:27
+msgid "The startup window of <app>Modem Manager GUI</app>."
+msgstr ""
+
 #. (itstool) path: figure/media
 #. This is a reference to an external file such as an image or video. When
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/usage-modem.page:25
+#: C/usage-modem.page:28
 msgctxt "_"
 msgid ""
 "external ref='figures/startup-window.png' "
 "md5='0732138275656f836e2c0f2905b715fd'"
 msgstr ""
 
-#. (itstool) path: media/app
-#: C/usage-modem.page:26 C/usage-netsearch.page:31 C/usage-sms.page:38
-#: C/usage-traffic.page:35 C/usage-ussd.page:34
-msgid "Modem Manager GUI"
-msgstr "Modem Manager GUI"
-
-#. (itstool) path: figure/media
-#: C/usage-modem.page:25
-msgid "The startup window of <_:app-1/>."
-msgstr ""
-
 #. (itstool) path: page/p
-#: C/usage-modem.page:30
+#: C/usage-modem.page:31
 msgid ""
 "You can see the modem devices available on your system. Click on one of the "
 "entries to use that device."
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/usage-modem.page:33
+#: C/usage-modem.page:36
 msgid ""
 "After clicking on a device, it might be needed to activate it first, if it "
 "was not otherwise activated on your system. <app>Modem Manager GUI</app> "
@@ -558,26 +546,26 @@ msgid ""
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/usage-modem.page:37
+#: C/usage-modem.page:42
 msgid ""
 "Be patient after connecting a removable device such as an USB stick or "
 "PCMCIA card. It may take a while until the system detects it."
 msgstr ""
 
 #. (itstool) path: note/p
-#: C/usage-modem.page:41
+#: C/usage-modem.page:48
 msgid ""
 "You cannot use multiple modems at the same time. If you click on another "
 "entry in the device list, the previously activated one will be disabled."
 msgstr ""
 
 #. (itstool) path: info/desc
-#: C/usage-netsearch.page:9
+#: C/usage-netsearch.page:8
 msgid "Search for available networks."
 msgstr ""
 
 #. (itstool) path: page/title
-#: C/usage-netsearch.page:25
+#: C/usage-netsearch.page:24
 msgid "Network Search"
 msgstr ""
 
@@ -589,25 +577,25 @@ msgid ""
 "toolbar."
 msgstr ""
 
+#. (itstool) path: figure/title
+#: C/usage-netsearch.page:32
+msgid "Network search window of <app>Modem Manager GUI</app>."
+msgstr ""
+
 #. (itstool) path: figure/media
 #. This is a reference to an external file such as an image or video. When
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/usage-netsearch.page:30
+#: C/usage-netsearch.page:33
 msgctxt "_"
 msgid ""
 "external ref='figures/scan-window.png' "
 "md5='8a9dd66ef917dcd42de0d8a69fb84ccd'"
 msgstr ""
 
-#. (itstool) path: figure/media
-#: C/usage-netsearch.page:30
-msgid "Network search window of <_:app-1/>."
-msgstr ""
-
 #. (itstool) path: page/p
-#: C/usage-netsearch.page:35
+#: C/usage-netsearch.page:36
 msgid ""
 "If one mobile network appears more than once in the list, this mobile "
 "network use different broadcasting standards. It is obvioius that you can't "
@@ -616,12 +604,12 @@ msgid ""
 msgstr ""
 
 #. (itstool) path: info/desc
-#: C/usage-sms.page:10
+#: C/usage-sms.page:9
 msgid "Use <app>Modem Manager GUI</app> for sending and receiving SMS."
 msgstr ""
 
 #. (itstool) path: page/title
-#: C/usage-sms.page:26
+#: C/usage-sms.page:25
 msgid "SMS"
 msgstr "SMS"
 
@@ -635,11 +623,16 @@ msgid ""
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/usage-sms.page:32
+#: C/usage-sms.page:34
 msgid ""
 "As you can see, all messages are stored in three folders. You can find "
 "received messages in the Incoming folder, sent messages in the Sent folder "
 "and saved messages in the Drafts folder."
+msgstr ""
+
+#. (itstool) path: figure/title
+#: C/usage-sms.page:41
+msgid "SMS window of <app>Modem Manager GUI</app>."
 msgstr ""
 
 #. (itstool) path: figure/media
@@ -647,26 +640,21 @@ msgstr ""
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/usage-sms.page:37
+#: C/usage-sms.page:42
 msgctxt "_"
 msgid ""
 "external ref='figures/sms-window.png' md5='7032b1a7fff2f2834ea821cf8eeb14ac'"
 msgstr ""
 
-#. (itstool) path: figure/media
-#: C/usage-sms.page:37
-msgid "SMS window of <_:app-1/>."
-msgstr ""
-
 #. (itstool) path: page/p
-#: C/usage-sms.page:42
+#: C/usage-sms.page:45
 msgid ""
 "You can tweak messages sorting order and SMS special parameters using "
 "Preferences window."
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/usage-sms.page:45
+#: C/usage-sms.page:50
 msgid ""
 "Use <gui style=\"button\">New</gui> button to compose and send or save "
 "message, <gui style=\"button\">Remove</gui> button to remove selected "
@@ -676,12 +664,12 @@ msgid ""
 msgstr ""
 
 #. (itstool) path: info/desc
-#: C/usage-traffic.page:9
+#: C/usage-traffic.page:8
 msgid "Get statistics about network traffic."
 msgstr ""
 
 #. (itstool) path: page/title
-#: C/usage-traffic.page:25
+#: C/usage-traffic.page:24
 msgid "Network traffic"
 msgstr ""
 
@@ -695,11 +683,16 @@ msgid ""
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/usage-traffic.page:30
+#: C/usage-traffic.page:32
 msgid ""
 "Network traffic window has list with session, month and year traffic "
 "consumption information on the left and graphical representation of current "
 "network connection speed on the right."
+msgstr ""
+
+#. (itstool) path: figure/title
+#: C/usage-traffic.page:38
+msgid "Network traffic window of <app>Modem Manager GUI</app>."
 msgstr ""
 
 #. (itstool) path: figure/media
@@ -707,20 +700,15 @@ msgstr ""
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/usage-traffic.page:34
+#: C/usage-traffic.page:39
 msgctxt "_"
 msgid ""
 "external ref='figures/traffic-window.png' "
 "md5='3cced75039a5230c68834ba4aebabcc3'"
 msgstr ""
 
-#. (itstool) path: figure/media
-#: C/usage-traffic.page:34
-msgid "Network traffic window of <_:app-1/>."
-msgstr ""
-
 #. (itstool) path: page/p
-#: C/usage-traffic.page:39
+#: C/usage-traffic.page:42
 msgid ""
 "Use <gui style=\"button\">Set limit</gui> button to set traffic or time "
 "limit for current session, <gui style=\"button\">Connections</gui> button to"
@@ -730,7 +718,7 @@ msgid ""
 msgstr ""
 
 #. (itstool) path: note/p
-#: C/usage-traffic.page:45
+#: C/usage-traffic.page:50
 msgid ""
 "Traffic statistics are collected only while <app>Modem Manager GUI</app> is "
 "running, so result values can be inaccurate and must be treated as reference"
@@ -739,14 +727,14 @@ msgid ""
 msgstr ""
 
 #. (itstool) path: info/desc
-#: C/usage-ussd.page:9
+#: C/usage-ussd.page:8
 msgid ""
 "Use <app>Modem Manager GUI</app> for send USSD codes and receive the "
 "answers."
 msgstr ""
 
 #. (itstool) path: page/title
-#: C/usage-ussd.page:25
+#: C/usage-ussd.page:24
 msgid "USSD codes"
 msgstr "USSD kódy"
 
@@ -759,10 +747,15 @@ msgid ""
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/usage-ussd.page:29
+#: C/usage-ussd.page:31
 msgid ""
 "To use the USSD functions, click on the <gui style=\"button\">USSD</gui> "
 "button in the toolbar."
+msgstr ""
+
+#. (itstool) path: figure/title
+#: C/usage-ussd.page:37
+msgid "USSD window of <app>Modem Manager GUI</app>."
 msgstr ""
 
 #. (itstool) path: figure/media
@@ -770,29 +763,24 @@ msgstr ""
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/usage-ussd.page:33
+#: C/usage-ussd.page:38
 msgctxt "_"
 msgid ""
 "external ref='figures/ussd-window.png' "
 "md5='c1f2437ed53d67408c1fdfeb270f001a'"
 msgstr ""
 
-#. (itstool) path: figure/media
-#: C/usage-ussd.page:33
-msgid "USSD window of <_:app-1/>."
-msgstr ""
-
 #. (itstool) path: page/p
-#: C/usage-ussd.page:38
+#: C/usage-ussd.page:41
 msgid ""
 "In the text entry on top of the window, the code <cmd>*100#</cmd> is already"
 " displayed. This code is the usual one for requesting the balance for a "
 "prepaid card. If you like to send another code, click on the <gui "
-"style=\"button\">Edit</gui> button on the right"
+"style=\"button\">Edit</gui> button on the right."
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/usage-ussd.page:42
+#: C/usage-ussd.page:47
 msgid ""
 "<app>Modem Manager GUI</app> supports interactive USSD sessions, so pay "
 "attention to hints displayed under USSD answers. You can send USSD responses"
@@ -801,7 +789,7 @@ msgid ""
 msgstr ""
 
 #. (itstool) path: note/p
-#: C/usage-ussd.page:47
+#: C/usage-ussd.page:54
 msgid ""
 "If you use Huawei device and get unreadable USSD answers, you can try to "
 "click on the <gui style=\"button\">Edit</gui> button and toggle the <gui "
@@ -810,23 +798,16 @@ msgid ""
 msgstr ""
 
 #. (itstool) path: note/p
-#: C/usage-ussd.page:53
+#: C/usage-ussd.page:62
 msgid ""
 "USSD codes are only available in networks which use the <link "
 "href=\"http://en.wikipedia.org/wiki/3rd_Generation_Partnership_Project\">3GPP"
-" standards </link>."
+" standards</link>."
 msgstr ""
 
 #. (itstool) path: page/p
-#: C/usage-ussd.page:58
+#: C/usage-ussd.page:68
 msgid ""
 "You can use such codes for many purposes: change plan, request balance, "
 "block number, etc."
 msgstr ""
-
-#. (itstool) path: C/usage-ussd.page/page
-#: C/usage-ussd.page:4
-msgid ""
-"<_:info-1/> <_:title-2/> <_:p-3/> <_:p-4/> <_:figure-5/> <_:p-6/>. <_:p-7/> "
-"<_:note-8/> <_:note-9/> <_:p-10/>"
-msgstr "<_:info-1/> <_:title-2/> <_:p-3/> <_:p-4/> <_:figure-5/> <_:p-6/>. <_:p-7/> <_:note-8/> <_:note-9/> <_:p-10/>"

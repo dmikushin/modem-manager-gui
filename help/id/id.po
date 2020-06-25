@@ -10,9 +10,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Modem Manager GUI\n"
-"POT-Creation-Date: 2017-11-11 00:57+0300\n"
-"PO-Revision-Date: 2018-10-20 14:25+0000\n"
-"Last-Translator: Al Cholis <roadxplor@gmail.com>\n"
+"POT-Creation-Date: 2020-06-26 00:55+0300\n"
+"PO-Revision-Date: 2020-06-25 22:01+0000\n"
+"Last-Translator: Alex <alex@linuxonly.ru>\n"
 "Language-Team: Indonesian (http://www.transifex.com/ethereal/modem-manager-gui/language/id/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,42 +26,42 @@ msgid "translator-credits"
 msgstr "Arif Budiman <me@kangarif.com>, 2014\nAl Cholis <roadxplor@gmail.com>, 2018"
 
 #. (itstool) path: info/desc
-#: C/about.page:9
+#: C/about.page:8
 msgid "Information about <app>Modem Manager GUI</app>."
 msgstr "Informasi tentang <app>Modem Manager GUI</app>."
 
 #. (itstool) path: credit/name
-#: C/about.page:13 C/contrib-code.page:13 C/contrib-translations.page:13
-#: C/index.page:11 C/report-bugs.page:13 C/usage-config.page:13
-#: C/usage-contacts.page:13 C/usage-getinfo.page:13 C/usage-modem.page:13
-#: C/usage-netsearch.page:13 C/usage-sms.page:14 C/usage-traffic.page:13
-#: C/usage-ussd.page:13
+#: C/about.page:12 C/contrib-code.page:12 C/contrib-translations.page:12
+#: C/index.page:11 C/report-bugs.page:12 C/usage-config.page:12
+#: C/usage-contacts.page:12 C/usage-getinfo.page:12 C/usage-modem.page:12
+#: C/usage-netsearch.page:12 C/usage-sms.page:13 C/usage-traffic.page:12
+#: C/usage-ussd.page:12
 msgid "Mario Blättermann"
 msgstr "Mario Blättermann"
 
 #. (itstool) path: credit/name
-#: C/about.page:17 C/contrib-code.page:17 C/index.page:15
-#: C/report-bugs.page:17 C/usage-contacts.page:17 C/usage-netsearch.page:17
-#: C/usage-sms.page:18 C/usage-traffic.page:17 C/usage-ussd.page:17
+#: C/about.page:16 C/contrib-code.page:16 C/index.page:15
+#: C/report-bugs.page:16 C/usage-contacts.page:16 C/usage-netsearch.page:16
+#: C/usage-sms.page:17 C/usage-traffic.page:16 C/usage-ussd.page:16
 msgid "Alex"
 msgstr "Alex"
 
 #. (itstool) path: license/p
-#: C/about.page:21 C/contrib-code.page:21 C/contrib-translations.page:17
-#: C/index.page:19 C/report-bugs.page:21 C/usage-config.page:17
-#: C/usage-contacts.page:21 C/usage-getinfo.page:17 C/usage-modem.page:17
-#: C/usage-netsearch.page:21 C/usage-sms.page:22 C/usage-traffic.page:21
-#: C/usage-ussd.page:21
+#: C/about.page:20 C/contrib-code.page:20 C/contrib-translations.page:16
+#: C/index.page:19 C/report-bugs.page:20 C/usage-config.page:16
+#: C/usage-contacts.page:20 C/usage-getinfo.page:16 C/usage-modem.page:16
+#: C/usage-netsearch.page:20 C/usage-sms.page:21 C/usage-traffic.page:20
+#: C/usage-ussd.page:20
 msgid "Creative Commons Share Alike 3.0"
 msgstr "Berbagi Serupa 3.0 Creative Commons"
 
 #. (itstool) path: page/title
-#: C/about.page:25
+#: C/about.page:24
 msgid "About <app>Modem Manager GUI</app>"
 msgstr "Tentang <app>Modem Manager GUI</app>"
 
 #. (itstool) path: page/p
-#: C/about.page:27
+#: C/about.page:26
 msgid ""
 "<app>Modem Manager GUI</app> was written by <link "
 "href=\"mailto:alex@linuxonly.ru\">Alex</link>. To find more information "
@@ -71,7 +71,7 @@ msgid ""
 msgstr "<app>Manajer Modem GUI</app> ditulis oleh <link href=\"mailto:alex@linuxonly.ru\">Alex</link>. Untuk mencari informasi lebih lanjut tentang <app> Manajer Modem GUI</app>, kunjungi <link href=\"https://linuxonly.ru/page/modem-manager-gui\"> Laman<app>Manajer Modem GUI</app></link>"
 
 #. (itstool) path: page/p
-#: C/about.page:33
+#: C/about.page:34
 msgid ""
 "To report a bug or make a suggestion regarding this application or this "
 "manual, use <link href=\"https://linuxonly.ru/forum/modem-manager-gui/\"> "
@@ -79,69 +79,67 @@ msgid ""
 msgstr "Untuk melaporkan kutu atau memberi saran mengenai aplikasi atau manual ini, gunakan <link href=\"https://linuxonly.ru/forum/modem-manager-gui/\">Forum dukungan <app> Manajer Modem GUI</app></link>"
 
 #. (itstool) path: page/p
-#: C/about.page:39
+#: C/about.page:40
 msgid ""
 "This program is distributed under the terms of the GNU General Public "
 "license version 3, as published by the Free Software Foundation. A copy of "
-"this license can be found at this <link href=\"help:gpl\" "
-"type=\"help\">link</link>, or in the file COPYING included with the source "
-"code of this program."
-msgstr "Program ini didistribusikan di bawah syarat-syarat lisensi dari GNU General Public license versi 3, seperti yang diterbitkan oleh Free Software Foundation. Salinan lisensi ini dapat ditemukan di <link href=\"help:gpl\" type=\"help\">Tautan</link>, atau dalam file COPYING yang disertakan dengan kode sumber dari program ini."
+"this license can be found at this <link href=\"help:gpl\">link</link>, or in"
+" the file COPYING included with the source code of this program."
+msgstr ""
 
 #. (itstool) path: info/desc
-#: C/contrib-code.page:9
-msgid "How you can help make <app>Modem Manager GUI </app> better."
-msgstr "Bagaimana kamu bisa membantu membuat <app>Modem Manager GUI </app> menjadi lebih baik."
+#: C/contrib-code.page:8
+msgid "How you can help make <app>Modem Manager GUI</app> better."
+msgstr ""
 
 #. (itstool) path: page/title
-#: C/contrib-code.page:25
+#: C/contrib-code.page:24
 msgid "Provide code"
 msgstr "Menyediakan kode"
 
 #. (itstool) path: page/p
 #: C/contrib-code.page:26
 msgid ""
-"<app>Modem Manager GUI</app> has a version control system at Bitbucket.com. "
-"You can clone the repository with the following command:"
-msgstr "<app>Manajer Modem GUI</app> memiliki kontrol versi pada Bitbucket.com. Anda bisa menggandakan repositori menggunakan command berikut: "
-
-#. (itstool) path: page/p
-#: C/contrib-code.page:29
-msgid ""
-"<cmd>hg clone https://linuxonly@bitbucket.org/linuxonly/modem-manager-"
-"gui</cmd>"
-msgstr "<cmd>hg clone https://linuxonly@bitbucket.org/linuxonly/modem-manager-gui</cmd>"
+"<app>Modem Manager GUI</app> has a version control system at "
+"SourceForge.net. You can clone the repository with the following command:"
+msgstr ""
 
 #. (itstool) path: page/p
 #: C/contrib-code.page:31
+msgid ""
+"<cmd>hg clone http://hg.code.sf.net/p/modem-manager-gui/code modem-manager-"
+"gui-code</cmd>"
+msgstr ""
+
+#. (itstool) path: page/p
+#: C/contrib-code.page:35
 msgid ""
 "Note, this clone command doesn't give you write access to the repository."
 msgstr "Catatan, perintah klon ini tidak memberikan akses tulis ke repositori."
 
 #. (itstool) path: page/p
-#: C/contrib-code.page:33
+#: C/contrib-code.page:39
 msgid ""
-"For general help on how Bitbucket works, see the <link "
-"href=\"https://confluence.atlassian.com/display/BITBUCKET/Bitbucket+Cloud+documentation\">Bitbucket"
-" documentation</link>."
-msgstr "Untuk bantuan tentang cara kerj Bitbucket, lihat <link href=\"https://confluence.atlassian.com/display/BITBUCKET/Bitbucket+Cloud+documentation\">dokumentasi Bitbucket</link>"
+"For general help on how SourceForge works, see the <link "
+"href=\"https://sourceforge.net/p/forge/documentation/ToC/\">SourceForge "
+"documentation</link>."
+msgstr ""
 
 #. (itstool) path: page/p
-#: C/contrib-code.page:36
+#: C/contrib-code.page:44
 msgid ""
 "<app>Modem Manager GUI</app> source code is stored inside Mercurial "
 "repository, so you don't have to read Git tutorials; just make sure you know"
-" basic Mercurial commands and able to make pull requests on Bitbucket "
-"platform."
-msgstr "Kode sumber <app>Manajer Modem GUI</app> ditaruh di dalam repositori Mercurial, jadi Anda tidak perlu membaca tutorial Git; hanya unþuk memastikan Anda mengetahui perintah dasar Mercurial dan bisa untuk membuat pulll request dalam platform Bitbucket "
+" basic Mercurial commands and able to work on SourceForge platform."
+msgstr ""
 
 #. (itstool) path: info/desc
-#: C/contrib-translations.page:9
+#: C/contrib-translations.page:8
 msgid "Translate <app>Modem Manager GUI</app> into your native language."
 msgstr "Terjemahkan <app>Modem Manager GUI</app> ke dalam bahasa asli anda"
 
 #. (itstool) path: page/title
-#: C/contrib-translations.page:21
+#: C/contrib-translations.page:20
 msgid "Translations"
 msgstr "Terjemahan"
 
@@ -154,7 +152,7 @@ msgid ""
 msgstr "Antarmuka pengguna grafis, halaman manual tradisional dan manual pengguna gaya Gnome dari\n<app>Modem Manager GUI</app> bisa diterjemahkan dalam bahasamu."
 
 #. (itstool) path: page/p
-#: C/contrib-translations.page:25
+#: C/contrib-translations.page:27
 msgid ""
 "There is a <link href=\"https://www.transifex.com/projects/p/modem-manager-"
 "gui/\"> project page on Transifex</link> where existing translations are "
@@ -162,14 +160,14 @@ msgid ""
 msgstr "Ada sebuah <link href=\"https://www.transifex.com/projects/p/modem-manager-gui/\"> halaman proyek di Transifex</link> di mana terjemahan ditaruh dan juga terjemahan yang baru bisa diberikan."
 
 #. (itstool) path: page/p
-#: C/contrib-translations.page:31
+#: C/contrib-translations.page:33
 msgid ""
 "For general help on how Transifex works, see the <link "
 "href=\"http://support.transifex.com/\">Transifex Help Desk</link>."
 msgstr "Untuk bantuan umum bagaimana Transifex bekerja, lihat <link href=\"http://support.transifex.com/\">Bantuan Transifex</link>."
 
 #. (itstool) path: note/p
-#: C/contrib-translations.page:35
+#: C/contrib-translations.page:39
 msgid ""
 "For your work you should have a look at the rules and dictionaries of the "
 "local <link href=\"https://l10n.gnome.org/teams/\">Gnome translation teams "
@@ -204,22 +202,22 @@ msgstr "Modem Manager GUI"
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/index.page:24
+#: C/index.page:23
 msgctxt "_"
 msgid ""
 "external ref='figures/modem-manager-gui-logo.png' "
-"md5='a5ab22246356ef7c194bb09f1ec8e432'"
-msgstr "external ref='figures/modem-manager-gui-logo.png' md5='a5ab22246356ef7c194bb09f1ec8e432'"
+"md5='ab42d66239c7ef08904a9a921834cea2'"
+msgstr ""
 
 #. (itstool) path: page/title
-#: C/index.page:24
+#: C/index.page:23
 msgid ""
-"<media type=\"image\" src=\"figures/modem-manager-gui-logo.png\">GNOME Hello"
-" logo</media>Modem Manager GUI manual"
-msgstr "<media type=\"image\" src=\"figures/modem-manager-gui-logo.png\">Logo GNOME Hello</media>Panduan Modem Manager GUI"
+"<media type=\"image\" src=\"figures/modem-manager-gui-logo.png\"/>Modem "
+"Manager GUI manual"
+msgstr ""
 
 #. (itstool) path: page/p
-#: C/index.page:26
+#: C/index.page:25
 msgid ""
 "<app>Modem Manager GUI</app> is a graphical frontend for the ModemManager "
 "daemon which is able to control specific modem functions."
@@ -231,45 +229,45 @@ msgid "You can use <app>Modem Manager GUI</app> for the following tasks:"
 msgstr "Kamu dapat menggunakan <app>Modem Manager GUI</app> untuk tugas berikut:"
 
 #. (itstool) path: item/p
-#: C/index.page:35
+#: C/index.page:36
 msgid "Create and control mobile broadband connections"
 msgstr "Buat dan kelola sambungan data seluler"
 
 #. (itstool) path: item/p
-#: C/index.page:38
+#: C/index.page:39
 msgid "Send and receive SMS messages and store messages in database"
 msgstr "Kirim dan terima pesan SMS dan menyimpannya ke basis data"
 
 #. (itstool) path: item/p
-#: C/index.page:41
+#: C/index.page:42
 msgid ""
 "Initiate USSD requests and read answers (also using interactive sessions)"
 msgstr "Inisiasi permintaan USSD dan membaca jawaban (juga menggunakan sesi interaktif)"
 
 #. (itstool) path: item/p
-#: C/index.page:44
+#: C/index.page:45
 msgid ""
 "View device information: operator name, device mode, IMEI, IMSI, signal "
 "level"
 msgstr "Lihat informasi perangkat: nama operator, mode perangkat, IMEI, IMSI, level sinyal"
 
 #. (itstool) path: item/p
-#: C/index.page:47
+#: C/index.page:48
 msgid "Scan available mobile networks"
 msgstr "Pindai jaringan seluler yang tersedia"
 
 #. (itstool) path: item/p
-#: C/index.page:50
+#: C/index.page:51
 msgid "View mobile traffic statistics and set limits"
 msgstr "Lihat statistik penggunaan data seluler dan atur batas"
 
 #. (itstool) path: section/title
-#: C/index.page:55
+#: C/index.page:56
 msgid "Usage"
 msgstr "Pemakaian"
 
 #. (itstool) path: section/title
-#: C/index.page:59
+#: C/index.page:60
 msgid "Contribute to the project"
 msgstr "Kontribusi pada proyek"
 
@@ -284,49 +282,49 @@ msgid "License"
 msgstr "Lisensi"
 
 #. (itstool) path: page/p
-#: C/license.page:12
+#: C/license.page:13
 msgid ""
 "This work is distributed under a CreativeCommons Attribution-Share Alike 3.0"
 " Unported license."
 msgstr "Karya ini didistribusikan di bawah lisensi CreativeCommons Attribution-Share Alike 3.0 Unported."
 
 #. (itstool) path: page/p
-#: C/license.page:20
+#: C/license.page:22
 msgid "You are free:"
 msgstr "Anda bebas:"
 
 #. (itstool) path: item/title
-#: C/license.page:25
+#: C/license.page:28
 msgid "<em>To share</em>"
 msgstr "<em>Untuk berbagi</em>"
 
 #. (itstool) path: item/p
-#: C/license.page:26
+#: C/license.page:29
 msgid "To copy, distribute and transmit the work."
 msgstr "Untuk menyalin, mendistribusikan dan mengirimkan karya."
 
 #. (itstool) path: item/title
-#: C/license.page:29
+#: C/license.page:32
 msgid "<em>To remix</em>"
 msgstr "<em>Untuk mencampur</em>"
 
 #. (itstool) path: item/p
-#: C/license.page:30
+#: C/license.page:33
 msgid "To adapt the work."
 msgstr "Untuk mengadaptasi karya."
 
 #. (itstool) path: page/p
-#: C/license.page:33
+#: C/license.page:37
 msgid "Under the following conditions:"
 msgstr "Di bawah kondisi berikut:"
 
 #. (itstool) path: item/title
-#: C/license.page:38
+#: C/license.page:43
 msgid "<em>Attribution</em>"
 msgstr "<em>Atribusi</em>"
 
 #. (itstool) path: item/p
-#: C/license.page:39
+#: C/license.page:44
 msgid ""
 "You must attribute the work in the manner specified by the author or "
 "licensor (but not in any way that suggests that they endorse you or your use"
@@ -334,19 +332,19 @@ msgid ""
 msgstr "Anda harus mengatribusi karya dengan cara yang ditentukan oleh pengarang atau pemberi lisensi (tapi tidak dengan cara apa pun yang mengesankan bahwa mereka mendorong Anda atau penggunaan Anda terhadap karya)."
 
 #. (itstool) path: item/title
-#: C/license.page:46
+#: C/license.page:51
 msgid "<em>Share Alike</em>"
 msgstr "<em>Share Alike</em>"
 
 #. (itstool) path: item/p
-#: C/license.page:47
+#: C/license.page:52
 msgid ""
 "If you alter, transform, or build upon this work, you may distribute the "
 "resulting work only under the same, similar or a compatible license."
 msgstr "Jika anda mengubah, mentransformasi, atau membangun atas dasar karya ini, anda bisa mendistribusikan karya yang dihasilkan di bawah lisensi yang sama, mirip atau kompatibel. "
 
 #. (itstool) path: page/p
-#: C/license.page:53
+#: C/license.page:59
 msgid ""
 "For the full text of the license, see the <link "
 "href=\"http://creativecommons.org/licenses/by-"
@@ -355,12 +353,12 @@ msgid ""
 msgstr "Untuk teks penuh dari lisensi, lihat <link href=\"http://creativecommons.org/licenses/by-sa/3.0/legalcode\">Website CreativeCommons</link>, atau baca penuh <link href=\"http://creativecommons.org/licenses/by-sa/3.0/\">Commons Deed</link>."
 
 #. (itstool) path: info/desc
-#: C/report-bugs.page:9
+#: C/report-bugs.page:8
 msgid "Report bugs and request new features."
 msgstr "Laporkan bug dan meminta fitur baru"
 
 #. (itstool) path: page/title
-#: C/report-bugs.page:25
+#: C/report-bugs.page:24
 msgid "Report bugs"
 msgstr "Laporkan bug"
 
@@ -372,7 +370,7 @@ msgid ""
 msgstr "Jika anda menemukan bug dalam  <app>Modem Manager GUI</app>, anda dapat menggunakan <link href=\"https://linuxonly.ru/forum/modem-manager-gui/\">dukungan forum</link>."
 
 #. (itstool) path: page/p
-#: C/report-bugs.page:29
+#: C/report-bugs.page:31
 msgid ""
 "Before filing a new topic, please have a look at <link "
 "href=\"https://linuxonly.ru/forum/modem-manager-gui/\"> the existing "
@@ -381,27 +379,27 @@ msgid ""
 msgstr "Sebelum mengajukan topik baru, silahkan lihat pada <link href=\"https://linuxonly.ru/forum/modem-manager-gui/\"> yang sudah ada</link> terlebih dahulu. Mungkin seseorang telah mengalami masalah yang sama? Kemudian anda mungkin menulis komentar anda di sana."
 
 #. (itstool) path: note/p
-#: C/report-bugs.page:34
+#: C/report-bugs.page:38
 msgid "You can also use the support forum for feature requests."
 msgstr "Anda juga dapat menggunakan dukungan forum untuk meminta fitur"
 
 #. (itstool) path: info/desc
-#: C/usage-config.page:9
+#: C/usage-config.page:8
 msgid "Configure the application to match your needs."
 msgstr "Konfigurasi aplikasi agar sesuai dengan kebutuhan Anda."
 
 #. (itstool) path: page/title
-#: C/usage-config.page:21
+#: C/usage-config.page:20
 msgid "Configuration"
 msgstr "Konfigurasi"
 
 #. (itstool) path: info/desc
-#: C/usage-contacts.page:9
+#: C/usage-contacts.page:8
 msgid "Use your contact lists."
 msgstr "Gunakan daftar kontak mu"
 
 #. (itstool) path: page/title
-#: C/usage-contacts.page:25
+#: C/usage-contacts.page:24
 msgid "Contact lists"
 msgstr "Daftar kontak"
 
@@ -416,12 +414,17 @@ msgid ""
 "server used by KDE applications (KDE contacts section)."
 msgstr "Modem Broadband memiliki akses ke kontak yang tersimpan pada kartu SIM. Beberapa modem juga bisa menyimpan kontak di memori internal. <app>Modem Manager GUI</app> dapat bekerja dengan kontak dari penyimpanan ini dan juga dapat mengekspor kontak dari penyimpanan kontak sistem. Penyimpanan kontak sistem yang didukung adalah: Evolution Data Server yang digunakan oleh aplikasi GNOME (bagian kontak GNOME) dan server Akonadi yang digunakan oleh aplikasi KDE (bagian kontak KDE)."
 
-#. (itstool) path: p/media
+#. (itstool) path: figure/title
+#: C/usage-contacts.page:35
+msgid "Contacts window of <app>Modem Manager GUI</app>."
+msgstr ""
+
+#. (itstool) path: figure/media
 #. This is a reference to an external file such as an image or video. When
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/usage-contacts.page:33
+#: C/usage-contacts.page:36
 msgctxt "_"
 msgid ""
 "external ref='figures/contacts-window.png' "
@@ -429,14 +432,7 @@ msgid ""
 msgstr "external ref='figures/contacts-window.png' md5='d5d3b2a8dd0db7eacf7dd9f80950cfc7'"
 
 #. (itstool) path: page/p
-#: C/usage-contacts.page:32
-msgid ""
-"<media type=\"image\" mime=\"image/png\" src=\"figures/contacts-"
-"window.png\"> Contacts window of <app>Modem Manager GUI</app>. </media>"
-msgstr "<media type=\"image\" mime=\"image/png\" src=\"figures/contacts-window.png\">Jendela kontak dari<app>Modem Manager GUI</app>.</media>"
-
-#. (itstool) path: page/p
-#: C/usage-contacts.page:38
+#: C/usage-contacts.page:39
 msgid ""
 "Use <gui style=\"button\">New contact</gui> button to fill form and add new "
 "contact to SIM card or modem storage, <gui style=\"button\">Remove "
@@ -447,7 +443,7 @@ msgid ""
 msgstr "Gunakan tombol <gui style=\"button\">Kontak baru</gui> untuk mengisi form dan menambahkan kontak baru ke kartu SIM atau modem, <gui style=\"button\">Hapus kontak</gui> untuk menghapus kontak yang dipilih dari kartu SIM atau modem dan <gui style=\"button\">Kirim SMS</gui> untuk membuat dan mengirim pesan SMS ke kontak yang dipilih (dari kartu SIM ataupun modem, atau diekspor dari penyimpanan kontak di sistem)"
 
 #. (itstool) path: note/p
-#: C/usage-contacts.page:44
+#: C/usage-contacts.page:47
 msgid ""
 "Some backends don't support modem contacts manipulation functions. For "
 "example, ModemManager doesn't work with contacts from SIM card and modem "
@@ -456,12 +452,12 @@ msgid ""
 msgstr "Beberapa backend tidak mendukung fungsi manipulasi kontak modem. Misalnya, ModemManager tidak bekerja dengan kontak dari kartu SIM dan memori modem sama sekali (fungsi ini belum diimplementasikan), dan oFono hanya dapat mengekspor kontak dari kartu SIM (ini adalah keputusan pengembang)."
 
 #. (itstool) path: info/desc
-#: C/usage-getinfo.page:9
+#: C/usage-getinfo.page:8
 msgid "Get info about the mobile network."
 msgstr "Dapatkan informasi tentang jaringan selular."
 
 #. (itstool) path: page/title
-#: C/usage-getinfo.page:21
+#: C/usage-getinfo.page:20
 msgid "Network info"
 msgstr "Informasi jaringan"
 
@@ -474,18 +470,23 @@ msgid ""
 msgstr "Operator jaringanmu menyediakan beberapa informasi yang bisa kamu lihat di <app>Modem Manager GUI</app>. Klik pada tombol <gui style=\"button\">Informasi</gui> di bilah alat."
 
 #. (itstool) path: page/p
-#: C/usage-getinfo.page:26
+#: C/usage-getinfo.page:28
 msgid ""
 "In the following window you see all available information as provided from "
 "your operator:"
 msgstr "Pada jendela berikut anda bisa melihat semua informasi tersedia yang diberikan oleh operator anda:"
 
-#. (itstool) path: p/media
+#. (itstool) path: figure/title
+#: C/usage-getinfo.page:34
+msgid "Network information window of <app>Modem Manager GUI</app>."
+msgstr ""
+
+#. (itstool) path: figure/media
 #. This is a reference to an external file such as an image or video. When
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/usage-getinfo.page:30
+#: C/usage-getinfo.page:35
 msgctxt "_"
 msgid ""
 "external ref='figures/network-info.png' "
@@ -493,14 +494,7 @@ msgid ""
 msgstr "external ref='figures/network-info.png' md5='46b945ab670dabf253f73548c0e6b1a0'"
 
 #. (itstool) path: page/p
-#: C/usage-getinfo.page:29
-msgid ""
-"<media type=\"image\" mime=\"image/png\" src=\"figures/network-info.png\"> "
-"Network information window of <app>Modem Manager GUI</app>. </media>"
-msgstr "<media type=\"image\" mime=\"img/png\" src=\"figures/network-info.png\">Jendela Informasi jaringan dari <app>Modem Manager GUI</app>. </media>"
-
-#. (itstool) path: page/p
-#: C/usage-getinfo.page:35
+#: C/usage-getinfo.page:38
 msgid ""
 "The most informations are self-explained and well known from traditional "
 "mobile phones or smartphones. Note, the GPS based location detection (in the"
@@ -509,12 +503,12 @@ msgid ""
 msgstr "Kebanyakan informasi telah dijelaskan dan diketahui dari ponsel tradisional atau ponsel pintar. Catatan, GPS berbasis deteksi lokasi (di bagian bawah jendela) tidak akan bekerja dalam beberapa kasus karena perangkat mobile broadband biasanya tidak memiliki sensor GPS."
 
 #. (itstool) path: info/desc
-#: C/usage-modem.page:9
+#: C/usage-modem.page:8
 msgid "Activate your modem devices."
 msgstr "Aktifkan perangkat modemmu."
 
 #. (itstool) path: page/title
-#: C/usage-modem.page:21
+#: C/usage-modem.page:20
 msgid "Modems"
 msgstr "Modem"
 
@@ -525,38 +519,32 @@ msgid ""
 "displayed:"
 msgstr "Setelah memulai <app>Modem Manager GUI</app>, jendela berikut akan ditampilkan:"
 
+#. (itstool) path: figure/title
+#: C/usage-modem.page:27
+msgid "The startup window of <app>Modem Manager GUI</app>."
+msgstr ""
+
 #. (itstool) path: figure/media
 #. This is a reference to an external file such as an image or video. When
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/usage-modem.page:25
+#: C/usage-modem.page:28
 msgctxt "_"
 msgid ""
 "external ref='figures/startup-window.png' "
 "md5='0732138275656f836e2c0f2905b715fd'"
 msgstr "external ref='figures/startup-window.png' md5='0732138275656f836e2c0f2905b715fd'"
 
-#. (itstool) path: media/app
-#: C/usage-modem.page:26 C/usage-netsearch.page:31 C/usage-sms.page:38
-#: C/usage-traffic.page:35 C/usage-ussd.page:34
-msgid "Modem Manager GUI"
-msgstr "Modem Manager GUI"
-
-#. (itstool) path: figure/media
-#: C/usage-modem.page:25
-msgid "The startup window of <_:app-1/>."
-msgstr "Jendela startup dari <_:app-1/>."
-
 #. (itstool) path: page/p
-#: C/usage-modem.page:30
+#: C/usage-modem.page:31
 msgid ""
 "You can see the modem devices available on your system. Click on one of the "
 "entries to use that device."
 msgstr "Anda bisa melihat perangkat modem yang tersedia dalam sistem anda. Pilih satu dari entri untuk menggunakan perangkat tersebut."
 
 #. (itstool) path: page/p
-#: C/usage-modem.page:33
+#: C/usage-modem.page:36
 msgid ""
 "After clicking on a device, it might be needed to activate it first, if it "
 "was not otherwise activated on your system. <app>Modem Manager GUI</app> "
@@ -564,26 +552,26 @@ msgid ""
 msgstr "Setelah mengklik pada perangkat, mungkin diperlukan untuk mengaktifkannya terlebih dahulu, jika sebelumnya tidak aktif pada sistem anda <app>Modem Manager GUI</app> akan menanyakanmu untuk konfirmasi pada kasus ini."
 
 #. (itstool) path: page/p
-#: C/usage-modem.page:37
+#: C/usage-modem.page:42
 msgid ""
 "Be patient after connecting a removable device such as an USB stick or "
 "PCMCIA card. It may take a while until the system detects it."
 msgstr "Bersabarlah setelah menghubungkan perangkat yang dapat dilepas seperti USB stick atau kartu PCMCIA. Ini mungkin memerlukan waktu hingga sistem mendeteksinya."
 
 #. (itstool) path: note/p
-#: C/usage-modem.page:41
+#: C/usage-modem.page:48
 msgid ""
 "You cannot use multiple modems at the same time. If you click on another "
 "entry in the device list, the previously activated one will be disabled."
 msgstr "Anda tidak bisa menggunakan beberapa modem pada waktu yang sama. Jika Anda klik pada entri lain dalam daftar perangkat, yang sebelumnya diaktifkan akan dinonaktifkan."
 
 #. (itstool) path: info/desc
-#: C/usage-netsearch.page:9
+#: C/usage-netsearch.page:8
 msgid "Search for available networks."
 msgstr "Mencari jaringan yang tersedia."
 
 #. (itstool) path: page/title
-#: C/usage-netsearch.page:25
+#: C/usage-netsearch.page:24
 msgid "Network Search"
 msgstr "Pencarian Jaringan"
 
@@ -595,25 +583,25 @@ msgid ""
 "toolbar."
 msgstr "<app>Modem Manager GUI</app> dapat digunakan untuk mencari jaringan yang tersedia. Klik tombol <gui style=\"button\">Scan/Pindai</gui> di toolbar."
 
+#. (itstool) path: figure/title
+#: C/usage-netsearch.page:32
+msgid "Network search window of <app>Modem Manager GUI</app>."
+msgstr ""
+
 #. (itstool) path: figure/media
 #. This is a reference to an external file such as an image or video. When
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/usage-netsearch.page:30
+#: C/usage-netsearch.page:33
 msgctxt "_"
 msgid ""
 "external ref='figures/scan-window.png' "
 "md5='8a9dd66ef917dcd42de0d8a69fb84ccd'"
 msgstr "external ref='figures/scan-window.png' md5='8a9dd66ef917dcd42de0d8a69fb84ccd'"
 
-#. (itstool) path: figure/media
-#: C/usage-netsearch.page:30
-msgid "Network search window of <_:app-1/>."
-msgstr "Jendela pencarian jaringan dari <_:app-1/>."
-
 #. (itstool) path: page/p
-#: C/usage-netsearch.page:35
+#: C/usage-netsearch.page:36
 msgid ""
 "If one mobile network appears more than once in the list, this mobile "
 "network use different broadcasting standards. It is obvioius that you can't "
@@ -622,12 +610,12 @@ msgid ""
 msgstr "Jika satu jaringan seluler muncul lebih dari satu kali dalam daftar, jaringan seluler ini menggunakan standar penyiaran yang berbeda. Sudah jelas bahwa Anda tidak dapat memindai jaringan bergerak menggunakan standar penyiaran yang tidak didukung oleh modem Anda."
 
 #. (itstool) path: info/desc
-#: C/usage-sms.page:10
+#: C/usage-sms.page:9
 msgid "Use <app>Modem Manager GUI</app> for sending and receiving SMS."
 msgstr "Gunakan <app>Modem Manager GUI</app> untuk mengirim dan menerima SMS."
 
 #. (itstool) path: page/title
-#: C/usage-sms.page:26
+#: C/usage-sms.page:25
 msgid "SMS"
 msgstr "SMS"
 
@@ -641,38 +629,38 @@ msgid ""
 msgstr "Kebanyakan modem broadband bisa mengirim dan menerima pesan SMS sama seperti handphone manapun. Anda bisa menggunakan <app>Modem Manager GUI</app> jika ingin mengirim atau membaca pesan SMS yang diterima. Klik pada tombol <gui style=\"button\">SMS</gui> di toolbar."
 
 #. (itstool) path: page/p
-#: C/usage-sms.page:32
+#: C/usage-sms.page:34
 msgid ""
 "As you can see, all messages are stored in three folders. You can find "
 "received messages in the Incoming folder, sent messages in the Sent folder "
 "and saved messages in the Drafts folder."
 msgstr "Seperti yang bisa Anda lihat, semua pesan disimpan dalam tiga folder. Anda dapat menemukan pesan yang diterima dalam folder Incoming, mengirim pesan dalam folder Terkirim dan pesan tersimpan dalam folder Draf."
 
+#. (itstool) path: figure/title
+#: C/usage-sms.page:41
+msgid "SMS window of <app>Modem Manager GUI</app>."
+msgstr ""
+
 #. (itstool) path: figure/media
 #. This is a reference to an external file such as an image or video. When
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/usage-sms.page:37
+#: C/usage-sms.page:42
 msgctxt "_"
 msgid ""
 "external ref='figures/sms-window.png' md5='7032b1a7fff2f2834ea821cf8eeb14ac'"
 msgstr "external ref='figures/sms-window.png' md5='7032b1a7fff2f2834ea821cf8eeb14ac'"
 
-#. (itstool) path: figure/media
-#: C/usage-sms.page:37
-msgid "SMS window of <_:app-1/>."
-msgstr "Jendela SMS dari <_:app-1/>."
-
 #. (itstool) path: page/p
-#: C/usage-sms.page:42
+#: C/usage-sms.page:45
 msgid ""
 "You can tweak messages sorting order and SMS special parameters using "
 "Preferences window."
 msgstr "Anda bisa men-tweak message sorting order dan SMS special parameters menggunakan jendela Preferences."
 
 #. (itstool) path: page/p
-#: C/usage-sms.page:45
+#: C/usage-sms.page:50
 msgid ""
 "Use <gui style=\"button\">New</gui> button to compose and send or save "
 "message, <gui style=\"button\">Remove</gui> button to remove selected "
@@ -682,12 +670,12 @@ msgid ""
 msgstr "Gunakan tombol <gui style=\"button\">Baru</gui> untuk menulis dan mengirim atau menyimpan pesan, tombol <gui style=\"button\">Remove</gui> untuk menghapus pilihan pesan(bisa lebih dari satu) dan tombol <gui style=\"button\">Jawab</gui> untuk menjawab pesan yang dipilih (jika pesan ini memiliki nomor yang benar). Jangan lupa bahwa Anda bisa memilih lebih dari satu pesan sekaligus."
 
 #. (itstool) path: info/desc
-#: C/usage-traffic.page:9
+#: C/usage-traffic.page:8
 msgid "Get statistics about network traffic."
 msgstr "Dapatkan statistik tentang trafik jaringan"
 
 #. (itstool) path: page/title
-#: C/usage-traffic.page:25
+#: C/usage-traffic.page:24
 msgid "Network traffic"
 msgstr "Trafik jaringan"
 
@@ -701,32 +689,32 @@ msgid ""
 msgstr "<app>Modem Manager GUI</app> mengumpulkan statistik lalu lintas mobile broadband dan dapat memutuskan modem saat konsumsi lalu lintas atau waktu sesi melebihi batas yang ditentukan pengguna. Untuk menggunakan fungsi seperti itu, klik tombol <gui style=\"button\">Lalu Lintas</gui> di toolbar."
 
 #. (itstool) path: page/p
-#: C/usage-traffic.page:30
+#: C/usage-traffic.page:32
 msgid ""
 "Network traffic window has list with session, month and year traffic "
 "consumption information on the left and graphical representation of current "
 "network connection speed on the right."
 msgstr "Jendela lalu lintas jaringan memiliki daftar dengan informasi konsumsi lalu lintas sesi, bulan dan tahun di sebelah kiri dan representasi grafis dari kecepatan koneksi jaringan saat ini di sebelah kanan."
 
+#. (itstool) path: figure/title
+#: C/usage-traffic.page:38
+msgid "Network traffic window of <app>Modem Manager GUI</app>."
+msgstr ""
+
 #. (itstool) path: figure/media
 #. This is a reference to an external file such as an image or video. When
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/usage-traffic.page:34
+#: C/usage-traffic.page:39
 msgctxt "_"
 msgid ""
 "external ref='figures/traffic-window.png' "
 "md5='3cced75039a5230c68834ba4aebabcc3'"
 msgstr "external ref='figures/traffic-window.png' md5='3cced75039a5230c68834ba4aebabcc3'"
 
-#. (itstool) path: figure/media
-#: C/usage-traffic.page:34
-msgid "Network traffic window of <_:app-1/>."
-msgstr "Jendela lalu lintas jaringan dari <_:app-1/>."
-
 #. (itstool) path: page/p
-#: C/usage-traffic.page:39
+#: C/usage-traffic.page:42
 msgid ""
 "Use <gui style=\"button\">Set limit</gui> button to set traffic or time "
 "limit for current session, <gui style=\"button\">Connections</gui> button to"
@@ -736,7 +724,7 @@ msgid ""
 msgstr "Gunakan tombol <gui style=\"button\">Tetapkan batas</gui> untuk menetapkan batasan sesi yang sedang berjalan, tombol <gui style=\"button\">Koneksi</gui> untuk melihat list koneksi aktif dan bisa juga memutuskan aplikasi yang menggunakan data terlalu banyak dan tombol <gui style=\"button\">Statistik</gui> untuk melihat statistik konsumsi data di bulan yang dipilih. "
 
 #. (itstool) path: note/p
-#: C/usage-traffic.page:45
+#: C/usage-traffic.page:50
 msgid ""
 "Traffic statistics are collected only while <app>Modem Manager GUI</app> is "
 "running, so result values can be inaccurate and must be treated as reference"
@@ -745,14 +733,14 @@ msgid ""
 msgstr "Statistik lalu lintas hanya dikumpulkan saat <app>Modem Manager GUI</app> berjalan, sehingga nilai hasil tidak akurat dan harus diperlakukan sebagai referensi saja. Statistik lalu lintas yang paling akurat dikumpulkan oleh operator seluler."
 
 #. (itstool) path: info/desc
-#: C/usage-ussd.page:9
+#: C/usage-ussd.page:8
 msgid ""
 "Use <app>Modem Manager GUI</app> for send USSD codes and receive the "
 "answers."
 msgstr "Gunakan <app>Modem Manager GUI</app> untuk mengirim kode USSD dan menerima jawaban."
 
 #. (itstool) path: page/title
-#: C/usage-ussd.page:25
+#: C/usage-ussd.page:24
 msgid "USSD codes"
 msgstr "Kode USSD"
 
@@ -765,40 +753,40 @@ msgid ""
 msgstr "<app>Modem Manager GUI</app> dapat mengirim kode USSD. Kode ini mengendalikan beberapa fungsi jaringan, sebagai contoh visibilitas nomor telepon Anda saat mengirim SMS.."
 
 #. (itstool) path: page/p
-#: C/usage-ussd.page:29
+#: C/usage-ussd.page:31
 msgid ""
 "To use the USSD functions, click on the <gui style=\"button\">USSD</gui> "
 "button in the toolbar."
 msgstr "Untuk menggunakan fungsi USSD, klik pada <gui style=\"button\">USSD</gui> tombol pada bilah alat."
+
+#. (itstool) path: figure/title
+#: C/usage-ussd.page:37
+msgid "USSD window of <app>Modem Manager GUI</app>."
+msgstr ""
 
 #. (itstool) path: figure/media
 #. This is a reference to an external file such as an image or video. When
 #. the file changes, the md5 hash will change to let you know you need to
 #. update your localized copy. The msgstr is not used at all. Set it to
 #. whatever you like once you have updated your copy of the file.
-#: C/usage-ussd.page:33
+#: C/usage-ussd.page:38
 msgctxt "_"
 msgid ""
 "external ref='figures/ussd-window.png' "
 "md5='c1f2437ed53d67408c1fdfeb270f001a'"
 msgstr "external ref='figures/ussd-window.png' md5='c1f2437ed53d67408c1fdfeb270f001a'"
 
-#. (itstool) path: figure/media
-#: C/usage-ussd.page:33
-msgid "USSD window of <_:app-1/>."
-msgstr "Jendela USSD dari <_:app-1/>."
-
 #. (itstool) path: page/p
-#: C/usage-ussd.page:38
+#: C/usage-ussd.page:41
 msgid ""
 "In the text entry on top of the window, the code <cmd>*100#</cmd> is already"
 " displayed. This code is the usual one for requesting the balance for a "
 "prepaid card. If you like to send another code, click on the <gui "
-"style=\"button\">Edit</gui> button on the right"
-msgstr "Pada entri teks di atas jendela, kode <cmd>*100#</cmd> telah ditampilkan. Kode ini adalah salah satu yang biasa untuk meminta saldo kartu prabayar. Jika Anda ingin mengirim kode lain, klik pada tombol <gui style=\"button\">Sunting</gui> di sebelah kanan"
+"style=\"button\">Edit</gui> button on the right."
+msgstr ""
 
 #. (itstool) path: page/p
-#: C/usage-ussd.page:42
+#: C/usage-ussd.page:47
 msgid ""
 "<app>Modem Manager GUI</app> supports interactive USSD sessions, so pay "
 "attention to hints displayed under USSD answers. You can send USSD responses"
@@ -807,7 +795,7 @@ msgid ""
 msgstr "<app>Modem Manager GUI</app> mendukung sesi USSD yang interaktif, jadi perhatikan petunjuk yang ditampilkan di bawah jawaban USSD. Anda dapat mengirim tanggapan USSD menggunakan entri teks untuk perintah USSD. Jika Anda akan mengirim perintah USSD baru saat sesi USSD aktif, sesi ini akan ditutup secara otomatis."
 
 #. (itstool) path: note/p
-#: C/usage-ussd.page:47
+#: C/usage-ussd.page:54
 msgid ""
 "If you use Huawei device and get unreadable USSD answers, you can try to "
 "click on the <gui style=\"button\">Edit</gui> button and toggle the <gui "
@@ -816,23 +804,16 @@ msgid ""
 msgstr "Jika Anda menggunakan perangkat Huawei dan mendapatkan jawaban USSD yang tidak terbaca, Anda dapat mencoba mengeklik tombol <gui style=\"button\">Edit</gui> dan mengaktifkan tombol <gui style=\"button\">Ubah pesan enkode</gui> di toolbar jendela yang terbuka."
 
 #. (itstool) path: note/p
-#: C/usage-ussd.page:53
+#: C/usage-ussd.page:62
 msgid ""
 "USSD codes are only available in networks which use the <link "
 "href=\"http://en.wikipedia.org/wiki/3rd_Generation_Partnership_Project\">3GPP"
-" standards </link>."
-msgstr "Kode USSD hanya tersedia pada jaringan yang menggunakan <link href=\"http://en.wikipedia.org/wiki/3rd_Generation_Partnership_Project\"> Standar 3GPP </link>."
+" standards</link>."
+msgstr ""
 
 #. (itstool) path: page/p
-#: C/usage-ussd.page:58
+#: C/usage-ussd.page:68
 msgid ""
 "You can use such codes for many purposes: change plan, request balance, "
 "block number, etc."
 msgstr "Anda dapat menggunakan kode tersebut untuk berbagai tujuan seperti: mengubah plan, memeriksa saldo, blokir nomor, dll."
-
-#. (itstool) path: C/usage-ussd.page/page
-#: C/usage-ussd.page:4
-msgid ""
-"<_:info-1/> <_:title-2/> <_:p-3/> <_:p-4/> <_:figure-5/> <_:p-6/>. <_:p-7/> "
-"<_:note-8/> <_:note-9/> <_:p-10/>"
-msgstr "<_:info-1/> <_:title-2/> <_:p-3/> <_:p-4/> <_:figure-5/> <_:p-6/>. <_:p-7/> <_:note-8/> <_:note-9/> <_:p-10/>"
