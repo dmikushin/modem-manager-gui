@@ -1764,8 +1764,8 @@
     <property name="type_hint">dialog</property>
     <property name="transient_for">window</property>
     <property name="program_name">Modem Manager GUI</property>
-    <property name="version">0.0.19.1</property>
-    <property name="copyright" translatable="yes">Copyright 2012-2018 Alex</property>
+    <property name="version">0.0.20</property>
+    <property name="copyright" translatable="yes">Copyright 2012-2020 Alex</property>
     <property name="comments" translatable="yes">Tool for EDGE/3G/4G modem specific functions control</property>
     <property name="website">http://linuxonly.ru/page/modem-manager-gui</property>
     <property name="website_label" translatable="yes">Homepage</property>
