@@ -1,3 +1,14 @@
+* Sun Aug 2 2020 <alex@linuxonly.ru>
+  * Various fixes of memory management errors
+  * Fixes in help formatting
+  * Fix for building without Appindicator package
+  * Switch from libappindicator to libayatana-appindicator
+  * Deprecation of GNOME application menu and GTimeVal
+  * Fix in procfs parser
+  * More secure polkit interaction
+  * Translations update
+  * Version 0.0.20 release
+
 * Sat Mar 17 2018 <alex@linuxonly.ru>
   * New connection control functionality for NetworkManager/Connman has been added
   * Builtin PIN code input dialog can be used to unlock SIM

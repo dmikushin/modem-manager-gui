@@ -1,5 +1,5 @@
-modem-manager-gui (0.0.19.1-1) bionic; urgency=low
+modem-manager-gui (0.0.20-1) focal; urgency=low
 
-  * Version 0.0.19.1 release
+  * Version 0.0.20 release
 
- -- Alex <alex@linuxonly.ru>  Fri, 6 Apr 2018 22:30:00 +0300
+ -- Alex <alex@linuxonly.ru>  Sun, 2 Aug 2020 00:14:00 +0300

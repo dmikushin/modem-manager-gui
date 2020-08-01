@@ -1,6 +1,6 @@
 Name:    modem-manager-gui
 Summary: Modem Manager GUI
-Version: 0.0.19.1
+Version: 0.0.20
 Release: 1%{dist}
 License: GPLv3
 URL:     https://linuxonly.ru/page/modem-manager-gui
@@ -59,6 +59,9 @@ rm -rf %{buildroot}
 %{_mandir}/*/man1/%{name}.1.*
 
 %changelog
+* Sun Aug 2 2020 Alex <alex@linuxonly.ru> - 0.0.20-1.fc30
+- Version 0.0.20
+
 * Fri Apr 6 2018 Alex <alex@linuxonly.ru> - 0.0.19.1-1.fc27
 - Version 0.0.19.1
 
