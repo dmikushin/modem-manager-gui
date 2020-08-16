@@ -2037,6 +2037,8 @@ static void mmgui_main_tray_icon_build(mmgui_application_t mmguiapp)
 	/*Indicator*/
 	if (g_strrstr(desktop, "GNOME") != NULL) {
 		iconfilepath = g_build_filename(RESOURCE_SYMBOLIC_ICONS_DIR, "modem-manager-gui-symbolic.svg", NULL);
+	} else if (strstr(desktop, "Unity7") != NULL) {
+		iconfilepath = g_build_filename(RESOURCE_PNG_ICONS_DIR, "modem-manager-gui.png", NULL);	
 	} else {
 		iconfilepath = g_build_filename(RESOURCE_SYMBOLIC_ICONS_DIR, "modem-manager-gui.svg", NULL);
 	}
