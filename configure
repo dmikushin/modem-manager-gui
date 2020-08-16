@@ -149,6 +149,7 @@ echo "/*
 
 #define RESOURCE_SCALABLE_ICONS_DIR      \"$prefix/share/icons/hicolor/scalable/apps\"
 #define RESOURCE_SYMBOLIC_ICONS_DIR      \"$prefix/share/icons/hicolor/symbolic/apps\"
+#define RESOURCE_PNG_ICONS_DIR           \"$prefix/share/icons/hicolor/128x128/apps\"
 #define RESOURCE_PIXMAPS_DIR             \"$prefix/share/modem-manager-gui/pixmaps\"
 #define RESOURCE_SOUNDS_DIR              \"$prefix/share/modem-manager-gui/sounds\"
 #define RESOURCE_UI_DIR                  \"$prefix/share/modem-manager-gui/ui\"
