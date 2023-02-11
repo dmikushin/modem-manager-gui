@@ -630,18 +630,21 @@ static mmguiconn_t mmgui_module_connection_get_params(mmguicore_t mmguicore, con
 					if (connipv4sec != NULL) {
 						/*DNS*/
 						conndnsvar = g_variant_lookup_value(connipv4sec, "dns", G_VARIANT_TYPE_ARRAY);
-						for (i = 0; i < g_variant_n_children(conndnsvar); i++) {
-							addrvar = g_variant_get_child_value(conndnsvar, i);
-							addrint = ntohl(g_variant_get_uint32(addrvar));
-							if (connection->dns1 == NULL) {
-								connection->dns1 = g_strdup_printf("%u.%u.%u.%u", (addrint >> 24) & 0xFF, (addrint >> 16) & 0xFF, (addrint >> 8) & 0xFF, addrint & 0xFF);
-							} else if (connection->dns2 == NULL) {
-								connection->dns2 = g_strdup_printf("%u.%u.%u.%u", (addrint >> 24) & 0xFF, (addrint >> 16) & 0xFF, (addrint >> 8) & 0xFF, addrint & 0xFF);
-							}
-							g_variant_unref(addrvar);
-						}
+						if (conndnsvar) {
+                            for (i = 0; i < g_variant_n_children(conndnsvar); i++) {
+							    addrvar = g_variant_get_child_value(conndnsvar, i);
+							    addrint = ntohl(g_variant_get_uint32(addrvar));
+							    if (connection->dns1 == NULL) {
+								    connection->dns1 = g_strdup_printf("%u.%u.%u.%u", (addrint >> 24) & 0xFF, (addrint >> 16) & 0xFF, (addrint >> 8) & 0xFF, addrint & 0xFF);
+							    } else if (connection->dns2 == NULL) {
+								    connection->dns2 = g_strdup_printf("%u.%u.%u.%u", (addrint >> 24) & 0xFF, (addrint >> 16) & 0xFF, (addrint >> 8) & 0xFF, addrint & 0xFF);
+							    }
+							    g_variant_unref(addrvar);
+						    }
+                            g_variant_unref(conndnsvar);
+                        }
 						g_variant_unref(connipv4sec);
-					}
+                    }
 					/*Password*/
 					passinfo = g_dbus_proxy_call_sync(connproxy,
 													"GetSecrets",
