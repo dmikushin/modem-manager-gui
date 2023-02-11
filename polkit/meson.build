@@ -1,6 +1,6 @@
 i18n = import('i18n')
 
-i18n.merge_file('polkit-file',
+i18n.merge_file(
 	input: 'ru.linuxonly.modem-manager-gui.policy.in',
 	output: 'ru.linuxonly.modem-manager-gui.policy',
 	type: 'xml',

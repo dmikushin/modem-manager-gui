@@ -1,6 +1,6 @@
 i18n = import('i18n')
 
-i18n.merge_file('appdata-file',
+i18n.merge_file(
 	input: 'modem-manager-gui.appdata.xml.in',
 	output: 'modem-manager-gui.appdata.xml',
 	type: 'xml',
@@ -10,7 +10,7 @@ i18n.merge_file('appdata-file',
 	install_dir: join_paths(get_option('prefix'), get_option('datadir'), 'metainfo')
 )
 
-i18n.merge_file('desktop-file',
+i18n.merge_file(
 	input: 'modem-manager-gui.desktop.in',
 	output: 'modem-manager-gui.desktop',
 	type: 'desktop',
