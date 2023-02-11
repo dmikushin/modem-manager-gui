@@ -36,7 +36,6 @@ static guint64 mmgui_polkit_get_process_start_time(void)
 	guint64 starttime;
 	gchar *statfilepath;
 	gchar *statfilecont;
-	gchar *statfilecontptr;
 	gsize statfilelen;
 	GError *error;
 	gchar *valueendptr;
