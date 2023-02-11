@@ -31,6 +31,12 @@ First of all, you'll need to install such development packages:
 - libgtkspell3 version 3.0.3 or later (optional)
 - Meson version 0.37 or later
 
+For Ubuntu 22.04, this yields to the following list of packages to install:
+
+```
+sudo apt install meson libgtk-3-dev libgtkspell3-3-dev libayatana-appindicator3-dev ofono-dev libgdbm-dev po4a itstool
+```
+
 Next you have to go to directory with program's source code and issue these commands::
 
     meson build
