@@ -80,9 +80,8 @@ mmgui_notifications_t mmgui_notifications_new(mmgui_libpaths_cache_t libcache, G
 						notifications->supportsaction = TRUE;					
 						break;
 					}					
-					g_list_foreach(capabilities, (GFunc)g_free, NULL);
-					g_list_free(capabilities);
 				}
+                g_list_foreach(capabilities, (GFunc)g_free, NULL);
 			}
 			/*Icon for notifications*/
 			notifications->notifyicon = icon;
